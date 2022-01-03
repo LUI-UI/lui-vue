@@ -1,0 +1,41 @@
+{
+  "name": "lui-vue",
+  "version": "0.18.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "sb": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "dependencies": {
+    "remixicon": "^2.5.0",
+    "vue": "^3.2.26"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@storybook/addon-actions": "^6.5.0-alpha.5",
+    "@storybook/addon-essentials": "^6.5.0-alpha.5",
+    "@storybook/addon-links": "^6.5.0-alpha.5",
+    "@storybook/vue3": "^6.5.0-alpha.5",
+    "@vitejs/plugin-vue": "^2.0.0",
+    "autoprefixer": "^10.4.0",
+    "babel-loader": "^8.2.3",
+    "postcss": "^8.4.5",
+    "storybook-builder-vite": "^0.1.13",
+    "tailwindcss": "^3.0.8",
+    "vite": "^2.7.2",
+    "vue-loader": "^16.8.3"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/lui-vue.umd.js",
+  "module": "./dist/lui-vue.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/lui-vue.es.js",
+      "require": "./dist/lui-vue.umd.js"
+    }
+  }
+}
