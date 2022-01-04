@@ -61,7 +61,7 @@ export function boolean(name, defaultValue) {
     props: {
       [name]: {
         type: Boolean,
-        default: defaultValue || '',
+        default: defaultValue || false,
       },
     },
   }

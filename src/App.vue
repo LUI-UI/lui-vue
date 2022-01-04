@@ -11,6 +11,7 @@ import LuiSelect from "./components/Select/LuiSelect.vue";
 import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue"
 import LuiChip from "./components/Chip/LuiChip.vue"
 
+
 const options = [
   { text: "Select a city", value: 0, disabled: true },
   { text: "Edirne", value: 22 },
@@ -19,6 +20,14 @@ const options = [
   { text: "Izmir", value: 35 },
   { text: "Mugla", value: 48 },
 ];
+
+const testOptions = [
+  'Edirne',
+  'Tekirdag',
+  'Kirklarali',
+  'Izmir',
+  'Mugla'
+]
 const sAppend = {
   tag: "lui-icon",
   name: "arrow-down-s",
@@ -59,6 +68,9 @@ function handleDDChanges(val) {
     <lui-checkbox size="sm" />
     <hr class="my-4" />
     <lui-chip icon="home" size="lg" :iconLine="false">Chip</lui-chip>
+    <hr class="my-8" />
+    <lui-select :options="options" multiple textField="text" />
+    <hr class="my-8" />
   </div>
   <!-- <div class="text-danger-600">hehey</div>  -->
 </template>

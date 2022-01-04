@@ -35,7 +35,7 @@
           :class="computedClasses.multipleItem"
           @click.stop="unselectOption(selected)"
         >
-          {{ selected[textField] }}
+          {{ textField !== "none" ? selected[textField] : selected }}
         </lui-chip>
       </div>
       <span v-else> {{ selectedOption }} </span>
@@ -57,28 +57,32 @@
     >
       <lui-option
         v-for="(option, i) in options"
-        :id="option.text"
+        :id="textField !== 'null' ? option[textField] : option"
         :ref="(el) => (optionsRef[i] = el)"
         :key="i"
         tabindex="-1"
         role="option"
         :selected="isOptionSelected(option)"
-        :disabled="option.disabled"
+        :disabled="
+          option.disabled !== undefined && option.disabled === true
+            ? true
+            : false
+        "
         @click="selectOption(option, $event)"
       >
-          <component
-            v-if="optionPrepend !== null"
-            :is="optionPrepend.tag"
-            v-bind="contentProps.optionPrepend"
-            :class="computedClasses.prepend"
-          />
-        <span>{{ option[textField] }}</span>
-          <component
-            v-if="optionAppend !== null"
-            :is="optionAppend.tag"
-            v-bind="contentProps.optionAppend"
-            :class="computedClasses.append"
-          />
+        <component
+          v-if="optionPrepend !== null"
+          :is="optionPrepend.tag"
+          v-bind="contentProps.optionPrepend"
+          :class="computedClasses.prepend"
+        />
+        <span>{{ textField !== "none" ? option[textField] : option }}</span>
+        <component
+          v-if="optionAppend !== null"
+          :is="optionAppend.tag"
+          v-bind="contentProps.optionAppend"
+          :class="computedClasses.append"
+        />
       </lui-option>
     </ul>
   </div>
@@ -87,7 +91,7 @@
 <script>
 import LuiOption from "./LuiOption.vue";
 import LuiChip from "../Chip/LuiChip.vue";
-import LuiIcon from '../Icon/LuiIcon.vue'
+import LuiIcon from "../Icon/LuiIcon.vue";
 import LuiBadge from "../Badge/LuiBadge.vue";
 
 import { computed, ref, provide, onUnmounted, onMounted } from "vue";
@@ -97,8 +101,8 @@ export default {
   components: { LuiChip, LuiOption, LuiIcon, LuiBadge },
   mixins: [
     prop.string("placeholder", "select item"),
-    prop.string("textField", "text"),
-    prop.string("valueField", "value"),
+    prop.string("textField", "none"),
+    prop.string("valueField", "none"),
     prop.boolean("multiple", false),
     prop.boolean("rounded", true),
     prop.size("md", ["sm", "md", "lg"]),
@@ -191,14 +195,31 @@ export default {
 
     function isOptionSelected(option) {
       if (!props.multiple) {
-        return selectedOption.value === option.text;
+        if (props.textField !== "none") {
+          return selectedOption.value === option[props.textField];
+        }
+        return selectedOption.value === option;
       }
-      const is = selectedOptions.value.findIndex((s) => s.text === option.text);
+      let is;
+      if (props.textField !== "none") {
+        is = selectedOptions.value.findIndex(
+          (s) => s[props.textField] === option[props.textField]
+        );
+      } else {
+        is = selectedOptions.value.findIndex((s) => s === option);
+      }
       return is === -1 ? false : true;
     }
 
     function unselectOption(option) {
-      const el = selectedOptions.value.findIndex((s) => s.text === option.text);
+      let el;
+      if (props.textField !== "none") {
+        el = selectedOptions.value.findIndex(
+          (s) => s[props.textField] === option[props.textField]
+        );
+      } else {
+        el = selectedOptions.value.findIndex((s) => s === option);
+      }
       selectedOptions.value.splice(el, 1);
     }
     function selectOption(option, event) {
@@ -206,9 +227,14 @@ export default {
         if (props.multiple) {
           // dont want to close options.
           event.stopPropagation();
-          const index = selectedOptions.value.findIndex(
-            (o) => o.text === option.text
-          );
+          let index;
+          if (props.textField !== "none") {
+            index = selectedOptions.value.findIndex(
+              (o) => o[props.textField] === option[props.textField]
+            );
+          } else {
+            index = selectedOptions.value.findIndex((o) => o === option);
+          }
           if (index === -1) {
             selectedOptions.value.push(option);
           } else {
@@ -216,9 +242,14 @@ export default {
           }
           emit("update:modelValue", selectedOptions.value);
         } else {
-          emit("update:modelValue", option[props.textField]);
-          selectedOption.value = option[props.textField];
-          optionsActive.value = false;
+          if (props.textField !== "none") {
+            emit("update:modelValue", option[props.textField]);
+            selectedOption.value = option[props.textField];
+          } else {
+            emit("update:modelValue", option);
+            selectedOption.value = option;
+            optionsActive.value = false;
+          }
         }
       }
     }
@@ -298,9 +329,9 @@ export default {
     const computedClasses = computed(() => {
       const classes = {
         selectWrapper: {
-          width: 'w-max',
-          position: 'relative',
-          zIndex: 'z-10'
+          width: "w-max",
+          position: "relative",
+          zIndex: "z-10",
         },
         button: {
           display: "flex",
@@ -384,8 +415,8 @@ export default {
           marginLeft: "ml-auto",
         },
         prepend: {
-          marginRight: "mr-2"
-        }
+          marginRight: "mr-2",
+        },
       };
       return {
         selectWrapper: generateClasses([{ ...classes.selectWrapper }]),
