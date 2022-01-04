@@ -4,7 +4,7 @@
     :class="computedClasses"
   >
     <img
-      v-if="img !== ''"
+      v-if="img !== 'none'"
       :src="img"
       :alt="imgAlt"
       :class="imgClasses"
@@ -24,7 +24,7 @@ import { generateClasses, generateColorVariant } from '../../mixins/methods'
 import * as prop from '../../mixins/props'
 export default {
   mixins: [
-    prop.string('img',''),
+    prop.string('img','none'),
     prop.string('imgAlt','imgAlt'),
     prop.boolean('border'),
     prop.boolean('rounded'),
@@ -35,13 +35,6 @@ export default {
     prop.variant('textVariant', 'dark'),
     prop.variant('borderVariant', 'secondary'),
   ],
-  // props: {
-  //   imgAlt: {
-  //     type: String,
-  //     default: 'Card image.',
-  //   },
-  // },
-
   setup(props) {
     const computedClasses = computed(() => {
       const classes = {

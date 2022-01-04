@@ -83,7 +83,7 @@ const Template = (args) => ({
       { text: 'Izmir', value: 35 },
       { text: 'Mugla', value: 48 },
     ];
-    const selectedOption = {text: 'Edirne', value: 22}
+    const selectedOption = 'Edirne'
     return { args, options, selectedOption }
   },
   // And then the `args` are bound to your component with `v-bind="args"`

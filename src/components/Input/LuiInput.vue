@@ -54,11 +54,11 @@ export default {
     LuiButton,
   },
   mixins: [
-    prop.string('prepend'),
+    prop.string('prepend','none'),
     prop.string('modelValue', ''),
     prop.size('sm', ['sm', 'md', 'lg']),
-    prop.boolean('clear'),
-    prop.string('description'),
+    prop.boolean('clear',false),
+    prop.string('description','none'),
   ],
   inheritAttrs: false,
   props: {

@@ -9,6 +9,7 @@ import LuiTabs from "./components/Tabs/LuiTabs.vue";
 import LuiTab from "./components/Tabs/LuiTab.vue";
 import LuiSelect from "./components/Select/LuiSelect.vue";
 import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue"
+import LuiChip from "./components/Chip/LuiChip.vue"
 
 const options = [
   { text: "Select a city", value: 0, disabled: true },
@@ -56,6 +57,8 @@ function handleDDChanges(val) {
     />
     <hr class="my-4" />
     <lui-checkbox size="sm" />
+    <hr class="my-4" />
+    <lui-chip icon="home" size="lg" :iconLine="false">Chip</lui-chip>
   </div>
   <!-- <div class="text-danger-600">hehey</div>  -->
 </template>

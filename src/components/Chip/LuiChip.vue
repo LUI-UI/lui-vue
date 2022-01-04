@@ -8,14 +8,16 @@
     <lui-icon
       v-if="prepend !== 'none'"
       :name="prepend"
-      fill
+      :line="iconLine"
+      :fill="!iconLine"
       :class="[iconClasses.size, iconClasses.marginPrepend, iconClasses.lineHeight]"
     />
     <slot />
     <lui-icon
       v-if="icon !== 'none'"
       :name="icon"
-      fill
+      :line="iconLine"
+      :fill="!iconLine"
       :class="[iconClasses.size, iconClasses.marginIcon, iconClasses.lineHeight]"
     />
   </span>
@@ -35,9 +37,10 @@ export default {
     prop.boolean('rounded'),
     prop.boolean('roundedFull'),
     prop.boolean('clickable'),
-    prop.string('prepend'),
-    prop.string('icon'),
-    prop.string('type',['default', 'outline'])
+    prop.boolean('iconLine'),
+    prop.string('prepend','none'),
+    prop.string('icon','none'),
+    prop.string('type','default',['default', 'outline'])
   ],
   inheritAttrs: false,
   setup(props) {

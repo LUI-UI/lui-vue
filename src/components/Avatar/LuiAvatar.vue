@@ -12,7 +12,7 @@
       :class="iconClasses"
     />
     <img
-      v-if="img !== ''"
+      v-if="img !== 'none'"
       :src="img"
       :class="imgClasses"
       alt="Lui avatar"
@@ -47,8 +47,8 @@ export default {
     prop.boolean('rounded'),
     prop.boolean('roundedFull'),
     prop.boolean('border'),
-    prop.string('icon',' '),
-    prop.string('img',' '),
+    prop.string('icon','none'),
+    prop.string('img', 'none'),
   ],
   inheritAttrs: false,
   props: {
