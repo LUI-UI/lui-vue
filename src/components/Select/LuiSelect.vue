@@ -173,10 +173,11 @@ export default {
 
     provide("parentProps", parentProps.value);
 
+    console.log("modelVal :",props.modelValue)
     if (props.modelValue !== "") {
       const initalValue = ref(props.modelValue);
       if (!props.multiple) {
-        selectedOption.value = initalValue.value[props.textField];
+        selectedOption.value = initalValue.value;
       } else {
         selectedOptions.value.push(props.modelValue);
       }
