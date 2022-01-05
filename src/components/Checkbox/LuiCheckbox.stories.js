@@ -43,5 +43,5 @@ export const Warning = Template.bind({})
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 Warning.args = {
   size: 'lg',
-  variant: 'warning'
+  state: 'warning'
 }

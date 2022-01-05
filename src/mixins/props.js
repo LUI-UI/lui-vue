@@ -69,7 +69,7 @@ export function boolean(name, defaultValue) {
 export function string(name, defaultValue, validator) {
   let propOptions = {
     type: String,
-    default: defaultValue || 'none',
+    default: defaultValue || '',
   }
   if (validator !== undefined) {
     propOptions.validator = (value) => validator.includes(value)

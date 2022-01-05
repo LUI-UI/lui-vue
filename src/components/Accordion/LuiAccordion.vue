@@ -34,7 +34,7 @@ import LuiIcon from '../Icon/LuiIcon.vue'
 import * as prop from '../../mixins/props'
 export default {
   components: { LuiIcon },
-  mixins: [prop.string('title', 'title'), prop.boolean('active'),prop.boolean('disabled')],
+  mixins: [prop.string('title', 'title'), prop.boolean('active',false),prop.boolean('disabled',false)],
   setup(props) {
     let activeAccordion = inject('activeAccordion', ref(null))
 

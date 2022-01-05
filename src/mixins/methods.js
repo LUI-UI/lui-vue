@@ -17,8 +17,8 @@ export function generateVariant(variant, filter) {
     filter === 'none'
       ? `text-white`
       : filter === 'darker'
-      ? `text-${variant}-100`
-      : `text-${variant}-800`
+      ? `text-white`
+      : `text-${variant}-500`
   return { backgroundColor, fontColor }
 }
 export function generateColorVariant(variant, filter, property) {

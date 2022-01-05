@@ -44,7 +44,7 @@ export default {
     prop.boolean('block', false),
     prop.boolean('uppercase'),
     prop.string('icon', 'default'),
-    prop.string('prepend'),
+    prop.string('prepend','none'),
     prop.boolean('iconLine', true),
     prop.string('placement', 'bottomLeft', [
       'bottomLeft',

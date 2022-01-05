@@ -9,21 +9,13 @@
 <script>
 import { generateClasses } from '../../mixins/methods'
 import { computed, inject } from 'vue'
+import * as prop from "../../mixins/props";
 export default {
-  props: {
-    selected: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: String,
-      default: '',
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
-  },
+  mixins:[
+    prop.boolean('selected',false),
+    prop.boolean('disabled',false),
+    prop.string('value',''),
+  ],
   setup(props) {
     const parentProps = inject('parentProps')
     const computedClasses = computed(() => {

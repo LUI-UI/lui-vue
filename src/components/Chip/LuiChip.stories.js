@@ -22,6 +22,9 @@ export default {
       control: { type: 'select' },
       options: ['default', 'outline'],
     },
+    iconLine: {
+      control: { type: 'boolean' },
+    },
     clickAble: {
       control: { type: 'boolean' },
     },

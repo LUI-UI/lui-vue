@@ -1,14 +1,14 @@
 <template>
-  <i :class="classes" v-bind="$attrs" />
+  <i :class="classes" />
 </template>
 <script>
 import { computed } from "@vue/reactivity";
 import * as prop from "../../mixins/props";
 export default {
   mixins: [
-    prop.string("name", true),
-    prop.boolean("fill"),
-    prop.boolean("line"),
+    prop.string("name", 'none'),
+    prop.boolean("fill",false),
+    prop.boolean("line",false),
     prop.size("none", [
       "lg",
       "xl",

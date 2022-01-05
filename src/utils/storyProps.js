@@ -31,7 +31,7 @@ export const border = {
 }
 export const img = {
   control: { type: 'select' },
-  options: ['', 'https://randomuser.me/api/portraits/men/43.jpg'],
+  options: ['none','https://randomuser.me/api/portraits/men/43.jpg'],
 }
 export const size = {
   control: { type: 'select' },
