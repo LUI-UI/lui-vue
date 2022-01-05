@@ -8,9 +8,9 @@ import LuiIcon from "./components/Icon/LuiIcon.vue";
 import LuiTabs from "./components/Tabs/LuiTabs.vue";
 import LuiTab from "./components/Tabs/LuiTab.vue";
 import LuiSelect from "./components/Select/LuiSelect.vue";
-import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue"
-import LuiChip from "./components/Chip/LuiChip.vue"
-
+import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue";
+import LuiChip from "./components/Chip/LuiChip.vue";
+import LuiLink from "./components/Link/LuiLink.vue";
 
 const options = [
   { text: "Select a city", value: 0, disabled: true },
@@ -21,27 +21,24 @@ const options = [
   { text: "Mugla", value: 48 },
 ];
 
-const testOptions = [
-  'Edirne',
-  'Tekirdag',
-  'Kirklarali',
-  'Izmir',
-  'Mugla'
-]
+const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
 const sAppend = {
   tag: "lui-icon",
   name: "arrow-down-s",
-  line: true
+  line: true,
 };
 
-function handleDDChanges(val) {
-  console.log(val)
-}
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <div class="p-14">
+  <div class="p-24">
+    <lui-link>extarnel link</lui-link>
+    <lui-link to="/About" activeVariant="danger" variant="primary" tag="vue">About</lui-link>
+    <lui-link to="/Home" variant="primary" tag="vue">Home</lui-link>
+  </div>
+  <router-view />
+  <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
       <lui-dropdown-item>item1</lui-dropdown-item>
       <lui-dropdown-item>item1</lui-dropdown-item>
@@ -71,7 +68,8 @@ function handleDDChanges(val) {
     <hr class="my-8" />
     <lui-select :options="options" multiple textField="text" />
     <hr class="my-8" />
-  </div>
+    <lui-link to="/About" tag="vue">this is link</lui-link>
+  </div> -->
   <!-- <div class="text-danger-600">hehey</div>  -->
 </template>
 
