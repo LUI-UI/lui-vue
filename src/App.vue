@@ -11,6 +11,7 @@ import LuiSelect from "./components/Select/LuiSelect.vue";
 import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue";
 import LuiChip from "./components/Chip/LuiChip.vue";
 import LuiLink from "./components/Link/LuiLink.vue";
+import LuiLabel from "./components/Label/LuiLabel.vue";
 
 const options = [
   { text: "Select a city", value: 0, disabled: true },
@@ -36,6 +37,8 @@ const sAppend = {
     <lui-link>extarnel link</lui-link>
     <lui-checkbox>test</lui-checkbox>
     <span>span!</span>
+    <lui-label>label tesrts</lui-label>
+    <label for="tt">LABEL</label>
   </div>
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
