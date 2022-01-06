@@ -34,10 +34,9 @@ const sAppend = {
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
     <lui-link>extarnel link</lui-link>
-    <lui-link to="/About" activeVariant="danger" variant="primary" tag="vue">About</lui-link>
-    <lui-link to="/Home" variant="primary" tag="vue">Home</lui-link>
+    <lui-checkbox>test</lui-checkbox>
+    <span>span!</span>
   </div>
-  <router-view />
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
       <lui-dropdown-item>item1</lui-dropdown-item>

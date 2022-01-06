@@ -64,7 +64,7 @@ export default {
     const computedClasses = computed(() => {
       const classes = {
         parent: {
-          display: "flex items-center",
+          display: "inline-flex items-center",
         },
         input: {
           position: "absolute",
