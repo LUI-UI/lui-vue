@@ -34,11 +34,14 @@ const sAppend = {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
-    <lui-link>extarnel link</lui-link>
-    <lui-checkbox>test</lui-checkbox>
-    <span>span!</span>
-    <lui-label>label tesrts</lui-label>
-    <label for="tt">LABEL</label>
+    <lui-button filter="darker">darker</lui-button>
+    <lui-button>default</lui-button>
+    <lui-button filter="lighter">lighter</lui-button>
+    <hr class="my-12">
+    <lui-button  type="outline" class="mr-2" filter="darker">darker</lui-button>
+    <lui-button  type="outline" class="mr-2" filter="lighter">lighter</lui-button>
+    <lui-button type="outline" class="mr-2" >default</lui-button>
+    
   </div>
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
