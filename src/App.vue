@@ -12,6 +12,8 @@ import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue";
 import LuiChip from "./components/Chip/LuiChip.vue";
 import LuiLink from "./components/Link/LuiLink.vue";
 import LuiLabel from "./components/Label/LuiLabel.vue";
+import LuiModal from "./components/Modal/LuiModal.vue";
+import { ref } from "vue";
 
 const options = [
   { text: "Select a city", value: 0, disabled: true },
@@ -21,27 +23,57 @@ const options = [
   { text: "Izmir", value: 35 },
   { text: "Mugla", value: 48 },
 ];
-
+const modalActive = ref(false);
 const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
 const sAppend = {
   tag: "lui-icon",
   name: "arrow-down-s",
   line: true,
 };
-
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
     <lui-button filter="darker">darker</lui-button>
-    <lui-button>default</lui-button>
+    <lui-button @click="modalActive = true">default</lui-button>
     <lui-button filter="lighter">lighter</lui-button>
-    <hr class="my-12">
-    <lui-button  type="outline" class="mr-2" filter="darker">darker</lui-button>
-    <lui-button  type="outline" class="mr-2" filter="lighter">lighter</lui-button>
-    <lui-button type="outline" class="mr-2" >default</lui-button>
-    
+    <hr class="my-12" />
+    <lui-button type="outline" class="mr-2" filter="darker">darker</lui-button>
+    <lui-button type="outline" class="mr-2" filter="lighter"
+      >lighter</lui-button
+    >
+    <lui-button type="outline" class="mr-2">default</lui-button>
+    <hr class="my-12" />
+    <button class="bg-danger-800">opacitytest</button>
+    <lui-modal v-if="modalActive" vertical>
+      <template v-slot:icon>
+        <lui-icon name="feedback" line />
+      </template>
+      <template v-slot:title> Warning message </template>
+      <template v-slot:description>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit amet
+      </template>
+      <template v-slot:check>
+        <lui-checkbox id="test" size="lg" />
+        <label for="test">Dont show again</label>
+      </template>
+      <template v-slot:button>
+        <lui-button
+          type="outline"
+          variant="secondary"
+          rounded
+          block
+          @click="modalActive = false"
+          >Cancel</lui-button
+        >
+        <lui-button rounded block>Confirm</lui-button>
+      </template>
+      <!-- <div>Hey am em content of modal</div>
+      <lui-button filter="darker" @click="modalActive = false"
+        >darker</lui-button
+      > -->
+    </lui-modal>
   </div>
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
