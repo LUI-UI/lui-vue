@@ -1,12 +1,13 @@
 <template>
   <div
+    v-show="test"
     id="dialog1"
     role="dialog"
     aria-labelledby="dialog1_label"
     aria-modal="true"
     v-bind="$attrs"
     :class="computedClasses.dialog"
-    style="background-color: rgba(0,0,0,0.6)"
+    style="background-color: rgba(0, 0, 0, 0.6)"
   >
     <div class="content" :class="computedClasses.content">
       <div :class="computedClasses.iconWrapper" v-if="isIconExist">
@@ -43,16 +44,20 @@ export default {
     prop.string("state", "info", ["info", "success", "warning", "danger"]),
     prop.boolean("vertical", false),
     prop.boolean("horizontal", false), //yatay
+    prop.boolean("show", false),
   ],
   setup(props, { slots }) {
     // BG OPACITY DOES NOT WORK!
     const isIconExist = computed(() => {
-      return !!slots.icon
+      return !!slots.icon;
     });
+    // showModal(toRef(props, "show"));
+    const test = ref(props.show);
+
     const computedClasses = computed(() => {
       const classes = {
         dialog: {
-          position: "fixed", 
+          position: "fixed",
           left: "left-0",
           top: "top-0",
           overflow: "overflow-hidden",
@@ -77,7 +82,10 @@ export default {
               : props.horizontal === true
               ? "grid"
               : "",
-          gridCols: props.horizontal === true && isIconExist.value ? "grid-cols-[48px_420px]" : "",
+          gridCols:
+            props.horizontal === true && isIconExist.value
+              ? "grid-cols-[48px_420px]"
+              : "",
           gridGap: props.horizontal === true ? "gap-x-4" : "",
           alingItems: props.vertical === true ? "items-center" : "",
           flexDirection: props.vertical === true ? "flex-col" : "",
@@ -144,7 +152,7 @@ export default {
       };
     });
 
-    return { computedClasses, isIconExist };
+    return { computedClasses, isIconExist, test };
   },
 };
 </script>

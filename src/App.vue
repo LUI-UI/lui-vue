@@ -1,4 +1,4 @@
-<script setup>
+<script>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import LuiDropdown from "./components/Dropdown/LuiDropdown.vue";
@@ -13,30 +13,52 @@ import LuiChip from "./components/Chip/LuiChip.vue";
 import LuiLink from "./components/Link/LuiLink.vue";
 import LuiLabel from "./components/Label/LuiLabel.vue";
 import LuiModal from "./components/Modal/LuiModal.vue";
+import mtest from "./components/mtest.vue";
 import { ref } from "vue";
 
-const options = [
-  { text: "Select a city", value: 0, disabled: true },
-  { text: "Edirne", value: 22 },
-  { text: "Tekirdag", value: 59 },
-  { text: "Kırklareli", value: 39 },
-  { text: "Izmir", value: 35 },
-  { text: "Mugla", value: 48 },
-];
-const modalActive = ref(false);
-const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
-const sAppend = {
-  tag: "lui-icon",
-  name: "arrow-down-s",
-  line: true,
+export default {
+  components: { LuiButton, LuiModal, LuiIcon, LuiCheckbox, mtest },
+  directives: {
+    // "modal-show": {
+    //   mounted(el, binding, vnode, prevVnode) {
+    //     el.addEventListener("click", () => {
+    //       // console.log({el}, {binding}, vnode)
+    //       console.log("prevVnode:", prevVnode);
+    //       const context = binding.instance;
+    //       const modal = context.$refs.modalx;
+    //       modal.test = true;
+    //       // modal.show = true;
+
+    //       // context.$refs.modalx;
+    //       // vnode.context.$refs[binding.value].show = true;
+    //       // document.body.style.overflowY = "hidden";
+    //     });
+    //   },
+    // },
+  },
 };
+// const options = [
+//   { text: "Select a city", value: 0, disabled: true },
+//   { text: "Edirne", value: 22 },
+//   { text: "Tekirdag", value: 59 },
+//   { text: "Kırklareli", value: 39 },
+//   { text: "Izmir", value: 35 },
+//   { text: "Mugla", value: 48 },
+// ];
+// const modalActive = ref(false);
+// const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
+// const sAppend = {
+//   tag: "lui-icon",
+//   name: "arrow-down-s",
+//   line: true,
+// };
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
     <lui-button filter="darker">darker</lui-button>
-    <lui-button @click="modalActive = true">default</lui-button>
+    <lui-button v-modal-show="'modalx'">default</lui-button>
     <lui-button filter="lighter">lighter</lui-button>
     <hr class="my-12" />
     <lui-button type="outline" class="mr-2" filter="darker">darker</lui-button>
@@ -44,9 +66,8 @@ const sAppend = {
       >lighter</lui-button
     >
     <lui-button type="outline" class="mr-2">default</lui-button>
-    <hr class="my-12" />
-    <button class="bg-danger-800">opacitytest</button>
-    <lui-modal v-if="modalActive" vertical>
+    <mtest ref="mtest" />
+    <!-- <lui-modal ref="modalx" horizontal>
       <template v-slot:icon>
         <lui-icon name="feedback" line />
       </template>
@@ -69,11 +90,11 @@ const sAppend = {
         >
         <lui-button rounded block>Confirm</lui-button>
       </template>
-      <!-- <div>Hey am em content of modal</div>
+      <div>Hey am em content of modal</div>
       <lui-button filter="darker" @click="modalActive = false"
         >darker</lui-button
-      > -->
-    </lui-modal>
+      > 
+    </lui-modal> -->
   </div>
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
