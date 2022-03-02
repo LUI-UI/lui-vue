@@ -75,6 +75,7 @@ export default {
           fontSize: 'text-lg',
           fontWeight: 'font-semibold',
           lineHeight: 'leading-6',
+          textAlign: "text-left",
         },
         icon: {
           fontSize: 'text-2xl',

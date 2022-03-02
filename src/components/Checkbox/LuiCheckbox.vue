@@ -64,7 +64,7 @@ export default {
     const computedClasses = computed(() => {
       const classes = {
         parent: {
-          display: "inline-flex items-center",
+          display: "flex items-center",
         },
         input: {
           position: "absolute",
@@ -75,7 +75,7 @@ export default {
           height:
             props.size === "sm" ? "h-4" : props.size === "md" ? "h-5" : "h-6",
           zIndex: "z-20",
-          border:  'border-0',
+          border: "border-0",
           // visibilty: 'invisible',
           // want to hide input without display-none
           opacity: "opacity-0",
@@ -87,11 +87,11 @@ export default {
           position: "relative",
           display: "inline-flex",
           alignItems: "items-center",
-          justifyContent: 'justify-center',
+          justifyContent: "justify-center",
           fontSize: findSize({ sm: "text-xs", md: "text-sm", lg: "text-base" }),
           color: "text-secondary-600",
           cursor: "cursor-pointer",
-          border: 'border',
+          border: "border",
           width: findSize({
             sm: "w-4",
             md: "w-5",
@@ -138,62 +138,6 @@ export default {
               : "peer-checked:bg-success",
           backgroundColor: `bg-white`,
         },
-        // label {
-        //   content: "content-['']",
-        //   position: "relative",
-        //   display: "inline-block",
-        //   marginRight: findSize({
-        //     sm: "before:mr-1",
-        //     md: "before:mr-1.5",
-        //     lg: "before:mr-2",
-        //   }),
-        //   width: findSize({
-        //     sm: "before:w-4",
-        //     md: "before:w-5",
-        //     lg: "before:w-6",
-        //   }),
-        //   height: findSize({
-        //     sm: "before:h-4",
-        //     md: "before:h-5",
-        //     lg: "before:h-6",
-        //   }),
-        //   ringWidth: "peer-focus:before:ring-2",
-        //   ringOffset: "peer-focus:before:ring-offset-2",
-        //   ringColor:
-        //     props.state === null
-        //       ? "peer-focus:before:ring-primary"
-        //       : props.state === "warning"
-        //       ? "peer-focus:before:ring-warning"
-        //       : props.state === false
-        //       ? "peer-focus:before:ring-danger"
-        //       : "peer-focus:before:ring-success",
-        //   borderWidth: "before:border",
-        //   borderColorDisabled: "peer-disabled:before:border-secondary-300",
-        //   borderColorChecked: "peer-checked:before:border-white",
-        //   borderColor:
-        //     props.state === null
-        //       ? "before:border-primary"
-        //       : props.state === "warning"
-        //       ? "before:border-warning"
-        //       : props.state === false
-        //       ? "before:border-danger"
-        //       : "before:border-success",
-        //   borderRadius: findSize({
-        //     sm: "before:rounded-xs",
-        //     md: "before:rounded-xs",
-        //     lg: "before:rounded-sm",
-        //   }),
-        //   backgroundColorDisabled: "peer-disabled:before:bg-secondary-100",
-        //   backgroundColorChecked:
-        //     props.state === null
-        //       ? "peer-checked:before:bg-primary"
-        //       : props.state === "warning"
-        //       ? "peer-checked:before:bg-warning"
-        //       : props.state === false
-        //       ? "peer-checked:before:bg-danger"
-        //       : "peer-checked:before:bg-success",
-        //   backgroundColor: `before:bg-white`,
-        // },
         icon: {
           // display: 'opacity-0 peer-checked:opacity-100',
           position: "relative",
@@ -207,9 +151,7 @@ export default {
       return {
         parent: generateClasses([{ ...classes.parent }]),
         input: generateClasses([{ ...classes.input }]),
-        label: generateClasses([
-          { ...classes.label },
-        ]),
+        label: generateClasses([{ ...classes.label }]),
         icon: generateClasses([{ ...classes.icon }]),
       };
     });
