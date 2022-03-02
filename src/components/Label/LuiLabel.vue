@@ -18,8 +18,6 @@ export default {
   setup(props) {
     const classes = computed(() => {
       const styles = {
-        display: 'inline-block',
-        margin: 'mb-1',
         fontColor: 'text-secondary-600',
         fontSize: props.size === 'sm' ? 'text-xs' : 'text-sm',
         lineHeight: props.size === 'sm' ? 'leading-4.5' : '',

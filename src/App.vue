@@ -1,4 +1,4 @@
-<script setup>
+<script>
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import LuiDropdown from "./components/Dropdown/LuiDropdown.vue";
@@ -11,33 +11,91 @@ import LuiSelect from "./components/Select/LuiSelect.vue";
 import LuiCheckbox from "./components/Checkbox/LuiCheckbox.vue";
 import LuiChip from "./components/Chip/LuiChip.vue";
 import LuiLink from "./components/Link/LuiLink.vue";
+import LuiLabel from "./components/Label/LuiLabel.vue";
+import LuiModal from "./components/Modal/LuiModal.vue";
+import mtest from "./components/mtest.vue";
+import { ref } from "vue";
 
-const options = [
-  { text: "Select a city", value: 0, disabled: true },
-  { text: "Edirne", value: 22 },
-  { text: "Tekirdag", value: 59 },
-  { text: "Kırklareli", value: 39 },
-  { text: "Izmir", value: 35 },
-  { text: "Mugla", value: 48 },
-];
+export default {
+  components: { LuiButton, LuiModal, LuiIcon, LuiCheckbox, mtest },
+  directives: {
+    // "modal-show": {
+    //   mounted(el, binding, vnode, prevVnode) {
+    //     el.addEventListener("click", () => {
+    //       // console.log({el}, {binding}, vnode)
+    //       console.log("prevVnode:", prevVnode);
+    //       const context = binding.instance;
+    //       const modal = context.$refs.modalx;
+    //       modal.test = true;
+    //       // modal.show = true;
 
-const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
-const sAppend = {
-  tag: "lui-icon",
-  name: "arrow-down-s",
-  line: true,
+    //       // context.$refs.modalx;
+    //       // vnode.context.$refs[binding.value].show = true;
+    //       // document.body.style.overflowY = "hidden";
+    //     });
+    //   },
+    // },
+  },
 };
-
+// const options = [
+//   { text: "Select a city", value: 0, disabled: true },
+//   { text: "Edirne", value: 22 },
+//   { text: "Tekirdag", value: 59 },
+//   { text: "Kırklareli", value: 39 },
+//   { text: "Izmir", value: 35 },
+//   { text: "Mugla", value: 48 },
+// ];
+// const modalActive = ref(false);
+// const testOptions = ["Edirne", "Tekirdag", "Kirklarali", "Izmir", "Mugla"];
+// const sAppend = {
+//   tag: "lui-icon",
+//   name: "arrow-down-s",
+//   line: true,
+// };
 </script>
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
-    <lui-link>extarnel link</lui-link>
-    <lui-link to="/About" activeVariant="danger" variant="primary" tag="vue">About</lui-link>
-    <lui-link to="/Home" variant="primary" tag="vue">Home</lui-link>
+    <lui-button filter="darker">darker</lui-button>
+    <lui-button v-modal-show="'modalx'">default</lui-button>
+    <lui-button filter="lighter">lighter</lui-button>
+    <hr class="my-12" />
+    <lui-button type="outline" class="mr-2" filter="darker">darker</lui-button>
+    <lui-button type="outline" class="mr-2" filter="lighter"
+      >lighter</lui-button
+    >
+    <lui-button type="outline" class="mr-2">default</lui-button>
+    <mtest ref="mtest" />
+    <!-- <lui-modal ref="modalx" horizontal>
+      <template v-slot:icon>
+        <lui-icon name="feedback" line />
+      </template>
+      <template v-slot:title> Warning message </template>
+      <template v-slot:description>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit amet
+      </template>
+      <template v-slot:check>
+        <lui-checkbox id="test" size="lg" />
+        <label for="test">Dont show again</label>
+      </template>
+      <template v-slot:button>
+        <lui-button
+          type="outline"
+          variant="secondary"
+          rounded
+          block
+          @click="modalActive = false"
+          >Cancel</lui-button
+        >
+        <lui-button rounded block>Confirm</lui-button>
+      </template>
+      <div>Hey am em content of modal</div>
+      <lui-button filter="darker" @click="modalActive = false"
+        >darker</lui-button
+      > 
+    </lui-modal> -->
   </div>
-  <router-view />
   <!-- <div class="p-14">
     <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
       <lui-dropdown-item>item1</lui-dropdown-item>
