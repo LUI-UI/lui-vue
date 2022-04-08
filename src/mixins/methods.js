@@ -12,12 +12,12 @@ export function generateVariant(variant, filter) {
       ? `bg-${variant}`
       : filter === 'darker'
       ? `bg-${variant}-800`
-      : `bg-${variant}-100`
+      : `bg-${variant}-50`
   const fontColor =
     filter === 'none'
       ? `text-white`
       : filter === 'darker'
-      ? `text-white`
+      ? `text-${variant}-100`
       : `text-${variant}-500`
   return { backgroundColor, fontColor }
 }
@@ -28,6 +28,6 @@ export function generateColorVariant(variant, filter, property) {
       ? `${property}-${variant}`
       : filter === 'darker'
       ? `${property}-${variant}-800`
-      : `${property}-${variant}-100`
+      : `${property}-${variant}-50`
   return { colorClasses }
 }
