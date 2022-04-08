@@ -28,13 +28,30 @@ export default {
     //       const modal = context.$refs.modalx;
     //       modal.test = true;
     //       // modal.show = true;
-
     //       // context.$refs.modalx;
     //       // vnode.context.$refs[binding.value].show = true;
     //       // document.body.style.overflowY = "hidden";
     //     });
     //   },
     // },
+  },
+  data() {
+    return {
+      setState: "warning",
+      showModal: false,
+    };
+  },
+  methods: {
+    handleConfirm() {
+      console.log("just confirmed..");
+    },
+    handleCancel() {
+      console.log("just cancelled!!..");
+      this.showModal = false;
+    },
+    handleCheckbox(val) {
+      console.log("handleCheckbox!!..", val);
+    },
   },
 };
 // const options = [
@@ -57,7 +74,7 @@ export default {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24">
-    <lui-button filter="darker">darker</lui-button>
+    <lui-button filter="darker" @click="showModal = true">darker</lui-button>
     <lui-button v-modal-show="'modalx'">default</lui-button>
     <lui-button filter="lighter">lighter</lui-button>
     <hr class="my-12" />
@@ -66,7 +83,18 @@ export default {
       >lighter</lui-button
     >
     <lui-button type="outline" class="mr-2">default</lui-button>
-    <mtest ref="mtest" />
+    <lui-modal
+      :show="showModal"
+      :state="setState"
+      title="Warning test"
+      description="lorem ipsum test falan"
+      label="custom label"
+      @onConfirm="handleConfirm"
+      @onCancel="handleCancel"
+      @onCheckboxChanged="handleCheckbox"
+    />
+
+    <!-- <mtest ref="mtest" /> -->
     <!-- <lui-modal ref="modalx" horizontal>
       <template v-slot:icon>
         <lui-icon name="feedback" line />

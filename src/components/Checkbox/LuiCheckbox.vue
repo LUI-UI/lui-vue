@@ -1,6 +1,11 @@
 <template>
   <div :class="computedClasses.parent">
-    <input type="checkbox" :class="computedClasses.input" v-bind="$attrs" />
+    <input
+      type="checkbox"
+      :class="computedClasses.input"
+      v-bind="$attrs"
+      @change="$emit('onChange', $event.target.checked)"
+    />
     <span :for="computedFor" :class="computedClasses.label">
       <svg
         :width="iconSizes.width"
