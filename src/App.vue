@@ -13,11 +13,21 @@ import LuiChip from "./components/Chip/LuiChip.vue";
 import LuiLink from "./components/Link/LuiLink.vue";
 import LuiLabel from "./components/Label/LuiLabel.vue";
 import LuiModal from "./components/Modal/LuiModal.vue";
+import LuiAccordionGroup from "./components/Accordion/LuiAccordionGroup.vue";
+import LuiAccordion from "./components/Accordion/LuiAccordion.vue";
 import mtest from "./components/mtest.vue";
 import { ref } from "vue";
 
 export default {
-  components: { LuiButton, LuiModal, LuiIcon, LuiCheckbox, mtest },
+  components: {
+    LuiButton,
+    LuiModal,
+    LuiIcon,
+    LuiCheckbox,
+    mtest,
+    LuiAccordionGroup,
+    LuiAccordion,
+  },
   directives: {
     // "modal-show": {
     //   mounted(el, binding, vnode, prevVnode) {
@@ -73,9 +83,9 @@ export default {
 
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
-  <div class="p-24">
-    <lui-button filter="darker" @click="showModal = true">darker</lui-button>
-    <lui-button v-modal-show="'modalx'">default</lui-button>
+  <div class="p-24 bg-danger-50">
+    <lui-button variant="white" @click="showModal = true">darker</lui-button>
+    <lui-button>default</lui-button>
     <lui-button filter="lighter">lighter</lui-button>
     <hr class="my-12" />
     <lui-button type="outline" class="mr-2" filter="darker">darker</lui-button>
@@ -83,6 +93,11 @@ export default {
       >lighter</lui-button
     >
     <lui-button type="outline" class="mr-2">default</lui-button>
+    <lui-accordion-group class="mt-6">
+      <lui-accordion title="test" variant="danger">content test</lui-accordion>
+      <lui-accordion title="test1">content test</lui-accordion>
+      <lui-accordion title="test2">content test</lui-accordion>
+    </lui-accordion-group>
     <lui-modal
       :show="showModal"
       :state="setState"

@@ -28,79 +28,88 @@
   </div>
 </template>
 <script>
-import { computed, ref, inject } from 'vue'
-import { generateClasses } from '../../mixins/methods'
-import LuiIcon from '../Icon/LuiIcon.vue'
-import * as prop from '../../mixins/props'
+import { computed, ref, inject } from "vue";
+import { generateClasses } from "../../mixins/methods";
+import LuiIcon from "../Icon/LuiIcon.vue";
+import * as prop from "../../mixins/props";
 export default {
   components: { LuiIcon },
-  mixins: [prop.string('title', 'title'), prop.boolean('active',false),prop.boolean('disabled',false)],
+  mixins: [
+    prop.string("title", "title"),
+    prop.boolean("active", false),
+    prop.boolean("disabled", false),
+    prop.variant(null, "secondary"),
+  ],
   setup(props) {
-    let activeAccordion = inject('activeAccordion', ref(null))
+    let activeAccordion = inject("activeAccordion", ref(null));
 
     let isActive = computed(() => {
-      return activeAccordion.value === props.title
-    })
+      return activeAccordion.value === props.title;
+    });
 
     function expandItem() {
       if (activeAccordion.value !== props.title) {
-        activeAccordion.value = props.title
+        activeAccordion.value = props.title;
       } else {
-        activeAccordion.value = ''
+        activeAccordion.value = "";
       }
     }
-    let btnFocus = ref(false)
-    
+    let btnFocus = ref(false);
+
     const computedClasses = computed(() => {
       const classes = {
         wrapper: {
-          width: 'w-full',
-          border: 'border',
-          borderColor: props.disabled ? 'border-secondary-100' : 'border-secondary-200',
-          borderRadius: 'rounded-2xl',
-          paddingY: 'py-8',
-          paddingX: 'px-6',
-          margin: 'mb-7',
-          focus: btnFocus.value ? 'ring-2 ring-primary ring-offset-2' : ''
+          width: "w-full",
+          border: "border",
+          borderColor: props.disabled
+            ? "border-secondary-100"
+            : "border-secondary-200",
+          borderRadius: "rounded-2xl",
+          paddingY: "py-8",
+          paddingX: "px-6",
+          margin: "mb-7",
+          focus: btnFocus.value ? "ring-2 ring-primary ring-offset-2" : "",
         },
         button: {
-          width: 'w-full',
-          display: 'flex',
-          alignItems: 'items-center',
-          justifyContent: 'justify-between',
-          disabled: 'text-secondary-700 disabled:text-secondary-300',
-          outline: 'outline-none'
+          width: "w-full",
+          display: "flex",
+          alignItems: "items-center",
+          justifyContent: "justify-between",
+          color: `text-${props.variant}-700`,
+          disabled: "disabled:text-secondary-300",
+          outline: "outline-none",
         },
         title: {
-          fontSize: 'text-lg',
-          fontWeight: 'font-semibold',
-          lineHeight: 'leading-6',
+          fontSize: "text-lg",
+          fontWeight: "font-semibold",
+          lineHeight: "leading-6",
           textAlign: "text-left",
+          // fontColor: "text-danger",
         },
         icon: {
-          fontSize: 'text-2xl',
+          fontSize: "text-2xl",
         },
         content: {
-          marginTop: 'mt-6',
-          fontColor: 'text-secondary-600'
+          marginTop: "mt-6",
+          fontColor: "text-secondary-600",
         },
-      }
-      const { wrapper, button, title, icon, content } = classes
+      };
+      const { wrapper, button, title, icon, content } = classes;
       return {
         wrapper: generateClasses([{ ...wrapper }]),
         button: generateClasses([{ ...button }]),
         title: generateClasses([{ ...title }]),
         icon: generateClasses([{ ...icon }]),
         content: generateClasses([{ ...content }]),
-      }
-    })
+      };
+    });
 
     return {
       expandItem,
       isActive,
       computedClasses,
-      btnFocus
-    }
+      btnFocus,
+    };
   },
-}
+};
 </script>

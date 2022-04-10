@@ -39,7 +39,8 @@ export default {
     prop.boolean("roundedFull"),
     prop.boolean("block"),
     prop.boolean("uppercase"),
-    prop.boolean("iconLine"),
+    prop.boolean("iconLine", true),
+    prop.boolean("fontBold"),
     prop.string("prepend", "none"),
     prop.string("icon", "none"),
     prop.string("type", "default", [
@@ -87,14 +88,16 @@ export default {
           props.type === "default"
             ? generateVariant(props.variant, props.filter).backgroundColor
             : "",
-        fontColor:
-          props.type === "default"
-            ? generateVariant(props.variant, props.filter).fontColor
-            : props.filter === "none"
-            ? `text-${props.variant}`
-            : props.filter === "darker"
-            ? `text-${props.variant}-800`
-            : `text-${props.variant}-50`,
+        fontColor: generateVariant(props.variant, props.filter).fontColor,
+        // fontColor:
+        //   props.type === "default"
+        //     ? generateVariant(props.variant, props.filter).fontColor
+        //     : props.filter === "none"
+        //     ? `text-${props.variant}`
+        //     : props.filter === "darker"
+        //     ? `text-${props.variant}-800`
+        //     : `text-${props.variant}-50`,
+        fontWeight: props.fontBold === true ? "font-semibold" : "",
         fontSize: props.size === "sm" ? "text-xs" : "text-base",
         lineHeight: props.size === "sm" ? "leading-4.5" : "leading-6",
         borderWidth:
@@ -154,13 +157,13 @@ export default {
               ? props.filter === "darker"
                 ? `hover:bg-${props.variant}-800`
                 : props.filter === "lighter"
-                ? `hover:bg-${props.variant}-100`
+                ? `hover:bg-${props.variant}-50`
                 : `hover:bg-${props.variant}`
               : props.filter === "lighter" //def,text
               ? `hover:bg-${props.variant}`
               : props.filter === "darker"
               ? `hover:bg-${props.variant}`
-              : `hover:bg-${props.variant}-100`,
+              : `hover:bg-${props.variant}-50`,
           fontColor:
             props.type === "default"
               ? props.filter === "none"
@@ -182,8 +185,7 @@ export default {
                 : props.filter === "darker"
                 ? `hover:border-${props.variant}-800`
                 : `hover:border-${props.variant}-100`
-              :
-              props.type === "default"
+              : props.type === "default"
               ? props.filter === "none"
                 ? `hover:border-${props.variant}-100`
                 : `hover:border-${props.variant}`
@@ -204,6 +206,7 @@ export default {
               ? "disabled:text-white"
               : "disabled:text-secondary-300",
           borderColor: "disabled:border-secondary-300",
+          cursor: "disabled:cursor-default",
         },
         focus: {
           outline: "focus:outline-none",
