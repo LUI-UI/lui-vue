@@ -88,15 +88,15 @@ export default {
           props.type === "default"
             ? generateVariant(props.variant, props.filter).backgroundColor
             : "",
-        fontColor: generateVariant(props.variant, props.filter).fontColor,
-        // fontColor:
-        //   props.type === "default"
-        //     ? generateVariant(props.variant, props.filter).fontColor
-        //     : props.filter === "none"
-        //     ? `text-${props.variant}`
-        //     : props.filter === "darker"
-        //     ? `text-${props.variant}-800`
-        //     : `text-${props.variant}-50`,
+        // fontColor: generateVariant(props.variant, props.filter).fontColor,
+        fontColor:
+          props.type === "default"
+            ? generateVariant(props.variant, props.filter).fontColor
+            : props.filter === "none"
+            ? `text-${props.variant}`
+            : props.filter === "darker"
+            ? `text-${props.variant}-800`
+            : `text-${props.variant}-50`,
         fontWeight: props.fontBold === true ? "font-semibold" : "",
         fontSize: props.size === "sm" ? "text-xs" : "text-base",
         lineHeight: props.size === "sm" ? "leading-4.5" : "leading-6",
@@ -112,7 +112,7 @@ export default {
               ? `border-${props.variant}`
               : props.filter === "darker"
               ? `border-${props.variant}-800`
-              : `border-${props.variant}-100`
+              : `border-${props.variant}-50`
             : "",
         borderBottom:
           (typeof props.disableStyles === "boolean" &&
@@ -163,7 +163,9 @@ export default {
               ? `hover:bg-${props.variant}`
               : props.filter === "darker"
               ? `hover:bg-${props.variant}`
-              : `hover:bg-${props.variant}-50`,
+              : props.variant !== 'white' 
+              ? `hover:bg-${props.variant}-50`
+              : `hover:bg-primary`,
           fontColor:
             props.type === "default"
               ? props.filter === "none"
@@ -184,10 +186,10 @@ export default {
                 ? `hover:border-${props.variant}`
                 : props.filter === "darker"
                 ? `hover:border-${props.variant}-800`
-                : `hover:border-${props.variant}-100`
+                : `hover:border-${props.variant}-50`
               : props.type === "default"
               ? props.filter === "none"
-                ? `hover:border-${props.variant}-100`
+                ? `hover:border-${props.variant}-50`
                 : `hover:border-${props.variant}`
               : // ? props.filter === "lighter"
                 //   ? `hover:border-${props.variant}`
@@ -214,8 +216,10 @@ export default {
             props.filter === "darker"
               ? `focus:ring-2 focus:ring-${props.variant}-800 focus:ring-offset-2`
               : props.filter === "lighter"
-              ? `focus:ring-2 focus:ring-${props.variant}-100 focus:ring-offset-2`
-              : `focus:ring-2 focus:ring-${props.variant} focus:ring-offset-2`,
+              ? `focus:ring-2 focus:ring-${props.variant}-50 focus:ring-offset-2`
+              : props.variant !== 'white' 
+              ? `focus:ring-2 focus:ring-${props.variant} focus:ring-offset-2`
+              : `focus:ring-2 focus:ring-primary focus:ring-offset-2`,
         },
       };
       if (typeof props.disableStyles === "boolean") {

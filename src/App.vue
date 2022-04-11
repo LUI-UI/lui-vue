@@ -96,12 +96,13 @@ export default {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <div class="p-24 bg-danger-50">
-    <lui-button variant="white" @click="showModal = true">darker</lui-button>
-    <lui-button>default</lui-button>
+    <lui-button variant="white" rounded>white</lui-button>
+    <lui-button class="mx-4" disabled>default</lui-button>
     <lui-button filter="lighter">lighter</lui-button>
     <hr class="my-12" />
-    <lui-button type="outline" class="mr-2" filter="darker">darker</lui-button>
-    <lui-button type="outline" class="mr-2" filter="lighter"
+    <lui-button type="outline">darker</lui-button>
+    <lui-button type="outline" class="mx-4" filter="darker">darker</lui-button>
+    <lui-button type="outline" filter="lighter"
       >lighter</lui-button
     >
     <LuiCard img="https://via.placeholder.com/300" rounded class="my-12">

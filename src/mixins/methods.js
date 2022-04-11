@@ -14,7 +14,7 @@ export function generateVariant(variant, filter) {
       : `bg-${variant}-50`;
   const fontColor =
     variant === "white"
-      ? `text-${variant}`
+      ? `text-primary`
       : filter === "none"
       ? `text-white`
       : filter === "darker"
