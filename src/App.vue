@@ -15,6 +15,7 @@ import LuiLabel from "./components/Label/LuiLabel.vue";
 import LuiModal from "./components/Modal/LuiModal.vue";
 import LuiAccordionGroup from "./components/Accordion/LuiAccordionGroup.vue";
 import LuiAccordion from "./components/Accordion/LuiAccordion.vue";
+import LuiRadio from "./components/Radio/LuiRadio.vue";
 import mtest from "./components/mtest.vue";
 import { ref } from "vue";
 
@@ -27,6 +28,7 @@ export default {
     mtest,
     LuiAccordionGroup,
     LuiAccordion,
+    LuiRadio,
   },
   directives: {
     // "modal-show": {
@@ -49,6 +51,7 @@ export default {
     return {
       setState: "warning",
       showModal: false,
+      price: "year",
     };
   },
   methods: {
@@ -61,6 +64,9 @@ export default {
     },
     handleCheckbox(val) {
       console.log("handleCheckbox!!..", val);
+    },
+    handleChange() {
+      console.log("changed changes checked!!");
     },
   },
 };
@@ -98,6 +104,13 @@ export default {
       <lui-accordion title="test1">content test</lui-accordion>
       <lui-accordion title="test2">content test</lui-accordion>
     </lui-accordion-group>
+    <lui-radio
+      size="lg"
+      value="mounth"
+      v-model="price"
+      @change="handleChange"
+    />
+    <lui-radio size="lg" v-model="price"  value="year" />
     <lui-modal
       :show="showModal"
       :state="setState"
