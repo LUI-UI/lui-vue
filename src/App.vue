@@ -16,8 +16,8 @@ import LuiModal from "./components/Modal/LuiModal.vue";
 import LuiAccordionGroup from "./components/Accordion/LuiAccordionGroup.vue";
 import LuiAccordion from "./components/Accordion/LuiAccordion.vue";
 import LuiRadio from "./components/Radio/LuiRadio.vue";
+import LuiCard from "./components/Card/LuiCard.vue";
 import mtest from "./components/mtest.vue";
-import LuiInput from "./components/Input/LuiInput.vue";
 import { ref } from "vue";
 
 export default {
@@ -30,7 +30,7 @@ export default {
     LuiAccordionGroup,
     LuiAccordion,
     LuiRadio,
-    LuiInput,
+    LuiCard
   },
   directives: {
     // "modal-show": {
@@ -104,18 +104,10 @@ export default {
     <lui-button type="outline" class="mr-2" filter="lighter"
       >lighter</lui-button
     >
+    <LuiCard img="https://via.placeholder.com/300" rounded class="my-12">
+      <h3>Card test!</h3>
+    </LuiCard>
     <lui-button type="outline" class="mr-2">default</lui-button>
-    <div class="">
-      <span>{{ test }}</span>
-      <lui-input
-        placeholder="Jest"
-        @change="handleTest"
-        size="lg"
-        class="mt-6 ml-4"
-      />
-      <!-- <lui-input placeholder="mest" size="lg" block class="mt-6" /> -->
-    </div>
-    <input class="mt-6" />
     <lui-modal
       :show="showModal"
       :state="setState"
