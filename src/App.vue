@@ -17,6 +17,7 @@ import LuiAccordionGroup from "./components/Accordion/LuiAccordionGroup.vue";
 import LuiAccordion from "./components/Accordion/LuiAccordion.vue";
 import LuiRadio from "./components/Radio/LuiRadio.vue";
 import mtest from "./components/mtest.vue";
+import LuiInput from "./components/Input/LuiInput.vue";
 import { ref } from "vue";
 
 export default {
@@ -29,6 +30,7 @@ export default {
     LuiAccordionGroup,
     LuiAccordion,
     LuiRadio,
+    LuiInput,
   },
   directives: {
     // "modal-show": {
@@ -52,6 +54,7 @@ export default {
       setState: "warning",
       showModal: false,
       price: "year",
+      test: "test",
     };
   },
   methods: {
@@ -67,6 +70,9 @@ export default {
     },
     handleChange() {
       console.log("changed changes checked!!");
+    },
+    handleTest(val) {
+      console.log("input chancing", val);
     },
   },
 };
@@ -99,18 +105,17 @@ export default {
       >lighter</lui-button
     >
     <lui-button type="outline" class="mr-2">default</lui-button>
-    <lui-accordion-group class="mt-6">
-      <lui-accordion title="test" variant="danger">content test</lui-accordion>
-      <lui-accordion title="test1">content test</lui-accordion>
-      <lui-accordion title="test2">content test</lui-accordion>
-    </lui-accordion-group>
-    <lui-radio
-      size="lg"
-      value="mounth"
-      v-model="price"
-      @change="handleChange"
-    />
-    <lui-radio size="lg" v-model="price"  value="year" />
+    <div class="">
+      <span>{{ test }}</span>
+      <lui-input
+        placeholder="Jest"
+        @change="handleTest"
+        size="lg"
+        class="mt-6 ml-4"
+      />
+      <!-- <lui-input placeholder="mest" size="lg" block class="mt-6" /> -->
+    </div>
+    <input class="mt-6" />
     <lui-modal
       :show="showModal"
       :state="setState"
