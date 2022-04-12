@@ -29,7 +29,7 @@ variables.forEach((variable) => {
 
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}", "./safelist.txt"],
-  // safelist: ['./safelist.txt'],
+  // content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -37,7 +37,7 @@ module.exports = {
         black: "var(--color-black)",
         white: "var(--color-white)",
         dark: "var(--color-dark)",
-        light: "var(--color-dark)",
+        light: "var(--color-light)",
       },
       boxShadow: {
         DEFAULT: "0px 0px 16px rgba(0,0,0,0.1)",
@@ -84,6 +84,7 @@ module.exports = {
       borderColor: ["disabled"],
       ringColor: ["disabled"],
       ringWidth: ["disabled"],
+      // backgroundOpacity: ['active'],
     },
   },
   plugins: [],

@@ -8,11 +8,12 @@
   >
     <slot />
   </a>
-  <router-link
-    v-else-if="tag === 'vue'"
-    v-bind="routerLinkProps"
+  <component
+    :is="componentName"
+    v-else
+    v-bind="tag === 'vue' ? routerLinkProps : nuxtLinkProps"
     custom
-    v-slot="{ isActive, href, navigate, isExactActive }"
+    v-slot="{ isActive, href, navigate, isExactActive, prefetchedClass }"
   >
     <a
       v-bind="$attrs"
@@ -20,25 +21,24 @@
       @click="navigate"
       :class="[
         computedClasses.classes,
-        isActive
-          ? computedClasses.activeClass
-          : computedClasses.inactiveClass,
+        isActive ? computedClasses.activeClass : computedClasses.inactiveClass,
         isExactActive
           ? computedClasses.exactactiveClass
+          : computedClasses.inactiveClass,
+        prefetchedClass
+          ? computedClasses.prefetchedClass
           : computedClasses.inactiveClass,
       ]"
     >
       <slot />
     </a>
-  </router-link>
-  <nuxt-link v-else :to="to" active-variant="primary" />
+  </component>
 </template>
 
 <script>
 import * as prop from "../../mixins/props";
 import { computed } from "vue";
 import { generateClasses } from "../../mixins/methods";
-import { RouterLink } from "vue-router";
 export default {
   inheritAttrs: false,
   props: {
@@ -49,24 +49,17 @@ export default {
   },
   mixins: [
     prop.size("sm", ["xxsm", "xsm", "sm", "lg", "xlg"]),
+    prop.string("tag", "a", ["a", "vue", "nuxt"]),
     prop.variant("variant", "secondary"),
     prop.variant("activeVariant", "success"),
     prop.variant("exactActiveVariant", "success"),
-    prop.string("tag", "a", ["a", "vue", "nuxt"]),
-    // router-link props
-    // prop.string("activeClass", ""),
-    // prop.string("exactactiveClass", ""),
-    // prop.string("to", "http:"),
+    prop.variant("prefetchedVariant", "success"),
+    prop.boolean("prefetch", false),
+    prop.boolean("noPrefetch", false),
     prop.string("ariaCurrentValue", "page"),
-    // prop.boolean("custom", false),
     prop.boolean("replace", false),
   ],
   setup(props) {
-    console.log({ RouterLink });
-    // set router-link props with comp prop
-    // set active inactive classes with comp prop
-    // prefec
-
     function findSize(sizes) {
       return sizes[props.size];
     }
@@ -79,6 +72,27 @@ export default {
         activeClass: props.activeClass,
         exacActiveClass: props.exacActiveClass,
       };
+    });
+
+    const nuxtLinkProps = computed(() => {
+      return {
+        to: props.to,
+        replace: props.replace,
+        ariaCurrentValue: props.ariaCurrentValue,
+        activeClass: props.activeClass,
+        exacActiveClass: props.exacActiveClass,
+        prefetchedClass: props.prefetchedClass,
+        prefetch: props.prefetch,
+        noPrefetch: props.noPrefetch,
+      };
+    });
+
+    const componentName = computed(() => {
+      return props.tag === "vue"
+        ? "router-link"
+        : props.tag === "nuxt"
+        ? "nuxt-link"
+        : "a";
     });
 
     const computedClasses = computed(() => {
@@ -99,26 +113,33 @@ export default {
         }),
         underline: "underline",
       };
+      const inactiveClass = {
+        fontColor: `text-${props.variant}-400 hover:text-${props.variant}-500`,
+      };
       const activeClass = {
         fontColor: `text-${props.activeVariant}-400 hover:text-${props.activeVariant}-500`,
       };
       const exactactiveClass = {
         fontColor: `text-${props.exactactiveClass}-400 hover:text-${props.exactactiveClass}-500`,
       };
-      const inactiveClass = {
-        fontColor: `text-${props.variant}-400 hover:text-${props.variant}-500`,
+      const prefetchedClass = {
+        fontColor: `text-${props.prefetchedVariant}-400 hover:text-${props.prefetchedVariant}-500`,
       };
+
       return {
         classes: generateClasses([{ ...classes }]),
         activeClass: generateClasses([{ ...activeClass }]),
         inactiveClass: generateClasses([{ ...inactiveClass }]),
         exactactiveClass: generateClasses([{ ...exactactiveClass }]),
+        prefetchedClass: generateClasses([{ ...prefetchedClass }]),
       };
     });
 
     return {
       computedClasses,
       routerLinkProps,
+      nuxtLinkProps,
+      componentName,
     };
   },
 };

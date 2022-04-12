@@ -10,92 +10,99 @@ import * as prop from "../../mixins/props";
 import { generateClasses } from "../../mixins/methods";
 export default {
   mixins: [
+    prop.size("default", ["2xs", "xs", "sm", "md", "lg", "xl", "default"]),
     prop.string("level", "2", ["1", "2", "3", "4", "5", "6"]),
     prop.boolean("display"),
   ],
   setup(props) {
-    function findLevel(sizes) {
-      return sizes[props.level];
+
+    function findFontSize(size, isDisplay) {
+      const display = isDisplay ? "display" : "normal";
+      const sizes = {
+        6: {
+          normal: "text-sm",
+          display: "text-4xl",
+        },
+        5: {
+          normal: "text-base",
+          display: "text-5xl",
+        },
+        4: {
+          normal: "text-lg",
+          display: "text-6xl",
+        },
+        3: {
+          normal: "text-xl",
+          display: "text-7xl",
+        },
+        2: {
+          normal: "text-2xl",
+          display: "text-8xl",
+        },
+        1: {
+          normal: "text-3xl",
+          display: "text-9xl",
+        },
+        "2xs": {
+          normal: "text-sm",
+          display: "text-4xl",
+        },
+        xs: {
+          normal: "text-base",
+          display: "text-5xl",
+        },
+        sm: {
+          normal: "text-lg",
+          display: "text-6xl",
+        },
+        md: {
+          normal: "text-xl",
+          display: "text-7xl",
+        },
+        lg: {
+          normal: "text-2xl",
+          display: "text-8xl",
+        },
+        xl: {
+          normal: "text-3xl",
+          display: "text-9xl",
+        },
+      };
+      return sizes[size][display];
     }
+
+    function findLineHeight(size) {
+      const sizes = {
+        6: "leading-4.5",
+        5: "leading-5",
+        4: "leading-6",
+        3: "leading-6",
+        2: "leading-8",
+        1: "leading-9",
+        "2xs": "leading-4.5",
+        xs: "leading-5",
+        sm: "leading-6",
+        md: "leading-6",
+        lg: "leading-8",
+        xl: "leading-9",
+      };
+      return sizes[size];
+    }
+
     const setLevel = computed(() => {
       return `h${props.level}`;
     });
     const computedClasses = computed(() => {
       const classes = {
-        textColor: "secondary-600",
-        fontWeight: "font-semibold",
-        // level 4 te leading tasarimda 23, bizde 24
-        // level 5 te 25 biz de  24
-        // level 2 de 30 biz de
-        // level 1 tasarimda 38 biz de 36
         fontSize:
-          props.display === false
-            ? findLevel({
-                1: "text-3xl",
-                2: "text-2xl",
-                3: "text-xl",
-                4: "text-lg",
-                5: "text-base",
-                6: "text-sm",
-              })
-            : findLevel({
-                1: "text-9xl",
-                2: "text-8xl",
-                3: "text-7xl",
-                4: "text-6xl",
-                5: "text-5xl",
-                6: "text-4xl",
-              }), // props.display === false
-        //   ? props.level === "6"
-        //     ? "text-sm"
-        //     : props.level === "5"
-        //     ? "text-base"
-        //     : props.level === "4"
-        //     ? "text-lg"
-        //     : props.level === "3"
-        //     ? "text-xl"
-        //     : props.level === "2"
-        //     ? "text-2xl"
-        //     : "text-3xl"
-        // props.display === true
-        // ? props.level === "6"
-        //   ? "text-4xl"
-        //   : props.level === "5"
-        //   ? "text-5xl"
-        //   : props.level === "4"
-        //   ? "text-6xl"
-        //   : props.level === "3"
-        //   ? "text-7xl"
-        //   : props.level === "2"
-        //   ? "text-8xl"
-        //   : "text-9xl"
-        // : "",
-        lineHeight:
-          props.display === false
-            ? findLevel({
-                1: "leading-9",
-                2: "leading-8",
-                3: "leading-6",
-                4: "leading-6",
-                5: "leading-5",
-                6: "leading-4.5",
-              })
-            : "leading-none",
-        // props.display === false
-        //   ? props.level === "6"
-        //     ? "leading-4.5"
-        //     : props.level === "5"
-        //     ? "leading-5"
-        //     : props.level === "4"
-        //     ? "leading-6"
-        //     : props.level === "3"
-        //     ? "leading-6"
-        //     : props.level === "2"
-        //     ? "leading-8"
-        //     : "leading-9"
-        //   : props.display === true
-        //   ? "leading-none"
-        //   : "",
+          props.size === "default"
+            ? findFontSize(props.level, props.display)
+            : findFontSize(props.size, props.display),
+        lineHeight: props.display
+          ? ""
+          : props.size === "default"
+          ? findLineHeight(props.level)
+          : findLineHeight(props.size),
       };
       return generateClasses([{ ...classes }]);
     });
