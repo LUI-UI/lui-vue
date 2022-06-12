@@ -12,6 +12,13 @@
       @click="optionsActive = !optionsActive"
     >
       <span>{{ selectedOption }}</span>
+      <!-- 16, 20 24 -->
+      <lui-icon
+        :line="iconLine ? true : false"
+        :fill="!iconLine ? true : false"
+        :name="optionsActive ? 'arrow-down-s' : 'arrow-up-s'"
+        :class="computedClasses.icon"
+      />
     </button>
     <ul
       v-show="optionsActive"
@@ -45,9 +52,14 @@ import { ref, computed, provide, onMounted, onUnmounted } from "vue";
 import * as prop from "../../mixins/props";
 import { generateClasses } from "../../mixins/methods";
 import LuiOption from "../Select/LuiOption.vue";
+import LuiIcon from "../Icon/LuiIcon.vue";
 export default {
-  components: { LuiOption },
-  mixins: [prop.boolean("rounded", true), prop.size("md", ["sm", "md", "lg"])],
+  components: { LuiOption, LuiIcon },
+  mixins: [
+    prop.boolean("rounded", true),
+    prop.size("md", ["sm", "md", "lg"]),
+    prop.boolean("iconLine", true),
+  ],
   props: {
     state: {
       type: [String, Boolean, null],
@@ -81,10 +93,7 @@ export default {
     });
 
     function closeDropdown(e) {
-      console.log(luiSelect.value.contains(e.target));
-      if (!luiSelect.value.contains(e.target)) {
-        optionsActive.value = false;
-      }
+      if (!luiSelect.value.contains(e.target)) optionsActive.value = false;
     }
 
     (function setInitalSelectedValue() {
@@ -110,7 +119,7 @@ export default {
           padding: findSize({ sm: "px-2 py-1.5", md: "p-2", lg: "p-3" }),
           display: "flex",
           alignItems: "items-center",
-          justifyContent: "justify-center",
+          justifyContent: "justify-between",
           fontSize: findSize({
             sm: "text-xs",
             md: "text-base",
@@ -167,11 +176,20 @@ export default {
           marginTop: "mt-2",
           // display: "flex flex-col"
         },
+        icon: {
+          lineHeight: "leading-none",
+          fontSize: findSize({
+            sm: "text-base	",
+            md: "text-xl",
+            lg: "text-2xl",
+          }),
+        },
       };
       return {
         wrapper: generateClasses([{ ...classes.wrapper }]),
         button: generateClasses([{ ...classes.button }]),
         options: generateClasses([{ ...classes.options }]),
+        icon: generateClasses([{ ...classes.icon }]),
       };
     });
     return {
