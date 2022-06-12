@@ -117,12 +117,17 @@ export default {
     <option value="1">Four</option>
   </select>
   <div class="p-4 m-4 flex space-x-3">
-    <NSelect
-      :options="options"
-      size="lg"
-      v-model="selectedOption"
-      @onSelect="handleSelect"
-    />
+    <div>
+      <label for="sellect">select an option</label>
+      <NSelect
+        id="sellect"
+        :options="options"
+        size="lg"
+        v-model="selectedOption"
+        @onSelect="handleSelect"
+      />
+    </div>
+
     <span>{{ selectedOption }}</span>
     <!-- <NSelect :options="options" /> -->
   </div>

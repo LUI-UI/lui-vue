@@ -7,12 +7,12 @@
       ref="luiSelect"
       aria-haspopup="listbox"
       :aria-expanded="optionsActive"
-      aria-labelledby="lui-select"
+      :aria-labelledby="$attrs"
       :class="computedClasses.button"
+      v-bind="$attrs"
       @click="optionsActive = !optionsActive"
     >
       <span>{{ selectedOption }}</span>
-      <!-- 16, 20 24 -->
       <lui-icon
         :line="iconLine ? true : false"
         :fill="!iconLine ? true : false"
@@ -54,6 +54,7 @@ import { generateClasses } from "../../mixins/methods";
 import LuiOption from "../Select/LuiOption.vue";
 import LuiIcon from "../Icon/LuiIcon.vue";
 export default {
+  inheritAttrs: false,
   components: { LuiOption, LuiIcon },
   mixins: [
     prop.boolean("rounded", true),
