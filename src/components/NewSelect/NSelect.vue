@@ -40,7 +40,7 @@
             ? true
             : false
         "
-        @click="selectedOption = option"
+        @click="selectOption(option)"
       >
         <span>{{ option }}</span>
       </lui-option>
@@ -72,8 +72,13 @@ export default {
       type: Array,
       default: () => [],
     },
+    modelValue: {
+      type: String,
+      default: "",
+    },
   },
-  setup(props) {
+  emits: ["update:modelValue", "onSelect"],
+  setup(props, { emit }) {
     const optionsActive = ref(false);
     let selectedOption = ref("");
     const optionsRef = ref([]);
@@ -97,11 +102,20 @@ export default {
     }
 
     (function setInitalSelectedValue() {
-      selectedOption.value = props.options[0];
+      if (props.modelValue !== "" && props.options.includes(props.modelValue)) {
+        selectedOption.value = props.modelValue;
+      } else {
+        selectedOption.value = props.options[0];
+      }
     })();
 
     function findSize(sizes) {
       return sizes[props.size];
+    }
+    function selectOption(option) {
+      selectedOption.value = option;
+      emit("update:modelValue", option);
+      emit("onSelect", option);
     }
     // function selectOption(option) {
     //   selectOption.value = option;
@@ -198,6 +212,7 @@ export default {
       selectedOption,
       optionsRef,
       luiSelect,
+      selectOption,
       // selectOption,
     };
   },

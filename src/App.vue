@@ -59,6 +59,7 @@ export default {
       price: "year",
       test: "test",
       options: ["option 1", "option 2", "option 3", "option 4"],
+      selectedOption: "option 1",
       // options: [
       //   { text: "Select a city", value: 0, disabled: true },
       //   { text: "Edirne", value: 22 },
@@ -70,6 +71,9 @@ export default {
     };
   },
   methods: {
+    handleSelect(selected) {
+      console.log("selected option", selected);
+    },
     handleConfirm() {
       console.log("just confirmed..");
     },
@@ -112,8 +116,14 @@ export default {
     <option value="1">Three</option>
     <option value="1">Four</option>
   </select>
-  <div class="p-4 m-4">
-    <NSelect :options="options" size="lg" />
+  <div class="p-4 m-4 flex space-x-3">
+    <NSelect
+      :options="options"
+      size="lg"
+      v-model="selectedOption"
+      @onSelect="handleSelect"
+    />
+    <span>{{ selectedOption }}</span>
     <!-- <NSelect :options="options" /> -->
   </div>
 
