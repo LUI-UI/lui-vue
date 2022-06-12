@@ -114,6 +114,7 @@ export default {
   </select>
   <div class="p-4 m-4">
     <NSelect :options="options" />
+    <NSelect :options="options" />
   </div>
 
   <div class="p-24 bg-danger-50">

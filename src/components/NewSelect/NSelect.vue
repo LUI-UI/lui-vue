@@ -1,6 +1,10 @@
 <template>
-  <div class="select-wrapper" :class="computedClasses.wrapper">
+  <div
+    class="select-wrapper"
+    :class="[computedClasses.wrapper, optionsActive ? 'z-50' : '']"
+  >
     <button
+      ref="luiSelect"
       aria-haspopup="listbox"
       :aria-expanded="optionsActive"
       aria-labelledby="lui-select"
@@ -37,7 +41,7 @@
   </div>
 </template>
 <script>
-import { ref, computed, provide } from "vue";
+import { ref, computed, provide, onMounted, onUnmounted } from "vue";
 import * as prop from "../../mixins/props";
 import { generateClasses } from "../../mixins/methods";
 import LuiOption from "../Select/LuiOption.vue";
@@ -64,15 +68,29 @@ export default {
     const parentProps = ref({
       size: props.size,
       rounded: props.rounded,
-      // selectedOptions: selectedOptions.value,
     });
+    const luiSelect = ref(null);
 
     provide("parentProps", parentProps.value);
+
+    onMounted(() => {
+      document.addEventListener("click", closeDropdown);
+    });
+    onUnmounted(() => {
+      document.removeEventListener("click", closeDropdown);
+    });
+
+    function closeDropdown(e) {
+      console.log(luiSelect.value.contains(e.target));
+      if (!luiSelect.value.contains(e.target)) {
+        optionsActive.value = false;
+      }
+    }
 
     (function setInitalSelectedValue() {
       selectedOption.value = props.options[0];
     })();
-    
+
     function findSize(sizes) {
       return sizes[props.size];
     }
@@ -161,6 +179,7 @@ export default {
       computedClasses,
       selectedOption,
       optionsRef,
+      luiSelect,
       // selectOption,
     };
   },
