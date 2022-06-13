@@ -15,7 +15,6 @@ export default {
   ],
   setup(props) {
     const parentProps = inject("parentProps");
-    console.log("parentProps: ", parentProps);
     const computedClasses = computed(() => {
       const styles = {
         marginLeft: "ml-2",
@@ -31,7 +30,7 @@ export default {
             : "",
         fontSize: parentProps.size === "sm" ? "text-xs" : "text-base",
         borderRadius: parentProps.rounded ? "rounded-lg" : "",
-        cursor: props.disabled === false ? "cursor-pointer" : "",
+        cursor: props.disabled === false ? "cursor-pointer" : "cursor-not-allowed",
         display: "flex",
         alignItems: "items-center",
         outline: "outline-none",

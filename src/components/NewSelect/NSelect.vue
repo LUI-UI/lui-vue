@@ -7,7 +7,7 @@
       ref="luiSelect"
       aria-haspopup="listbox"
       :aria-expanded="optionsActive"
-      :aria-labelledby="$attrs"
+      :aria-labelledby="$attrs.id"
       :class="computedClasses.button"
       v-bind="$attrs"
       @click="optionsActive = !optionsActive"
@@ -27,6 +27,9 @@
       :class="computedClasses.options"
     >
       <!-- <slot /> -->
+      <lui-option v-if="placeholder" tabindex="-1" role="option" disabled>
+        {{ placeholder }}
+      </lui-option>
       <lui-option
         v-for="(option, i) in options"
         :id="option"
@@ -77,6 +80,10 @@ export default {
       type: String,
       default: "",
     },
+    placeholder: {
+      type: String,
+      default: "",
+    },
   },
   emits: ["update:modelValue", "onSelect"],
   setup(props, { emit }) {
@@ -103,7 +110,12 @@ export default {
     }
 
     (function setInitalSelectedValue() {
-      if (props.modelValue !== "" && props.options.includes(props.modelValue)) {
+      if (props.placeholder !== "") {
+        selectedOption.value = props.placeholder;
+      } else if (
+        props.modelValue !== "" &&
+        props.options.includes(props.modelValue)
+      ) {
         selectedOption.value = props.modelValue;
       } else {
         selectedOption.value = props.options[0];
@@ -170,6 +182,7 @@ export default {
               : "ring-warning-100",
           disabled:
             "disabled:border-secondary-300 disabled:text-secondary-600 disabled:bg-secondary-100",
+          cursor: "disabled:cursor-not-allowed",
         },
         options: {
           position: "absolute",
@@ -207,6 +220,7 @@ export default {
         icon: generateClasses([{ ...classes.icon }]),
       };
     });
+
     return {
       optionsActive,
       computedClasses,

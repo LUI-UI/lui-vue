@@ -125,6 +125,7 @@ export default {
         size="lg"
         v-model="selectedOption"
         @onSelect="handleSelect"
+        placeholder="Select an item"
       />
     </div>
 
