@@ -1,7 +1,12 @@
 <template>
   <div
     class="select-wrapper"
-    :class="[computedClasses.wrapper, optionsActive ? 'z-50' : '']"
+    :class="[
+      $attrs.class,
+      computedClasses.wrapper,
+      optionsActive ? 'z-50' : '',
+    ]"
+    :style="$attrs.style"
   >
     <button
       ref="luiSelect"
@@ -11,6 +16,7 @@
       :class="computedClasses.button"
       v-bind="$attrs"
       @click="optionsActive = !optionsActive"
+      @keydown="handleButtonKeyEvents($event)"
     >
       <span>{{ selectedOption }}</span>
       <lui-icon
@@ -25,8 +31,8 @@
       tabindex="-1"
       role="listbox"
       :class="computedClasses.options"
+      @keydown.stop="handleOptionsKeyEvents($event)"
     >
-      <!-- <slot /> -->
       <lui-option v-if="placeholder" tabindex="-1" role="option" disabled>
         {{ placeholder }}
       </lui-option>
@@ -51,7 +57,7 @@
   </div>
 </template>
 <script>
-import { ref, computed, provide, onMounted, onUnmounted } from "vue";
+import { ref, computed, provide, onMounted, onUnmounted, nextTick } from "vue";
 import * as prop from "../../mixins/props";
 import { generateClasses } from "../../mixins/methods";
 import LuiOption from "../Select/LuiOption.vue";
@@ -85,16 +91,17 @@ export default {
       default: "",
     },
   },
-  emits: ["update:modelValue", "onSelect"],
+  emits: ["update:modelValue", "change"],
   setup(props, { emit }) {
-    const optionsActive = ref(false);
-    let selectedOption = ref("");
     const optionsRef = ref([]);
+    const luiSelect = ref(null);
     const parentProps = ref({
       size: props.size,
       rounded: props.rounded,
     });
-    const luiSelect = ref(null);
+    let optionsActive = ref(false);
+    let activeOptionIndex = ref(0);
+    let selectedOption = ref("");
 
     provide("parentProps", parentProps.value);
 
@@ -106,34 +113,106 @@ export default {
     });
 
     function closeDropdown(e) {
+      // if clicked a select when another select open be able to close first one we check the contains(e.target)
       if (!luiSelect.value.contains(e.target)) optionsActive.value = false;
     }
 
-    (function setInitalSelectedValue() {
+    (function setInitalSelected() {
       if (props.placeholder !== "") {
         selectedOption.value = props.placeholder;
+        activeOptionIndex.value = 0;
       } else if (
         props.modelValue !== "" &&
         props.options.includes(props.modelValue)
       ) {
         selectedOption.value = props.modelValue;
+        const index = props.options.findIndex((o) => o === props.modelValue);
+        activeOptionIndex.value = index;
       } else {
         selectedOption.value = props.options[0];
+        activeOptionIndex.value = 0;
       }
     })();
 
     function findSize(sizes) {
       return sizes[props.size];
     }
+
     function selectOption(option) {
       selectedOption.value = option;
       emit("update:modelValue", option);
-      emit("onSelect", option);
+      emit("change", option);
+      luiSelect.value.focus();
     }
-    // function selectOption(option) {
-    //   selectOption.value = option;
-    //   console.log("selected", option)
-    // }
+
+    function setActiveOptionIndex(target) {
+      switch (target) {
+        case "next":
+          if (activeOptionIndex.value + 1 === props.options.length) {
+            activeOptionIndex.value = 0;
+          } else {
+            activeOptionIndex.value++;
+          }
+          break;
+        case "previous":
+          if (activeOptionIndex.value === 0) {
+            activeOptionIndex.value = props.options.length - 1;
+          } else {
+            activeOptionIndex.value--;
+          }
+          break;
+        case "first":
+          activeOptionIndex.value = 0;
+          break;
+        case "last":
+          activeOptionIndex.value = props.options.length - 1;
+          break;
+        default:
+      }
+    }
+
+    function focusOption() {
+      optionsRef.value[activeOptionIndex.value].$el.focus();
+    }
+
+    async function handleButtonKeyEvents(e) {
+      if (e.code === "ArrowDown" || e.code === "Enter" || e.code === "Space") {
+        optionsActive.value = true;
+        await nextTick();
+        focusOption();
+      }
+    }
+
+    function handleOptionsKeyEvents(e) {
+      switch (e.code) {
+        case "Escape":
+          optionsActive.value = false;
+          luiSelect.value.focus();
+          break;
+        case "Enter":
+          const option = props.options[activeOptionIndex.value];
+          selectOption(option);
+          break;
+        case "ArrowDown":
+          setActiveOptionIndex("next");
+          focusOption();
+          break;
+        case "ArrowUp":
+          setActiveOptionIndex("previous");
+          focusOption();
+          break;
+        case "Home":
+          setActiveOptionIndex("first");
+          focusOption();
+          break;
+        case "End":
+          setActiveOptionIndex("last");
+          focusOption();
+          break;
+        default:
+        // code block
+      }
+    }
 
     const computedClasses = computed(() => {
       const classes = {
@@ -228,7 +307,8 @@ export default {
       optionsRef,
       luiSelect,
       selectOption,
-      // selectOption,
+      handleButtonKeyEvents,
+      handleOptionsKeyEvents,
     };
   },
 };

@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     handleSelect(selected) {
-      console.log("selected option", selected);
+      console.log("ay em handlingSelection", selected);
     },
     handleConfirm() {
       console.log("just confirmed..");
@@ -116,22 +116,29 @@ export default {
     <option value="1">Three</option>
     <option value="1">Four</option>
   </select>
-  <div class="p-4 m-4 flex space-x-3">
+  <NSelect
+    id="sellect"
+    class="w-screen"
+    :options="options"
+    size="lg"
+    v-model="selectedOption"
+    @change="handleSelect"
+  />
+  <!-- <div class="p-4 m-4 flex space-x-3">
     <div>
       <label for="sellect">select an option</label>
       <NSelect
         id="sellect"
+        style="width: 100%"
         :options="options"
         size="lg"
         v-model="selectedOption"
-        @onSelect="handleSelect"
-        placeholder="Select an item"
+        @change="handleSelect"
       />
     </div>
 
     <span>{{ selectedOption }}</span>
-    <!-- <NSelect :options="options" /> -->
-  </div>
+  </div> -->
 
   <div class="p-24 bg-danger-50">
     <lui-button variant="white" rounded>white</lui-button>
