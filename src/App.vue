@@ -60,6 +60,7 @@ export default {
       test: "test",
       options: ["option 1", "option 2", "option 3", "option 4"],
       selectedOption: "option 1",
+      selectsize: "md",
       // options: [
       //   { text: "Select a city", value: 0, disabled: true },
       //   { text: "Edirne", value: 22 },
@@ -116,29 +117,27 @@ export default {
     <option value="1">Three</option>
     <option value="1">Four</option>
   </select>
-  <NSelect
-    id="sellect"
-    class="w-screen"
-    :options="options"
-    size="lg"
-    v-model="selectedOption"
-    @change="handleSelect"
-  />
-  <!-- <div class="p-4 m-4 flex space-x-3">
+
+  <div class="p-4 m-4 flex space-x-3">
     <div>
-      <label for="sellect">select an option</label>
+      <label for="sellect" class="mb-1">select an option</label>
       <NSelect
         id="sellect"
-        style="width: 100%"
         :options="options"
-        size="lg"
+        :state="true"
+        :size="selectsize"
         v-model="selectedOption"
         @change="handleSelect"
+        description="this is beatiful description"
       />
     </div>
-
     <span>{{ selectedOption }}</span>
-  </div> -->
+    <select v-model="selectsize">
+      <option value="sm">SM</option>
+      <option value="md">MD</option>
+      <option value="lg">LG</option>
+    </select>
+  </div>
 
   <div class="p-24 bg-danger-50">
     <lui-button variant="white" rounded>white</lui-button>

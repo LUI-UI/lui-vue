@@ -54,6 +54,9 @@
         <span>{{ option }}</span>
       </lui-option>
     </ul>
+    <p v-if="description !== ''" :class="computedClasses.description">
+      {{ description }}
+    </p>
   </div>
 </template>
 <script>
@@ -66,9 +69,12 @@ export default {
   inheritAttrs: false,
   components: { LuiOption, LuiIcon },
   mixins: [
-    prop.boolean("rounded", true),
     prop.size("md", ["sm", "md", "lg"]),
+    prop.boolean("rounded", true),
     prop.boolean("iconLine", true),
+    prop.string("placeholder", ""),
+    prop.string("modelValue", ""),
+    prop.string("description", ""),
   ],
   props: {
     state: {
@@ -82,14 +88,10 @@ export default {
       type: Array,
       default: () => [],
     },
-    modelValue: {
-      type: String,
-      default: "",
-    },
-    placeholder: {
-      type: String,
-      default: "",
-    },
+    // modelValue: {
+    //   type: String,
+    //   default: "",
+    // },
   },
   emits: ["update:modelValue", "change"],
   setup(props, { emit }) {
@@ -291,12 +293,27 @@ export default {
             lg: "text-2xl",
           }),
         },
+        description: {
+          display: "inline-block",
+          fontSize: findSize({ sm: "text-xs", md: "text-xs", lg: "text-sm" }),
+          lineHeight: findSize({ sm: "leading-4.5", md: "leading-4.5", lg: "leading-5" }),
+          marginTop: "mt-2",
+          textColor:
+            props.state === true
+              ? "text-success"
+              : props.state === false
+              ? "text-danger"
+              : props.state === "warning"
+              ? "text-warning"
+              : "text-secondary-600",
+        },
       };
       return {
         wrapper: generateClasses([{ ...classes.wrapper }]),
         button: generateClasses([{ ...classes.button }]),
         options: generateClasses([{ ...classes.options }]),
         icon: generateClasses([{ ...classes.icon }]),
+        description: generateClasses([{ ...classes.description }]),
       };
     });
 
