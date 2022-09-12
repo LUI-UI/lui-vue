@@ -267,11 +267,6 @@ export default {
       };
       return generateClasses([{ ...classes }]);
     });
-
-    onMounted(() => {
-      console.log("is :", !!context.slots.default);
-      console.log("SLOT :", context.slots.default()[0].children == "");
-    });
     return { computedClasses, iconClasses };
   },
 };

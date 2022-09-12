@@ -3,14 +3,15 @@
   "version": "0.22.0",
   "scripts": {
     "dev": "vite",
+    "safelist": "npx tailwindcss build",
     "build": "vite build",
     "preview": "vite preview",
     "sb": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
-    "vue": "^3.2.26",
-    "tailwindcss": "^3.0.8"
+    "tailwindcss": "^3.0.8",
+    "vue": "^3.2.26"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
@@ -25,8 +26,8 @@
     "storybook-builder-vite": "^0.1.13",
     "tailwindcss": "^3.0.8",
     "vite": "^2.7.2",
-    "vue-loader": "^16.8.3",
-    "vue": "^3.2.26"
+    "vue": "^3.2.26",
+    "vue-loader": "^16.8.3"
   },
   "files": [
     "dist"
@@ -52,5 +53,8 @@
   "bugs": {
     "url": "https://github.com/LUI-UI/lui-vue/issues"
   },
-  "homepage": "https://github.com/LUI-UI/lui-vue#readme"
+  "homepage": "https://github.com/LUI-UI/lui-vue#readme",
+  "dependencies": {
+    "tailwind-safelist-generator": "^1.0.0"
+  }
 }

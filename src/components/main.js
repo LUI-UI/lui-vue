@@ -1,4 +1,5 @@
 // import '../index.css'
+// import "../../safelist.txt"
 
 export { default as LuiAccordion } from './Accordion/LuiAccordion.vue'
 export { default as LuiAccordionGroup } from './Accordion/LuiAccordionGroup.vue'

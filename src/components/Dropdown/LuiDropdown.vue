@@ -1,6 +1,5 @@
 <template>
   <div role="listbox" class="dropdown" :class="computedClasses.container">
-    <!-- :prepend="icon === 'default' ? iconName.prepend : prepend" -->
     <lui-button
       type="link"
       ref="luiDropdown"
