@@ -24,7 +24,7 @@
   </button>
 </template>
 <script>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import LuiIcon from "../Icon/LuiIcon.vue";
 import { generateClasses, generateVariant } from "../../mixins/methods";
 import * as prop from "../../mixins/props";
@@ -163,7 +163,7 @@ export default {
               ? `hover:bg-${props.variant}`
               : props.filter === "darker"
               ? `hover:bg-${props.variant}`
-              : props.variant !== 'white' 
+              : props.variant !== "white"
               ? `hover:bg-${props.variant}-50`
               : `hover:bg-primary`,
           fontColor:
@@ -217,7 +217,7 @@ export default {
               ? `focus:ring-2 focus:ring-${props.variant}-800 focus:ring-offset-2`
               : props.filter === "lighter"
               ? `focus:ring-2 focus:ring-${props.variant}-50 focus:ring-offset-2`
-              : props.variant !== 'white' 
+              : props.variant !== "white"
               ? `focus:ring-2 focus:ring-${props.variant} focus:ring-offset-2`
               : `focus:ring-2 focus:ring-primary focus:ring-offset-2`,
         },
@@ -249,6 +249,7 @@ export default {
           // prepend var, slot var, icon yoksa
           props.prepend !== "none" &&
           !!context.slots.default &&
+          context.slots.default()[0].children != "" &&
           props.icon === "none"
             ? props.size === "sm"
               ? "mr-1.5 -ml-0.5"
@@ -257,6 +258,7 @@ export default {
         suffixMargin:
           props.prepend === "none" &&
           !!context.slots.default &&
+          context.slots.default()[0].children != "" &&
           props.icon !== "none"
             ? props.size === "sm"
               ? "ml-1.5 -mr-0.5"
@@ -264,6 +266,11 @@ export default {
             : "m-0",
       };
       return generateClasses([{ ...classes }]);
+    });
+
+    onMounted(() => {
+      console.log("is :", !!context.slots.default);
+      console.log("SLOT :", context.slots.default()[0].children == "");
     });
     return { computedClasses, iconClasses };
   },

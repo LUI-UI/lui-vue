@@ -34,6 +34,8 @@ export default {
     LuiSelect,
     LuiInput,
     NSelect,
+    LuiDropdown,
+    LuiDropdownItem,
   },
   directives: {
     // "modal-show": {
@@ -72,6 +74,9 @@ export default {
     };
   },
   methods: {
+    handleChange(params){
+      console.log("just select a element", params)
+    },
     handleSelect(selected) {
       console.log("ay em handlingSelection", selected);
     },
@@ -85,9 +90,9 @@ export default {
     handleCheckbox(val) {
       console.log("handleCheckbox!!..", val);
     },
-    handleChange() {
-      console.log("changed changes checked!!");
-    },
+    // handleChange() {
+    //   console.log("changed changes checked!!");
+    // },
     handleTest(val) {
       console.log("input chancing", val);
     },
@@ -105,20 +110,31 @@ export default {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <lui-select :options="options"></lui-select> -->
-  <div class="flex space-x-3">
-    <lui-input placeholder="heytes!SM" size="sm" />
-    <lui-input placeholder="heytes!MD" size="md" />
-    <lui-input placeholder="heytes!LG" size="lg" />
+  <div class="flex flex-col space-y-4 pl-60">
+    <LuiDropdown prepend="more-2" text="aa" @onChange="handleChange">
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown>
+    <!-- <LuiDropdown>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown> -->
+    <!-- <LuiDropdown icon="more-2">
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown>
+    <LuiDropdown text="c">
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown> -->
+    <!-- <lui-button class="w-max" icon="more-2"></lui-button> -->
   </div>
 
-  <select id="">
-    <option value="1">One</option>
-    <option value="1">Two</option>
-    <option value="1">Three</option>
-    <option value="1">Four</option>
-  </select>
-
-  <div class="p-4 m-4 flex space-x-3">
+  <!-- <div class="p-4 m-4 flex space-x-3">
     <div>
       <label for="sellect" class="mb-1">select an option</label>
       <NSelect
@@ -137,94 +153,7 @@ export default {
       <option value="md">MD</option>
       <option value="lg">LG</option>
     </select>
-  </div>
-
-  <div class="p-24 bg-danger-50">
-    <lui-button variant="white" rounded>white</lui-button>
-    <lui-button class="mx-4" disabled>default</lui-button>
-    <lui-button filter="lighter">lighter</lui-button>
-    <hr class="my-12" />
-    <lui-button type="outline">darker</lui-button>
-    <lui-button type="outline" class="mx-4" filter="darker">darker</lui-button>
-    <lui-button type="outline" filter="lighter">lighter</lui-button>
-    <!-- <LuiCard img="https://via.placeholder.com/300" rounded class="my-12">
-      <h3>Card test!</h3>
-    </LuiCard> -->
-    <lui-button type="outline" class="mr-2">default</lui-button>
-    <lui-modal
-      :show="showModal"
-      :state="setState"
-      title="Warning test"
-      description="lorem ipsum test falan"
-      label="custom label"
-      @onConfirm="handleConfirm"
-      @onCancel="handleCancel"
-      @onCheckboxChanged="handleCheckbox"
-    />
-
-    <!-- <mtest ref="mtest" /> -->
-    <!-- <lui-modal ref="modalx" horizontal>
-      <template v-slot:icon>
-        <lui-icon name="feedback" line />
-      </template>
-      <template v-slot:title> Warning message </template>
-      <template v-slot:description>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dolor sit amet
-      </template>
-      <template v-slot:check>
-        <lui-checkbox id="test" size="lg" />
-        <label for="test">Dont show again</label>
-      </template>
-      <template v-slot:button>
-        <lui-button
-          type="outline"
-          variant="secondary"
-          rounded
-          block
-          @click="modalActive = false"
-          >Cancel</lui-button
-        >
-        <lui-button rounded block>Confirm</lui-button>
-      </template>
-      <div>Hey am em content of modal</div>
-      <lui-button filter="darker" @click="modalActive = false"
-        >darker</lui-button
-      > 
-    </lui-modal> -->
-  </div>
-  <!-- <div class="p-14">
-    <lui-dropdown text="dropdown" placement="topRight" @onChange="handleDDChanges">
-      <lui-dropdown-item>item1</lui-dropdown-item>
-      <lui-dropdown-item>item1</lui-dropdown-item>
-      <lui-dropdown-item>item1</lui-dropdown-item>
-    </lui-dropdown>
-    <hr class="my-4" />
-    <lui-button icon="home">test</lui-button>
-    <hr class="my-4" />
-    <lui-tabs>
-      <lui-tab title="tab1">tabC1</lui-tab>
-      <lui-tab title="tab2">tabC2</lui-tab>
-      <lui-tab title="tab3">tabC3</lui-tab>
-      <lui-tab title="tab4">tabC4</lui-tab>
-    </lui-tabs>
-    <hr class="my-4" />
-    <lui-select 
-      :options="options" 
-      size="md" 
-      multiple 
-      :selectAppend="sAppend" 
-      :optionPrepend="sAppend" 
-    />
-    <hr class="my-4" />
-    <lui-checkbox size="sm" />
-    <hr class="my-4" />
-    <lui-chip icon="home" size="lg" :iconLine="false">Chip</lui-chip>
-    <hr class="my-8" />
-    <lui-select :options="options" multiple textField="text" />
-    <hr class="my-8" />
-    <lui-link to="/About" tag="vue">this is link</lui-link>
   </div> -->
-  <!-- <div class="text-danger-600">hehey</div>  -->
 </template>
 
 <style>

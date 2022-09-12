@@ -1,7 +1,9 @@
 <template>
   <div role="listbox" class="dropdown" :class="computedClasses.container">
+    <!-- :prepend="icon === 'default' ? iconName.prepend : prepend" -->
     <lui-button
       type="link"
+      ref="luiDropdown"
       v-bind="$attrs"
       :variant="variant"
       :size="size"
@@ -14,7 +16,7 @@
       :uppercase="uppercase"
       :filter="filter"
       :font-bold="fontBold"
-      @click.stop="menuActive = !menuActive"
+      @click="menuActive = !menuActive"
     >
       {{ text }}
     </lui-button>
@@ -54,7 +56,7 @@ export default {
       "leftTop",
       "leftBottom",
     ]),
-    prop.string("text", "Dropdown"),
+    prop.string("text", ""),
     prop.size("md", ["sm", "md", "lg"]),
   ],
   emits: ["onChange"],
@@ -77,12 +79,15 @@ export default {
     provide("parentProps", parentProps.value);
 
     const menuActive = ref(false);
+    const luiDropdown = ref(null);
     watch(menuActive, (val) => {
       emit("onChange", val);
     });
 
-    function closeDropdown() {
-      menuActive.value = false;
+    function closeDropdown(e) {
+      if (!luiDropdown.value.$el.contains(e.target)) {
+        menuActive.value = false;
+      }
     }
 
     const iconName = computed(() => {
@@ -115,7 +120,7 @@ export default {
         container: {
           position: "relative",
           width: props.block ? "w-full" : "w-max",
-          zIndex: "z-10",
+          zIndex: menuActive.value ? "z-50" : "z-10",
         },
         content: {
           position: "absolute",
@@ -157,7 +162,7 @@ export default {
       };
     });
 
-    return { menuActive, computedClasses, iconName };
+    return { menuActive, computedClasses, iconName, luiDropdown };
   },
 };
 </script>

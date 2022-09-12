@@ -1,4 +1,4 @@
-import '../index.css'
+// import '../index.css'
 
 export { default as LuiAccordion } from './Accordion/LuiAccordion.vue'
 export { default as LuiAccordionGroup } from './Accordion/LuiAccordionGroup.vue'
