@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-// import "remixicon/fonts/remixicon.css";
+import "remixicon/fonts/remixicon.css";
 import "./index.css";
 
 const app = createApp(App);

@@ -110,8 +110,19 @@ export default {
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <lui-select :options="options"></lui-select> -->
+  <div>tests</div>
   <div class="flex flex-col space-y-4 pl-60">
-    <LuiDropdown prepend="more-2" text="aa" @onChange="handleChange">
+    <LuiDropdown icon="more-2" @onChange="handleChange">
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown>
+    <LuiDropdown icon="more" @onChange="handleChange">
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+      <LuiDropdownItem> item 1</LuiDropdownItem>
+    </LuiDropdown>
+    <LuiDropdown icon="more-2" @onChange="handleChange">
       <LuiDropdownItem> item 1</LuiDropdownItem>
       <LuiDropdownItem> item 1</LuiDropdownItem>
       <LuiDropdownItem> item 1</LuiDropdownItem>
