@@ -10,7 +10,7 @@
     style="background-color: rgba(0, 0, 0, 0.6)"
   >
     <div class="content" :class="computedClasses.content">
-      <div :class="computedClasses.iconWrapper">
+      <div v-if="showIcon" :class="computedClasses.iconWrapper">
         <slot name="icon" />
         <lui-icon v-if="!hasIconSlot" :name="iconNames[state]" line />
       </div>
@@ -23,15 +23,20 @@
           <slot name="description" />
           {{ description }}
         </p>
+        <slot />
         <div class="bottom" :class="computedClasses.bottom">
-          <div class="check" :class="computedClasses.checkWrapper">
+          <div
+            class="check"
+            v-if="showCheckbox"
+            :class="computedClasses.checkWrapper"
+          >
             <slot name="check" />
             <lui-checkbox
               id="lui-modal-checkbox"
               size="lg"
               @onChange="$emit('onCheckboxChanged', $event)"
             />
-            <label for="lui-modal-checkbox">{{ label }}</label>
+            <label for="lui-modal-checkbox">{{ checkboxLabel }}</label>
           </div>
           <div class="button" :class="computedClasses.buttonWrapper">
             <slot name="button" />
@@ -41,16 +46,16 @@
               rounded
               block
               @click="$emit('onCancel')"
-              >Cancel
+              >{{ cancelLabel }}
             </lui-button>
             <lui-button rounded block @click="$emit('onConfirm')">
-              Confirm
+              {{ confirmLabel }}
             </lui-button>
           </div>
         </div>
       </div>
 
-      <slot />
+      <!-- <slot /> -->
     </div>
   </div>
 </template>
@@ -66,11 +71,15 @@ export default {
   components: { LuiIcon, LuiButton, LuiCheckbox },
   mixins: [
     prop.string("state", "info", ["info", "success", "warning", "danger"]),
+    prop.boolean("show", false),
     prop.string("title", ""),
     prop.string("description", ""),
-    prop.string("label", "Dont show again"),
     prop.boolean("vertical", false),
-    prop.boolean("show", false),
+    prop.boolean("showCheckbox", false),
+    prop.boolean("showIcon", true),
+    prop.string("checkboxLabel", "Dont show again"),
+    prop.string("confirmLabel", "Confirm"),
+    prop.string("cancelLabel", "Cancel"),
   ],
   emits: ["onConfirm", "onCancel", "onCheckboxChanged"],
   setup(props, { slots }) {
@@ -79,7 +88,7 @@ export default {
       return !!slots.icon;
     });
 
-    const test = ref(props.show);
+    // const test = ref(props.show);
 
     const iconNames = {
       success: "check-double",
@@ -100,7 +109,7 @@ export default {
           display: "flex",
           alignItems: "items-center",
           justifyContent: "justify-center",
-          zIndex: "z-30",
+          zIndex: props.show ? "z-50" : "",
         },
         content: {
           padding: "p-6",
@@ -183,7 +192,6 @@ export default {
     return {
       computedClasses,
       hasIconSlot,
-      test,
       iconNames,
     };
   },

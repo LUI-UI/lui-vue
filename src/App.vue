@@ -74,8 +74,8 @@ export default {
     };
   },
   methods: {
-    handleChange(params){
-      console.log("just select a element", params)
+    handleChange(params) {
+      console.log("just select a element", params);
     },
     handleSelect(selected) {
       console.log("ay em handlingSelection", selected);
@@ -85,9 +85,9 @@ export default {
     },
     handleCancel() {
       console.log("just cancelled!!..");
-      this.showModal = false;
+      // this.showModal = false;
     },
-    handleCheckbox(val) {
+    handleCheckboxChanged(val) {
       console.log("handleCheckbox!!..", val);
     },
     // handleChange() {
@@ -127,6 +127,21 @@ export default {
       <LuiDropdownItem> item 1</LuiDropdownItem>
       <LuiDropdownItem> item 1</LuiDropdownItem>
     </LuiDropdown>
+    <LuiModal
+      :show="true"
+      title="title test"
+      description="descr test"
+      state="danger"
+      :show-checkbox="true"
+      @onConfirm="handleConfirm"
+      @onCancel="handleCancel"
+      @onCheckboxChanged="handleCheckboxChanged"
+    >
+      <div>
+        KEndi etrafimda bazen seanki herkes yok oluyor hep buirileri olsa da
+        kendi etrafindaaa aaaa a a
+      </div>
+    </LuiModal>
     <!-- <LuiDropdown>
       <LuiDropdownItem> item 1</LuiDropdownItem>
       <LuiDropdownItem> item 1</LuiDropdownItem>
