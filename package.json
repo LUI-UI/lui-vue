@@ -1,6 +1,6 @@
 {
   "name": "@lui-ui/lui-vue",
-  "version": "0.23.0",
+  "version": "0.24.0",
   "scripts": {
     "dev": "vite",
     "safelist": "npx tailwindcss build",
