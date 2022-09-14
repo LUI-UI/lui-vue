@@ -1,13 +1,13 @@
 {
   "name": "@lui-ui/lui-vue",
-  "version": "0.27.0",
+  "version": "0.27.1",
   "scripts": {
     "dev": "vite",
     "safelist": "npx tailwindcss build",
     "build": "vite build",
     "preview": "vite preview",
     "sb": "start-storybook -p 6006",
-    "pub": "yarn safelist && yarn build && yarn publish",
+    "pub": "yarn build && yarn safelist && yarn publish",
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
