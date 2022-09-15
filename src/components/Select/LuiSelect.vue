@@ -385,6 +385,10 @@ export default {
           paddingBottom: "pb-2",
           boxShadow: "shadow-md",
           marginTop: "mt-2",
+          position: "absolute",
+          width: "w-full",
+          top: "top-full",
+          marginTop: "mt-2",
           // ringWidth: props.state === null ? "focus:ring-4" : "ring-4",
           // ringColor:
           //   props.state === null

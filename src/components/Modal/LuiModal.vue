@@ -54,8 +54,6 @@
           </div>
         </div>
       </div>
-
-      <!-- <slot /> -->
     </div>
   </div>
 </template>

@@ -127,7 +127,11 @@ export default {
       <LuiDropdownItem> item 1</LuiDropdownItem>
       <LuiDropdownItem> item 1</LuiDropdownItem>
     </LuiDropdown>
-    <LuiModal
+    <div class="p-10 bg-danger-50">
+      <lui-select multiple :options="['a','b','c','d','e']" />
+      <div>selam</div>
+    </div>
+    <!-- <LuiModal
       :show="true"
       title="title test"
       description="descr test"
@@ -141,23 +145,7 @@ export default {
         KEndi etrafimda bazen seanki herkes yok oluyor hep buirileri olsa da
         kendi etrafindaaa aaaa a a
       </div>
-    </LuiModal>
-    <!-- <LuiDropdown>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown> -->
-    <!-- <LuiDropdown icon="more-2">
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown>
-    <LuiDropdown text="c">
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown> -->
-    <!-- <lui-button class="w-max" icon="more-2"></lui-button> -->
+    </LuiModal> -->
   </div>
 
   <!-- <div class="p-4 m-4 flex space-x-3">
