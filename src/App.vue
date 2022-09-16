@@ -63,6 +63,7 @@ export default {
       options: ["option 1", "option 2", "option 3", "option 4"],
       selectedOption: "option 1",
       selectsize: "md",
+      modelTest: ["a", "b", "c"],
       // options: [
       //   { text: "Select a city", value: 0, disabled: true },
       //   { text: "Edirne", value: 22 },
@@ -72,6 +73,14 @@ export default {
       //   { text: "Mugla", value: 48 },
       // ],
     };
+  },
+  watch: {
+    modelTest: {
+      handler(a) {
+        console.log("modelTest: ", a);
+      },
+      deep: true,
+    },
   },
   methods: {
     handleChange(params) {
@@ -128,7 +137,11 @@ export default {
       <LuiDropdownItem> item 1</LuiDropdownItem>
     </LuiDropdown>
     <div class="p-10 bg-danger-50">
-      <lui-select multiple :options="['a','b','c','d','e']" />
+      <lui-select
+        multiple
+        v-model="modelTest"
+        :options="['a', 'b', 'c', 'd', 'e']"
+      />
       <div>selam</div>
     </div>
     <!-- <LuiModal

@@ -178,7 +178,7 @@ export default {
       if (!props.multiple) {
         selectedOption.value = initalValue.value;
       } else {
-        selectedOptions.value.push(props.modelValue);
+        selectedOptions.value = initalValue.value;
       }
     }
 
