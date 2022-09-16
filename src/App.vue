@@ -144,10 +144,8 @@ export default {
         v-model="modelTest"
         :options="['a', 'b', 'c', 'd', 'e']"
       />
-      <div>selam</div>
-      <LuiCheckbox id="test" v-model="checkTest" />
-      <LuiLabel for="test">label</LuiLabel>
-      <div>checktest {{ checkTest }}</div>
+      <div>{{ modelTest }}</div>
+      <button @click="modelTest = ['d', 'e']">testy</button>
     </div>
     <!-- <LuiModal
       :show="true"

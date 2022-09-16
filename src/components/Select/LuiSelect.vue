@@ -94,7 +94,7 @@ import LuiChip from "../Chip/LuiChip.vue";
 import LuiIcon from "../Icon/LuiIcon.vue";
 import LuiBadge from "../Badge/LuiBadge.vue";
 
-import { computed, ref, provide, onUnmounted, onMounted } from "vue";
+import { computed, ref, provide, onUnmounted, onMounted, watch } from "vue";
 import { generateClasses } from "../../mixins/methods";
 import * as prop from "../../mixins/props";
 export default {
@@ -173,6 +173,7 @@ export default {
 
     provide("parentProps", parentProps.value);
 
+    // set default value
     if (props.modelValue !== "") {
       const initalValue = ref(props.modelValue);
       if (!props.multiple) {
@@ -181,6 +182,21 @@ export default {
         selectedOptions.value = initalValue.value;
       }
     }
+    watch(
+      () => props.modelValue,
+      (val) => {
+        if (!props.multiple) {
+          selectedOption.value = val;
+        } else {
+          selectedOptions.value = val;
+        }
+        // console.log(
+        //   "Watch props.modalValue function called with args:",
+        //   first,
+        //   second
+        // );
+      }
+    );
 
     onMounted(() => {
       document.addEventListener("click", closeSelect);
