@@ -4,7 +4,8 @@
       type="checkbox"
       :class="computedClasses.input"
       v-bind="$attrs"
-      @change="$emit('onChange', $event.target.checked)"
+      :checked="modelValue"
+      @change="$emit('update:modelValue', $event.target.checked)"
     />
     <span :for="computedFor" :class="computedClasses.label">
       <svg
@@ -48,7 +49,14 @@ export default {
         return [null, "warning", true, false].includes(value);
       },
     },
+    modelValue: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
+  emits: ["update:modelValue"],
+
   setup(props, { attrs }) {
     function findSize(sizes) {
       return sizes[props.size];

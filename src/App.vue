@@ -27,6 +27,7 @@ export default {
     LuiModal,
     LuiIcon,
     LuiCheckbox,
+    LuiLabel,
     LuiAccordionGroup,
     LuiAccordion,
     LuiRadio,
@@ -58,6 +59,7 @@ export default {
     return {
       setState: "warning",
       showModal: false,
+      checkTest: true,
       price: "year",
       test: "test",
       options: ["option 1", "option 2", "option 3", "option 4"],
@@ -143,6 +145,9 @@ export default {
         :options="['a', 'b', 'c', 'd', 'e']"
       />
       <div>selam</div>
+      <LuiCheckbox id="test" v-model="checkTest" />
+      <LuiLabel for="test">label</LuiLabel>
+      <div>checktest {{ checkTest }}</div>
     </div>
     <!-- <LuiModal
       :show="true"
