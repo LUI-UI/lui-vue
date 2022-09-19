@@ -1,5 +1,5 @@
 <template>
-  <div :class="attrClasses">
+  <div :class="[attrClasses, block ? 'w-full' : 'w-max']">
     <div :class="parentClasses">
       <lui-icon
         v-if="prepend !== 'none'"

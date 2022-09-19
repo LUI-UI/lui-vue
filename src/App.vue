@@ -65,7 +65,7 @@ export default {
       options: ["option 1", "option 2", "option 3", "option 4"],
       selectedOption: "option 1",
       selectsize: "md",
-      modelTest: ["a", "b", "c"],
+      modelTest: null,
       // options: [
       //   { text: "Select a city", value: 0, disabled: true },
       //   { text: "Edirne", value: 22 },
@@ -122,46 +122,31 @@ export default {
   <img alt="Vue logo" src="./assets/logo.png" />
   <!-- <lui-select :options="options"></lui-select> -->
   <div>tests</div>
+  <div class="p-10 bg-danger-50">
+    <!-- <lui-select v-model="modelTest" :options="[null, true, false]" /> -->
+    <div>{{ test }}</div>
+    <lui-input class="w-[300px]" v-model="test" placeholder="test" :state="modelTest" />
+    <button class="mt-4 p-2" @click="modelTest = true">set state</button>
+  </div>
   <div class="flex flex-col space-y-4 pl-60">
-    <LuiDropdown icon="more-2" @onChange="handleChange">
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown>
-    <LuiDropdown icon="more" @onChange="handleChange">
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown>
-    <LuiDropdown icon="more-2" @onChange="handleChange">
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-      <LuiDropdownItem> item 1</LuiDropdownItem>
-    </LuiDropdown>
-    <div class="p-10 bg-danger-50">
-      <lui-select
-        multiple
-        v-model="modelTest"
-        :options="['a', 'b', 'c', 'd', 'e']"
-      />
-      <div>{{ modelTest }}</div>
-      <button @click="modelTest = ['d', 'e']">testy</button>
-    </div>
-    <!-- <LuiModal
+    <LuiModal
       :show="true"
-      title="title test"
       description="descr test"
       state="danger"
-      :show-checkbox="true"
       @onConfirm="handleConfirm"
       @onCancel="handleCancel"
       @onCheckboxChanged="handleCheckboxChanged"
     >
-      <div>
+      <template #cancelButton>
+        <div>Cancel!</div>
+      </template>
+      <template #title>
+        <div>title ini <span class="text-danger">testlerim</span> haberin olmaz!!</div>
+      </template>
+      <!-- <div>
         KEndi etrafimda bazen seanki herkes yok oluyor hep buirileri olsa da
-        kendi etrafindaaa aaaa a a
-      </div>
-    </LuiModal> -->
+      </div> -->
+    </LuiModal>
   </div>
 
   <!-- <div class="p-4 m-4 flex space-x-3">

@@ -15,12 +15,12 @@
         <lui-icon v-if="!hasIconSlot" :name="iconNames[state]" line />
       </div>
       <div>
-        <h3 class="title" :class="computedClasses.title">
-          <slot name="title" />
+        <slot v-if="checkNamedSlots.title" name="title" />
+        <h3 v-else class="title" :class="computedClasses.title">
           {{ title }}
         </h3>
-        <p class="description" :class="computedClasses.description">
-          <slot name="description" />
+        <slot v-if="checkNamedSlots.description" name="description" />
+        <p v-else class="description" :class="computedClasses.description">
           {{ description }}
         </p>
         <slot />
@@ -30,8 +30,9 @@
             v-if="showCheckbox"
             :class="computedClasses.checkWrapper"
           >
-            <slot name="check" />
+            <slot v-if="checkNamedSlots.check" name="check" />
             <lui-checkbox
+              v-else
               id="lui-modal-checkbox"
               size="lg"
               @onChange="$emit('onCheckboxChanged', $event)"
@@ -39,8 +40,9 @@
             <label for="lui-modal-checkbox">{{ checkboxLabel }}</label>
           </div>
           <div class="button" :class="computedClasses.buttonWrapper">
-            <slot name="button" />
+            <slot v-if="checkNamedSlots.cancelButton" name="cancelButton" />
             <lui-button
+              v-else
               variant="secondary"
               type="outline"
               rounded
@@ -48,7 +50,9 @@
               @click="$emit('onCancel')"
               >{{ cancelLabel }}
             </lui-button>
-            <lui-button rounded block @click="$emit('onConfirm')">
+
+            <slot v-if="checkNamedSlots.confirmButton" name="confirmButton" />
+            <lui-button v-else rounded block @click="$emit('onConfirm')">
               {{ confirmLabel }}
             </lui-button>
           </div>
@@ -84,6 +88,21 @@ export default {
     // BG OPACITY DOES NOT WORK!
     const hasIconSlot = computed(() => {
       return !!slots.icon;
+    });
+    // const hasCancelButtonSlot = computed(() => {
+    //   return !!slots.cancelButton;
+    // });
+    // const hasConfirmButtonSlot = computed(() => {
+    //   return !!slots.confirmButton;
+    // });
+    const checkNamedSlots = computed(() => {
+      return {
+        title: !!slots.title,
+        description: !!slots.description,
+        check: !!slots.check,
+        cancelButton: !!slots.cancelButton,
+        confirmButton: !!slots.confirmButton,
+      };
     });
 
     // const test = ref(props.show);
@@ -191,6 +210,7 @@ export default {
       computedClasses,
       hasIconSlot,
       iconNames,
+      checkNamedSlots,
     };
   },
 };
