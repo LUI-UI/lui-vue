@@ -1,5 +1,5 @@
 <template>
-  <div :class="computedClasses.selectWrapper">
+  <div ref="selectWrapperRef" :class="computedClasses.selectWrapper">
     <button
       type="button"
       aria-haspopup="listbox"
@@ -48,11 +48,13 @@
     </button>
     <ul
       v-show="optionsActive"
+      ref="optionWrapperRef"
       tabindex="-1"
       role="listbox"
       aria-labelledby="exp_elem"
       :aria-activedescendant="selectedOption"
       :class="computedClasses.options"
+      :style="`max-height: ${optionsPositionAndSize().size}`"
       @keydown.stop="handleOptionsKeyEvents($event)"
     >
       <lui-option
@@ -103,6 +105,7 @@ export default {
     prop.string("placeholder", "select item"),
     prop.string("textField", "none"),
     prop.string("valueField", "none"),
+    prop.string("maxHeight", "442px"),
     prop.boolean("multiple", false),
     prop.boolean("rounded", true),
     prop.size("md", ["sm", "md", "lg"]),
@@ -165,6 +168,8 @@ export default {
     let selectedOption = ref(props.placeholder);
     let selectedOptions = ref([]);
     let targetOption = ref("");
+    let selectWrapperRef = ref("");
+    let optionWrapperRef = ref("");
     const parentProps = ref({
       size: props.size,
       rounded: props.rounded,
@@ -200,6 +205,10 @@ export default {
 
     onMounted(() => {
       document.addEventListener("click", closeSelect);
+      console.log("EL :", selectWrapperRef.value.getBoundingClientRect());
+      // console.log("WINDOW INNHER HEIGHT :", window.innerHeight);
+      // console.log("OFFSET :", selectWrapperRef.value.offset());
+      // console.log("window :", window.pageYOffset);
     });
     onUnmounted(() => {
       document.removeEventListener("click", closeSelect);
@@ -207,6 +216,23 @@ export default {
 
     function findSize(sizes) {
       return sizes[props.size];
+    }
+    function optionsPositionAndSize() {
+      if (selectWrapperRef.value === "")
+        return { position: "bottom", size: props.maxHeight };
+      const r = /\d+/;
+      const elementMaxHeight = Number(props.maxHeight.match(r));
+      const elemenentMinHeight = 200;
+      // distance from element bottom to window top
+      const { bottom } = selectWrapperRef.value.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      // distance from element bottom to window bottom
+      const distance = windowHeight - bottom;
+      return distance > elementMaxHeight
+        ? { position: "bottom", size: `${elementMaxHeight}px` }
+        : distance > elemenentMinHeight
+        ? { position: "bottom", size: `${distance - 16}px` }
+        : { position: "top", size: `${elementMaxHeight}px` };
     }
 
     function isOptionSelected(option) {
@@ -347,7 +373,7 @@ export default {
         selectWrapper: {
           width: "w-max",
           position: "relative",
-          zIndex: "z-10",
+          zIndex: optionsActive ? "z-50" : "",
         },
         button: {
           display: "flex",
@@ -400,20 +426,18 @@ export default {
               : "border-secondary-200 focus:border-primary",
           paddingBottom: "pb-2",
           boxShadow: "shadow-md",
-          marginTop: "mt-2",
           position: "absolute",
           width: "w-full",
-          top: "top-full",
-          marginTop: "mt-2",
-          // ringWidth: props.state === null ? "focus:ring-4" : "ring-4",
-          // ringColor:
-          //   props.state === null
-          //     ? "focus:ring-primary-100"
-          //     : props.state === true
-          //     ? "ring-success-100"
-          //     : props.state === false
-          //     ? "ring-danger-100"
-          //     : "ring-warning-100",
+          overflowY: "overflow-y-auto",
+          scrollBar: 'scrollbar-hide',
+          marginTop:
+            optionsPositionAndSize().position === "bottom" ? "mt-2" : "mb-2",
+          bottom:
+            optionsPositionAndSize().position === "bottom"
+              ? "top-full"
+              : "bottom-full",
+          // top: "top-full",
+          // marginTop: "mt-2",
         },
         multipleWrapper: {
           display: "flex",
@@ -464,7 +488,22 @@ export default {
       optionsRef,
       targetOption,
       contentProps,
+      selectWrapperRef,
+      optionWrapperRef,
+      optionsPositionAndSize,
     };
   },
 };
 </script>
+<style scoped>
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+</style>

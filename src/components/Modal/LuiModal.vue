@@ -10,6 +10,9 @@
     style="background-color: rgba(0, 0, 0, 0.6)"
   >
     <div class="content" :class="computedClasses.content">
+      <!-- <div class="header"></div>
+      <div class="body"></div>
+      <div class="footer"></div> -->
       <div v-if="showIcon" :class="computedClasses.iconWrapper">
         <slot name="icon" />
         <lui-icon v-if="!hasIconSlot" :name="iconNames[state]" line />

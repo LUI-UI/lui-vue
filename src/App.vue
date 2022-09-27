@@ -119,56 +119,32 @@ export default {
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <!-- <lui-select :options="options"></lui-select> -->
-  <div>tests</div>
-  <div class="p-10 bg-danger-50">
-    <!-- <lui-select v-model="modelTest" :options="[null, true, false]" /> -->
-    <div>{{ test }}</div>
-    <lui-input class="w-[300px]" v-model="test" placeholder="test" :state="modelTest" />
-    <button class="mt-4 p-2" @click="modelTest = true">set state</button>
-  </div>
-  <div class="flex flex-col space-y-4 pl-60">
-    <LuiModal
-      :show="true"
-      description="descr test"
-      state="danger"
-      @onConfirm="handleConfirm"
-      @onCancel="handleCancel"
-      @onCheckboxChanged="handleCheckboxChanged"
-    >
-      <template #cancelButton>
-        <div>Cancel!</div>
-      </template>
-      <template #title>
-        <div>title ini <span class="text-danger">testlerim</span> haberin olmaz!!</div>
-      </template>
-      <!-- <div>
-        KEndi etrafimda bazen seanki herkes yok oluyor hep buirileri olsa da
-      </div> -->
-    </LuiModal>
-  </div>
-
-  <!-- <div class="p-4 m-4 flex space-x-3">
-    <div>
-      <label for="sellect" class="mb-1">select an option</label>
-      <NSelect
-        id="sellect"
-        :options="options"
-        :state="true"
-        :size="selectsize"
-        v-model="selectedOption"
-        @change="handleSelect"
-        description="this is beatiful description"
+  <img alt="Vue logo" width="200" height="200" src="./assets/logo.png" />
+  <!-- <div class="text-9xl my-28">test selam naber</div> -->
+  <div class="h-[3000px] pt-72">
+    
+    <div class="flex items-centert justify-center space-x-6">
+      <lui-input class="mt-3 w-[400px]" :state="false" />
+      <LuiSelect
+        :options="[
+          'javascript',
+          'swift',
+          'objective-c',
+          'go',
+          'rust',
+          'java',
+          'c++',
+          'ruby',
+          'php',
+          'pyhton',
+          'r',
+          'c',
+          'basic',
+          'kotlin',
+        ]"
       />
     </div>
-    <span>{{ selectedOption }}</span>
-    <select v-model="selectsize">
-      <option value="sm">SM</option>
-      <option value="md">MD</option>
-      <option value="lg">LG</option>
-    </select>
-  </div> -->
+  </div>
 </template>
 
 <style>
