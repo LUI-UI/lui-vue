@@ -100,6 +100,7 @@ module.exports = {
         "focus:text-{colors}",
         "visited:text-{colors}",
         "disabled:text-{colors}",
+        "placeholder:text-{colors}",
         "border-{colors}",
         "hover:border-{colors}",
         "focus:border-{colors}",

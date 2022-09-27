@@ -15,6 +15,9 @@ export default {
     textField: {
       control: { type: "text" },
     },
+    maxHeight: {
+      control: { type: "text" },
+    },
     valueField: {
       control: { type: "text" },
     },
@@ -86,7 +89,9 @@ const Template = (args) => ({
     return { args, options, selectedOption };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: `<lui-select v-bind="args" :options="options" v-model="selectedOption"> </lui-select>`,
+  template: `<div class="pt-72">
+  <lui-select v-bind="args" :options="options" v-model="selectedOption"> </lui-select>
+  </div>`,
 });
 
 export const Default = Template.bind({});

@@ -123,9 +123,10 @@ export default {
   <!-- <div class="text-9xl my-28">test selam naber</div> -->
   <div class="h-[3000px] pt-72">
     
-    <div class="flex items-centert justify-center space-x-6">
-      <lui-input class="mt-3 w-[400px]" :state="false" />
-      <LuiSelect
+    <div class="pl-72">
+      <p class="text-primary">Lorem ipsum dolor sit amet.</p>
+      <lui-input size="lg" id="llll" placeholder="TEST!" />
+      <!-- <LuiSelect
         :options="[
           'javascript',
           'swift',
@@ -142,7 +143,7 @@ export default {
           'basic',
           'kotlin',
         ]"
-      />
+      /> -->
     </div>
   </div>
 </template>

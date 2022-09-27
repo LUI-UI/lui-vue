@@ -1,5 +1,5 @@
 <template>
-  <div :class="[attrClasses, block ? 'w-full' : 'w-max']">
+  <div :class="[block ? 'w-full' : 'w-max']">
     <div :class="parentClasses">
       <lui-icon
         v-if="prepend !== 'none'"
@@ -59,6 +59,9 @@ export default {
     prop.boolean("clear", false),
     prop.boolean("block", false),
     prop.string("description", "none"),
+    // prop.variant("bgVariant", ""),
+    prop.variant("textVariant", "secondary"),
+    prop.variant("placeholderVariant", "secondary"),
   ],
   inheritAttrs: false,
   props: {
@@ -134,7 +137,7 @@ export default {
         borderRadius: `rounded-${props.size}`,
         fontSize: props.size === "sm" ? "text-xs" : "text-base",
         lineHeight: props.size === "sm" ? "leading-4.5" : "leading-6",
-        fontColor: "placeholder-secondary-400 text-secondary-600",
+        fontColor: `text-${props.textVariant}-600 placeholder:text-${props.placeholderVariant}-400`,
         width: props.block ? "w-full" : "w-48",
         // width: 'w-72'
       };
@@ -148,7 +151,7 @@ export default {
         disabled: {
           border: "disabled:border-secondary",
           backgroundColor: "disabled:bg-secondary-100",
-          fontColor: "disabled:text-secondary-300",
+          fontColor: `disabled:text-${props.textVariant}-300`,
           ring: "disabled:ring-0 disabled:ring-transparent",
         },
       };
@@ -165,7 +168,7 @@ export default {
           ? "text-danger"
           : props.state === "warning"
           ? "text-warning"
-          : "text-secondary-600";
+          : `text-${props.textVariant}-600`;
       return `${textColor} inline-block text-xs leading-4.5 mt-1`;
     });
 
@@ -189,7 +192,7 @@ export default {
             : "text-2xl",
         color:
           !!context.attrs.disabled === true
-            ? "text-secondary-300"
+            ? `text-${props.textVariant}-300`
             : props.state === "warning"
             ? "text-warning"
             : props.state === false
@@ -200,8 +203,8 @@ export default {
         position: "absolute top-2/4 transform -translate-y-1/2",
         prepend:
           props.size === "lg"
-            ? "text-secondary-400 left-3"
-            : "text-secondary-400 left-2",
+            ? `text-${props.textVariant}-400 left-3`
+            : `text-${props.textVariant}-400 left-2`,
         state: props.size === "lg" ? "right-3" : "right-2",
         clear:
           props.state === null
@@ -223,8 +226,8 @@ export default {
       descriptionClasses,
       iconClasses,
       parentClasses,
-      attrClasses,
       handleInputEvents,
+      attrClasses,
     };
   },
 };

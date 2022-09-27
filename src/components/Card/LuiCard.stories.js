@@ -1,36 +1,44 @@
-import LuiCard from './LuiCard.vue'
-import * as prop from '../../utils/storyProps'
+import LuiCard from "./LuiCard.vue";
+import * as prop from "../../utils/storyProps";
+// const props
 export default {
-  title: 'LuiCard',
+  title: "LuiCard",
   components: LuiCard,
-  argTypes: {
-    img: prop.img,
-    border: prop.border,
-    rounded: prop.rounded,
-    borderFilter: prop.borderFilter,
-    bgFilter: prop.bgFilter,
-    textFilter: prop.textFilter,
-    bgVariant: prop.bgVariant,
-    textVariant: prop.textVariant,
-    borderVariant: prop.borderVariant,
-  },
-}
 
-const Template = (args) => ({
+  // argTypes: {
+  //   img: prop.img,
+  //   border: prop.border,
+  //   rounded: prop.rounded,
+  //   borderFilter: prop.borderFilter,
+  //   bgFilter: prop.bgFilter,
+  //   textFilter: prop.textFilter,
+  //   bgVariant: prop.bgVariant,
+  //   textVariant: prop.textVariant,
+  //   borderVariant: prop.borderVariant,
+  // },
+};
+
+const Template = (args, { argTypes }) => ({
   components: { LuiCard },
-  setup() {
-    return { args }
-  },
+  props: Object.keys(argTypes),
+  // setup() {
+  //   return { args };
+  // },
   template: `
   <div class="p-5 flex justify-center">
-  <lui-card v-bind="args" class="w-1/2"> Test </lui-card>
+  <lui-card v-bind="$props" class="w-1/2"> Test </lui-card>
   </div>
   `,
-})
-export const Default = Template.bind({})
-Default.args = {
-  bgVariant: 'primary',
-  textVariant: 'secondary',
-  bgFilter: 'lighter',
-  textFilter: 'darker',
-}
+});
+export const Default = Template.bind({});
+// Default.args = {
+//   img: prop.img,
+//   border: prop.border,
+//   rounded: prop.rounded,
+//   borderFilter: prop.borderFilter,
+//   bgFilter: prop.bgFilter,
+//   textFilter: prop.textFilter,
+//   bgVariant: prop.bgVariant,
+//   textVariant: prop.textVariant,
+//   borderVariant: prop.borderVariant,
+// };
