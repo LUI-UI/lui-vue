@@ -1,0 +1,8 @@
+// .babelrc for Storybook TS optimization
+
+{
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-typescript"
+    ]
+  }
