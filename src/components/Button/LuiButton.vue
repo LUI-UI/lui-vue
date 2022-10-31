@@ -7,10 +7,10 @@ export default {
 <script setup lang="ts">
 import { computed } from "vue";
 import classNames from "classnames";
-import { useButtonClasses } from "./useButtonClasses";
+import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
 import type { ButtonTag, ButtonSize } from "./button-types";
-import type {
+import {
   Variant,
   Filter,
   Rounded,
@@ -42,7 +42,7 @@ const props = defineProps({
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: true,
+    default: false,
   },
   block: {
     type: Boolean as PropType<Block>,
@@ -62,7 +62,15 @@ const props = defineProps({
   },
 });
 const buttonClasses = useButtonClasses(props);
-const iconClasses = computed(() => "icon");
+const computedIconSize = computed(() =>
+  props.icon === "none"
+    ? "md"
+    : props.size === "sm"
+    ? "md"
+    : props.size === "lg"
+    ? "xl"
+    : "2xl"
+);
 const computedClasses = computed(() => {
   return classNames(
     Object.values({
@@ -79,14 +87,24 @@ const computedClasses = computed(() => {
     :class="[computedClasses]"
     v-bind="$attrs"
   >
-    <lui-icon v-if="prepend !== 'none'" :icon="prepend" :class="iconClasses" />
-    <span
-      v-if="prepend !== 'none' && icon !== 'none'"
-      :class="size === 'sm' ? 'mx-1.5' : 'mx-2.5'"
-    >
-      <slot />
-    </span>
-    <slot v-else />
-    <lui-icon v-if="icon !== 'none'" :icon="icon" :class="iconClasses" />
+    <lui-icon
+      v-if="icon !== 'none'"
+      :icon="icon"
+      :size="computedIconSize"
+      class="leading-none"
+    />
+    <template v-else>
+      <lui-icon
+        v-if="prepend !== 'none'"
+        :icon="prepend"
+        :size="computedIconSize"
+      />
+      <span><slot></slot></span>
+      <lui-icon
+        v-if="append !== 'none'"
+        :icon="append"
+        :size="computedIconSize"
+      />
+    </template>
   </component>
 </template>

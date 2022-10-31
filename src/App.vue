@@ -7,6 +7,11 @@ import LuiIcon from "./components/Icon/LuiIcon.vue";
 
 <template>
   <div>
+    <svg class="remix">
+      <use
+        xlink:href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.symbol.svg/remixicon.symbol.svg#ri-admin-fill"
+      ></use>
+    </svg>
     <div class="p-3 m-3 flex justify-center space-x-5">
       <LuiIcon :icon="{ name: 'search', type: 'fill' }" size="xl"></LuiIcon>
       <LuiButtonVue variant="outline" filter="darken">Test</LuiButtonVue>

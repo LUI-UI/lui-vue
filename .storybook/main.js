@@ -6,8 +6,7 @@ module.exports = {
   "addons": [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-    // "@storybook/backgrounds"
+    "@storybook/addon-interactions"
   ],
   "framework": "@storybook/vue3",
   "core": {

@@ -1,9 +1,9 @@
-import { reactive, useSlots } from "vue";
+import { reactive } from "vue";
 import classNames from "classnames";
 //Types
 import type { PropType, ExtractPropTypes } from "vue";
-import type { ButtonTag, ButtonSize } from "./button-types";
-import type { TwClassInterface } from "../../global-interfaces";
+import type { ButtonTag, ButtonSize } from "../button-types";
+import type { TwClassInterface } from "../../../global-interfaces";
 import type {
   Variant,
   Filter,
@@ -11,7 +11,9 @@ import type {
   Block,
   Icon,
   Color,
-} from "../../global-types";
+} from "../../../global-types";
+
+//Define Prop Types
 type PropTypes = {
   tag: PropType<ButtonTag>;
   variant: PropType<Variant>;
@@ -21,18 +23,19 @@ type PropTypes = {
   rounded: PropType<Rounded>;
   block: PropType<Block>;
   prepend: PropType<Icon>;
+  append: PropType<Icon>;
   icon: PropType<Icon>;
 };
 export function useButtonClasses(
   props: ExtractPropTypes<PropTypes>
 ): TwClassInterface {
   const buttonClasses: TwClassInterface = reactive({});
-  const slots = useSlots();
   buttonClasses.lineHeight = "leading-normal";
   buttonClasses.ringWidth = "focus:ring-4";
   buttonClasses.outlineStyle = "focus:outline-none";
-  buttonClasses.translate = "translate-y-0.5";
+  buttonClasses.translate = "active:translate-y-0.5";
   buttonClasses.transitionProperty = "transition-colors transition-transform";
+  buttonClasses.fontSize = "text-base";
   buttonClasses.backgroundColor = classNames(
     props.variant === "solid"
       ? {
@@ -83,21 +86,58 @@ export function useButtonClasses(
     "w-full": props.block && props.variant !== "link",
   });
   buttonClasses.ringColor = `focus:ring-${props.color}-500/40`;
+  // buttonClasses.padding = classNames(
+  //   props.variant != "link"
+  //     ? {
+  //         "p-3": props.icon !== "none" && props.size === "lg",
+  //         "p-2.5": props.icon !== "none" && props.size === "md",
+  //         "p-2": props.icon !== "none" && props.size === "sm",
+  //         "px-6 py-3": props.icon === "none" && props.size === "lg",
+  //         "px-5 py-2.5": props.icon === "none" && props.size === "md",
+  //         "px-4 py-1": props.icon === "none" && props.size === "sm",
+  //       }
+  //     : "p-0"
+  // );
   buttonClasses.padding = classNames(
-    props.variant != "link"
-      ? {
-          "p-3": !slots.default && props.size === "lg",
-          "p-2.5": !slots.default && props.size === "md",
-          "p-1.5": !slots.default && props.size === "sm",
-          "px-6 py-3": slots.default && props.size === "lg",
-          "px-4 py-2": slots.default && props.size === "md",
-          "px-3 py-1.5": slots.default && props.size === "sm",
-        }
+    props.variant !== "link"
+      ? props.icon !== "none"
+        ? {
+            "p-3": props.size === "lg",
+            "p-2.5": props.size === "md",
+            "p-2": props.size === "sm",
+          }
+        : {
+            "px-6 py-3": props.size === "lg",
+            "px-5 py-2": props.size === "md",
+            "px-4 py-1": props.size === "sm",
+          }
       : "p-0"
   );
   buttonClasses.borderRadius = classNames({
     "rounded-lg": props.rounded,
     "rounded-full": props.rounded === "full",
+  });
+  buttonClasses.display = classNames({
+    flex:
+      props.icon !== "none" ||
+      props.prepend !== "none" ||
+      props.append !== "none",
+  });
+  buttonClasses.alignItems = classNames({
+    "items-center":
+      props.icon !== "none" ||
+      props.prepend !== "none" ||
+      props.append !== "none",
+  });
+  buttonClasses.justifyContent = classNames({
+    "justify-center":
+      props.icon !== "none" ||
+      props.prepend !== "none" ||
+      props.append !== "none",
+  });
+
+  buttonClasses.space = classNames({
+    "space-x-1.5": props.prepend !== "none" || props.append !== "none",
   });
 
   return buttonClasses;

@@ -11,10 +11,8 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "safelist": "npx tailwindcss build",
     "pub": "yarn build && yarn safelist && yarn publish",
-    "sb": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "build-sb": "build-storybook -o docs",
-    "deploy-sb": "gh-pages -d docs"
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -25,7 +23,6 @@
     "@babel/core": "^7.19.6",
     "@rushstack/eslint-patch": "^1.1.4",
     "@storybook/addon-actions": "^6.5.13",
-    "@storybook/addon-backgrounds": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
     "@storybook/addon-links": "^6.5.13",
@@ -51,7 +48,6 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "remixicon": "^2.5.0",
-    "storybook-builder-vite": "^0.1.13",
     "tailwind-safelist-generator": "^1.0.0",
     "tailwindcss": "^3.2.1",
     "typescript": "~4.7.4",

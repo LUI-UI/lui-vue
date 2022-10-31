@@ -1,49 +1,76 @@
-import '../src/index.css'
+import "../src/index.css"
 import 'remixicon/fonts/remixicon.css'
+import colors from "tailwindcss/colors";
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
-    backgrounds: {
-      default: 'light',
-      values: [
-        {
-          name: 'dark',
-          value: '#292524',
-        },
-        {
-          name: 'light',
-          value: '#f5f5f4',
-        },
-        {
-          name: 'warning',
-          value: '#FFB31A',
-        },
-        {
-          name: 'danger',
-          value: '#E35B5B',
-        },
-        {
-          name: 'primary',
-          value: '#2376D7',
-        },
-        {
-          name: 'success',
-          value: '#33BA98',
-        },
-        {
-          name: 'info',
-          value: '#27A8B9',
-        },
-        {
-          name: 'secondary',
-          value: '#78716c',
-        },
-      ],
-    },
+  backgrounds: {
+    default: 'light',
+    values: [
+      {
+        name: 'white',
+        value: '#FFFFFF',
+      },
+      {
+        name: 'black',
+        value: '#000000'
+      },
+      {
+        name: 'dark',
+        value: colors.gray[800],
+      },
+      {
+        name: 'light',
+        value: colors.gray[100],
+      },
+      {
+        name: 'warning',
+        value: colors.yellow[500],
+      },
+      {
+        name: 'danger',
+        value: colors.red[500],
+      },
+      {
+        name: 'primary',
+        value: colors.blue[500],
+      },
+      {
+        name: 'success',
+        value: colors.green[500],
+      },
+      {
+        name: 'info',
+        value: colors.cyan[500],
+      },
+      {
+        name: 'secondary',
+        value: colors.gray[500],
+      },
+    ],
   },
-}
-
+  // controls: {
+  //   matchers: {
+  //     color: /(background|color)$/i,
+  //     date: /Date$/,
+  //   },
+  // },
+};
+export const argTypes = {
+  variant: { control: "select", options: ["solid", "outline", "text", "link"] },
+  color: {
+    control: "select",
+    options: ["primary", "secondary", "success", "danger", "warning", "info"],
+  },
+  filter: {
+    control: "select",
+    options: ["lighten", "darken", "none",],
+  },
+  block: {
+    control: "boolean",
+  },
+  rounded: {
+    control: "select",
+    options: [true, false,"full"],
+  },
+};
