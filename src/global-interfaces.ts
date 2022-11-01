@@ -181,18 +181,47 @@ export interface SvgInterface {
   stroke?: string;
   strokeWidth?: string;
 }
+export interface InterActionStates {
+  hover?: string,
+  // hover?: {
+  //   textColor?: string;
+  //   backgroundColor?: string;
+  //   borderColor?: string;
+  // },
+  focus?: string,
+  // focus?: {
+  //   textColor?: string;
+  //   backgroundColor?: string;
+  //   borderColor?: string;
+  //   outlineStyle?: string;
+  //   ringWidth?: string;
+  // },
+  active?: string,
+  // active?: {
+  //   textColor?: string;
+  //   backgroundColor?: string;
+  //   borderColor?: string;
+  //   translate?: string;
+  // },
+  disabled?: {
+    textColor?: string;
+    backgroundColor?: string;
+    borderColor?: string;
+  }
+}
 export interface TwClassInterface
   extends LayoutInterface,
-    FlexGridInterface,
-    SpacingInterface,
-    SizingInterface,
-    TypographyInterface,
-    BackgroundsInterface,
-    BordersInterface,
-    EffectsInterface,
-    FiltersInterface,
-    TablesInterface,
-    TransitionAnimationInterface,
-    TransformsInterface,
-    InteractivityInterface,
-    SvgInterface {}
+  FlexGridInterface,
+  SpacingInterface,
+  SizingInterface,
+  TypographyInterface,
+  BackgroundsInterface,
+  BordersInterface,
+  EffectsInterface,
+  FiltersInterface,
+  TablesInterface,
+  TransitionAnimationInterface,
+  TransformsInterface,
+  InteractivityInterface,
+  InterActionStates,
+  SvgInterface { }

@@ -8,7 +8,11 @@ export default {
   argTypes: {
     size: {
       control: { type: "select" },
-      options: ["sm  ", "md", "lg"],
+      options: ["sm", "md", "lg"],
+    },
+    loaderPosition: {
+      control: { type: "select" },
+      options: ["right", "left"],
     },
   },
 };
@@ -19,15 +23,18 @@ const Template = (args) => ({
   components: { LuiButton },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args };
+    function handleClick() {
+      console.log("button just clicked..");
+    }
+    return { args, handleClick };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<lui-button v-bind="args">My Button</lui-button>',
+  template:
+    '<lui-button v-bind="args" @click="handleClick">My Button</lui-button>',
 });
 
 export const Solid = Template.bind({});
 Solid.args = { rounded: true };
-console.log(Solid());
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 // Solid.args = {
 //   primary: true,

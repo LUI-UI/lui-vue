@@ -1,50 +1,50 @@
-import "../src/index.css"
-import 'remixicon/fonts/remixicon.css'
+import "../src/index.css";
+import "remixicon/fonts/remixicon.css";
 import colors from "tailwindcss/colors";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
-    default: 'light',
+    default: "light",
     values: [
       {
-        name: 'white',
-        value: '#FFFFFF',
+        name: "white",
+        value: "#FFFFFF",
       },
       {
-        name: 'black',
-        value: '#000000'
+        name: "black",
+        value: "#000000",
       },
       {
-        name: 'dark',
+        name: "dark",
         value: colors.gray[800],
       },
       {
-        name: 'light',
+        name: "light",
         value: colors.gray[100],
       },
       {
-        name: 'warning',
+        name: "warning",
         value: colors.yellow[500],
       },
       {
-        name: 'danger',
+        name: "danger",
         value: colors.red[500],
       },
       {
-        name: 'primary',
+        name: "primary",
         value: colors.blue[500],
       },
       {
-        name: 'success',
+        name: "success",
         value: colors.green[500],
       },
       {
-        name: 'info',
+        name: "info",
         value: colors.cyan[500],
       },
       {
-        name: 'secondary',
+        name: "secondary",
         value: colors.gray[500],
       },
     ],
@@ -64,13 +64,24 @@ export const argTypes = {
   },
   filter: {
     control: "select",
-    options: ["lighten", "darken", "none",],
+    options: ["lighten", "darken", "none"],
   },
   block: {
     control: "boolean",
   },
   rounded: {
     control: "select",
-    options: [true, false,"full"],
+    options: [true, false, "full"],
+  },
+  disabled: {
+    control: "boolean",
+  },
+  prepend: {
+    control: "select",
+    options: ["home", "add-circle", "close", "none"],
+  },
+  append: {
+    control: "select",
+    options: ["home", "add-circle", "close", "none"],
   },
 };

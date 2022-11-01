@@ -25,7 +25,7 @@ module.exports = {
         "hover:text-{colors}",
         "border-{colors}",
         "hover:border-{colors}",
-        "focus:ring-{colors}/40",
+        "focus-visible:ring-{colors}/40",
         // "focus:bg-{colors}",
         // "disabled:bg-{colors}",
         // "focus:text-{colors}",

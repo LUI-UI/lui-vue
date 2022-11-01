@@ -24,7 +24,7 @@ const props = defineProps({
 interface RemixIconClasses extends TwClassInterface {
   svgClasses: string;
 }
-
+console.log("props from icon: ", props);
 const iconClasses: RemixIconClasses = reactive({ svgClasses: "" });
 iconClasses.svgClasses = classNames(
   typeof props.icon === "string"
