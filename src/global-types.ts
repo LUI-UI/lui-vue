@@ -16,7 +16,7 @@ export type Color =
 //   | "link-underline";
 export type Rounded = false | true | "full";
 export type Block = true | false;
-export type Boolean = true | false;
+// export type Loading = true | false;
 export type IconObject = {
   name: string;
   type: "fill" | "line" | undefined;

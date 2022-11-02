@@ -11,7 +11,6 @@ import type {
   Block,
   Icon,
   Color,
-  Boolean
 } from "../../../global-types";
 
 //Define Prop Types
@@ -27,8 +26,8 @@ type PropTypes = {
   append: PropType<Icon>;
   icon: PropType<Icon>;
   disableStyles: PropType<disableStyles>;
-  loading: PropType<Boolean>;
-  loaderPosition: PropType<loaderPosition>;
+  // loading: PropType<Loading>;
+  // loaderPosition: PropType<loaderPosition>;
 };
 export function useButtonClasses(
   props: ExtractPropTypes<PropTypes>
@@ -37,31 +36,12 @@ export function useButtonClasses(
   const buttonClasses: TwClassInterface = reactive({});
   buttonClasses.fontSize = "text-base";
   buttonClasses.lineHeight = "leading-normal";
-  buttonClasses.outlineStyle = "focus:outline-none";
+  buttonClasses.outlineStyle = "outline-none";
   buttonClasses.ringWidth = "focus-visible:ring-4";
   buttonClasses.transitionProperty = "transition-colors transition-transform";
   buttonClasses.translate = "active:translate-y-0.5 disabled:translate-y-0";
-  buttonClasses.pointerEvents = classNames({ 'pointer-events-none': props.loading });
+  // buttonClasses.pointerEvents = classNames({ 'pointer-events-none': props.loading });
   buttonClasses.cursor = classNames({['cursor-pointer disabled:cursor-not-allowed']: props.tag === "button" });
-  // buttonClasses.backgroundColor = classNames(
-  //   props.variant === "solid"
-  //     ? checkStyleDisable('hover') ? {
-  //       [`bg-${props.color}-500`]:
-  //         props.filter === "none", // filter none
-  //       [`bg-${props.color}-100`]:
-  //         props.filter === "lighten", // filter lighten
-  //       [`bg-${props.color}-800`]:
-  //         props.filter === "darken", // filter darken
-  //     } : {
-  //       [`bg-${props.color}-500 hover:bg-${props.color}-400`]:
-  //         props.filter === "none", // filter none
-  //       [`bg-${props.color}-100 hover:bg-${props.color}-50`]:
-  //         props.filter === "lighten", // filter lighten
-  //       [`bg-${props.color}-800 hover:bg-${props.color}-700`]:
-  //         props.filter === "darken", // filter darken
-  //     }
-  //     : null
-  // );
   buttonClasses.backgroundColor = classNames(
     props.variant === "solid"
       ? {
@@ -90,29 +70,6 @@ export function useButtonClasses(
           props.filter === "darken", // filter darken
       }
   );
-  // buttonClasses.textColor = classNames(
-  //   props.variant === "solid"
-  //     ? {
-  //       [`text-white`]: props.filter === "none", // filter none
-  //       [`text-${props.color}-500`]: props.filter === "lighten", // filter lighten
-  //       [`text-${props.color}-100`]: props.filter === "darken", // filter darken
-  //     }
-  //     : checkStyleDisable('hover') ? {
-  //       [`text-${props.color}-500`]:
-  //         props.filter === "none", // filter none
-  //       [`text-${props.color}-100`]:
-  //         props.filter === "lighten", // filter lighten
-  //       [`text-${props.color}-800`]:
-  //         props.filter === "darken", // filter darken
-  //     } : {
-  //       [`text-${props.color}-500 hover:text-${props.color}-400`]:
-  //         props.filter === "none", // filter none
-  //       [`text-${props.color}-100 hover:text-${props.color}-50`]:
-  //         props.filter === "lighten", // filter lighten
-  //       [`text-${props.color}-800 hover:text-${props.color}-700`]:
-  //         props.filter === "darken", // filter darken
-  //     }
-  // );
   buttonClasses.borderColor = classNames(
     props.variant === "text"
       ? "border-transparent"
@@ -135,25 +92,6 @@ export function useButtonClasses(
     "w-full": props.block && props.variant !== "link",
   });
   buttonClasses.ringColor = `focus-visible:ring-${props.color}-500/40`;
-  // buttonClasses.padding = classNames(
-  //   props.variant != "link"
-  //     ? {
-  //         "p-3": props.icon !== "none" && props.size === "lg",
-  //         "p-2.5": props.icon !== "none" && props.size === "md",
-  //         "p-2": props.icon !== "none" && props.size === "sm",
-  //         "px-6 py-3": props.icon === "none" && props.size === "lg",
-  //         "px-5 py-2.5": props.icon === "none" && props.size === "md",
-  //         "px-4 py-1": props.icon === "none" && props.size === "sm",
-  //       }
-  //     : "p-0"
-  // );
-  // const findSize = (sizes: object) => (sizes[props.size])
-  // buttonClasses.padding = classNames(
-  //   props.variant !== 'link' 
-  //     ? props.icon !== "none" 
-  //       ? findSize({ sm: 'p-2', md: 'p-2.5', lg: 'p-3' }) 
-  //       : findSize({ sm: 'px-4 py-1', md: 'px-5 py-2', lg: 'px-6 py-3' })
-  // );
   buttonClasses.padding = classNames(
     props.variant !== "link"
       ? props.icon !== "none"
@@ -173,8 +111,7 @@ export function useButtonClasses(
     "rounded-lg": props.rounded,
     "rounded-full": props.rounded === "full",
   });
-  const isIconActive = computed(() => props.icon !== "none" || props.prepend !== "none" || props.append !== "none" || props.loading)
-  console.log("is: ", isIconActive.value)
+  const isIconActive = computed(() => props.icon !== "none" || props.prepend !== "none" || props.append !== "none")
   buttonClasses.display = classNames({
     flex: isIconActive.value
   });
@@ -192,7 +129,7 @@ export function useButtonClasses(
   // });
 
   buttonClasses.space = classNames({
-    "space-x-1.5": props.prepend !== "none" || props.append !== "none" || props.loading,
+    "space-x-1.5": props.prepend !== "none" || props.append !== "none",
   });
 
   return buttonClasses;

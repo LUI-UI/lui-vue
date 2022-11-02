@@ -9,12 +9,7 @@ import { computed } from "vue";
 import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
-import type {
-  ButtonTag,
-  ButtonSize,
-  disableStyles,
-  loaderPosition,
-} from "./button-types";
+import type { ButtonTag, ButtonSize } from "./button-types";
 import {
   Variant,
   Filter,
@@ -65,18 +60,14 @@ const props = defineProps({
     type: [String, Object] as PropType<Icon>,
     default: "none",
   },
-  disableStyles: {
-    type: [Boolean, Array] as PropType<disableStyles>,
-    default: false,
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-  loaderPosition: {
-    type: String as PropType<loaderPosition>,
-    default: "right",
-  },
+  // loading: {
+  //   type: Boolean as PropType<Loading>,
+  //   default: false,
+  // },
+  // loaderPosition: {
+  //   type: String as PropType<loaderPosition>,
+  //   default: "right",
+  // },
 });
 const buttonClasses = useButtonClasses(props);
 
@@ -114,6 +105,19 @@ const computedClasses = computed(() => {
     />
     <template v-else>
       <lui-icon
+        v-if="prepend !== 'none'"
+        :icon="prepend"
+        :size="computedIconSize"
+        class="leading-none"
+      />
+      <span><slot></slot></span>
+      <lui-icon
+        v-if="append !== 'none'"
+        :icon="append"
+        :size="computedIconSize"
+        class="leading-none"
+      />
+      <!-- <lui-icon
         v-if="prepend !== 'none' || (loading && loaderPosition === 'left')"
         :icon="loading && loaderPosition === 'left' ? 'loader-4' : prepend"
         :size="computedIconSize"
@@ -127,7 +131,7 @@ const computedClasses = computed(() => {
         :size="computedIconSize"
         class="leading-none"
         :class="loading ? 'animate-spin inline-block' : ''"
-      />
+      /> -->
     </template>
   </component>
 </template>

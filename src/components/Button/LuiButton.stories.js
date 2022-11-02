@@ -10,9 +10,16 @@ export default {
       control: { type: "select" },
       options: ["sm", "md", "lg"],
     },
-    loaderPosition: {
+    tag: {
       control: { type: "select" },
-      options: ["right", "left"],
+      options: ["button", "div", "a"],
+    },
+    // loaderPosition: {
+    //   control: { type: "select" },
+    //   options: ["right", "left"],
+    // },
+    onClick: {
+      action: "just clicked",
     },
   },
 };
@@ -23,14 +30,13 @@ const Template = (args) => ({
   components: { LuiButton },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    function handleClick() {
-      console.log("button just clicked..");
-    }
-    return { args, handleClick };
+    // function handleClick() {
+    //   console.log("button just clicked..");
+    // }
+    return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template:
-    '<lui-button v-bind="args" @click="handleClick">My Button</lui-button>',
+  template: '<lui-button v-bind="args">My Button</lui-button>',
 });
 
 export const Solid = Template.bind({});
