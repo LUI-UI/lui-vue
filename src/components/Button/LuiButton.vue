@@ -9,7 +9,7 @@ import { computed } from "vue";
 import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
-import type { ButtonTag, ButtonSize } from "./button-types";
+import type { ButtonTag } from "./button-types";
 import {
   Variant,
   Filter,
@@ -17,6 +17,7 @@ import {
   Block,
   Icon,
   Color,
+  Size,
 } from "../../global-types";
 import LuiIcon from "../Icon/LuiIcon.vue";
 const props = defineProps({
@@ -37,7 +38,7 @@ const props = defineProps({
     default: "none",
   },
   size: {
-    type: String as PropType<ButtonSize>,
+    type: String as PropType<Size>,
     default: "md",
   },
   rounded: {

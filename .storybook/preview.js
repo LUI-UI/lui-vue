@@ -1,11 +1,13 @@
 import "../src/index.css";
 import "remixicon/fonts/remixicon.css";
 import colors from "tailwindcss/colors";
+import { addons } from "@storybook/addons";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   backgrounds: {
     default: "light",
+    dark: 'dark',
     values: [
       {
         name: "white",
@@ -84,4 +86,22 @@ export const argTypes = {
     control: "select",
     options: ["home", "add-circle", "close", "none"],
   },
+  size: {
+    control: { type: "select" },
+    options: ["sm", "md", "lg"],
+  },
 };
+
+// get an instance to the communication channel for the manager and preview
+const channel = addons.getChannel();
+// const channel = addons.getChanel();
+
+
+// switch body class for story along with interface theme
+channel.on("STORYBOOK_DARK_MODE_VUE", (isDark) => {
+  if (isDark) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+});

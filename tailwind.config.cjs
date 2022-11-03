@@ -2,17 +2,20 @@
 const colors = require("tailwindcss/colors");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}", "./safelist.txt"],
   theme: {
-    extend: {
-      colors: {
-        primary: colors.blue,
-        secondary: colors.gray,
-        success: colors.green,
-        warning: colors.amber,
-        danger: colors.red,
-        info: colors.sky,
-      },
+    colors: {
+      primary: colors.blue,
+      secondary: colors.gray,
+      success: colors.green,
+      warning: colors.amber,
+      danger: colors.red,
+      info: colors.sky,
+      white: "#ffffff",
+      black: "#000000",
+      light: colors.gray[100],
+      dark: colors.gray[800],
     },
   },
   plugins: [

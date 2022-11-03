@@ -2,7 +2,7 @@ import { computed, reactive } from "vue";
 import classNames from "classnames";
 //Types
 import type { PropType, ExtractPropTypes } from "vue";
-import type { ButtonTag, ButtonSize, disableStyles, loaderPosition } from "../button-types";
+import type { ButtonTag } from "../button-types";
 import type { TwClassInterface } from "../../../global-interfaces";
 import type {
   Variant,
@@ -11,6 +11,7 @@ import type {
   Block,
   Icon,
   Color,
+  Size
 } from "../../../global-types";
 
 //Define Prop Types
@@ -19,13 +20,12 @@ type PropTypes = {
   variant: PropType<Variant>;
   color: PropType<Color>;
   filter: PropType<Filter>;
-  size: PropType<ButtonSize>;
+  size: PropType<Size>;
   rounded: PropType<Rounded>;
   block: PropType<Block>;
   prepend: PropType<Icon>;
   append: PropType<Icon>;
   icon: PropType<Icon>;
-  disableStyles: PropType<disableStyles>;
   // loading: PropType<Loading>;
   // loaderPosition: PropType<loaderPosition>;
 };
@@ -34,6 +34,8 @@ export function useButtonClasses(
 ): TwClassInterface {
 
   const buttonClasses: TwClassInterface = reactive({});
+  const hasIcon = computed(() => props.icon !== "none")
+  const hasAnyIcon = computed(() => hasIcon.value || props.prepend !== "none" || props.append !== "none")
   buttonClasses.fontSize = "text-base";
   buttonClasses.lineHeight = "leading-normal";
   buttonClasses.outlineStyle = "outline-none";
@@ -94,7 +96,7 @@ export function useButtonClasses(
   buttonClasses.ringColor = `focus-visible:ring-${props.color}-500/40`;
   buttonClasses.padding = classNames(
     props.variant !== "link"
-      ? props.icon !== "none"
+      ? hasIcon.value
         ? {
           "p-3": props.size === "lg",
           "p-2.5": props.size === "md",
@@ -111,23 +113,16 @@ export function useButtonClasses(
     "rounded-lg": props.rounded,
     "rounded-full": props.rounded === "full",
   });
-  const isIconActive = computed(() => props.icon !== "none" || props.prepend !== "none" || props.append !== "none")
+  
   buttonClasses.display = classNames({
-    flex: isIconActive.value
+    flex: hasAnyIcon.value
   });
   buttonClasses.alignItems = classNames({
-    "items-center": isIconActive.value
+    "items-center": hasAnyIcon.value
   });
   buttonClasses.justifyContent = classNames({
-    "justify-center": isIconActive.value
+    "justify-center": hasAnyIcon.value
   });
-  // buttonClasses.justifyContent = classNames({
-  //   "justify-center":
-  //     props.icon !== "none" ||
-  //     props.prepend !== "none" ||
-  //     props.append !== "none",
-  // });
-
   buttonClasses.space = classNames({
     "space-x-1.5": props.prepend !== "none" || props.append !== "none",
   });

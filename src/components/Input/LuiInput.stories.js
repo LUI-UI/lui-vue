@@ -1,29 +1,25 @@
-import LuiButton from "./LuiButton.vue";
+import LuiInput from "./LuiInput.vue";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: "LUI/Button",
-  component: LuiButton,
+  title: "LUI/Input",
+  component: LuiInput,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
-    tag: {
-      control: { type: "select" },
-      options: ["button", "div", "a"],
-    },
     // loaderPosition: {
     //   control: { type: "select" },
     //   options: ["right", "left"],
     // },
-    onClick: {
-      action: "just clicked",
-    },
+    // onChange: {
+    //   action: "just clicked",
+    // },
   },
 };
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { LuiButton },
+  components: { LuiInput },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     // function handleClick() {
@@ -32,11 +28,12 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<lui-button v-bind="args">My Button</lui-button>',
+  template:
+    '<div class="m-8"><lui-input v-bind="args" type="text" placeholder="type something" /><div/>',
 });
 
-export const Solid = Template.bind({});
-Solid.args = { rounded: true };
+export const Medium = Template.bind({});
+Medium.args = { rounded: true, size: "md" };
 // More on args: https://storybook.js.org/docs/vue/writing-stories/args
 // Solid.args = {
 //   primary: true,

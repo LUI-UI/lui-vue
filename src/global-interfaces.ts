@@ -16,7 +16,11 @@ export interface LayoutInterface {
   overflow?: string;
   overscrollBehavior?: string;
   position?: string;
-  topRightBottomLeft?: string;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
+  // topRightBottomLeft?: string;
   visibility?: string;
   zIndex?: string;
 }
@@ -181,34 +185,7 @@ export interface SvgInterface {
   stroke?: string;
   strokeWidth?: string;
 }
-export interface InterActionStates {
-  hover?: string,
-  // hover?: {
-  //   textColor?: string;
-  //   backgroundColor?: string;
-  //   borderColor?: string;
-  // },
-  focus?: string,
-  // focus?: {
-  //   textColor?: string;
-  //   backgroundColor?: string;
-  //   borderColor?: string;
-  //   outlineStyle?: string;
-  //   ringWidth?: string;
-  // },
-  active?: string,
-  // active?: {
-  //   textColor?: string;
-  //   backgroundColor?: string;
-  //   borderColor?: string;
-  //   translate?: string;
-  // },
-  disabled?: {
-    textColor?: string;
-    backgroundColor?: string;
-    borderColor?: string;
-  }
-}
+
 export interface TwClassInterface
   extends LayoutInterface,
   FlexGridInterface,
@@ -223,5 +200,4 @@ export interface TwClassInterface
   TransitionAnimationInterface,
   TransformsInterface,
   InteractivityInterface,
-  InterActionStates,
   SvgInterface { }

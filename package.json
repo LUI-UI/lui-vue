@@ -48,6 +48,7 @@
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
     "remixicon": "^2.5.0",
+    "storybook-darkmode-vue": "^1.1.8",
     "tailwind-safelist-generator": "^1.0.0",
     "tailwindcss": "^3.2.1",
     "typescript": "~4.7.4",
