@@ -18,7 +18,7 @@ import {
   Icon,
   Color,
   Size,
-} from "../../global-types";
+} from "@/global-types";
 import LuiIcon from "../Icon/LuiIcon.vue";
 const props = defineProps({
   tag: {
@@ -72,13 +72,6 @@ const props = defineProps({
 });
 const buttonClasses = useButtonClasses(props);
 
-// const computedIconNames = computed(() => {
-//   return props.loading === false
-//     ? { prepend: props.prepend, append: props.append }
-//     : props.loaderPosition === "right"
-//     ? { prepend: props.prepend, append: "loader-4" }
-//     : { prepend: "loader-4", append: props.append };
-// });
 const computedIconSize = computed(() =>
   props.size === "sm" ? "md" : props.size === "md" ? "xl" : "2xl"
 );

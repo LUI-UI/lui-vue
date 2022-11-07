@@ -3,7 +3,7 @@ import classNames from "classnames";
 //Types
 import type { PropType, ExtractPropTypes } from "vue";
 import type { ButtonTag } from "../button-types";
-import type { TwClassInterface } from "../../../global-interfaces";
+import type { TwClassInterface } from "@/global-interfaces";
 import type {
   Variant,
   Filter,
@@ -12,7 +12,7 @@ import type {
   Icon,
   Color,
   Size
-} from "../../../global-types";
+} from "@/global-types";
 
 //Define Prop Types
 type PropTypes = {
@@ -26,8 +26,6 @@ type PropTypes = {
   prepend: PropType<Icon>;
   append: PropType<Icon>;
   icon: PropType<Icon>;
-  // loading: PropType<Loading>;
-  // loaderPosition: PropType<loaderPosition>;
 };
 export function useButtonClasses(
   props: ExtractPropTypes<PropTypes>
@@ -126,6 +124,6 @@ export function useButtonClasses(
   buttonClasses.space = classNames({
     "space-x-1.5": props.prepend !== "none" || props.append !== "none",
   });
-
+  
   return buttonClasses;
 }

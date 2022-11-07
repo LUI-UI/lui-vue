@@ -1,3 +1,5 @@
+import { StringDecoder } from "string_decoder";
+
 export interface LayoutInterface {
   aspectRatio?: string;
   container?: string;
@@ -185,6 +187,9 @@ export interface SvgInterface {
   stroke?: string;
   strokeWidth?: string;
 }
+export interface Concepts {
+  peer?: string;
+}
 
 export interface TwClassInterface
   extends LayoutInterface,
@@ -200,4 +205,5 @@ export interface TwClassInterface
   TransitionAnimationInterface,
   TransformsInterface,
   InteractivityInterface,
+  Concepts,
   SvgInterface { }

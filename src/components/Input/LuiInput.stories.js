@@ -6,36 +6,52 @@ export default {
   component: LuiInput,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
-    // loaderPosition: {
-    //   control: { type: "select" },
-    //   options: ["right", "left"],
-    // },
-    // onChange: {
-    //   action: "just clicked",
-    // },
+    stateIcon: {
+      control: { type: "boolean" },
+    },
+    description: {
+      control: "text",
+    },
+    state: {
+      control: { type: "select" },
+      options: ["warning", true, false, null],
+    },
+    size: {
+      control: { type: "select" },
+      options: ["sm", "md", "lg"],
+    },
+    onInput: {
+      action: "typing",
+    },
   },
+  // args: {}, set default args for all components
 };
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiInput },
+  // data() {
+  //   return {
+  //     test: "",
+  //   };
+  // },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    // function handleClick() {
-    //   console.log("button just clicked..");
-    // }
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template:
-    '<div class="m-8"><lui-input v-bind="args" type="text" placeholder="type something" /><div/>',
+  template: '<lui-input v-bind="args" placeholder="type something" />',
 });
 
 export const Medium = Template.bind({});
 Medium.args = { rounded: true, size: "md" };
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
-// Solid.args = {
-//   primary: true,
-//   label: 'Button',
-// };
+console.log({ Medium });
+export const Description = Template.bind({});
+Description.args = { description: "Input description text" };
+export const Prepend = Template.bind({});
+Prepend.args = { prepend: "add-circle" };
+export const StateIcon = Template.bind({});
+StateIcon.args = { stateIcon: true };
+export const Clear = Template.bind({});
+Clear.args = { clear: true };

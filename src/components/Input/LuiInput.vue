@@ -5,13 +5,15 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { computed, useAttrs } from "vue";
+import { computed, ref, useAttrs } from "vue";
 import type { PropType } from "vue";
 import classNames from "classnames";
-import { Rounded, Block, Icon, Size, State } from "../../global-types";
-// import type { TwClassInterface } from "../../../global-interfaces";
-import type { Clear, ModelValue, stateIcon } from "./input-types";
+import { Rounded, Block, Icon, Size, State } from "@/global-types";
+import type { Clear, ModelValue, stateIcon, Description } from "./input-types";
+import type { TwClassInterface } from "@/global-interfaces";
 import { useInputClasses } from "./composables";
+// import LuiIcon from "@/components/Icon/LuiIcon.vue";
+import LuiIcon from "../Icon/LuiIcon.vue";
 // colors.border[`${props.color}-100`]
 // hover:border-${props.color}-100
 // colors.hover.border[`${props.color}-`]
@@ -55,26 +57,48 @@ const props = defineProps({
     type: [String, Object] as PropType<Icon>,
     default: "none",
   },
+  description: {
+    type: [String, null] as PropType<Description>,
+    default: null,
+  },
   modelValue: {
     type: [String, Number] as PropType<ModelValue>,
     default: "",
   },
 });
-const inputClasses = useInputClasses(props);
-const computedInputClasses = computed(() => {
+
+const emit = defineEmits(["update:modelValue", "change"]);
+const attrs = useAttrs();
+// let isInputFocused: Ref<boolean> = ref(false);
+const LuiInputRef: any = ref(null);
+
+const {
+  inputClasses,
+  descriptionClasses,
+  preprendClasses,
+  stateIconClasses,
+  closeClasses,
+} = useInputClasses(props, attrs);
+
+function extractCssClasses(obj: TwClassInterface) {
   return classNames(
     Object.values({
-      ...inputClasses,
+      ...obj,
     })
   );
-});
-const attrs = useAttrs();
-const emit = defineEmits(["update:modelValue", "change"]);
-
-function handleInputEvents(val: any) {
-  emit("update:modelValue", val.target.value);
-  emit("change", val.target.value);
 }
+
+const stateIconName = computed(() => {
+  return attrs.disabled
+    ? "forbid-2"
+    : props.state === true
+    ? "checkbox-circle"
+    : props.state === "warning"
+    ? "feedback"
+    : props.state === false
+    ? "error-warning"
+    : "";
+});
 
 const computedAttrs = computed(() => {
   const { class: attrClass, style, ...rest } = attrs;
@@ -83,48 +107,66 @@ const computedAttrs = computed(() => {
     input: rest,
   };
 });
+
+function clearInput() {
+  LuiInputRef.value.value = "";
+  LuiInputRef.value.focus();
+}
+
+function handleInputEvents(val: any) {
+  emit("update:modelValue", val.target.value);
+  emit("change", val.target.value);
+}
+
+// function handleFocus() {
+//   console.log("input just focused");
+//   isInputFocused.value = true;
+// }
+// function handleBlur() {
+//   console.log("input just blured!");
+//   isInputFocused.value = false;
+// }
 </script>
 <template>
   <div
     :class="[block ? 'w-full' : 'w-48', computedAttrs.parent.attrClass]"
     :style="computedAttrs.parent.style"
   >
+    <div class="p-3">{{ stateIconName }}</div>
+    <!-- {{ testetCls }} -->
     <div class="relative">
-      <!-- <lui-icon
-        v-if="prepend !== 'none'"
-        :icon="prepend"
-        :class="[iconClasses.size, iconClasses.position, iconClasses.prepend]"
-      /> -->
       <input
-        ref="Linput"
+        ref="LuiInputRef"
         v-bind="computedAttrs.input"
-        :class="computedInputClasses"
+        :class="Object.values({ ...inputClasses })"
         :value="modelValue"
         @input="handleInputEvents($event)"
       />
-      <!-- <lui-button
-        v-if="clear && !$attrs.disabled"
-        type="link"
-        variant="secondary"
-        icon="close"
-        :size="size"
-        disable-styles
-        :class="[iconClasses.position, iconClasses.clear]"
-        @click="$refs.Linput.value = ''"
-      />
+      <!-- icon should be above the input be able to use peer -->
       <lui-icon
-        v-if="state !== null"
-        :icon="iconClasses.name"
-        :class="[
-          iconClasses.size,
-          iconClasses.color,
-          iconClasses.position,
-          iconClasses.state,
-        ]"
-      /> -->
+        v-if="prepend !== 'none'"
+        :icon="prepend"
+        :class="extractCssClasses(preprendClasses)"
+        class="leading-none"
+      />
+      <button
+        v-if="clear && !attrs.disabled"
+        @click="clearInput"
+        :class="extractCssClasses(closeClasses)"
+      >
+        <lui-icon icon="close" class="leading-none" />
+      </button>
+      <lui-icon
+        v-if="state !== null && stateIcon"
+        :icon="stateIconName"
+        :class="extractCssClasses(stateIconClasses)"
+      />
     </div>
-    <!-- <p v-if="description !== 'none'" :class="descriptionClasses">
+    <p
+      v-if="description !== null"
+      :class="extractCssClasses(descriptionClasses)"
+    >
       {{ description }}
-    </p> -->
+    </p>
   </div>
 </template>

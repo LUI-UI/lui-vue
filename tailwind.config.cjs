@@ -25,6 +25,7 @@ module.exports = {
         "bg-{colors}",
         "hover:bg-{colors}",
         "text-{colors}",
+        "disabled:text-{colors}",
         "hover:text-{colors}",
         "border-{colors}",
         "hover:border-{colors}",
