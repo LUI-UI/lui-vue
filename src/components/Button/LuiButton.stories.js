@@ -1,4 +1,16 @@
 import LuiButton from "./LuiButton.vue";
+import {
+  variant,
+  color,
+  block,
+  rounded,
+  prepend,
+  append,
+  size,
+  filter,
+  icon,
+  disabled,
+} from "../../global-story-argtypes";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -6,14 +18,20 @@ export default {
   component: LuiButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
+    variant,
+    color,
+    block,
+    rounded,
+    prepend,
+    append,
+    size,
+    filter,
+    icon,
+    disabled,
     tag: {
       control: { type: "select" },
       options: ["button", "div", "a"],
     },
-    // loaderPosition: {
-    //   control: { type: "select" },
-    //   options: ["right", "left"],
-    // },
     onClick: {
       action: "just clicked",
     },

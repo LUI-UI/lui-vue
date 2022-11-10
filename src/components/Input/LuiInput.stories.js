@@ -1,4 +1,13 @@
 import LuiInput from "./LuiInput.vue";
+import {
+  block,
+  rounded,
+  size,
+  prepend,
+  disabled,
+  description,
+  state,
+} from "../../global-story-argtypes";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -6,19 +15,18 @@ export default {
   component: LuiInput,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
+    block,
+    rounded,
+    size,
+    prepend,
+    disabled,
+    description,
+    state,
     stateIcon: {
       control: { type: "boolean" },
     },
-    description: {
-      control: "text",
-    },
-    state: {
-      control: { type: "select" },
-      options: ["warning", true, false, null],
-    },
-    size: {
-      control: { type: "select" },
-      options: ["sm", "md", "lg"],
+    clear: {
+      control: { type: "boolean" },
     },
     onInput: {
       action: "typing",
