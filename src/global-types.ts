@@ -25,3 +25,4 @@ export type Icon = string | IconObject;
 export type FullSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
 export type Size = "sm" | "md" | "lg";
 export type State = true | false | string | null;
+export type Description = string | null;

@@ -5,8 +5,8 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { computed } from "vue";
-import classNames from "classnames";
+import { toRefs } from "vue";
+// import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
 import type { ButtonTag } from "./button-types";
@@ -20,6 +20,7 @@ import {
   Size,
 } from "@/global-types";
 import LuiIcon from "../Icon/LuiIcon.vue";
+
 const props = defineProps({
   tag: {
     type: String as PropType<ButtonTag>,
@@ -70,25 +71,15 @@ const props = defineProps({
   //   default: "right",
   // },
 });
-const buttonClasses = useButtonClasses(props);
 
-const computedIconSize = computed(() =>
-  props.size === "sm" ? "md" : props.size === "md" ? "xl" : "2xl"
-);
-const computedClasses = computed(() => {
-  return classNames(
-    Object.values({
-      ...buttonClasses,
-    })
-  );
-});
+const { buttonClasses, computedIconSize } = useButtonClasses(toRefs(props));
 </script>
 
 <template>
   <component
     :is="tag"
     class="lui-button"
-    :class="computedClasses"
+    :class="buttonClasses"
     v-bind="$attrs"
   >
     <lui-icon

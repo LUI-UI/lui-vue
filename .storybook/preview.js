@@ -58,39 +58,39 @@ export const parameters = {
   //   },
   // },
 };
-// export const argTypes = {
-//   variant: { control: "select", options: ["solid", "outline", "text", "link"] },
-//   color: {
-//     control: "select",
-//     options: ["primary", "secondary", "success", "danger", "warning", "info"],
-//   },
-//   filter: {
-//     control: "select",
-//     options: ["lighten", "darken", "none"],
-//   },
-//   block: {
-//     control: "boolean",
-//   },
-//   rounded: {
-//     control: "select",
-//     options: [true, false, "full"],
-//   },
-//   disabled: {
-//     control: "boolean",
-//   },
-//   prepend: {
-//     control: "select",
-//     options: ["home", "add-circle", "close", "none"],
-//   },
-//   append: {
-//     control: "select",
-//     options: ["home", "add-circle", "close", "none"],
-//   },
-//   size: {
-//     control: { type: "select" },
-//     options: ["sm", "md", "lg"],
-//   },
-// };
+export const argTypes = {
+  variant: { control: "select", options: ["solid", "outline", "text", "link"] },
+  color: {
+    control: "select",
+    options: ["primary", "secondary", "success", "danger", "warning", "info"],
+  },
+  filter: {
+    control: "select",
+    options: ["lighten", "darken", "none"],
+  },
+  block: {
+    control: "boolean",
+  },
+  rounded: {
+    control: "select",
+    options: [true, false, "full"],
+  },
+  disabled: {
+    control: "boolean",
+  },
+  prepend: {
+    control: "select",
+    options: ["home", "add-circle", "close", "none"],
+  },
+  append: {
+    control: "select",
+    options: ["home", "add-circle", "close", "none"],
+  },
+  size: {
+    control: { type: "select" },
+    options: ["sm", "md", "lg"],
+  },
+};
 
 // get an instance to the communication channel for the manager and preview
 const channel = addons.getChannel();

@@ -3,6 +3,11 @@
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import LuiButtonVue from "./components/Button/LuiButton.vue";
 import LuiIcon from "./components/Icon/LuiIcon.vue";
+import LuiInput from "./components/Input/LuiInput.vue";
+import { Button } from "flowbite-vue";
+
+import { ref } from "vue";
+let isBlock = ref(true);
 </script>
 
 <template>
@@ -12,9 +17,16 @@ import LuiIcon from "./components/Icon/LuiIcon.vue";
         xlink:href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.symbol.svg/remixicon.symbol.svg#ri-admin-fill"
       ></use>
     </svg>
+    <Button :pill="isBlock">FLOWBITE</Button>
+    <LuiButtonVue
+      @click="isBlock = !isBlock"
+      :block="isBlock"
+      variant="outline"
+      :filter="isBlock ? 'darken' : 'lighten'"
+      >BLOCK TEST!!</LuiButtonVue
+    >
     <div class="p-3 m-3 flex justify-center space-x-5">
       <LuiIcon :icon="{ name: 'search', type: 'fill' }" size="xl"></LuiIcon>
-      <LuiButtonVue variant="outline" filter="darken">Test</LuiButtonVue>
     </div>
     <div class="p-3 m-3 justify-center bg-gray-100 space-x-5">
       <LuiButtonVue

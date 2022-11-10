@@ -24,22 +24,17 @@ export default {
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiButton },
-  data() {
-    return {
-      is: true,
-    };
-  },
+  // data() {
+  //   return {
+  //     is: true,
+  //   };
+  // },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    console.log("args", args);
-    // function handleClick() {
-    //   console.log("button just clicked..");
-    // }
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template:
-    '<button @click="is = !is">change</button><lui-button v-bind="args" :block="is">My Button</lui-button>',
+  template: `<lui-button v-bind="args">My Button</lui-button>`,
 });
 
 export const Solid = Template.bind({});

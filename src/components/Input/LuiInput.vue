@@ -5,29 +5,13 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { computed, ref, useAttrs } from "vue";
-import type { PropType } from "vue";
-import classNames from "classnames";
+import { computed, ref, useAttrs, toRefs } from "vue";
+import type { PropType, Ref } from "vue";
 import { Rounded, Block, Icon, Size, State } from "@/global-types";
-import type { Clear, ModelValue, stateIcon, Description } from "./input-types";
-import type { TwClassInterface } from "@/global-interfaces";
+import type { Clear, ModelValue, StateIcon, Description } from "./input-types";
 import { useInputClasses } from "./composables";
-// import LuiIcon from "@/components/Icon/LuiIcon.vue";
 import LuiIcon from "../Icon/LuiIcon.vue";
-// colors.border[`${props.color}-100`]
-// hover:border-${props.color}-100
-// colors.hover.border[`${props.color}-`]
-// const colors = {
-//   hover:{
-//     border:{
-//     "primary-100": "hover:border-primary-100",
-//     "danger-100": "hover:border-primary-100"
-//     }
-//   },
-//   border: {
-//     "primary-100": "border-primary-100",
-//     "danger-100": "border-primary-100"
-//   },
+
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -42,7 +26,7 @@ const props = defineProps({
     default: null,
   },
   stateIcon: {
-    type: [Boolean] as PropType<stateIcon>,
+    type: [Boolean] as PropType<StateIcon>,
     default: null,
   },
   block: {
@@ -69,24 +53,15 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue", "change"]);
 const attrs = useAttrs();
-// let isInputFocused: Ref<boolean> = ref(false);
-const LuiInputRef: any = ref(null);
+const LuiInputRef: Ref = ref(null);
 
 const {
   inputClasses,
   descriptionClasses,
-  preprendClasses,
+  prependClasses,
   stateIconClasses,
-  closeClasses,
-} = useInputClasses(props, attrs);
-
-function extractCssClasses(obj: TwClassInterface) {
-  return classNames(
-    Object.values({
-      ...obj,
-    })
-  );
-}
+  closeIconClasses,
+} = useInputClasses(toRefs(props), toRefs(attrs));
 
 const stateIconName = computed(() => {
   return attrs.disabled
@@ -117,28 +92,17 @@ function handleInputEvents(val: any) {
   emit("update:modelValue", val.target.value);
   emit("change", val.target.value);
 }
-
-// function handleFocus() {
-//   console.log("input just focused");
-//   isInputFocused.value = true;
-// }
-// function handleBlur() {
-//   console.log("input just blured!");
-//   isInputFocused.value = false;
-// }
 </script>
 <template>
   <div
     :class="[block ? 'w-full' : 'w-48', computedAttrs.parent.attrClass]"
     :style="computedAttrs.parent.style"
   >
-    <div class="p-3">{{ stateIconName }}</div>
-    <!-- {{ testetCls }} -->
     <div class="relative">
       <input
         ref="LuiInputRef"
         v-bind="computedAttrs.input"
-        :class="Object.values({ ...inputClasses })"
+        :class="inputClasses"
         :value="modelValue"
         @input="handleInputEvents($event)"
       />
@@ -146,26 +110,23 @@ function handleInputEvents(val: any) {
       <lui-icon
         v-if="prepend !== 'none'"
         :icon="prepend"
-        :class="extractCssClasses(preprendClasses)"
+        :class="prependClasses"
         class="leading-none"
       />
       <button
         v-if="clear && !attrs.disabled"
         @click="clearInput"
-        :class="extractCssClasses(closeClasses)"
+        :class="closeIconClasses"
       >
         <lui-icon icon="close" class="leading-none" />
       </button>
       <lui-icon
         v-if="state !== null && stateIcon"
         :icon="stateIconName"
-        :class="extractCssClasses(stateIconClasses)"
+        :class="stateIconClasses"
       />
     </div>
-    <p
-      v-if="description !== null"
-      :class="extractCssClasses(descriptionClasses)"
-    >
+    <p v-if="description !== null" :class="descriptionClasses">
       {{ description }}
     </p>
   </div>

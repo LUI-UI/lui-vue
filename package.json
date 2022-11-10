@@ -14,7 +14,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "dependencies": {},
+  "dependencies": {
+    "flowbite": "^1.5.3",
+    "flowbite-vue": "^0.0.6"
+  },
   "peerDependencies": {
     "tailwindcss": "^3.0.8",
     "vue": "^3.2.26"

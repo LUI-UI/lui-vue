@@ -187,7 +187,7 @@ export interface SvgInterface {
   stroke?: string;
   strokeWidth?: string;
 }
-export interface Concepts {
+export interface CoreConcepts {
   peer?: string;
 }
 
@@ -205,5 +205,5 @@ export interface TwClassInterface
   TransitionAnimationInterface,
   TransformsInterface,
   InteractivityInterface,
-  Concepts,
+  CoreConcepts,
   SvgInterface { }
