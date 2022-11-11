@@ -2,7 +2,6 @@ import { computed } from "vue";
 import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
-// import type { TwClassInterface } from "../../../global-interfaces";
 import type { TwClassInterface } from "@/global-interfaces";
 import type { Clear, StateIcon } from "../input-types";
 import type {
@@ -11,9 +10,8 @@ import type {
   Block,
   Icon,
   Size,
-  Description
+  Description,
 } from "@/global-types";
-
 //Define Prop Types
 type PropTypes = {
   size: Ref<Size>;
@@ -26,24 +24,26 @@ type PropTypes = {
   description: Ref<Description>;
 };
 
-// interface Test extends = {}
-
 export function useInputClasses(props: PropTypes, attrs: any) {
   const iconStatus = computed(() => {
     return props.stateIcon.value === true && props.state.value !== null
-      ? props.prepend.value !== 'none' ? 'twoIcon' : 'rightIcon' // stateIcon-active
-      : props.prepend.value === 'none' ? 'noIcon' : 'leftIcon' // stateIcn-deactive
-  })
+      ? props.prepend.value !== "none"
+        ? "twoIcon"
+        : "rightIcon" // stateIcon-active
+      : props.prepend.value === "none"
+      ? "noIcon"
+      : "leftIcon"; // stateIcn-deactive
+  });
   const iconClasses: TwClassInterface = {
     position: "absolute",
     translate: "-translate-y-1/2",
     top: "top-2/4",
     fontSize: classNames({
-      'text-base': props.size.value === 'sm',
-      'text-xl': props.size.value === 'md',
-      'text-2xl': props.size.value === 'lg'
-    })
-  }
+      "text-base": props.size.value === "sm",
+      "text-xl": props.size.value === "md",
+      "text-2xl": props.size.value === "lg",
+    }),
+  };
 
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
@@ -53,125 +53,149 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       width: "w-full",
       textColor:
         "text-secondary-600 placeholder:text-secondary-400 disabled:placeholder:text-secondary-300 dark:text-secondary-300 dark:placeholder:text-secondary-600 dark:disabled:text-secondary-700",
-      backgroundColor: "bg-secondary-50 disabled:bg-secondary-100 dark:bg-secondary-900 dark:disabled:secondary-800",
+      backgroundColor:
+        "bg-secondary-50 disabled:bg-secondary-100 dark:bg-secondary-900 dark:disabled:secondary-800",
       outlineStyle: "outline-none",
       borderWidth: "border",
       borderStyle: "border-solid",
       cursor: "disabled:cursor-not-allowed",
       borderColor: classNames({
-        ["border-secondary-200 focus:border-primary-500 disabled:border-secondary-200"]: props.state.value === null,
-        ["disabled:border-secondary-200 border-warning-500"]: props.state.value === 'warning',
-        ["disabled:border-secondary-200 border-danger-500"]: props.state.value === false,
-        ["disabled:border-secondary-200 border-success-500"]: props.state.value === true,
+        ["border-secondary-200 focus:border-primary-500 disabled:border-secondary-200"]:
+          props.state.value === null,
+        ["disabled:border-secondary-200 border-warning-500"]:
+          props.state.value === "warning",
+        ["disabled:border-secondary-200 border-danger-500"]:
+          props.state.value === false,
+        ["disabled:border-secondary-200 border-success-500"]:
+          props.state.value === true,
       }),
-      ringWidth: attrs.disabled !== undefined && attrs.disabled.value ? 'ring-0' : props.state.value === null ? "focus:ring-4" : "ring-4",
+      ringWidth:
+        attrs.disabled !== undefined && attrs.disabled.value
+          ? "ring-0"
+          : props.state.value === null
+          ? "focus:ring-4"
+          : "ring-4",
       ringColor: classNames({
         "focus:ring-primary-500/40": props.state.value === null,
-        "ring-warning-500/40": props.state.value === 'warning',
+        "ring-warning-500/40": props.state.value === "warning",
         "ring-danger-500/40": props.state.value === false,
         "ring-success-500/40": props.state.value === true,
       }),
       borderRadius: classNames({
         "rounded-lg": props.rounded.value,
-        "rounded-full": props.rounded.value === 'full'
+        "rounded-full": props.rounded.value === "full",
       }),
       padding: classNames(
-        iconStatus.value === 'noIcon'
+        iconStatus.value === "noIcon"
           ? {
-            "py-1 px-2": props.size.value === 'sm',
-            "py-2 px-3": props.size.value === 'md',
-            "py-3 px-3": props.size.value === 'lg',
-          }
-          : iconStatus.value === 'rightIcon'
-            ? {
-              "py-1 pl-2 pr-8": props.size.value === 'sm',
-              "py-2 pl-3 pr-10": props.size.value === 'md',
-              "py-3 pl-3 pr-12": props.size.value === 'lg',
+              "py-1 px-2": props.size.value === "sm",
+              "py-2 px-3": props.size.value === "md",
+              "py-3 px-3": props.size.value === "lg",
             }
-            : iconStatus.value === 'twoIcon'
-              ? {
-                "py-1 px-8": props.size.value === 'sm',
-                "py-2 px-10": props.size.value === 'md',
-                "py-3 px-12": props.size.value === 'lg',
-              }
-              : { //leftIcon
-                "py-1 pr-2 pl-8": props.size.value === 'sm',
-                "py-2 pr-3 pl-10": props.size.value === 'md',
-                "py-3 pr-3 pl-12": props.size.value === 'lg',
-              }
+          : iconStatus.value === "rightIcon"
+          ? {
+              "py-1 pl-2 pr-8": props.size.value === "sm",
+              "py-2 pl-3 pr-10": props.size.value === "md",
+              "py-3 pl-3 pr-12": props.size.value === "lg",
+            }
+          : iconStatus.value === "twoIcon"
+          ? {
+              "py-1 px-8": props.size.value === "sm",
+              "py-2 px-10": props.size.value === "md",
+              "py-3 px-12": props.size.value === "lg",
+            }
+          : {
+              //leftIcon
+              "py-1 pr-2 pl-8": props.size.value === "sm",
+              "py-2 pr-3 pl-10": props.size.value === "md",
+              "py-3 pr-3 pl-12": props.size.value === "lg",
+            }
       ),
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const descriptionClasses = computed(() => {
     const classes: TwClassInterface = {
       fontSize: "text-sm",
       lineHeight: "leading-normal",
       margin: "mt-1",
-      textColor: attrs.disabled !== undefined && attrs.disabled.value
-        ? "text-secondary-200 dark:text-secondary-700"
-        : classNames({
-          "text-secondary-600 dark:text-secondary-400": props.state.value === null,
-          "text-warning-500": props.state.value === "warning",
-          "text-danger-500": props.state.value === false,
-          "text-success-500": props.state.value === true,
-        }),
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+      textColor:
+        attrs.disabled !== undefined && attrs.disabled.value
+          ? "text-secondary-200 dark:text-secondary-700"
+          : classNames({
+              "text-secondary-600 dark:text-secondary-400":
+                props.state.value === null,
+              "text-warning-500": props.state.value === "warning",
+              "text-danger-500": props.state.value === false,
+              "text-success-500": props.state.value === true,
+            }),
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const prependClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
       left: classNames({
-        'left-2': props.size.value === 'sm',
-        'left-3': props.size.value === 'md',
-        'left-4': props.size.value === 'lg'
+        "left-2": props.size.value === "sm",
+        "left-3": props.size.value === "md",
+        "left-4": props.size.value === "lg",
       }),
-      textColor: attrs.disabled !== undefined && attrs.disabled.value
-        ? "text-secondary-300 dark:text-secondary-700" :
-        "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+      textColor:
+        attrs.disabled !== undefined && attrs.disabled.value
+          ? "text-secondary-300 dark:text-secondary-700"
+          : "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const stateIconClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
       right: classNames({
-        'right-2': props.size.value === 'sm',
-        'right-3': props.size.value === 'md',
-        'right-4': props.size.value === 'lg'
+        "right-2": props.size.value === "sm",
+        "right-3": props.size.value === "md",
+        "right-4": props.size.value === "lg",
       }),
-      textColor: classNames(attrs.disabled !== undefined && attrs.disabled.value ? 'text-secondary-300'
-        : {
-          "text-warning-500": props.state.value === 'warning',
-          "text-danger-500": props.state.value === false,
-          "text-success-500": props.state.value === true
-        }),
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+      textColor: classNames(
+        attrs.disabled !== undefined && attrs.disabled.value
+          ? "text-secondary-300"
+          : {
+              "text-warning-500": props.state.value === "warning",
+              "text-danger-500": props.state.value === false,
+              "text-success-500": props.state.value === true,
+            }
+      ),
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const closeIconClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
       right: classNames({
-        'right-2': props.size.value === 'sm',
-        'right-3': props.size.value === 'md',
-        'right-4': props.size.value === 'lg'
+        "right-2": props.size.value === "sm",
+        "right-3": props.size.value === "md",
+        "right-4": props.size.value === "lg",
       }),
-      display: 'flex',
+      display: "flex",
       outlineStyle: "outline-none",
-      textColor: "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
+      textColor:
+        "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
       ringWidth: "focus-visible:ring-2",
       ringColor: "focus-visible:ring-secondary-200",
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
-  return { inputClasses, descriptionClasses, prependClasses, stateIconClasses, closeIconClasses }
+  return {
+    inputClasses,
+    descriptionClasses,
+    prependClasses,
+    stateIconClasses,
+    closeIconClasses,
+  };
 }
 
 // export function useInputClasses(
