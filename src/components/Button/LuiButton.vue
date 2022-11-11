@@ -5,7 +5,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { toRefs, useSlots } from "vue";
 // import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
@@ -73,6 +73,7 @@ const props = defineProps({
 });
 
 const { buttonClasses, computedIconSize } = useButtonClasses(toRefs(props));
+// console.log(slots?.default().props.size = "lg");
 </script>
 
 <template>

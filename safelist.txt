@@ -62,6 +62,7 @@ bg-white
 bg-black
 bg-light
 bg-dark
+bg-transparent
 hover:bg-primary-50
 hover:bg-primary-100
 hover:bg-primary-200
@@ -126,6 +127,7 @@ hover:bg-white
 hover:bg-black
 hover:bg-light
 hover:bg-dark
+hover:bg-transparent
 text-primary-50
 text-primary-100
 text-primary-200
@@ -190,6 +192,7 @@ text-white
 text-black
 text-light
 text-dark
+text-transparent
 disabled:text-primary-50
 disabled:text-primary-100
 disabled:text-primary-200
@@ -254,6 +257,7 @@ disabled:text-white
 disabled:text-black
 disabled:text-light
 disabled:text-dark
+disabled:text-transparent
 hover:text-primary-50
 hover:text-primary-100
 hover:text-primary-200
@@ -318,6 +322,7 @@ hover:text-white
 hover:text-black
 hover:text-light
 hover:text-dark
+hover:text-transparent
 border-primary-50
 border-primary-100
 border-primary-200
@@ -382,6 +387,7 @@ border-white
 border-black
 border-light
 border-dark
+border-transparent
 hover:border-primary-50
 hover:border-primary-100
 hover:border-primary-200
@@ -446,6 +452,7 @@ hover:border-white
 hover:border-black
 hover:border-light
 hover:border-dark
+hover:border-transparent
 focus-visible:ring-primary-50/40
 focus-visible:ring-primary-100/40
 focus-visible:ring-primary-200/40
@@ -510,3 +517,4 @@ focus-visible:ring-white/40
 focus-visible:ring-black/40
 focus-visible:ring-light/40
 focus-visible:ring-dark/40
+focus-visible:ring-transparent/40

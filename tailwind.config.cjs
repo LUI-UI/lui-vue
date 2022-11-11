@@ -16,6 +16,7 @@ module.exports = {
       black: "#000000",
       light: colors.gray[100],
       dark: colors.gray[800],
+      transparent: "transparent",
     },
   },
   plugins: [
