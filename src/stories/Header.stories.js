@@ -1,11 +1,11 @@
-import MyHeader from './Header.vue';
+import MyHeader from "./Header.vue";
 
 export default {
-  title: 'Example/Header',
+  title: "Example/Header",
   component: MyHeader,
   parameters: {
     // More on Story layout: https://storybook.js.org/docs/vue/configure/story-layout
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
 };
 
@@ -24,7 +24,7 @@ const Template = (args) => ({
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
   user: {
-    name: 'Jane Doe',
+    name: "Jane Doe",
   },
 };
 
