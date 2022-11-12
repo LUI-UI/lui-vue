@@ -1,5 +1,3 @@
-import { StringDecoder } from "string_decoder";
-
 export interface LayoutInterface {
   aspectRatio?: string;
   container?: string;
@@ -193,17 +191,17 @@ export interface CoreConcepts {
 
 export interface TwClassInterface
   extends LayoutInterface,
-  FlexGridInterface,
-  SpacingInterface,
-  SizingInterface,
-  TypographyInterface,
-  BackgroundsInterface,
-  BordersInterface,
-  EffectsInterface,
-  FiltersInterface,
-  TablesInterface,
-  TransitionAnimationInterface,
-  TransformsInterface,
-  InteractivityInterface,
-  CoreConcepts,
-  SvgInterface { }
+    FlexGridInterface,
+    SpacingInterface,
+    SizingInterface,
+    TypographyInterface,
+    BackgroundsInterface,
+    BordersInterface,
+    EffectsInterface,
+    FiltersInterface,
+    TablesInterface,
+    TransitionAnimationInterface,
+    TransformsInterface,
+    InteractivityInterface,
+    CoreConcepts,
+    SvgInterface {}

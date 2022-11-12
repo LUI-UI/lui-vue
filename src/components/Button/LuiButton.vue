@@ -5,7 +5,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { toRefs, useSlots } from "vue";
+import { toRefs } from "vue";
 // import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";

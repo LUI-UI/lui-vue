@@ -12,11 +12,10 @@ type PropTypes = {
   description: Ref<Description>;
 };
 
-
 export function useCheckboxClasses(props: PropTypes) {
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
-      position: 'absolute',
+      position: "absolute",
       overflow: "overflow-hidden",
       outlineStyle: "outline-none",
       width: classNames({
@@ -35,9 +34,9 @@ export function useCheckboxClasses(props: PropTypes) {
       zIndex: "z-10",
       // peer for tailwind: to catch checked from siblings.
       peer: "peer",
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const spanClasses = computed(() => {
     const classes: TwClassInterface = {
@@ -57,23 +56,26 @@ export function useCheckboxClasses(props: PropTypes) {
         "h-6": props.size.value === "lg",
       }),
       borderRadius: classNames({
-        "rounded": props.rounded.value === true,
-        "rounded-full": props.rounded.value === 'full',
+        rounded: props.rounded.value === true,
+        "rounded-full": props.rounded.value === "full",
       }),
-      backgroundColor: "bg-transparent peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
+      backgroundColor:
+        "bg-transparent peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
       borderWidth: "border peer-checked:border-0",
-      borderColor: "border-secondary-200 dark:border-secondary-700 peer-checked:border-transparent",
+      borderColor:
+        "border-secondary-200 dark:border-secondary-700 peer-checked:border-transparent",
       ringOffsetColor: "peer-focus-visible:ring-2",
       ringColor: classNames({
         "peer-focus-visible:ring-primary-500/40": props.state.value === null,
-        "peer-focus-visible:ring-warning-500/40": props.state.value === 'warning',
+        "peer-focus-visible:ring-warning-500/40":
+          props.state.value === "warning",
         "peer-focus-visible:ring-danger-500/40": props.state.value === false,
         "peer-focus-visible:ring-success-500/40": props.state.value === true,
       }),
       transitionProperty: "transition-colors",
-    }
-    return classNames(Object.values({ ...classes }))
-  })
+    };
+    return classNames(Object.values({ ...classes }));
+  });
 
   const iconClasses = computed(() => {
     const classes: TwClassInterface = {
@@ -84,17 +86,21 @@ export function useCheckboxClasses(props: PropTypes) {
       bottom: "bottom-0",
       margin: "m-auto",
       display: "hidden peer-checked:block",
-      textColor: "text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600"
-    }
-    return classNames(Object.values({ ...classes }))
-  })
-  
+      textColor:
+        "text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600",
+    };
+    return classNames(Object.values({ ...classes }));
+  });
+
   const descriptionClasses = computed(() => {
     const classes: TwClassInterface = {
       fontSize: "text-xs",
-      lineHeight: 'leading-none',
-      textColor: ''
-    }
-  })
-  return { inputClasses, spanClasses, iconClasses }
+      lineHeight: "leading-none",
+      textColor: "",
+    };
+    return classes;
+  });
+  // Return error
+  console.log(descriptionClasses);
+  return { inputClasses, spanClasses, iconClasses };
 }

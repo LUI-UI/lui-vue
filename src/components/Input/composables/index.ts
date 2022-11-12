@@ -44,7 +44,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       "text-2xl": props.size.value === "lg",
     }),
   };
-
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
       peer: "peer",
