@@ -3,7 +3,7 @@ import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
 import type { ButtonTag } from "../button-types";
-import type { TwClassInterface } from "@/global-interfaces";
+import type { TwClassInterface } from "@/globals/interfaces";
 import type {
   Variant,
   Filter,
@@ -12,7 +12,7 @@ import type {
   Icon,
   Color,
   Size,
-} from "@/global-types";
+} from "@/globals/types";
 
 //Define Prop Types
 type PropTypes = {

@@ -6,7 +6,7 @@ export default {
 </script>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import { Rounded, Size, State, Description } from "@/global-types";
+import { Rounded, Size, State, Description } from "@/types/global-types-types";
 import { toRefs, computed } from "vue";
 import { useCheckboxClasses } from "./composables/index";
 

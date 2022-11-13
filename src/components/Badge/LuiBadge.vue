@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Filter, Color, Size, Border } from "@/global-types";
+import type { Filter, Color, Size, Border } from "@/globals/types";
 import type { PropType } from "vue";
-import { TwClassInterface } from "../../global-interfaces";
+import { TwClassInterface } from "../../globals/interfaces";
 import { computed, toRefs } from "vue";
 import classNames from "classnames";
 import { useGlobalColorClasses } from "../../composables";

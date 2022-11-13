@@ -1,7 +1,7 @@
 import { computed } from "vue";
 import type { Ref } from "vue";
-import { Rounded, Size, State, Description } from "@/global-types";
-import type { TwClassInterface } from "@/global-interfaces";
+import { Rounded, Size, State, Description } from "@/globals/types";
+import type { TwClassInterface } from "@/globals/interfaces";
 import classNames from "classnames";
 
 //Define Prop Types

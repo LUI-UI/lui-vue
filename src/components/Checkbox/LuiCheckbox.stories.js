@@ -5,7 +5,7 @@ import {
   disabled,
   state,
   description,
-} from "../../global-story-argtypes";
+} from "../../../.storybook/global-story-argtypes";
 export default {
   title: "LUI/Checkbox",
   component: LuiCheckbox,

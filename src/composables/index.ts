@@ -1,5 +1,5 @@
-import { BackgroundsInterface } from "@/global-interfaces";
-import { Color, Filter } from "@/global-types";
+import { BackgroundsInterface } from "@/globals/interfaces";
+import { Color, Filter } from "@/globals/types";
 import classNames from "classnames";
 import { computed, Ref } from "vue";
 
