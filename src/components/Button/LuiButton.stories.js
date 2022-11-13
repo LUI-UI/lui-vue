@@ -10,7 +10,7 @@ import {
   filter,
   icon,
   disabled,
-} from "../../global-story-argtypes";
+} from "../../../.storybook/global-story-argtypes";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
@@ -54,11 +54,33 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `<lui-button v-bind="args">My Button</lui-button>`,
 });
-
-export const Solid = Template.bind({});
-Solid.args = { rounded: true };
-// More on args: https://storybook.js.org/docs/vue/writing-stories/args
-// Solid.args = {
-//   primary: true,
-//   label: 'Button',
-// };
+export const Default = Template.bind({});
+Default.args = { rounded: true };
+export const Variants = (args) => ({
+  components: { LuiButton },
+  setup() {
+    return { args };
+  },
+  template: `
+  <div class="space-x-2">
+  <lui-button v-bind="args" variant="solid">Solid</lui-button>
+  <lui-button v-bind="args" variant="outline">Outline</lui-button>
+  <lui-button v-bind="args" variant="link">Link</lui-button>
+  <lui-button v-bind="args" variant="text">Text</lui-button>
+  </div>`,
+});
+export const Colors = (args) => ({
+  components: { LuiButton },
+  setup() {
+    return { args };
+  },
+  template: `
+  <div class="space-x-2">
+  <lui-button v-bind="args" color="primary">Primary</lui-button>
+  <lui-button v-bind="args" color="secondary">Secondary</lui-button>
+  <lui-button v-bind="args" color="info">Info</lui-button>
+  <lui-button v-bind="args" color="success">Success</lui-button>
+  <lui-button v-bind="args" color="warning">Warning</lui-button>
+  <lui-button v-bind="args" color="danger">Danger</lui-button>
+  </div>`,
+});
