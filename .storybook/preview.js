@@ -1,4 +1,4 @@
-import "../src/index.css";
+import "./index.css";
 import "remixicon/fonts/remixicon.css";
 import colors from "tailwindcss/colors";
 import { addons } from "@storybook/addons";

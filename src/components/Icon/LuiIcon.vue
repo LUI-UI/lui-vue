@@ -6,9 +6,9 @@ export default {
 <script setup lang="ts">
 import { computed, reactive } from "vue";
 import type { PropType } from "vue";
-import type { Icon } from "../../global-types";
-import { TwClassInterface } from "../../global-interfaces";
-import { IconSizeEnum } from "../../global-enum";
+import type { Icon } from "../../globals/types";
+import { TwClassInterface } from "../../globals/interfaces";
+import { IconSizeEnum } from "../../globals/enums";
 import type { IconSizes } from "./icon-types";
 import classNames from "classnames";
 const props = defineProps({

@@ -1,5 +1,5 @@
 import LuiBadge from "./LuiBadge.vue";
-import { color, size, filter } from "../../global-story-argtypes";
+import { color, size, filter } from "../../../.storybook/global-story-argtypes";
 export default {
   title: "LUI/Badge",
   component: LuiBadge,

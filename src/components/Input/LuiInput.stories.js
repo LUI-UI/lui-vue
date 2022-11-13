@@ -7,7 +7,7 @@ import {
   disabled,
   description,
   state,
-} from "../../global-story-argtypes";
+} from "../../../.storybook/global-story-argtypes";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {

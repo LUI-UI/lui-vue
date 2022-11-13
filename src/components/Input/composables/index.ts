@@ -2,7 +2,7 @@ import { computed } from "vue";
 import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
-import type { TwClassInterface } from "@/global-interfaces";
+import type { TwClassInterface } from "@/globals/interfaces";
 import type { Clear, StateIcon } from "../input-types";
 import type {
   State,
@@ -11,7 +11,7 @@ import type {
   Icon,
   Size,
   Description,
-} from "@/global-types";
+} from "@/globals/types";
 //Define Prop Types
 type PropTypes = {
   size: Ref<Size>;
