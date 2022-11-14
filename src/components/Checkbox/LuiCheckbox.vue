@@ -5,13 +5,14 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import type { PropType } from "vue";
-import { Rounded, Size, State, Description } from "@/types/global-types-types";
-import { toRefs, computed } from "vue";
+import type { PropType, Ref } from "vue";
+import { Rounded, Size, State, Description } from "@/globals/types";
+import { toRefs, computed, useAttrs, toRef } from "vue";
 import { useCheckboxClasses } from "./composables/index";
 
 export type Indeterminate = false | true;
-
+// export type StringArray = string[];
+export type ModelValue = Boolean | string[];
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -33,40 +34,77 @@ const props = defineProps({
     type: Boolean as PropType<Indeterminate>,
     default: false,
   },
+  value: {
+    type: String,
+    default: "",
+  },
   modelValue: {
-    type: Boolean,
+    type: [Array, Boolean] as PropType<ModelValue>,
     default: false,
   },
   // indeterminate
 });
-const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(
-  toRefs(props)
-);
+
+const attrs = useAttrs();
+const { inputClasses, spanClasses, iconClasses, descriptionClasses } =
+  useCheckboxClasses(toRefs(props), toRefs(attrs));
+const emit = defineEmits(["update:modelValue"]);
+let modelValueAsArray = toRef(props, "modelValue");
+
+function handleVModel(e: any) {
+  if (typeof props.modelValue === "boolean") {
+    emit("update:modelValue", e.target.checked);
+  } else {
+    if (e.target.checked) {
+      modelValueAsArray.value.push(e.target.value);
+    } else {
+      const index = modelValueAsArray.value.indexOf(e.target.value);
+      modelValueAsArray.value.splice(index, 1);
+    }
+    emit("update:modelValue", ...[modelValueAsArray.value]);
+  }
+}
+
+const isInputChecked = computed(() => {
+  return typeof props.modelValue === "boolean"
+    ? props.modelValue
+    : modelValueAsArray.value.includes(props.value);
+});
 
 const iconSize = computed(() =>
   props.size === "sm"
-    ? { size: "12", viewBox: "0 0 12 12" }
+    ? {
+        checkbox: "12",
+        indeterminate: { width: "10", stroke: "1.5", viewBox: "0 0 10 2" },
+      }
     : props.size === "md"
-    ? { size: "16", viewBox: "0 0 16 16" }
-    : { size: "20", viewBox: "0 0 20 20" }
+    ? {
+        checkbox: "16",
+        indeterminate: { width: "12", stroke: "1.75", viewBox: "0 0 12 2" },
+      }
+    : {
+        checkbox: "20",
+        indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
+      }
 );
 </script>
 <template>
-  <div class="inline-block">
+  <div class="inline-block leading-none">
     <div class="relative inline-flex">
       <input
         v-bind="$attrs"
         type="checkbox"
-        :checked="modelValue"
-        @change="$emit('update:modelValue', $event.target.checked)"
+        :checked="isInputChecked"
+        :value="value"
+        @change="handleVModel"
         :class="inputClasses"
       />
       <span :class="spanClasses"> </span>
       <svg
         v-if="!indeterminate"
         :class="iconClasses"
-        :width="iconSize.size"
-        :height="iconSize.size"
+        :width="iconSize.checkbox"
+        :height="iconSize.checkbox"
         viewBox="0 0 12 12"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -81,22 +119,22 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate"
-        :class="iconClasses"
-        width="10"
+        :width="iconSize.indeterminate.width"
         height="2"
-        viewBox="0 0 10 2"
+        :viewBox="iconSize.indeterminate.viewBox"
+        :class="iconClasses"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M1 1H9"
+          d="M0.999977 1H15"
           stroke="white"
-          stroke-width="1.5"
+          :stroke-width="iconSize.indeterminate.stroke"
           stroke-linecap="round"
         />
       </svg>
     </div>
-    <p v-if="description !== null" class="bg-danger-300 leading-none mt-0">
+    <p v-if="description !== null" :class="descriptionClasses">
       {{ description }}
     </p>
   </div>

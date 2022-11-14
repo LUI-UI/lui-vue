@@ -7,7 +7,7 @@ export default {
 <script setup lang="ts">
 import { computed, ref, useAttrs, toRefs } from "vue";
 import type { PropType, Ref } from "vue";
-import { Rounded, Block, Icon, Size, State } from "@/types/global-types-types";
+import { Rounded, Block, Icon, Size, State } from "@/globals/types";
 import type { Clear, ModelValue, StateIcon, Description } from "./input-types";
 import { useInputClasses } from "./composables";
 import LuiIcon from "../Icon/LuiIcon.vue";

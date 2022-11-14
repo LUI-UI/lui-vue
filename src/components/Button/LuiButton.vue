@@ -18,7 +18,7 @@ import {
   Icon,
   Color,
   Size,
-} from "@/types/global-types-types";
+} from "@/globals/types";
 import LuiIcon from "../Icon/LuiIcon.vue";
 
 const props = defineProps({

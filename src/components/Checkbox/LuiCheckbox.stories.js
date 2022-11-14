@@ -29,7 +29,9 @@ const Template = (args) => ({
   components: { LuiCheckbox },
   data() {
     return {
-      test: true,
+      e: false,
+      checkedNames: ["Mike"],
+      nativeNames: [],
     };
   },
   // The story's `args` need to be mapped into the template through the `setup()` method
@@ -37,8 +39,18 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template:
-    '<lui-checkbox v-bind="args" v-model="test" /><div class="ml-3">{{test}}</div>',
+  // <lui-checkbox v-bind="args" v-model="test" />
+  template: `
+  <div class="p-3">{{checkedNames}} - {{e}}</div>
+    <button class="bg-primary-500 text-white p-1 rounded" @click="checkedNames.push('John')">add new</button>
+    <div class="p-2 space-x-4">
+      <lui-checkbox v-bind="args" id="jack" value="Jack" v-model="checkedNames" />
+      <lui-checkbox v-bind="args" id="john" value="John" v-model="checkedNames" />
+      <lui-checkbox v-bind="args" id="mike" value="Mike" v-model="checkedNames" />
+    </div>
+    <div class="p-2">
+      <lui-checkbox v-bind="args" v-model="e" />
+    </div>`,
 });
 
 export const Medium = Template.bind({});

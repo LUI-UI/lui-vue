@@ -12,7 +12,7 @@ type PropTypes = {
   description: Ref<Description>;
 };
 
-export function useCheckboxClasses(props: PropTypes) {
+export function useCheckboxClasses(props: PropTypes, attrs: any) {
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
       position: "absolute",
@@ -94,13 +94,22 @@ export function useCheckboxClasses(props: PropTypes) {
 
   const descriptionClasses = computed(() => {
     const classes: TwClassInterface = {
-      fontSize: "text-xs",
-      lineHeight: "leading-none",
-      textColor: "",
+      fontSize: "text-sm",
+      lineHeight: "leading-normal",
+      margin: "mt-1",
+      textColor:
+        attrs.disabled !== undefined && attrs.disabled.value
+          ? "text-secondary-200 dark:text-secondary-700"
+          : classNames({
+            "text-secondary-600 dark:text-secondary-400":
+              props.state.value === null,
+            "text-warning-500": props.state.value === "warning",
+            "text-danger-500": props.state.value === false,
+            "text-success-500": props.state.value === true,
+          }),
     };
-    return classes;
+    return classNames(Object.values({ ...classes }));;
   });
   // Return error
-  console.log(descriptionClasses);
-  return { inputClasses, spanClasses, iconClasses };
+  return { inputClasses, spanClasses, iconClasses, descriptionClasses };
 }
