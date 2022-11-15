@@ -5,14 +5,16 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import type { PropType, Ref } from "vue";
+import type { PropType } from "vue";
 import { Rounded, Size, State, Description } from "@/globals/types";
-import { toRefs, computed, useAttrs, toRef } from "vue";
+import { toRefs, computed, useAttrs } from "vue";
 import { useCheckboxClasses } from "./composables/index";
+import { useGlobalDescriptionClasses } from "../../composables/index";
+import { useGlobalCheckbox } from "../../composables/index";
 
 export type Indeterminate = false | true;
 // export type StringArray = string[];
-export type ModelValue = Boolean | string[];
+export type ModelValue = string[] | false | true;
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -46,30 +48,38 @@ const props = defineProps({
 });
 
 const attrs = useAttrs();
-const { inputClasses, spanClasses, iconClasses, descriptionClasses } =
-  useCheckboxClasses(toRefs(props), toRefs(attrs));
+const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(
+  toRefs(props)
+);
+const { descriptionClasses } = useGlobalDescriptionClasses(
+  toRefs(props),
+  toRefs(attrs)
+);
+const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
 const emit = defineEmits(["update:modelValue"]);
-let modelValueAsArray = toRef(props, "modelValue");
-
-function handleVModel(e: any) {
-  if (typeof props.modelValue === "boolean") {
-    emit("update:modelValue", e.target.checked);
-  } else {
-    if (e.target.checked) {
-      modelValueAsArray.value.push(e.target.value);
-    } else {
-      const index = modelValueAsArray.value.indexOf(e.target.value);
-      modelValueAsArray.value.splice(index, 1);
-    }
-    emit("update:modelValue", ...[modelValueAsArray.value]);
-  }
+// let modelValueAsArray: Ref<ModelValue> = toRef(props, "modelValue");
+function handleChange(e: any) {
+  emit("update:modelValue", handleVModel(e));
 }
+// function handleVModel(e: any) {
+//   if (typeof props.modelValue === "boolean") {
+//     emit("update:modelValue", e.target.checked);
+//   } else {
+//     if (e.target.checked) {
+//       modelValueAsArray.value.push(e.target.value);
+//     } else {
+//       const index = modelValueAsArray.value.indexOf(e.target.value);
+//       modelValueAsArray.value.splice(index, 1);
+//     }
+//     emit("update:modelValue", ...[modelValueAsArray.value]);
+//   }
+// }
 
-const isInputChecked = computed(() => {
-  return typeof props.modelValue === "boolean"
-    ? props.modelValue
-    : modelValueAsArray.value.includes(props.value);
-});
+// const isInputChecked = computed(() => {
+//   return typeof props.modelValue === "boolean"
+//     ? props.modelValue
+//     : modelValueAsArray.value.includes(props.value);
+// });
 
 const iconSize = computed(() =>
   props.size === "sm"
@@ -89,14 +99,14 @@ const iconSize = computed(() =>
 );
 </script>
 <template>
-  <div class="inline-block leading-none">
+  <div class="inline-block leading-3">
     <div class="relative inline-flex">
       <input
         v-bind="$attrs"
         type="checkbox"
         :checked="isInputChecked"
         :value="value"
-        @change="handleVModel"
+        @change="handleChange"
         :class="inputClasses"
       />
       <span :class="spanClasses"> </span>

@@ -30,8 +30,9 @@ const Template = (args) => ({
   data() {
     return {
       e: false,
+      b: null,
       checkedNames: ["Mike"],
-      nativeNames: [],
+      nativeNames: ["b"],
     };
   },
   // The story's `args` need to be mapped into the template through the `setup()` method
