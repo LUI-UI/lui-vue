@@ -6,15 +6,21 @@ export default {
 </script>
 <script setup lang="ts">
 import type { PropType } from "vue";
-import { Rounded, Size, State, Description } from "@/globals/types";
+import {
+  Rounded,
+  Size,
+  State,
+  Description,
+  CheckableModelValue,
+} from "@/globals/types";
 import { toRefs, computed, useAttrs } from "vue";
 import { useCheckboxClasses } from "./composables/index";
 import { useGlobalDescriptionClasses } from "../../composables/index";
 import { useGlobalCheckbox } from "../../composables/index";
 
-export type Indeterminate = false | true;
+type Indeterminate = false | true;
 // export type StringArray = string[];
-export type ModelValue = string[] | false | true;
+// type ModelValue = string[] | false | true;
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -41,7 +47,7 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<ModelValue>,
+    type: [Array, Boolean] as PropType<CheckableModelValue>,
     default: false,
   },
   // indeterminate

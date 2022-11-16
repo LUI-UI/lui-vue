@@ -7,15 +7,19 @@ export default {
 <script setup lang="ts">
 import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import { Rounded, Size, State, Description } from "@/globals/types";
+import {
+  Rounded,
+  Size,
+  State,
+  Description,
+  CheckableModelValue,
+} from "@/globals/types";
 
 import { useSwitchClasses } from "./composables/index";
 import {
   useGlobalDescriptionClasses,
   useGlobalCheckbox,
 } from "../../composables/index";
-
-export type ModelValue = Boolean | string[];
 
 const props = defineProps({
   size: {
@@ -39,7 +43,7 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<ModelValue>,
+    type: [Array, Boolean] as PropType<CheckableModelValue>,
     default: false,
   },
 });
@@ -52,9 +56,8 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(attrs)
 );
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
-
 const emit = defineEmits(["update:modelValue"]);
-// let modelValueAsArray: Ref<ModelValue> = toRef(props, "modelValue");
+
 function handleChange(e: any) {
   emit("update:modelValue", handleVModel(e));
 }

@@ -7,13 +7,11 @@ export default {
 <script setup lang="ts">
 import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import { Size, State, Description } from "@/globals/types";
+import { Size, State, Description, CheckableModelValue } from "@/globals/types";
 
 import { useRadioClasses } from "./composables/index";
 import { useGlobalCheckbox } from "../../composables/index";
 import { useGlobalDescriptionClasses } from "../../composables/index";
-
-export type ModelValue = Boolean | string[];
 
 const props = defineProps({
   size: {
@@ -37,7 +35,7 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<ModelValue>,
+    type: [Array, Boolean] as PropType<CheckableModelValue>,
     default: false,
   },
 });
