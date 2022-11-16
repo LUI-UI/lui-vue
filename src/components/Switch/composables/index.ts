@@ -13,15 +13,9 @@ type PropTypes = {
 };
 
 
-export function useSwitchClasses(props: PropTypes, attrs: any) {
+export function useSwitchClasses(props: PropTypes) {
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
-      // position: 'absolute',
-      // opacity: 'opacity-0',
-      // zIndex: 'z-10',
-      // peer: 'peer',
-      // cursor: 'disabled:cursor-not-allowed',
-      // lineHeight: 'leading-none',
       ...useGlobalHiddenInputClasses(),
       width: props.size.value === 'sm' ? 'w-[30px]' : props.size.value === 'md' ? 'w-[38px]' : 'w-[46px]',
       height: props.size.value === 'sm' ? 'h-4' : props.size.value === 'md' ? 'h-5' : 'h-6',

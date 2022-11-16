@@ -1,19 +1,17 @@
 <script lang="ts">
 export default {
-  name: "LuiSwitch",
+  name: "LuiRadio",
   inheritAttrs: false,
 };
 </script>
 <script setup lang="ts">
 import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import { Rounded, Size, State, Description } from "@/globals/types";
+import { Size, State, Description } from "@/globals/types";
 
-import { useSwitchClasses } from "./composables/index";
-import {
-  useGlobalDescriptionClasses,
-  useGlobalCheckbox,
-} from "../../composables/index";
+import { useRadioClasses } from "./composables/index";
+import { useGlobalCheckbox } from "../../composables/index";
+import { useGlobalDescriptionClasses } from "../../composables/index";
 
 export type ModelValue = Boolean | string[];
 
@@ -22,10 +20,10 @@ const props = defineProps({
     type: String as PropType<Size>,
     default: "md",
   },
-  rounded: {
-    type: [Boolean, String] as PropType<Rounded>,
-    default: "full",
-  },
+  // rounded: {
+  //   type: [Boolean, String] as PropType<Rounded>,
+  //   default: "full",
+  // },
   state: {
     type: [String, Boolean, null] as PropType<State>,
     default: null,
@@ -46,7 +44,7 @@ const props = defineProps({
 
 const attrs = useAttrs();
 
-const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props));
+const { inputClasses, spanClasses } = useRadioClasses(toRefs(props));
 const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
   toRefs(attrs)
@@ -54,7 +52,6 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
 
 const emit = defineEmits(["update:modelValue"]);
-// let modelValueAsArray: Ref<ModelValue> = toRef(props, "modelValue");
 function handleChange(e: any) {
   emit("update:modelValue", handleVModel(e));
 }
