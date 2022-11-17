@@ -2,6 +2,7 @@ import { computed } from "vue";
 import type { Ref } from "vue";
 import { Rounded, Size, State, Description } from "@/globals/types";
 import type { TwClassInterface } from "@/globals/interfaces";
+import { useGlobalHiddenInputClasses } from "../../../composables/index"
 import classNames from "classnames";
 
 //Define Prop Types
@@ -15,9 +16,15 @@ type PropTypes = {
 export function useCheckboxClasses(props: PropTypes) {
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
-      position: "absolute",
-      overflow: "overflow-hidden",
-      outlineStyle: "outline-none",
+      // position: "absolute",
+      // overflow: "overflow-hidden",
+      // outlineStyle: "outline-none",
+      // cursor: "disabled:cursor-not-allowed",
+      // borderWidth: "border-0",
+      // opacity: "opacity-0",
+      // zIndex: "z-10",
+      // peer: "peer",
+      ...useGlobalHiddenInputClasses(),
       width: classNames({
         "w-4": props.size.value === "sm",
         "w-5": props.size.value === "md",
@@ -28,12 +35,6 @@ export function useCheckboxClasses(props: PropTypes) {
         "h-5": props.size.value === "md",
         "h-6": props.size.value === "lg",
       }),
-      cursor: "disabled:cursor-not-allowed",
-      borderWidth: "border-0",
-      opacity: "opacity-0",
-      zIndex: "z-10",
-      // peer for tailwind: to catch checked from siblings.
-      peer: "peer",
     };
     return classNames(Object.values({ ...classes }));
   });
@@ -92,15 +93,24 @@ export function useCheckboxClasses(props: PropTypes) {
     return classNames(Object.values({ ...classes }));
   });
 
-  const descriptionClasses = computed(() => {
-    const classes: TwClassInterface = {
-      fontSize: "text-xs",
-      lineHeight: "leading-none",
-      textColor: "",
-    };
-    return classes;
-  });
-  // Return error
-  console.log(descriptionClasses);
+  // const descriptionClasses = computed(() => {
+  //   const classes: TwClassInterface = {
+  //     fontSize: "text-sm",
+  //     lineHeight: "leading-normal",
+  //     margin: "mt-1",
+  //     textColor:
+  //       attrs.disabled !== undefined && attrs.disabled.value
+  //         ? "text-secondary-200 dark:text-secondary-700"
+  //         : classNames({
+  //           "text-secondary-600 dark:text-secondary-400":
+  //             props.state.value === null,
+  //           "text-warning-500": props.state.value === "warning",
+  //           "text-danger-500": props.state.value === false,
+  //           "text-success-500": props.state.value === true,
+  //         }),
+  //   };
+  //   return classNames(Object.values({ ...classes }));;
+  // });
+
   return { inputClasses, spanClasses, iconClasses };
 }

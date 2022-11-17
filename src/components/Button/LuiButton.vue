@@ -86,22 +86,22 @@ const { buttonClasses, computedIconSize } = useButtonClasses(toRefs(props));
     <lui-icon
       v-if="icon !== 'none'"
       :icon="icon"
-      :size="computedIconSize"
+      :class="computedIconSize"
       class="leading-none"
     />
     <template v-else>
       <lui-icon
         v-if="prepend !== 'none'"
         :icon="prepend"
-        :size="computedIconSize"
+        :class="computedIconSize"
         class="leading-none"
       />
       <span><slot></slot></span>
       <lui-icon
         v-if="append !== 'none'"
         :icon="append"
-        :size="computedIconSize"
         class="leading-none"
+        :class="computedIconSize"
       />
       <!-- <lui-icon
         v-if="prepend !== 'none' || (loading && loaderPosition === 'left')"
