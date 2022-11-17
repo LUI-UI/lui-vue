@@ -1,5 +1,4 @@
 import { computed } from "vue";
-import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
 import type { ButtonTag } from "../button-types";
@@ -45,12 +44,12 @@ export function useButtonClasses(props: PropTypes) {
       ringWidth: "focus-visible:ring-4",
       transitionProperty: "transition-colors transition-transform",
       translate: "active:translate-y-0.5 disabled:translate-y-0",
-      // pointerEvents : classNames({ 'pointer-events-none': props.loading }),
-      cursor: classNames({
+      // pointerEvents : { 'pointer-events-none': props.loading }),
+      cursor: {
         ["cursor-pointer disabled:cursor-not-allowed"]:
           props.tag.value === "button",
-      }),
-      backgroundColor: classNames(
+      },
+      backgroundColor:
         props.variant.value === "solid"
           ? {
               [`bg-${props.color.value}-500 hover:bg-${props.color.value}-400 disabled:bg-secondary-500`]:
@@ -60,9 +59,8 @@ export function useButtonClasses(props: PropTypes) {
               [`bg-${props.color.value}-800 hover:bg-${props.color.value}-700  disabled:bg-secondary-800`]:
                 props.filter.value === "darken", // filter darken
             }
-          : null
-      ),
-      textColor: classNames(
+          : null,
+      textColor:
         props.variant.value === "solid"
           ? {
               [`text-white disabled:text-secondary-300`]:
@@ -79,9 +77,8 @@ export function useButtonClasses(props: PropTypes) {
                 props.filter.value === "lighten", // filter lighten
               [`text-${props.color.value}-800 hover:text-${props.color.value}-700 disabled:text-secondary-800`]:
                 props.filter.value === "darken", // filter darken
-            }
-      ),
-      borderColor: classNames(
+            },
+      borderColor:
         props.variant.value === "text"
           ? "border-transparent"
           : props.variant.value === "solid" || props.variant.value === "outline"
@@ -93,17 +90,16 @@ export function useButtonClasses(props: PropTypes) {
               [`border-${props.color.value}-800 hover:border-${props.color.value}-700 disabled:border-secondary-800`]:
                 props.filter.value === "darken", // filter darken
             }
-          : null
-      ),
-      borderWidth: classNames({ border: props.variant.value != "link" }),
-      borderStyle: classNames({
+          : null,
+      borderWidth: { border: props.variant.value != "link" },
+      borderStyle: {
         "border-solid": props.variant.value != "link",
-      }),
-      width: classNames({
+      },
+      width: {
         "w-full": props.block.value && props.variant.value !== "link",
-      }),
+      },
       ringColor: `focus-visible:ring-${props.color.value}-500/40`,
-      padding: classNames(
+      padding:
         props.variant.value !== "link"
           ? hasIcon.value
             ? {
@@ -116,29 +112,28 @@ export function useButtonClasses(props: PropTypes) {
                 "px-5 py-2": props.size.value === "md",
                 "px-4 py-1": props.size.value === "sm",
               }
-          : "p-0"
-      ),
-      borderRadius: classNames({
+          : "p-0",
+      borderRadius: {
         "rounded-lg": props.rounded.value,
         "rounded-full": props.rounded.value === "full",
-      }),
+      },
       // display: "inline-block",
-      display: classNames({
+      display: {
         flex: hasAnyIcon.value,
         "inline-block": !hasAnyIcon.value && props.tag.value !== "button",
-      }),
-      alignItems: classNames({
+      },
+      alignItems: {
         "items-center": hasAnyIcon.value,
-      }),
-      justifyContent: classNames({
+      },
+      justifyContent: {
         "justify-center": hasAnyIcon.value,
-      }),
-      space: classNames({
+      },
+      space: {
         "space-x-1.5":
           props.prepend.value !== "none" || props.append.value !== "none",
-      }),
+      },
     };
-    return classNames(Object.values({ ...buttonClasses }));
+    return Object.values({ ...buttonClasses });
   });
   const computedIconSize = computed(() =>
     props.size.value === "sm" ? "md" : props.size.value === "md" ? "xl" : "2xl"

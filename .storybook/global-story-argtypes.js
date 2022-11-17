@@ -18,6 +18,10 @@ export const disabled = {
   control: "boolean",
   options: [true, false],
 };
+export const border = {
+  control: "boolean",
+  options: [true, false],
+};
 export const prepend = {
   control: "select",
   options: ["home", "add-circle", "close", "none"],
