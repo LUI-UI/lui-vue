@@ -28,7 +28,7 @@ export const append = {
 };
 export const size = {
   control: { type: "select" },
-  options: ["sm", "md", "lg"],
+  options: ["xs", "sm", "md", "lg", "xl"],
 };
 export const filter = {
   control: "select",

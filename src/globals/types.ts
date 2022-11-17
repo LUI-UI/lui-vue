@@ -24,7 +24,7 @@ export type IconObject = {
 };
 export type Icon = string | IconObject;
 export type FullSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-export type Size = "sm" | "md" | "lg";
+export type Size = "xs" | "sm" | "md" | "lg" | "xl";
 export type State = true | false | string | null;
 export type Description = string | null;
 export type CheckableModelValue = string[] | boolean;

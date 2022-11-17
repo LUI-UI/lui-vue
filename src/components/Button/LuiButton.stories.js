@@ -102,3 +102,15 @@ export const Colors = (args) => ({
   
   `,
 });
+export const Sizes = (args) => ({
+  components: { LuiButton },
+  setup() {
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    return { args, sizes };
+  },
+  template: `<div class="flex items-center space-x-4">
+    <div v-for="size in sizes" :key="size">
+      <lui-button v-bind="args" :size="size" append="add-circle">LuiButton</lui-button>
+    </div>
+  </div>`,
+});
