@@ -1,5 +1,4 @@
 import { computed } from "vue";
-import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
 import type { ButtonTag } from "../button-types";
@@ -39,18 +38,24 @@ export function useButtonClasses(props: PropTypes) {
 
   const computedButtonClasses = computed(() => {
     const buttonClasses: TwClassInterface = {
-      fontSize: "text-base",
-      lineHeight: "leading-normal",
+      // lineHeight: "leading-normal",
       outlineStyle: "outline-none",
       ringWidth: "focus-visible:ring-4",
       transitionProperty: "transition-colors transition-transform",
       translate: "active:translate-y-0.5 disabled:translate-y-0",
-      // pointerEvents : classNames({ 'pointer-events-none': props.loading }),
-      cursor: classNames({
+      // pointerEvents : { 'pointer-events-none': props.loading }),
+      cursor: {
         ["cursor-pointer disabled:cursor-not-allowed"]:
           props.tag.value === "button",
-      }),
-      backgroundColor: classNames(
+      },
+      fontSize: {
+        "text-xs": props.size.value === "xs",
+        "text-sm": props.size.value === "sm",
+        "text-base": props.size.value === "md",
+        "text-lg": props.size.value === "lg",
+        "text-xl": props.size.value === "xl",
+      },
+      backgroundColor:
         props.variant.value === "solid"
           ? {
               [`bg-${props.color.value}-500 hover:bg-${props.color.value}-400 disabled:bg-secondary-500`]:
@@ -60,9 +65,8 @@ export function useButtonClasses(props: PropTypes) {
               [`bg-${props.color.value}-800 hover:bg-${props.color.value}-700  disabled:bg-secondary-800`]:
                 props.filter.value === "darken", // filter darken
             }
-          : null
-      ),
-      textColor: classNames(
+          : null,
+      textColor:
         props.variant.value === "solid"
           ? {
               [`text-white disabled:text-secondary-300`]:
@@ -79,9 +83,8 @@ export function useButtonClasses(props: PropTypes) {
                 props.filter.value === "lighten", // filter lighten
               [`text-${props.color.value}-800 hover:text-${props.color.value}-700 disabled:text-secondary-800`]:
                 props.filter.value === "darken", // filter darken
-            }
-      ),
-      borderColor: classNames(
+            },
+      borderColor:
         props.variant.value === "text"
           ? "border-transparent"
           : props.variant.value === "solid" || props.variant.value === "outline"
@@ -93,55 +96,85 @@ export function useButtonClasses(props: PropTypes) {
               [`border-${props.color.value}-800 hover:border-${props.color.value}-700 disabled:border-secondary-800`]:
                 props.filter.value === "darken", // filter darken
             }
-          : null
-      ),
-      borderWidth: classNames({ border: props.variant.value != "link" }),
-      borderStyle: classNames({
+          : null,
+      borderWidth: { border: props.variant.value != "link" },
+      borderStyle: {
         "border-solid": props.variant.value != "link",
-      }),
-      width: classNames({
+      },
+      width: {
         "w-full": props.block.value && props.variant.value !== "link",
-      }),
+      },
       ringColor: `focus-visible:ring-${props.color.value}-500/40`,
-      padding: classNames(
+      // xs: 12-4 sm: 16-6 md: 20-8 lg: 24-10 xl: 28-14
+      // 6 - 8 - 10 - 14 - 16
+      padding:
         props.variant.value !== "link"
           ? hasIcon.value
             ? {
-                "p-3": props.size.value === "lg",
-                "p-2.5": props.size.value === "md",
+                "p-1.5": props.size.value === "xs",
                 "p-2": props.size.value === "sm",
+                "p-2.5": props.size.value === "md",
+                "p-3.5": props.size.value === "lg",
+                "p-4": props.size.value === "xl",
+                // "p-3": props.size.value === "lg",
+                // "p-2.5": props.size.value === "md",
+                // "p-2": props.size.value === "sm",
               }
             : {
-                "px-6 py-3": props.size.value === "lg",
-                "px-5 py-2": props.size.value === "md",
-                "px-4 py-1": props.size.value === "sm",
+                "py-1 px-3": props.size.value === "xs",
+                "py-1.5 px-4": props.size.value === "sm",
+                "py-2 px-5": props.size.value === "md",
+                "py-2.5 px-6": props.size.value === "lg",
+                "py-3.5 px-7": props.size.value === "xl",
+                // "px-6 py-3": props.size.value === "lg",
+                // "px-5 py-2": props.size.value === "md",
+                // "px-4 py-1": props.size.value === "sm",
               }
-          : "p-0"
-      ),
-      borderRadius: classNames({
+          : "p-0",
+      borderRadius: {
         "rounded-lg": props.rounded.value,
         "rounded-full": props.rounded.value === "full",
-      }),
-      // display: "inline-block",
-      display: classNames({
-        flex: hasAnyIcon.value,
-        "inline-block": !hasAnyIcon.value && props.tag.value !== "button",
-      }),
-      alignItems: classNames({
-        "items-center": hasAnyIcon.value,
-      }),
-      justifyContent: classNames({
-        "justify-center": hasAnyIcon.value,
-      }),
-      space: classNames({
-        "space-x-1.5":
-          props.prepend.value !== "none" || props.append.value !== "none",
-      }),
+        // display: "inline-block",
+        display: {
+          flex: hasAnyIcon.value,
+          "inline-block": !hasAnyIcon.value && props.tag.value !== "button",
+        },
+        alignItems: {
+          "items-center": hasAnyIcon.value,
+        },
+        justifyContent: {
+          "justify-center": hasAnyIcon.value,
+        },
+        // 4 4 6 8 8
+        space:
+          props.prepend.value !== "none" || props.append.value !== "none"
+            ? {
+                "space-x-1":
+                  props.size.value === "xs" || props.size.value === "sm",
+                "space-x-1.5": props.size.value === "md",
+                "space-x-2":
+                  props.size.value === "lg" || props.size.value === "xl",
+              }
+            : "",
+        // space: {
+        //   "space-x-1.5":
+        //     props.prepend.value !== "none" || props.append.value !== "none",
+        // }),
+      },
     };
-    return classNames(Object.values({ ...buttonClasses }));
+    return Object.values({ ...buttonClasses });
   });
-  const computedIconSize = computed(() =>
-    props.size.value === "sm" ? "md" : props.size.value === "md" ? "xl" : "2xl"
+  const computedIconSize = computed(
+    () =>
+      // 12 - 16- 20 - 20 - 24
+      props.size.value === "xs"
+        ? "text-xs"
+        : props.size.value === "sm"
+        ? "text-base"
+        : props.size.value === "xl"
+        ? "text-2xl"
+        : "text-xl"
+    // props.size.value === "sm" ? "md" : props.size.value === "md" ? "xl" : "2xl"
   );
 
   return { buttonClasses: computedButtonClasses, computedIconSize };

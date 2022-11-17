@@ -6,8 +6,8 @@ export default {
 <script setup lang="ts">
 import { computed, reactive } from "vue";
 import type { PropType } from "vue";
-import type { Icon } from "../../globals/types";
-import { TwClassInterface } from "../../globals/interfaces";
+import type { Icon } from "@/globals/types";
+import { TwClassInterface } from "@/globals/interfaces";
 import { IconSizeEnum } from "../../globals/enums";
 import type { IconSizes } from "./icon-types";
 import classNames from "classnames";
@@ -39,7 +39,6 @@ iconClasses.fontSize = classNames({
   [IconSizeEnum[props.size]]: props.size !== "none",
 });
 const computedIconClasses = computed(() => {
-  console.log(iconClasses);
   return classNames(Object.values(iconClasses));
 });
 </script>

@@ -18,6 +18,10 @@ export const disabled = {
   control: "boolean",
   options: [true, false],
 };
+export const border = {
+  control: "boolean",
+  options: [true, false],
+};
 export const prepend = {
   control: "select",
   options: ["home", "add-circle", "close", "none"],
@@ -28,7 +32,7 @@ export const append = {
 };
 export const size = {
   control: { type: "select" },
-  options: ["sm", "md", "lg"],
+  options: ["xs", "sm", "md", "lg", "xl"],
 };
 export const filter = {
   control: "select",
