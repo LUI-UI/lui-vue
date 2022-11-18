@@ -31,24 +31,26 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
       : props.prepend.value === "none"
-      ? "noIcon"
-      : "leftIcon"; // stateIcn-deactive
+        ? "noIcon"
+        : "leftIcon"; // stateIcn-deactive
   });
   const iconClasses: TwClassInterface = {
     position: "absolute",
     translate: "-translate-y-1/2",
     top: "top-2/4",
+    //12 16 20 20 24
     fontSize: classNames({
+      "text-xs": props.size.value === "xs",
       "text-base": props.size.value === "sm",
-      "text-xl": props.size.value === "md",
-      "text-2xl": props.size.value === "lg",
+      "text-xl": props.size.value === "md" || props.size.value === "lg",
+      "text-2xl": props.size.value === "xl",
     }),
   };
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
       peer: "peer",
-      fontSize: "text-base",
-      lineHeight: "leading-normal",
+      // fontSize: "text-base",
+      // lineHeight: "leading-normal",
       width: "w-full",
       textColor:
         "text-secondary-600 placeholder:text-secondary-400 disabled:placeholder:text-secondary-300 dark:text-secondary-300 dark:placeholder:text-secondary-600 dark:disabled:text-secondary-700",
@@ -72,8 +74,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         attrs.disabled !== undefined && attrs.disabled.value
           ? "ring-0"
           : props.state.value === null
-          ? "focus:ring-4"
-          : "ring-4",
+            ? "focus:ring-4"
+            : "ring-4",
       ringColor: classNames({
         "focus:ring-primary-500/40": props.state.value === null,
         "ring-warning-500/40": props.state.value === "warning",
@@ -84,31 +86,49 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         "rounded-lg": props.rounded.value,
         "rounded-full": props.rounded.value === "full",
       }),
+      // 12 14 16 18 20
+      fontSize: classNames({
+        "text-xs": props.size.value === "xs",
+        "text-sm": props.size.value === "sm",
+        "text-base": props.size.value === "md",
+        "text-lg": props.size.value === "lg",
+        "text-xl": props.size.value === "xl",
+      }),
       padding: classNames(
         iconStatus.value === "noIcon"
+          // 4-8 6-10 8-12 10-12 14-16
           ? {
-              "py-1 px-2": props.size.value === "sm",
-              "py-2 px-3": props.size.value === "md",
-              "py-3 px-3": props.size.value === "lg",
-            }
+            "py-1 px-2": props.size.value === "xs",
+            "py-1.5 px-2.5": props.size.value === "sm",
+            "py-2 px-3": props.size.value === "md",
+            "py-2.5 px-3": props.size.value === "lg",
+            "py-3.5 px-4": props.size.value === "xl",
+          }
           : iconStatus.value === "rightIcon"
-          ? {
-              "py-1 pl-2 pr-8": props.size.value === "sm",
+            // 26 - 32 - 40 - 40 - 48
+            ? {
+              "py-1 pl-2 pr-[26px]": props.size.value === "xs",
+              "py-1.5 pl-2.5 pr-8": props.size.value === "sm",
               "py-2 pl-3 pr-10": props.size.value === "md",
-              "py-3 pl-3 pr-12": props.size.value === "lg",
+              "py-2.5 pl-3 pr-10": props.size.value === "lg",
+              "py-3.5 pl-4 pr-12": props.size.value === "xl",
             }
-          : iconStatus.value === "twoIcon"
-          ? {
-              "py-1 px-8": props.size.value === "sm",
-              "py-2 px-10": props.size.value === "md",
-              "py-3 px-12": props.size.value === "lg",
-            }
-          : {
-              //leftIcon
-              "py-1 pr-2 pl-8": props.size.value === "sm",
-              "py-2 pr-3 pl-10": props.size.value === "md",
-              "py-3 pr-3 pl-12": props.size.value === "lg",
-            }
+            : iconStatus.value === "twoIcon"
+              ? {
+                "py-1 px-[26px]": props.size.value === "xs",
+                "py-1.5 px-8": props.size.value === "sm",
+                "py-2 px-10": props.size.value === "md",
+                "py-2.5 px-10": props.size.value === "lg",
+                "py-3.5 px-12": props.size.value === "xl",
+              }
+              : {
+                //leftIcon
+                "py-1 pr-2 pl-[26px]": props.size.value === "xs",
+                "py-1.5 pr-2.5 pl-8": props.size.value === "sm",
+                "py-2 pr-3 pl-10": props.size.value === "md",
+                "py-2.5 pr-3 pl-10": props.size.value === "lg",
+                "py-3.5 pr-4 pl-12": props.size.value === "xl",
+              }
       ),
     };
     return classNames(Object.values({ ...classes }));
@@ -123,12 +143,12 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-200 dark:text-secondary-700"
           : classNames({
-              "text-secondary-600 dark:text-secondary-400":
-                props.state.value === null,
-              "text-warning-500": props.state.value === "warning",
-              "text-danger-500": props.state.value === false,
-              "text-success-500": props.state.value === true,
-            }),
+            "text-secondary-600 dark:text-secondary-400":
+              props.state.value === null,
+            "text-warning-500": props.state.value === "warning",
+            "text-danger-500": props.state.value === false,
+            "text-success-500": props.state.value === true,
+          }),
     };
     return classNames(Object.values({ ...classes }));
   });
@@ -136,10 +156,12 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   const prependClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
+      // 8 10 12 12 16
       left: classNames({
-        "left-2": props.size.value === "sm",
-        "left-3": props.size.value === "md",
-        "left-4": props.size.value === "lg",
+        "left-2": props.size.value === "xs",
+        "left-2.5": props.size.value === "sm",
+        "left-3": props.size.value === "md" || props.size.value === "lg",
+        "left-4": props.size.value === "xl",
       }),
       textColor:
         attrs.disabled !== undefined && attrs.disabled.value
@@ -153,18 +175,19 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     const classes: TwClassInterface = {
       ...iconClasses,
       right: classNames({
-        "right-2": props.size.value === "sm",
-        "right-3": props.size.value === "md",
-        "right-4": props.size.value === "lg",
+        "right-2": props.size.value === "xs",
+        "right-2.5": props.size.value === "sm",
+        "right-3": props.size.value === "md" || props.size.value === "lg",
+        "right-4": props.size.value === "xl",
       }),
       textColor: classNames(
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-300"
           : {
-              "text-warning-500": props.state.value === "warning",
-              "text-danger-500": props.state.value === false,
-              "text-success-500": props.state.value === true,
-            }
+            "text-warning-500": props.state.value === "warning",
+            "text-danger-500": props.state.value === false,
+            "text-success-500": props.state.value === true,
+          }
       ),
     };
     return classNames(Object.values({ ...classes }));
@@ -174,9 +197,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     const classes: TwClassInterface = {
       ...iconClasses,
       right: classNames({
-        "right-2": props.size.value === "sm",
-        "right-3": props.size.value === "md",
-        "right-4": props.size.value === "lg",
+        "right-2": props.size.value === "xs",
+        "right-2.5": props.size.value === "sm",
+        "right-3": props.size.value === "md" || props.size.value === "lg",
+        "right-4": props.size.value === "xl",
       }),
       display: "flex",
       outlineStyle: "outline-none",
