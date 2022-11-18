@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, useSlots } from "vue";
 //Types
 import type { Ref } from "vue";
 import type { ButtonTag } from "../button-types";
@@ -28,12 +28,13 @@ type PropTypes = {
 };
 
 export function useButtonClasses(props: PropTypes) {
+  const slots = useSlots()
   const hasIcon = computed(() => props.icon.value !== "none");
   const hasAnyIcon = computed(
     () =>
       hasIcon.value ||
       props.prepend.value !== "none" ||
-      props.append.value !== "none"
+      !!slots.append
   );
 
   const computedButtonClasses = computed(() => {
@@ -148,7 +149,7 @@ export function useButtonClasses(props: PropTypes) {
       },
       // 4 4 6 8 8
       space:
-        props.prepend.value !== "none" || props.append.value !== "none"
+        props.prepend.value !== "none" || !!slots.append
           ? {
             "space-x-1":
               props.size.value === "xs" || props.size.value === "sm",

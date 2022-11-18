@@ -6,7 +6,7 @@ import {
   description,
 } from "../../../.storybook/global-story-argtypes";
 export default {
-  title: "LUI/LuiRadio",
+  title: "LUI/Radio",
   component: LuiRadio,
   argTypes: {
     size,

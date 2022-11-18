@@ -3,7 +3,7 @@ import type { Ref } from "vue";
 import { Rounded, Size, State, Description } from "@/globals/types";
 import type { TwClassInterface } from "@/globals/interfaces";
 import { useGlobalHiddenInputClasses } from "../../../composables/index"
-import classNames from "classnames";
+// import classNames from "classnames";
 
 type PropTypes = {
   size: Ref<Size>;
@@ -26,34 +26,34 @@ export function useRadioClasses(props: PropTypes) {
       height: props.size.value === 'sm' ? 'h-4' : props.size.value === 'md' ? 'h-5' : 'h-6',
       borderRadius: "rounded-full"
     }
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   })
 
   const spanClasses = computed(() => {
     const classes: TwClassInterface = {
       lineHeight: 'leading-none',
-      width: classNames({
+      width: {
         "w-4 before:w-2": props.size.value === 'sm',
         "w-5 before:w-2.5": props.size.value === 'md',
         "w-6 before:w-3": props.size.value === 'lg',
-      }),
+      },
       // height: props.size.value === 'sm' ? 'h-4 before:h-3' : props.size.value === 'md' ? 'h-5 before:h-4' : 'h-6 before:h-5',
-      height: classNames({
+      height: {
         "h-4 before:h-2": props.size.value === 'sm',
         "h-5 before:h-2.5": props.size.value === 'md',
         "h-6 before:h-3": props.size.value === 'lg',
-      }),
+      },
       borderWidth: 'border peer-checked:border-0',
       borderColor: 'border-secondary-200 dark:border-secondary-700',
       borderRadius: "rounded-full before:rounded-full",
       backgroundColor: 'bg-transparent peer-checked:bg-primary-500 before:bg-transparent peer-checked:before:bg-white',
       ringWidth: 'peer-focus-visible:ring-2',
-      ringColor: classNames({
+      ringColor: {
         'peer-focus-visible:ring-primary-500/40': props.state.value === null,
         'peer-focus-visible:ring-warning-500/40': props.state.value === 'warning',
         'peer-focus-visible:ring-danger-500/40': props.state.value === false,
         'peer-focus-visible:ring-success-500/40': props.state.value === true,
-      }),
+      },
       display: 'inline-flex',
       alignItems: 'items-center',
       justifyContent: 'justify-center',
@@ -70,7 +70,7 @@ export function useRadioClasses(props: PropTypes) {
       // margin: 'before:my-auto',
       // transitionProperty: 'before:transition transition',
     }
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   })
   return { inputClasses, spanClasses }
 }

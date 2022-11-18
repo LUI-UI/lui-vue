@@ -8,7 +8,7 @@ import {
 } from "../../../.storybook/global-story-argtypes";
 
 export default {
-  title: "LUI/LuiSwitch",
+  title: "LUI/Switch",
   component: LuiSwitch,
   argTypes: {
     rounded,

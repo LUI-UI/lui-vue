@@ -3,7 +3,7 @@ import type { Ref } from "vue";
 import { Rounded, Size, State, Description } from "@/globals/types";
 import type { TwClassInterface } from "@/globals/interfaces";
 import { useGlobalHiddenInputClasses } from "../../../composables/index"
-import classNames from "classnames";
+// import classNames from "classnames";
 
 //Define Prop Types
 type PropTypes = {
@@ -25,18 +25,18 @@ export function useCheckboxClasses(props: PropTypes) {
       // zIndex: "z-10",
       // peer: "peer",
       ...useGlobalHiddenInputClasses(),
-      width: classNames({
+      width: {
         "w-4": props.size.value === "sm",
         "w-5": props.size.value === "md",
         "w-6": props.size.value === "lg",
-      }),
-      height: classNames({
+      },
+      height: {
         "h-4": props.size.value === "sm",
         "h-5": props.size.value === "md",
         "h-6": props.size.value === "lg",
-      }),
+      },
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const spanClasses = computed(() => {
@@ -46,36 +46,36 @@ export function useCheckboxClasses(props: PropTypes) {
       justifyContent: "justify-center",
       // position: "relative",
       // zIndex: "z-10",
-      width: classNames({
+      width: {
         "w-4": props.size.value === "sm",
         "w-5": props.size.value === "md",
         "w-6": props.size.value === "lg",
-      }),
-      height: classNames({
+      },
+      height: {
         "h-4": props.size.value === "sm",
         "h-5": props.size.value === "md",
         "h-6": props.size.value === "lg",
-      }),
-      borderRadius: classNames({
+      },
+      borderRadius: {
         rounded: props.rounded.value === true,
         "rounded-full": props.rounded.value === "full",
-      }),
+      },
       backgroundColor:
         "bg-transparent peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
       borderWidth: "border peer-checked:border-0",
       borderColor:
         "border-secondary-200 dark:border-secondary-700 peer-checked:border-transparent",
       ringOffsetColor: "peer-focus-visible:ring-2",
-      ringColor: classNames({
+      ringColor: {
         "peer-focus-visible:ring-primary-500/40": props.state.value === null,
         "peer-focus-visible:ring-warning-500/40":
           props.state.value === "warning",
         "peer-focus-visible:ring-danger-500/40": props.state.value === false,
         "peer-focus-visible:ring-success-500/40": props.state.value === true,
-      }),
+      },
       transitionProperty: "transition-colors",
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const iconClasses = computed(() => {
@@ -90,7 +90,7 @@ export function useCheckboxClasses(props: PropTypes) {
       textColor:
         "text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600",
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   // const descriptionClasses = computed(() => {

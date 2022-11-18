@@ -22,10 +22,10 @@ const props = defineProps({
   },
 });
 interface RemixIconClasses extends TwClassInterface {
-  svgClasses: string;
+  svgClasses: string | boolean | object;
 }
 const iconClasses: RemixIconClasses = reactive({ svgClasses: "" });
-iconClasses.svgClasses = classNames(
+iconClasses.svgClasses =
   typeof props.icon === "string"
     ? `ri-${props.icon}-line`
     : {
@@ -33,13 +33,12 @@ iconClasses.svgClasses = classNames(
           props.icon.type !== "fill" && props.icon.type !== "line",
         [`ri-${props.icon.name}-fill`]: props.icon.type === "fill",
         [`ri-${props.icon.name}-line`]: props.icon.type === "line",
-      }
-);
-iconClasses.fontSize = classNames({
+      };
+iconClasses.fontSize = {
   [IconSizeEnum[props.size]]: props.size !== "none",
-});
+};
 const computedIconClasses = computed(() => {
-  return classNames(Object.values(iconClasses));
+  return Object.values(iconClasses);
 });
 </script>
 

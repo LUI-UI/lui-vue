@@ -13,7 +13,7 @@ import {
 } from "../../../.storybook/global-story-argtypes";
 
 export default {
-  title: "LUI/LuiDropdown",
+  title: "LUI/Dropdown",
   component: LuiDropdown,
   argTypes: {
     variant,

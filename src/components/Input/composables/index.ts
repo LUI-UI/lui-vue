@@ -1,5 +1,5 @@
 import { computed } from "vue";
-import classNames from "classnames";
+// import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
 import type { TwClassInterface } from "@/globals/interfaces";
@@ -39,12 +39,12 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     translate: "-translate-y-1/2",
     top: "top-2/4",
     //12 16 20 20 24
-    fontSize: classNames({
+    fontSize: {
       "text-xs": props.size.value === "xs",
       "text-base": props.size.value === "sm",
       "text-xl": props.size.value === "md" || props.size.value === "lg",
       "text-2xl": props.size.value === "xl",
-    }),
+    },
   };
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
@@ -60,7 +60,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       borderWidth: "border",
       borderStyle: "border-solid",
       cursor: "disabled:cursor-not-allowed",
-      borderColor: classNames({
+      borderColor: {
         ["border-secondary-200 focus:border-primary-500 disabled:border-secondary-200"]:
           props.state.value === null,
         ["disabled:border-secondary-200 border-warning-500"]:
@@ -69,32 +69,32 @@ export function useInputClasses(props: PropTypes, attrs: any) {
           props.state.value === false,
         ["disabled:border-secondary-200 border-success-500"]:
           props.state.value === true,
-      }),
+      },
       ringWidth:
         attrs.disabled !== undefined && attrs.disabled.value
           ? "ring-0"
           : props.state.value === null
             ? "focus:ring-4"
             : "ring-4",
-      ringColor: classNames({
+      ringColor: {
         "focus:ring-primary-500/40": props.state.value === null,
         "ring-warning-500/40": props.state.value === "warning",
         "ring-danger-500/40": props.state.value === false,
         "ring-success-500/40": props.state.value === true,
-      }),
-      borderRadius: classNames({
+      },
+      borderRadius: {
         "rounded-lg": props.rounded.value,
         "rounded-full": props.rounded.value === "full",
-      }),
+      },
       // 12 14 16 18 20
-      fontSize: classNames({
+      fontSize: {
         "text-xs": props.size.value === "xs",
         "text-sm": props.size.value === "sm",
         "text-base": props.size.value === "md",
         "text-lg": props.size.value === "lg",
         "text-xl": props.size.value === "xl",
-      }),
-      padding: classNames(
+      },
+      padding:
         iconStatus.value === "noIcon"
           // 4-8 6-10 8-12 10-12 14-16
           ? {
@@ -129,9 +129,9 @@ export function useInputClasses(props: PropTypes, attrs: any) {
                 "py-2.5 pr-3 pl-10": props.size.value === "lg",
                 "py-3.5 pr-4 pl-12": props.size.value === "xl",
               }
-      ),
+      ,
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const descriptionClasses = computed(() => {
@@ -142,66 +142,65 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       textColor:
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-200 dark:text-secondary-700"
-          : classNames({
+          : {
             "text-secondary-600 dark:text-secondary-400":
               props.state.value === null,
             "text-warning-500": props.state.value === "warning",
             "text-danger-500": props.state.value === false,
             "text-success-500": props.state.value === true,
-          }),
+          },
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const prependClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
       // 8 10 12 12 16
-      left: classNames({
+      left: {
         "left-2": props.size.value === "xs",
         "left-2.5": props.size.value === "sm",
         "left-3": props.size.value === "md" || props.size.value === "lg",
         "left-4": props.size.value === "xl",
-      }),
+      },
       textColor:
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-300 dark:text-secondary-700"
           : "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const stateIconClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
-      right: classNames({
+      right: {
         "right-2": props.size.value === "xs",
         "right-2.5": props.size.value === "sm",
         "right-3": props.size.value === "md" || props.size.value === "lg",
         "right-4": props.size.value === "xl",
-      }),
-      textColor: classNames(
+      },
+      textColor:
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-300"
           : {
             "text-warning-500": props.state.value === "warning",
             "text-danger-500": props.state.value === false,
             "text-success-500": props.state.value === true,
-          }
-      ),
+          },
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   const closeIconClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
-      right: classNames({
+      right: {
         "right-2": props.size.value === "xs",
         "right-2.5": props.size.value === "sm",
         "right-3": props.size.value === "md" || props.size.value === "lg",
         "right-4": props.size.value === "xl",
-      }),
+      },
       display: "flex",
       outlineStyle: "outline-none",
       textColor:
@@ -209,7 +208,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       ringWidth: "focus-visible:ring-2",
       ringColor: "focus-visible:ring-secondary-200",
     };
-    return classNames(Object.values({ ...classes }));
+    return Object.values({ ...classes });
   });
 
   return {
