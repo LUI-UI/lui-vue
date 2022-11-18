@@ -3,10 +3,10 @@ import { describe, it, expect, test } from "vitest";
 import { mount } from "@vue/test-utils";
 import LuiButton from "../LuiButton.vue";
 
+// "text-base",
+// "leading-normal",
 const defaultClasses = [
   "lui-button",
-  "text-base",
-  "leading-normal",
   "outline-none",
   "cursor-pointer",
   "transition-colors",
@@ -56,7 +56,7 @@ const sizeIconSM = "p-2";
 const sizeIconMD = "p-2.5";
 const sizeIconLG = "p-3";
 const sizeSM = ["px-4", "py-1"];
-const sizeMD = ["px-5", "py-2"];
+const sizeMD = ["py-2", "px-5","text-base"];
 const sizeLG = ["px-6", "py-3"];
 
 const arr1 = ["1", "2", "3"];

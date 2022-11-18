@@ -63,41 +63,40 @@ export const Variants = (args) => ({
   },
   template: `
   <div class="space-x-2">
-  <lui-button v-bind="args" variant="solid">Solid</lui-button>
-  <lui-button v-bind="args" variant="outline">Outline</lui-button>
-  <lui-button v-bind="args" variant="link">Link</lui-button>
-  <lui-button v-bind="args" variant="text">Text</lui-button>
+    <lui-button v-bind="args" variant="solid">Solid</lui-button>
+    <lui-button v-bind="args" variant="outline">Outline</lui-button>
+    <lui-button v-bind="args" variant="link">Link</lui-button>
+    <lui-button v-bind="args" variant="text">Text</lui-button>
   </div>`,
 });
 export const Colors = (args) => ({
   components: { LuiButton },
   setup() {
-    return { args };
+    const colors = [
+      "primary",
+      "secondary",
+      "info",
+      "success",
+      "warning",
+      "danger",
+    ];
+    return { args, colors };
   },
   template: `
   <div class="space-x-2">
-  <lui-button v-bind="args" color="primary">Primary</lui-button>
-  <lui-button v-bind="args" color="secondary">Secondary</lui-button>
-  <lui-button v-bind="args" color="info">Info</lui-button>
-  <lui-button v-bind="args" color="success">Success</lui-button>
-  <lui-button v-bind="args" color="warning">Warning</lui-button>
-  <lui-button v-bind="args" color="danger">Danger</lui-button>
+    <lui-button v-for="color in colors" :key="color" v-bind="args" :color="color">
+      {{color}}
+    </lui-button>
   </div>
   <div class="space-x-2 space-y-2">
-  <lui-button v-bind="args" filter="darken" color="primary">Darken</lui-button>
-  <lui-button v-bind="args" filter="darken" color="secondary">Darken</lui-button>
-  <lui-button v-bind="args" filter="darken" color="info">Darken</lui-button>
-  <lui-button v-bind="args" filter="darken" color="success">Darken</lui-button>
-  <lui-button v-bind="args" filter="darken" color="warning">Darken</lui-button>
-  <lui-button v-bind="args" filter="darken" color="danger">Darken</lui-button>
+    <lui-button v-for="color in colors" :key="color" v-bind="args" filter="darken" :color="color">
+      Darken
+    </lui-button>
   </div>
   <div class="space-x-2 space-y-2">
-  <lui-button v-bind="args" filter="lighten" color="primary">Lighten</lui-button>
-  <lui-button v-bind="args" filter="lighten" color="secondary">Lighten</lui-button>
-  <lui-button v-bind="args" filter="lighten" color="info">Lighten</lui-button>
-  <lui-button v-bind="args" filter="lighten" color="success">Lighten</lui-button>
-  <lui-button v-bind="args" filter="lighten" color="warning">Lighten</lui-button>
-  <lui-button v-bind="args" filter="lighten" color="danger">Lighten</lui-button>
+    <lui-button v-for="color in colors" :key="color" v-bind="args" filter="lighten" :color="color">
+      Lighten
+    </lui-button>
   </div>
   
   `,
