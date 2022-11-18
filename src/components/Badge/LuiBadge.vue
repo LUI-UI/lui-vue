@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import type { Filter, Color, Size, Border, Icon } from "@/globals/types";
+import type { Filter, Color, Size, Border } from "@/globals/types";
 import { PropType, ref, computed, toRefs, watchEffect, useSlots } from "vue";
-import { TwClassInterface } from "@/globals/interfaces";
+import {
+  TwClassInterface,
+  LayoutInterface,
+  FlexGridInterface,
+} from "@/globals/interfaces";
 import { useGlobalColorClasses } from "../../composables";
 import { BadgeVariant } from "./badge-types";
+type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
+
+const slots = useSlots();
 const props = defineProps({
   variant: {
     type: String as PropType<BadgeVariant>,
@@ -26,21 +33,19 @@ const props = defineProps({
     default: false,
   },
   text: {
-    type: [String],
+    type: String,
     default: "",
   },
-  icon: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
+  position: {
+    type: String as PropType<Position>,
+    default: "bottom-right",
   },
 });
 const { backgroundColorClasses, textColorClasses, borderColorClasses } =
   useGlobalColorClasses(toRefs(props));
-const slots = useSlots();
 const badgeWrapper = ref<HTMLDivElement | null>(null);
 const badgeContent = ref<HTMLSpanElement | null>(null);
 const overflow = ref(false);
-console.log(!!slots.icon);
 watchEffect(() => {
   const wrapperWidh = badgeWrapper.value?.scrollWidth;
   const contentWidth = badgeContent.value?.scrollWidth;
@@ -52,9 +57,58 @@ watchEffect(() => {
     }
   }
 });
+const computedContainerClasses = computed(() => {
+  const containerClasses: LayoutInterface = {
+    position: "relative",
+    display: "inline-block",
+  };
+  return Object.values(containerClasses);
+});
+const computedIconClasses = computed(() => {
+  const iconClasses: LayoutInterface | FlexGridInterface = {
+    display: "flex",
+    justifyContent: "justify-center",
+    alignItems: "items-center",
+  };
+  return Object.values(iconClasses);
+});
 const computedBadgeClasses = computed(() => {
   const badgeClasses: TwClassInterface = {
     display: overflow.value ? "inline-block" : "flex",
+    position: { absolute: !!slots.default },
+    top: slots.default
+      ? {
+          "top-0":
+            props.position === "top-left" || props.position === "top-right",
+        }
+      : null,
+    bottom: slots.default
+      ? {
+          "bottom-0":
+            props.position === "bottom-left" ||
+            props.position === "bottom-right",
+        }
+      : null,
+    left: slots.default
+      ? {
+          "left-0":
+            props.position === "bottom-left" || props.position === "top-left",
+        }
+      : null,
+    right: slots.default
+      ? {
+          "right-0":
+            props.position === "bottom-right" || props.position === "top-right",
+        }
+      : null,
+    translate: slots.default
+      ? {
+          "-translate-y-1/2 -translate-x-1/2": props.position === "top-left",
+          "-translate-y-1/2 translate-x-1/2": props.position === "top-right",
+          "translate-y-1/2 -translate-x-1/2": props.position === "bottom-left",
+          "translate-y-1/2 translate-x-1/2": props.position === "bottom-right",
+        }
+      : null,
     borderRadius: "rounded-full",
     borderWidth: "border",
     borderStyle: "border-solid",
@@ -120,10 +174,13 @@ const computedBadgeClasses = computed(() => {
 });
 </script>
 <template>
-  <div class="lui-badge">
+  <div class="lui-badge" :class="computedContainerClasses">
+    <slot></slot>
     <div ref="badgeWrapper" :class="computedBadgeClasses">
-      <span v-if="$slots.icon"><slot name="icon"></slot></span>
-      <span v-else ref="badgeContent">{{ text }}</span>
+      <span :class="computedIconClasses" v-if="$slots.icon"
+        ><slot name="icon"></slot
+      ></span>
+      <span v-if="props.text.length > 0" ref="badgeContent">{{ text }}</span>
     </div>
   </div>
 </template>

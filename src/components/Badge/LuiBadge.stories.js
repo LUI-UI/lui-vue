@@ -6,87 +6,211 @@ import {
   border,
   icon,
 } from "../../../.storybook/global-story-argtypes";
+const sizeList = size.options;
+const colorList = color.options;
+const filterList = filter.options;
 export default {
   title: "LUI/Badge",
   component: LuiBadge,
   argTypes: {
+    variant: {
+      control: "select",
+      options: ["solid", "outline"],
+    },
     color,
     size,
     filter,
     icon,
     border,
-    variant: {
+    position: {
       control: "select",
-      options: ["solid", "outline"],
+      options: ["top-left", "top-right", "bottom-left", "bottom-right"],
+      default: "bottom-right",
     },
     text: {
       control: "text",
     },
   },
 };
-const Template = (args) => ({
+const DefaultTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
     return { args };
   },
-  template: `<lui-badge v-bind="args"></lui-badge>`,
+  template: `<lui-badge v-bind="args" />`,
 });
-const SizesTemplate = (args) => ({
-  components: { LuiBadge },
-  setup() {
-    return { args };
-  },
-  template: `    <div class=" space-x-16">
-  <div class="space-x-3">
-    <lui-badge v-bind="args" size="xs"></lui-badge>
-    <lui-badge v-bind="args" size="sm"></lui-badge>
-    <lui-badge v-bind="args" size="md"></lui-badge>
-    <lui-badge v-bind="args" size="lg"></lui-badge>
-    <lui-badge v-bind="args" size="xl"></lui-badge>
-  </div>
-  <div class="space-x-3">
-    <lui-badge v-bind="args" size="xs" text="9"></lui-badge>
-    <lui-badge v-bind="args" size="sm" text="9"></lui-badge>
-    <lui-badge v-bind="args" size="md" text="9"></lui-badge>
-    <lui-badge v-bind="args" size="lg" text="9"></lui-badge>
-    <lui-badge v-bind="args" size="xl" text="9"></lui-badge>
-  </div>
-  <div class="space-x-3">
-    <lui-badge v-bind="args" size="xs" text="9999+"></lui-badge>
-    <lui-badge v-bind="args" size="sm" text="9999+"></lui-badge>
-    <lui-badge v-bind="args" size="md" text="9999+"></lui-badge>
-    <lui-badge v-bind="args" size="lg" text="9999+"></lui-badge>
-    <lui-badge v-bind="args" size="xl" text="9999+"></lui-badge>
-  </div>
-  <div class="space-x-3">
-    <lui-badge v-bind="args" size="xs">
-      <template #icon>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="8" height="8" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M17 21H7A6 6 0 0 1 5.008 9.339a7 7 0 1 1 13.984 0A6 6 0 0 1 17 21zm0-12a5 5 0 1 0-9.994.243l.07 1.488-1.404.494A4.002 4.002 0 0 0 7 19h10a4 4 0 1 0-3.796-5.265l-1.898-.633A6.003 6.003 0 0 1 17 9z"/></svg>      </template>
-    </svg>    </lui-badge>
-    <lui-badge v-bind="args" size="sm">
-      <template #icon>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M20 20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9zM8 15v2h8v-2H8z"/></svg>
-      </template>
-    </lui-badge>
-    <lui-badge v-bind="args" size="md">
-      <template #icon>
-        <i class="ri-user-line" />
-      </template>
-    </lui-badge>
-    <lui-badge v-bind="args" size="lg">
-      <template #icon>
-        <i class="ri-user-line" />
-      </template>
-    </lui-badge>
-    <lui-badge v-bind="args" size="xl">
-      <template #icon>
-        <i class="ri-user-line" />
-      </template>
-    </lui-badge>
-  </div>
-</div>`,
-});
-export const Default = Template.bind({});
-Default.args = { size: "sm" };
+export const Default = DefaultTemplate.bind({});
+Default.args = { size: "md" };
 
-export const Sizes = SizesTemplate.bind({});
+const VariantTemplate = (args) => ({
+  components: { LuiBadge },
+  setup() {
+    const variants = ["solid", "outline"];
+    return { args, variants };
+  },
+  template: `
+  <div v-for="variant in variants" key="variant" class="flex items-center space-x-4 mb-4">
+
+  <lui-badge v-bind="args" :variant="variant"/>
+
+    <lui-badge v-bind="args" :variant="variant" text="Badge"/>
+
+    <lui-badge v-bind="args" :variant="variant">
+      <template #icon>
+      <i class="ri-user-line"></i>
+      </template>
+    </lui-badge>
+    <pre>{{variant}}</pre>
+  </div>
+  `,
+});
+export const Variants = VariantTemplate.bind({});
+
+const ColorTemplate = (args) => ({
+  components: { LuiBadge },
+  setup() {
+    const colors = colorList;
+    const filters = filterList;
+    return { args, colors, filters };
+  },
+  template: `
+<div v-for="filter in filters" :key="filter">
+<pre>{{filter}}</pre>
+
+    <div class="space-x-4 mb-4">
+    <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" :filter="filter"/>
+    </div>
+    <div class="space-x-4 mb-4">
+    <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" text="Badge" :filter="filter"/>
+    </div>
+    <div class="space-x-4 mb-4">
+    <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" :filter="filter">
+      <template #icon>
+      <i class="ri-user-line"></i>
+      </template>
+    </lui-badge>
+    </div>
+
+</div>
+  
+  `,
+});
+export const Colors = ColorTemplate.bind({});
+
+const SizeTemplate = (args) => ({
+  components: { LuiBadge },
+  setup() {
+    const sizes = sizeList;
+    return { args, sizes };
+  },
+  template: `
+  <div class="space-x-4 mb-4">
+  <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size"/>
+  </div>
+  <div class="space-x-4 mb-4">
+  <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size" text="Badge"/>
+  </div>
+  <div class="space-x-4 mb-4">
+  <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size">
+    <template #icon>
+    <i class="ri-user-line"></i>
+    </template>
+  </lui-badge>
+  </div>
+  
+  `,
+});
+export const Sizes = SizeTemplate.bind({});
+const PositionTemplate = (args) => ({
+  components: { LuiBadge },
+  setup() {
+    const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
+    return { args, positions };
+  },
+  template: `
+    <div
+      v-for="position in positions"
+      :key="position"
+      class="p-6 flex space-x-12"
+    >
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="success" :position="position">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+        </lui-badge>
+      </div>
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="warning" :position="position" text="9">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+        </lui-badge>
+      </div>
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="danger" :position="position">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+          <template #icon>
+            <i class="ri-wifi-off-fill"></i>
+          </template>
+        </lui-badge>
+      </div>
+    </div>
+  `,
+});
+export const Positions = PositionTemplate.bind({});
+
+const BorderTemplate = (args) => ({
+  components: { LuiBadge },
+  setup() {
+    const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
+    return { args, positions };
+  },
+  template: `
+    <div
+      v-for="position in positions"
+      :key="position"
+      class="p-6 flex space-x-12"
+    >
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="success" :position="position" :border="true">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+        </lui-badge>
+      </div>
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="warning" :position="position" :border="true" text="9">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+        </lui-badge>
+      </div>
+      <div class="space-x-4 mb-4">
+        <lui-badge v-bind="args" color="danger" :position="position" :border="true">
+          <div
+            class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
+          >
+            <i class="ri-user-line"></i>
+          </div>
+          <template #icon>
+            <i class="ri-wifi-off-fill"></i>
+          </template>
+        </lui-badge>
+      </div>
+    </div>
+  `,
+});
+export const Border = BorderTemplate.bind({});
