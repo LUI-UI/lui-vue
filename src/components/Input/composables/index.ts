@@ -1,4 +1,4 @@
-import { computed } from "vue";
+import { computed, useSlots } from "vue";
 // import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
@@ -25,12 +25,13 @@ type PropTypes = {
 };
 
 export function useInputClasses(props: PropTypes, attrs: any) {
+  const slots = useSlots()
   const iconStatus = computed(() => {
-    return props.stateIcon.value === true && props.state.value !== null
-      ? props.prepend.value !== "none"
+    return (props.stateIcon.value === true && props.state.value !== null) || props.clear.value === true
+      ? !!slots.prepend
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
-      : props.prepend.value === "none"
+      : !!slots.prepend === false
         ? "noIcon"
         : "leftIcon"; // stateIcn-deactive
   });
@@ -83,7 +84,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         "ring-success-500/40": props.state.value === true,
       },
       borderRadius: {
-        "rounded-lg": props.rounded.value,
+        "rounded-lg": props.rounded.value === true,
         "rounded-full": props.rounded.value === "full",
       },
       // 12 14 16 18 20

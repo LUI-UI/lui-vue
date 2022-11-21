@@ -8,7 +8,6 @@ import type {
   Filter,
   Rounded,
   Block,
-  Icon,
   Color,
   Size,
 } from "@/globals/types";
@@ -22,18 +21,15 @@ type PropTypes = {
   size: Ref<Size>;
   rounded: Ref<Rounded>;
   block: Ref<Block>;
-  prepend: Ref<Icon>;
-  append: Ref<Icon>;
-  icon: Ref<Icon>;
 };
 
 export function useButtonClasses(props: PropTypes) {
   const slots = useSlots()
-  const hasIcon = computed(() => props.icon.value !== "none");
+  const hasIcon = computed(() => !!slots.icon);
   const hasAnyIcon = computed(
     () =>
-      hasIcon.value ||
-      props.prepend.value !== "none" ||
+      !!slots.icon ||
+      !!slots.prepend ||
       !!slots.append
   );
 
@@ -133,7 +129,7 @@ export function useButtonClasses(props: PropTypes) {
             }
           : "p-0",
       borderRadius: {
-        "rounded-lg": props.rounded.value,
+        "rounded-lg": props.rounded.value === true,
         "rounded-full": props.rounded.value === "full",
       },
       // display: "inline-block",
@@ -149,7 +145,7 @@ export function useButtonClasses(props: PropTypes) {
       },
       // 4 4 6 8 8
       space:
-        props.prepend.value !== "none" || !!slots.append
+        !!slots.prepend || !!slots.append
           ? {
             "space-x-1":
               props.size.value === "xs" || props.size.value === "sm",

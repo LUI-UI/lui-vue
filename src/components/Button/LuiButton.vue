@@ -5,21 +5,13 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { toRefs } from "vue";
+import { toRefs, useSlots } from "vue";
 // import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
 import type { ButtonTag } from "./button-types";
-import {
-  Variant,
-  Filter,
-  Rounded,
-  Block,
-  Icon,
-  Color,
-  Size,
-} from "@/globals/types";
-import LuiIcon from "../Icon/LuiIcon.vue";
+import { Variant, Filter, Rounded, Block, Color, Size } from "@/globals/types";
+// import LuiIcon from "../Icon/LuiIcon.vue";
 
 const props = defineProps({
   tag: {
@@ -50,18 +42,18 @@ const props = defineProps({
     type: Boolean as PropType<Block>,
     default: false,
   },
-  prepend: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
-  append: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
-  icon: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
+  // prepend: {
+  //   type: [String, Object] as PropType<Icon>,
+  //   default: "none",
+  // },
+  // append: {
+  //   type: [String, Object] as PropType<Icon>,
+  //   default: "none",
+  // },
+  // icon: {
+  //   type: [String, Object] as PropType<Icon>,
+  //   default: "none",
+  // },
   // loading: {
   //   type: Boolean as PropType<Loading>,
   //   default: false,
@@ -73,36 +65,58 @@ const props = defineProps({
 });
 
 const { buttonClasses, computedIconSize } = useButtonClasses(toRefs(props));
+const slots = useSlots();
 // console.log(slots?.default().props.size = "lg");
 </script>
 
 <template>
   <component
     :is="tag"
-    class="lui-button"
-    :class="buttonClasses"
     v-bind="$attrs"
+    :class="buttonClasses"
+    class="lui-button"
   >
-    <lui-icon
+    <!-- <lui-icon
       v-if="icon !== 'none'"
       :icon="icon"
       :class="computedIconSize"
       class="leading-none"
-    />
+    /> -->
+    <span
+      v-if="!!slots.icon"
+      :class="computedIconSize"
+      class="leading-none flex items-center"
+    >
+      <slot name="icon" />
+    </span>
     <template v-else>
-      <lui-icon
+      <!-- <lui-icon
         v-if="prepend !== 'none'"
         :icon="prepend"
         :class="computedIconSize"
         class="leading-none"
-      />
+      /> -->
+      <span
+        v-if="!!slots.prepend"
+        :class="computedIconSize"
+        class="leading-none flex items-center"
+      >
+        <slot name="append" />
+      </span>
       <span><slot></slot></span>
-      <lui-icon
+      <span
+        v-if="!!slots.append"
+        :class="computedIconSize"
+        class="leading-none flex items-center"
+      >
+        <slot name="append" />
+      </span>
+      <!-- <lui-icon
         v-if="append !== 'none'"
         :icon="append"
         class="leading-none"
         :class="computedIconSize"
-      />
+      /> -->
       <!-- <lui-icon
         v-if="prepend !== 'none' || (loading && loaderPosition === 'left')"
         :icon="loading && loaderPosition === 'left' ? 'loader-4' : prepend"

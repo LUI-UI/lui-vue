@@ -4,11 +4,8 @@ import {
   color,
   block,
   rounded,
-  prepend,
-  append,
   size,
   filter,
-  icon,
   disabled,
 } from "../../../.storybook/global-story-argtypes";
 
@@ -22,11 +19,8 @@ export default {
     color,
     block,
     rounded,
-    prepend,
-    append,
     size,
     filter,
-    icon,
     disabled,
     tag: {
       control: { type: "select" },
@@ -105,11 +99,47 @@ export const Sizes = (args) => ({
   components: { LuiButton },
   setup() {
     const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, sizes };
+    // const iconSize = computed(() =>
+    //   props.size === "xs"
+    //     ? "12"
+    //     : props.size === "sm"
+    //     ? "16"
+    //     : props.size === "xl"
+    //     ? "24"
+    //     : "20"
+    // );
+    function iconSize(size) {
+      return size === "xs"
+        ? "12"
+        : size === "sm"
+        ? "16"
+        : size === "xl"
+        ? "24"
+        : "20";
+    }
+    return { args, sizes, iconSize };
   },
   template: `<div class="flex items-center space-x-4">
     <div v-for="size in sizes" :key="size">
-      <lui-button v-bind="args" :size="size" append="add-circle">LuiButton</lui-button>
+      <lui-button v-bind="args" :size="size">
+        <span>LuiButton</span>
+        <template #append>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :width="iconSize(size)" :height="iconSize(size)" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
+        </template>
+      </lui-button>
     </div>
   </div>`,
+});
+
+export const IconButton = (args) => ({
+  components: { LuiButton },
+  setup() {
+    return { args };
+  },
+  template: `
+    <lui-button v-bind="args">
+      <template #icon>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
+      </template>
+    </lui-button>`,
 });
