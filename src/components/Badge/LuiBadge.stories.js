@@ -16,6 +16,7 @@ export default {
     variant: {
       control: "select",
       options: ["solid", "outline"],
+      description: "My badge variant",
     },
     color,
     size,
