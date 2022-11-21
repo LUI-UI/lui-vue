@@ -43,17 +43,18 @@ const props = defineProps({
     default: false,
   },
   value: {
-    type: String,
-    default: "",
+    type: [String, Boolean],
+    default: false,
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<CheckableModelValue>,
-    default: false,
+    type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
+    default: undefined,
   },
   // indeterminate
 });
 
 const attrs = useAttrs();
+// console.log("COMPONENT-ATTRS: ", attrs.checked !== undefined);
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(
   toRefs(props)
 );
@@ -61,7 +62,7 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
   toRefs(attrs)
 );
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
+const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 const emit = defineEmits(["update:modelValue"]);
 // let modelValueAsArray: Ref<ModelValue> = toRef(props, "modelValue");
 function handleChange(e: any) {
@@ -88,18 +89,29 @@ function handleChange(e: any) {
 // });
 
 const iconSize = computed(() =>
-  props.size === "sm"
+  // 12 - 16 - 20 - 24 - 28
+  props.size === "xs"
     ? {
         checkbox: "12",
         indeterminate: { width: "10", stroke: "1.5", viewBox: "0 0 10 2" },
       }
-    : props.size === "md"
+    : props.size === "sm"
     ? {
         checkbox: "16",
         indeterminate: { width: "12", stroke: "1.75", viewBox: "0 0 12 2" },
       }
-    : {
+    : props.size === "md"
+    ? {
         checkbox: "20",
+        indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
+      }
+    : props.size === "lg"
+    ? {
+        checkbox: "24",
+        indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
+      }
+    : {
+        checkbox: "28",
         indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
       }
 );

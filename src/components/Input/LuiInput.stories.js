@@ -57,8 +57,6 @@ Medium.args = { rounded: true, size: "md" };
 console.log({ Medium });
 export const Description = Template.bind({});
 Description.args = { description: "Input description text" };
-export const Prepend = Template.bind({});
-Prepend.args = { prepend: "add-circle" };
 export const StateIcon = Template.bind({});
 StateIcon.args = { stateIcon: true };
 // export const Clear = Template.bind({});

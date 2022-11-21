@@ -64,3 +64,28 @@ export const Description = Template.bind({});
 Description.args = { description: "checkbox description" };
 export const Indeterminate = Template.bind({});
 Indeterminate.args = { indeterminate: true };
+
+export const Sizes = (args) => ({
+  components: { LuiCheckbox },
+  data() {
+    return {
+      is: false,
+      apple: ["iphone"],
+    };
+  },
+  setup() {
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    return { args, sizes };
+  },
+  template: `
+    <div>{{is}}</div>
+    <div> {{apple}} </div>
+    <button class="m-2" @click="is = true">add</button>
+    <lui-checkbox v-bind="args" :checked="is" />
+    <lui-checkbox v-bind="args" value="iphone" v-model="apple" />
+    <lui-checkbox v-bind="args" value="macbook" v-model="apple" />
+    <lui-checkbox v-bind="args" value="ipad" v-model="apple" />
+    <div class="flex items-center space-x-8">
+      <lui-checkbox v-bind="args" v-for="size in sizes" :key="size" :size="size" :checked="false" v-model="is" />
+    </div>`,
+});

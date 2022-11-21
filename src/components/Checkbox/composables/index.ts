@@ -26,14 +26,18 @@ export function useCheckboxClasses(props: PropTypes) {
       // peer: "peer",
       ...useGlobalHiddenInputClasses(),
       width: {
-        "w-4": props.size.value === "sm",
-        "w-5": props.size.value === "md",
-        "w-6": props.size.value === "lg",
+        "w-4": props.size.value === "xs",
+        "w-5": props.size.value === "sm",
+        "w-6": props.size.value === "md",
+        "w-7": props.size.value === "lg",
+        "w-8": props.size.value === "xl",
       },
       height: {
-        "h-4": props.size.value === "sm",
-        "h-5": props.size.value === "md",
-        "h-6": props.size.value === "lg",
+        "h-4": props.size.value === "xs",
+        "h-5": props.size.value === "sm",
+        "h-6": props.size.value === "md",
+        "h-7": props.size.value === "lg",
+        "h-8": props.size.value === "xl",
       },
     };
     return Object.values({ ...classes });
@@ -46,15 +50,20 @@ export function useCheckboxClasses(props: PropTypes) {
       justifyContent: "justify-center",
       // position: "relative",
       // zIndex: "z-10",
+      // 16 - 20 - 24 - 28 - 32
       width: {
-        "w-4": props.size.value === "sm",
-        "w-5": props.size.value === "md",
-        "w-6": props.size.value === "lg",
+        "w-4": props.size.value === "xs",
+        "w-5": props.size.value === "sm",
+        "w-6": props.size.value === "md",
+        "w-7": props.size.value === "lg",
+        "w-8": props.size.value === "xl",
       },
       height: {
-        "h-4": props.size.value === "sm",
-        "h-5": props.size.value === "md",
-        "h-6": props.size.value === "lg",
+        "h-4": props.size.value === "xs",
+        "h-5": props.size.value === "sm",
+        "h-6": props.size.value === "md",
+        "h-7": props.size.value === "lg",
+        "h-8": props.size.value === "xl",
       },
       borderRadius: {
         rounded: props.rounded.value === true,
