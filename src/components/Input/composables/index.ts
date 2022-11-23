@@ -97,26 +97,27 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       },
       padding:
         iconStatus.value === "noIcon"
-          // 4-8 6-10 8-12 10-12 14-16
+          // 6 - 8 - 10 - 10 - 12
+          // 24 - 32 - 40 - 40 - 48
           ? {
-            "py-1 px-2": props.size.value === "xs",
-            "py-1.5 px-2.5": props.size.value === "sm",
-            "py-2 px-3": props.size.value === "md",
-            "py-2.5 px-3": props.size.value === "lg",
-            "py-3.5 px-4": props.size.value === "xl",
+            "py-1 px-1.5": props.size.value === "xs",
+            "py-1.5 px-2": props.size.value === "sm",
+            "py-2 px-2.5": props.size.value === "md",
+            "py-2.5 px-2.5": props.size.value === "lg",
+            "py-3.5 px-3": props.size.value === "xl",
           }
           : iconStatus.value === "rightIcon"
             // 26 - 32 - 40 - 40 - 48
             ? {
-              "py-1 pl-2 pr-[26px]": props.size.value === "xs",
-              "py-1.5 pl-2.5 pr-8": props.size.value === "sm",
-              "py-2 pl-3 pr-10": props.size.value === "md",
-              "py-2.5 pl-3 pr-10": props.size.value === "lg",
-              "py-3.5 pl-4 pr-12": props.size.value === "xl",
+              "py-1 pl-1.5 pr-6": props.size.value === "xs",
+              "py-1.5 pl-2 pr-8": props.size.value === "sm",
+              "py-2 pl-2.5 pr-10": props.size.value === "md",
+              "py-2.5 pl-2.5 pr-10": props.size.value === "lg",
+              "py-3.5 pl-3 pr-12": props.size.value === "xl",
             }
             : iconStatus.value === "twoIcon"
               ? {
-                "py-1 px-[26px]": props.size.value === "xs",
+                "py-1 px-6": props.size.value === "xs",
                 "py-1.5 px-8": props.size.value === "sm",
                 "py-2 px-10": props.size.value === "md",
                 "py-2.5 px-10": props.size.value === "lg",
@@ -124,11 +125,11 @@ export function useInputClasses(props: PropTypes, attrs: any) {
               }
               : {
                 //leftIcon
-                "py-1 pr-2 pl-[26px]": props.size.value === "xs",
-                "py-1.5 pr-2.5 pl-8": props.size.value === "sm",
-                "py-2 pr-3 pl-10": props.size.value === "md",
-                "py-2.5 pr-3 pl-10": props.size.value === "lg",
-                "py-3.5 pr-4 pl-12": props.size.value === "xl",
+                "py-1 pr-1.5 pl-6": props.size.value === "xs",
+                "py-1.5 pr-2 pl-8": props.size.value === "sm",
+                "py-2 pr-2.5 pl-10": props.size.value === "md",
+                "py-2.5 pr-2.5 pl-10": props.size.value === "lg",
+                "py-3.5 pr-3 pl-12": props.size.value === "xl",
               }
       ,
     };

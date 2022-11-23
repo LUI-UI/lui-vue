@@ -19,8 +19,7 @@ import { useGlobalDescriptionClasses } from "../../composables/index";
 import { useGlobalCheckbox } from "../../composables/index";
 
 type Indeterminate = false | true;
-// export type StringArray = string[];
-// type ModelValue = string[] | false | true;
+
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -29,6 +28,9 @@ const props = defineProps({
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
     default: false,
+    validator(value: Rounded) {
+      return [true, false, "full"].includes(value);
+    },
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
@@ -52,41 +54,20 @@ const props = defineProps({
   },
   // indeterminate
 });
-
 const attrs = useAttrs();
-// console.log("COMPONENT-ATTRS: ", attrs.checked !== undefined);
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(
   toRefs(props)
 );
 const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
-  toRefs(attrs)
+  attrs
 );
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 const emit = defineEmits(["update:modelValue"]);
-// let modelValueAsArray: Ref<ModelValue> = toRef(props, "modelValue");
+
 function handleChange(e: any) {
   emit("update:modelValue", handleVModel(e));
 }
-// function handleVModel(e: any) {
-//   if (typeof props.modelValue === "boolean") {
-//     emit("update:modelValue", e.target.checked);
-//   } else {
-//     if (e.target.checked) {
-//       modelValueAsArray.value.push(e.target.value);
-//     } else {
-//       const index = modelValueAsArray.value.indexOf(e.target.value);
-//       modelValueAsArray.value.splice(index, 1);
-//     }
-//     emit("update:modelValue", ...[modelValueAsArray.value]);
-//   }
-// }
-
-// const isInputChecked = computed(() => {
-//   return typeof props.modelValue === "boolean"
-//     ? props.modelValue
-//     : modelValueAsArray.value.includes(props.value);
-// });
 
 const iconSize = computed(() =>
   // 12 - 16 - 20 - 24 - 28
@@ -108,11 +89,11 @@ const iconSize = computed(() =>
     : props.size === "lg"
     ? {
         checkbox: "24",
-        indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
+        indeterminate: { width: "18", stroke: "2", viewBox: "0 0 18 2" },
       }
     : {
         checkbox: "28",
-        indeterminate: { width: "16", stroke: "2", viewBox: "0 0 16 2" },
+        indeterminate: { width: "22", stroke: "2", viewBox: "0 0 22 2" },
       }
 );
 </script>
@@ -145,11 +126,11 @@ const iconSize = computed(() =>
           stroke-linejoin="round"
         />
       </svg>
-      <svg
+      <!-- <svg
         v-if="indeterminate"
         :width="iconSize.indeterminate.width"
         height="2"
-        :viewBox="iconSize.indeterminate.viewBox"
+        viewBox="0 0 16 2"
         :class="iconClasses"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -158,6 +139,86 @@ const iconSize = computed(() =>
           d="M0.999977 1H15"
           stroke="white"
           :stroke-width="iconSize.indeterminate.stroke"
+          stroke-linecap="round"
+        />
+      </svg> -->
+      <svg
+        v-if="indeterminate && size === 'xs'"
+        width="10"
+        height="2"
+        viewBox="0 0 10 2"
+        :class="iconClasses"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H9"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        v-if="indeterminate && size === 'sm'"
+        width="12"
+        height="2"
+        viewBox="0 0 12 2"
+        :class="iconClasses"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H11"
+          stroke="white"
+          stroke-width="1.75"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        v-if="indeterminate && size === 'md'"
+        width="16"
+        height="2"
+        viewBox="0 0 16 2"
+        :class="iconClasses"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H15"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        v-if="indeterminate && size === 'lg'"
+        width="18"
+        height="2"
+        viewBox="0 0 18 2"
+        :class="iconClasses"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H17"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        v-if="indeterminate && size === 'xl'"
+        width="22"
+        height="2"
+        viewBox="0 0 22 2"
+        :class="iconClasses"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1 1H21"
+          stroke="white"
+          stroke-width="2"
           stroke-linecap="round"
         />
       </svg>

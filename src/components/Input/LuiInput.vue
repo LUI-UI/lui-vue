@@ -61,7 +61,7 @@ const {
   prependClasses,
   stateIconClasses,
   closeIconClasses,
-} = useInputClasses(toRefs(props), toRefs(attrs));
+} = useInputClasses(toRefs(props), attrs);
 
 const stateIconName = computed(() => {
   return attrs.disabled

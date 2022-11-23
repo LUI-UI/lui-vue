@@ -58,3 +58,15 @@ export const Disabled = Template.bind({});
 Disabled.args = { disabled: true };
 export const Description = Template.bind({});
 Description.args = { description: "Radio description" };
+export const Sizes = (args) => ({
+  components: { LuiRadio },
+  setup() {
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    return { args, sizes };
+  },
+  template: `
+    <div class="flex items-center space-x-4">
+      <lui-radio v-bind="args" v-for="size in sizes" :key="size" :size="size" :checked="true" />
+    </div>
+  `,
+});
