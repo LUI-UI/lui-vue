@@ -22,8 +22,20 @@ export function useRadioClasses(props: PropTypes) {
       // cursor: 'disabled:cursor-not-allowed',
       // lineHeight: 'leading-none',
       ...useGlobalHiddenInputClasses(),
-      width: props.size.value === 'sm' ? 'w-4' : props.size.value === 'md' ? 'w-5' : 'w-6',
-      height: props.size.value === 'sm' ? 'h-4' : props.size.value === 'md' ? 'h-5' : 'h-6',
+      width: {
+        "w-4": props.size.value === 'xs',
+        "w-5": props.size.value === 'sm',
+        "w-6": props.size.value === 'md',
+        "w-7": props.size.value === 'lg',
+        "w-8": props.size.value === 'xl',
+      },
+      height: {
+        "h-4": props.size.value === 'xs',
+        "h-5": props.size.value === 'sm',
+        "h-6": props.size.value === 'md',
+        "h-7": props.size.value === 'lg',
+        "h-8": props.size.value === 'xl',
+      },
       borderRadius: "rounded-full"
     }
     return Object.values({ ...classes });
@@ -33,15 +45,19 @@ export function useRadioClasses(props: PropTypes) {
     const classes: TwClassInterface = {
       lineHeight: 'leading-none',
       width: {
-        "w-4 before:w-2": props.size.value === 'sm',
-        "w-5 before:w-2.5": props.size.value === 'md',
-        "w-6 before:w-3": props.size.value === 'lg',
+        "w-4 before:w-2": props.size.value === 'xs',
+        "w-5 before:w-2.5": props.size.value === 'sm',
+        "w-6 before:w-3": props.size.value === 'md',
+        "w-7 before:w-3.5": props.size.value === 'lg',
+        "w-8 before:w-4": props.size.value === 'xl',
       },
-      // height: props.size.value === 'sm' ? 'h-4 before:h-3' : props.size.value === 'md' ? 'h-5 before:h-4' : 'h-6 before:h-5',
+      // 16/8 - 20/10 - 24/12 - 28-14 - 32/16
       height: {
-        "h-4 before:h-2": props.size.value === 'sm',
-        "h-5 before:h-2.5": props.size.value === 'md',
-        "h-6 before:h-3": props.size.value === 'lg',
+        "h-4 before:h-2": props.size.value === 'xs',
+        "h-5 before:h-2.5": props.size.value === 'sm',
+        "h-6 before:h-3": props.size.value === 'md',
+        "h-7 before:h-3.5": props.size.value === 'lg',
+        "h-8 before:h-4": props.size.value === 'xl',
       },
       borderWidth: 'border peer-checked:border-0',
       borderColor: 'border-secondary-200 dark:border-secondary-700',

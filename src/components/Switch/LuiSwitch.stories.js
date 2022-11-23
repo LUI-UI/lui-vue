@@ -52,3 +52,30 @@ export const Rounded = Template.bind({});
 Rounded.args = { rounded: true };
 export const Disabled = Template.bind({});
 Disabled.args = { disabled: true, checked: true };
+export const Sizes = (args) => ({
+  components: { LuiSwitch },
+  setup() {
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    return { args, sizes };
+  },
+  template: `
+    <div class="flex items-center space-x-8">
+      <lui-switch v-bind="args" v-for="size in sizes" :key="size" :size="size" />
+    </div>
+  `,
+});
+export const Description = (args) => ({
+  components: { LuiSwitch },
+  setup() {
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    const states = [true, false, null, "warning"];
+    return { args, sizes, states };
+  },
+  template: `
+    <div class="flex flex-col space-y-8">
+      <div v-for="state in states" :key="state" class="flex items-center space-x-6">
+        <lui-switch v-bind="args" v-for="size in sizes" :key="size" :size="size" :state="state" description="Switch description" />
+      </div>
+    </div>
+  `,
+});

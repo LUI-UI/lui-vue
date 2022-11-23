@@ -35,8 +35,8 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<CheckableModelValue>,
-    default: false,
+    type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
+    default: undefined,
   },
 });
 
@@ -45,9 +45,9 @@ const attrs = useAttrs();
 const { inputClasses, spanClasses } = useRadioClasses(toRefs(props));
 const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
-  toRefs(attrs)
+  attrs
 );
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
+const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 
 const emit = defineEmits(["update:modelValue"]);
 function handleChange(e: any) {

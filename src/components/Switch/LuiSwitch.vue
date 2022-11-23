@@ -5,7 +5,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { toRefs, useAttrs } from "vue";
+import { toRefs, useAttrs, isRef, isProxy } from "vue";
 import type { PropType } from "vue";
 import {
   Rounded,
@@ -43,8 +43,8 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean] as PropType<CheckableModelValue>,
-    default: false,
+    type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
+    default: undefined,
   },
 });
 
@@ -53,9 +53,12 @@ const attrs = useAttrs();
 const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props));
 const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
-  toRefs(attrs)
+  attrs
 );
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props);
+console.log("IS Attrs Ref: ", isRef(attrs));
+console.log("IS Attrs Proxy: ", isProxy(attrs));
+
+const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 const emit = defineEmits(["update:modelValue"]);
 
 function handleChange(e: any) {
