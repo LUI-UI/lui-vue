@@ -43,7 +43,7 @@ const DefaultTemplate = (args) => ({
 export const Default = DefaultTemplate.bind({});
 Default.args = { size: "md" };
 
-const VariantTemplate = (args) => ({
+export const VariantTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
     const variants = ["solid", "outline"];
@@ -51,11 +51,8 @@ const VariantTemplate = (args) => ({
   },
   template: `
   <div v-for="variant in variants" key="variant" class="flex items-center space-x-4 mb-4">
-
   <lui-badge v-bind="args" :variant="variant"/>
-
     <lui-badge v-bind="args" :variant="variant" text="Badge"/>
-
     <lui-badge v-bind="args" :variant="variant">
       <template #icon>
       <i class="ri-user-line"></i>
