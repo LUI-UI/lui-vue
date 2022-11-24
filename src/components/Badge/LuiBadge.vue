@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import type { Filter, Color, Size, Border } from "@/globals/types";
+import type {
+  Filter,
+  Color,
+  Size,
+  Border,
+  Text,
+  NarrowedVariant,
+} from "@/globals/types";
 import { PropType, ref, computed, toRefs, watchEffect, useSlots } from "vue";
 import {
   TwClassInterface,
@@ -7,13 +14,12 @@ import {
   FlexGridInterface,
 } from "@/globals/interfaces";
 import { useGlobalColorClasses } from "../../composables";
-import { BadgeVariant } from "./badge-types";
 type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right";
 
 const slots = useSlots();
 const props = defineProps({
   variant: {
-    type: String as PropType<BadgeVariant>,
+    type: String as PropType<NarrowedVariant>,
     default: "solid",
   },
   color: {
@@ -33,7 +39,7 @@ const props = defineProps({
     default: false,
   },
   text: {
-    type: String,
+    type: String as PropType<Text>,
     default: "",
   },
   position: {
