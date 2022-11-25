@@ -50,7 +50,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:modelValue", "change"]);
+const emit = defineEmits(["update:modelValue"]);
 const attrs = useAttrs();
 const slots = useSlots();
 const LuiInputRef: Ref = ref(null);
@@ -90,7 +90,7 @@ function clearInput() {
 
 function handleInputEvents(val: any) {
   emit("update:modelValue", val.target.value);
-  emit("change", val.target.value);
+  // emit("change", val.target.value);
 }
 // 12 16 20 20 24
 const iconSizes = computed(() =>
@@ -111,9 +111,9 @@ const iconSizes = computed(() =>
     <div class="relative">
       <input
         ref="LuiInputRef"
-        v-bind="computedAttrs.input"
-        :class="inputClasses"
         :value="modelValue"
+        :class="inputClasses"
+        v-bind="computedAttrs.input"
         @input="handleInputEvents($event)"
       />
       <!-- icon should be above the input be able to use peer -->
