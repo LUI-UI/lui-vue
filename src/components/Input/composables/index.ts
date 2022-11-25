@@ -4,14 +4,7 @@ import { computed, useSlots } from "vue";
 import type { Ref } from "vue";
 import type { TwClassInterface } from "@/globals/interfaces";
 import type { Clear, StateIcon } from "../input-types";
-import type {
-  State,
-  Rounded,
-  Block,
-  Icon,
-  Size,
-  Description,
-} from "@/globals/types";
+import type { State, Rounded, Block, Size, Description } from "@/globals/types";
 //Define Prop Types
 type PropTypes = {
   size: Ref<Size>;
@@ -20,20 +13,20 @@ type PropTypes = {
   stateIcon: Ref<StateIcon>;
   block: Ref<Block>;
   clear: Ref<Clear>;
-  prepend: Ref<Icon>;
   description: Ref<Description>;
 };
 
 export function useInputClasses(props: PropTypes, attrs: any) {
-  const slots = useSlots()
+  const slots = useSlots();
   const iconStatus = computed(() => {
-    return (props.stateIcon.value === true && props.state.value !== null) || props.clear.value === true
-      ? !!slots.prepend
+    return (props.stateIcon.value === true && props.state.value !== null) ||
+      props.clear.value === true
+      ? slots.prepend
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
       : !!slots.prepend === false
-        ? "noIcon"
-        : "leftIcon"; // stateIcn-deactive
+      ? "noIcon"
+      : "leftIcon"; // stateIcn-deactive
   });
   const iconClasses: TwClassInterface = {
     position: "absolute",
@@ -75,8 +68,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         attrs.disabled !== undefined && attrs.disabled.value
           ? "ring-0"
           : props.state.value === null
-            ? "focus:ring-4"
-            : "ring-4",
+          ? "focus:ring-4"
+          : "ring-4",
       ringColor: {
         "focus:ring-primary-500/40": props.state.value === null,
         "ring-warning-500/40": props.state.value === "warning",
@@ -97,41 +90,40 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       },
       padding:
         iconStatus.value === "noIcon"
-          // 6 - 8 - 10 - 10 - 12
-          // 24 - 32 - 40 - 40 - 48
-          ? {
-            "py-1 px-1.5": props.size.value === "xs",
-            "py-1.5 px-2": props.size.value === "sm",
-            "py-2 px-2.5": props.size.value === "md",
-            "py-2.5 px-2.5": props.size.value === "lg",
-            "py-3.5 px-3": props.size.value === "xl",
-          }
+          ? // 6 - 8 - 10 - 10 - 12
+            // 24 - 32 - 40 - 40 - 48
+            {
+              "py-1 px-1.5": props.size.value === "xs",
+              "py-1.5 px-2": props.size.value === "sm",
+              "py-2 px-2.5": props.size.value === "md",
+              "py-2.5 px-2.5": props.size.value === "lg",
+              "py-3.5 px-3": props.size.value === "xl",
+            }
           : iconStatus.value === "rightIcon"
-            // 26 - 32 - 40 - 40 - 48
-            ? {
+          ? // 26 - 32 - 40 - 40 - 48
+            {
               "py-1 pl-1.5 pr-6": props.size.value === "xs",
               "py-1.5 pl-2 pr-8": props.size.value === "sm",
               "py-2 pl-2.5 pr-10": props.size.value === "md",
               "py-2.5 pl-2.5 pr-10": props.size.value === "lg",
               "py-3.5 pl-3 pr-12": props.size.value === "xl",
             }
-            : iconStatus.value === "twoIcon"
-              ? {
-                "py-1 px-6": props.size.value === "xs",
-                "py-1.5 px-8": props.size.value === "sm",
-                "py-2 px-10": props.size.value === "md",
-                "py-2.5 px-10": props.size.value === "lg",
-                "py-3.5 px-12": props.size.value === "xl",
-              }
-              : {
-                //leftIcon
-                "py-1 pr-1.5 pl-6": props.size.value === "xs",
-                "py-1.5 pr-2 pl-8": props.size.value === "sm",
-                "py-2 pr-2.5 pl-10": props.size.value === "md",
-                "py-2.5 pr-2.5 pl-10": props.size.value === "lg",
-                "py-3.5 pr-3 pl-12": props.size.value === "xl",
-              }
-      ,
+          : iconStatus.value === "twoIcon"
+          ? {
+              "py-1 px-6": props.size.value === "xs",
+              "py-1.5 px-8": props.size.value === "sm",
+              "py-2 px-10": props.size.value === "md",
+              "py-2.5 px-10": props.size.value === "lg",
+              "py-3.5 px-12": props.size.value === "xl",
+            }
+          : {
+              //leftIcon
+              "py-1 pr-1.5 pl-6": props.size.value === "xs",
+              "py-1.5 pr-2 pl-8": props.size.value === "sm",
+              "py-2 pr-2.5 pl-10": props.size.value === "md",
+              "py-2.5 pr-2.5 pl-10": props.size.value === "lg",
+              "py-3.5 pr-3 pl-12": props.size.value === "xl",
+            },
     };
     return Object.values({ ...classes });
   });
@@ -145,12 +137,12 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-200 dark:text-secondary-700"
           : {
-            "text-secondary-600 dark:text-secondary-400":
-              props.state.value === null,
-            "text-warning-500": props.state.value === "warning",
-            "text-danger-500": props.state.value === false,
-            "text-success-500": props.state.value === true,
-          },
+              "text-secondary-600 dark:text-secondary-400":
+                props.state.value === null,
+              "text-warning-500": props.state.value === "warning",
+              "text-danger-500": props.state.value === false,
+              "text-success-500": props.state.value === true,
+            },
     };
     return Object.values({ ...classes });
   });
@@ -186,10 +178,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         attrs.disabled !== undefined && attrs.disabled.value
           ? "text-secondary-300"
           : {
-            "text-warning-500": props.state.value === "warning",
-            "text-danger-500": props.state.value === false,
-            "text-success-500": props.state.value === true,
-          },
+              "text-warning-500": props.state.value === "warning",
+              "text-danger-500": props.state.value === false,
+              "text-success-500": props.state.value === true,
+            },
     };
     return Object.values({ ...classes });
   });
