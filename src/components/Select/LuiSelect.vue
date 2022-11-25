@@ -5,7 +5,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import type { PropType } from "vue";
 import LuiInput from "../Input/LuiInput.vue";
 import LuiOption from "./LuiOption.vue";
@@ -28,15 +28,30 @@ const props = defineProps({
   },
 });
 console.log(props);
-const InputRef = ref<InstanceType<typeof LuiInput> | null>(null);
+const listboxTriggerRef = ref<InstanceType<typeof LuiInput> | null>(null);
 const listBoxWrapper = ref<HTMLInputElement | null>(null);
 const listboxActive = ref(false);
 const selectedOption = ref(null);
+
+onMounted(() => {
+  document.addEventListener("click", closeListBox);
+});
+onUnmounted(() => {
+  document.removeEventListener("click", closeListBox);
+});
+function closeListBox(e: any) {
+  if (!listboxTriggerRef?.value?.$el.contains(e.target)) {
+    listboxActive.value = false;
+  }
+}
+function handleButtonClick() {
+  listboxActive.value = !listboxActive.value;
+}
 </script>
 <template>
   <div>
     <LuiInput
-      ref="InputRef"
+      ref="listboxTriggerRef"
       type="button"
       aria-haspopup="true"
       aria-expanded="true"

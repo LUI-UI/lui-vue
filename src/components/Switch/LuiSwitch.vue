@@ -55,8 +55,6 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
   attrs
 );
-console.log("IS Attrs Ref: ", isRef(attrs));
-console.log("IS Attrs Proxy: ", isProxy(attrs));
 
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 const emit = defineEmits(["update:modelValue"]);
