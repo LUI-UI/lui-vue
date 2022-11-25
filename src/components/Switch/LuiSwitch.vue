@@ -70,12 +70,12 @@ function handleChange(e: any) {
   <div class="inline-block leading-3">
     <div class="relative">
       <input
-        v-bind="$attrs"
         type="checkbox"
         :class="inputClasses"
         :checked="isInputChecked"
         :value="value"
         @change="handleChange"
+        v-bind="$attrs"
       />
       <span :class="spanClasses" />
     </div>

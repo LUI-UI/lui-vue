@@ -101,12 +101,12 @@ const iconSize = computed(() =>
   <div class="inline-block leading-3">
     <div class="relative inline-flex">
       <input
-        v-bind="$attrs"
         type="checkbox"
         :checked="isInputChecked"
         :value="value"
         @change="handleChange"
         :class="inputClasses"
+        v-bind="$attrs"
       />
       <span :class="spanClasses"> </span>
       <svg
