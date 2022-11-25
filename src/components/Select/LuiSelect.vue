@@ -5,10 +5,10 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted, nextTick } from "vue";
 import type { PropType } from "vue";
-import LuiInput from "../Input/LuiInput.vue";
 import LuiOption from "./LuiOption.vue";
+import LuiInput from "../Input/LuiInput.vue";
 type ModelValueObject = {
   label: string;
   value: string | number;
@@ -33,20 +33,49 @@ const listBoxWrapper = ref<HTMLInputElement | null>(null);
 const listboxActive = ref(false);
 const selectedOption = ref(null);
 
+const emit = defineEmits(["update:modelValue"]);
+
 onMounted(() => {
   document.addEventListener("click", closeListBox);
 });
 onUnmounted(() => {
   document.removeEventListener("click", closeListBox);
 });
+
+nextTick(() => {
+  setInitialSelectedOption();
+});
+
 function closeListBox(e: any) {
   if (!listboxTriggerRef?.value?.$el.contains(e.target)) {
     listboxActive.value = false;
   }
 }
-function handleButtonClick() {
+
+function handleTriggerClick() {
   listboxActive.value = !listboxActive.value;
 }
+
+function handleOptionClick(option: any) {
+  selectedOption.value = option.label || option;
+  emit("update:modelValue", option.value || option);
+}
+
+function setInitialSelectedOption() {
+  if (
+    isObject(props.modelValue) &&
+    (props.modelValue.label === undefined ||
+      props.modelValue.value === undefined)
+  ) {
+    throw new Error(
+      "Missing field for modelValue, label and value fields are required when modelValue is object"
+    );
+  }
+  selectedOption.value = props.modelValue?.label || props.modelValue;
+}
+
+const isObject = (variable: any) =>
+  typeof variable === "object" && variable !== null && !Array.isArray(variable);
 </script>
 <template>
   <div>
@@ -58,7 +87,7 @@ function handleButtonClick() {
       :value="selectedOption"
       readonly
       v-bind="$attrs"
-      @click="handleButtonClick"
+      @click="handleTriggerClick"
     />
     <ul
       v-show="listboxActive"
@@ -68,7 +97,11 @@ function handleButtonClick() {
       tabindex="-1"
     >
       <template v-if="options.length > 0">
-        <LuiOption v-for="(option, index) in options" :key="index">
+        <LuiOption
+          v-for="(option, index) in options"
+          :key="index"
+          @click="handleOptionClick(option)"
+        >
           {{ option.label || option }}
         </LuiOption>
       </template>
