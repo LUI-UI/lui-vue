@@ -66,6 +66,8 @@ const { backgroundColorClasses, textColorClasses, borderColorClasses } =
 const computedImageClasses = computed(() => {
   const containerClasses: LayoutInterface | SizingInterface | BordersInterface =
     {
+      borderWidth: "border",
+      borderStyle: "border-solid",
       display: "block",
       width: "w-full",
       height: "h-full",
@@ -74,6 +76,7 @@ const computedImageClasses = computed(() => {
         "rounded-lg": props.rounded === true,
         "rounded-full": props.rounded === "full",
       },
+      borderColor: borderColorClasses.borderColor,
     };
   return Object.values(containerClasses);
 });
