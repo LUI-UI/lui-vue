@@ -1,6 +1,5 @@
 <script lang="ts">
-import { inject, computed, watch } from "vue";
-import { nextTick } from "process";
+import { inject, computed, watch, nextTick } from "vue";
 export default {
   name: "LuiOption",
   inheritAttrs: false,
@@ -25,27 +24,39 @@ const props = defineProps({
     default: "",
   },
 });
-console.log(props);
-// const slots = useSlots();
-const { selectedOption, updateSelectedOption } = inject("selectedOption");
+
+const { selectedOption, updateSelectedOption, focusButton } =
+  inject("selectedOption");
 
 nextTick(() => {
-  // if v-model does not used set the initial selected with selected prop
+  // if v-model does not used so we set the initial selectedValue
   if (selectedOption.value === undefined && props.selected) {
-    updateSelectedOption({ value: props.value, label: props.label });
+    updateSelectedOption({
+      value: props.value,
+      label: props.label,
+      selected: props.selected,
+    });
   }
 });
 
 watch(
   () => props.selected,
   (value) => {
-    console.log("Watch props.modelValue function called with args:", value);
-    updateSelectedOption({ value: props.value, label: props.label });
+    updateSelectedOption({
+      value: props.value,
+      label: props.label,
+      selected: value,
+    });
   }
 );
 
 function handleOptionClick() {
-  updateSelectedOption({ value: props.value, label: props.label });
+  updateSelectedOption({
+    value: props.value,
+    label: props.label,
+    selected: props.selected,
+  });
+  nextTick(() => focusButton());
 }
 
 const isSelected = computed(() => {
@@ -55,6 +66,16 @@ const isSelected = computed(() => {
     : props.label === selectedOption.value.label;
 });
 
+// function handleKeydown(event: KeyboardEvent) {
+//   switch (event.code) {
+//     case "Enter":
+//       updateSelectedOption({ value: props.value, label: props.label });
+//       // closeListBox
+//       break;
+//     default:
+//     // code block
+//   }
+// }
 </script>
 <template>
   <li
@@ -63,7 +84,13 @@ const isSelected = computed(() => {
     v-bind="$attrs"
     :aria-selected="isSelected"
     class="focus:border border-danger-500"
-    :class="isSelected ? 'text-primary-500' : 'text-secondary-600'"
+    :class="[
+      disabled
+        ? 'text-secondary-300 pointer-events-none'
+        : isSelected
+        ? 'text-primary-600'
+        : 'text-secondary-600',
+    ]"
     @click="handleOptionClick"
   >
     <span> {{ label }} </span>
