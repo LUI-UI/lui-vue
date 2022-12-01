@@ -88,9 +88,7 @@ function clearInput() {
   LuiInputRef.value.focus();
 }
 
-function focus() {
-  LuiInputRef.value.focus();
-}
+const focus = () => LuiInputRef.value.focus();
 
 defineExpose({
   focus,
