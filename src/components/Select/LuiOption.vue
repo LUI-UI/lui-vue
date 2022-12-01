@@ -1,5 +1,6 @@
 <script lang="ts">
 import { inject, computed, watch, nextTick } from "vue";
+import { ContextKey } from "./symbols";
 export default {
   name: "LuiOption",
   inheritAttrs: false,
@@ -25,13 +26,14 @@ const props = defineProps({
   },
 });
 
-const { selectedOption, updateSelectedOption, focusButton } =
-  inject("selectedOption");
+// const { selectedOption, updateSelectedOption, focusButton } =
+//   inject(ContextKey);
+const context = inject(ContextKey);
 
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
-  if (selectedOption.value === undefined && props.selected) {
-    updateSelectedOption({
+  if (context?.selectedOption.value === undefined && props.selected) {
+    context?.updateSelectedOption({
       value: props.value,
       label: props.label,
       selected: props.selected,
@@ -42,7 +44,7 @@ nextTick(() => {
 watch(
   () => props.selected,
   (value) => {
-    updateSelectedOption({
+    context?.updateSelectedOption({
       value: props.value,
       label: props.label,
       selected: value,
@@ -51,19 +53,19 @@ watch(
 );
 
 function handleOptionClick() {
-  updateSelectedOption({
+  context?.updateSelectedOption({
     value: props.value,
     label: props.label,
     selected: props.selected,
   });
-  nextTick(() => focusButton());
+  nextTick(() => context?.focusButton());
 }
 
 const isSelected = computed(() => {
-  if (selectedOption.value === undefined) return props.selected;
-  return typeof selectedOption.value === "string"
-    ? props.label === selectedOption.value
-    : props.label === selectedOption.value.label;
+  if (context?.selectedOption.value === undefined) return props.selected;
+  return typeof context?.selectedOption.value === "string"
+    ? props.label === context?.selectedOption.value
+    : props.label === context?.selectedOption.value.label;
 });
 
 // function handleKeydown(event: KeyboardEvent) {

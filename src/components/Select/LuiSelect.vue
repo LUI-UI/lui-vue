@@ -16,23 +16,36 @@ import {
   reactive,
 } from "vue";
 import type { PropType, Ref } from "vue";
+import type {
+  OptionsType,
+  ModelValue,
+  ModelValueObject,
+  ListboxStateType,
+} from "./select-types";
+import { ContextKey } from "./symbols";
 import LuiOption from "./LuiOption.vue";
 import LuiInput from "../Input/LuiInput.vue";
-type ModelValueObject = {
-  label: string;
-  value: string | number;
-  disabled?: boolean;
-  selected?: boolean;
-};
-type ModelValue = string | ModelValueObject | undefined;
+
+// interface ModelValueObject {
+//   label: string;
+//   value: string | number;
+//   disabled?: boolean;
+//   selected?: boolean;
+// }
+// type ModelValue = string | ModelValueObject | undefined;
+// type ListboxStateType = {
+//   items: ModelValueObject[];
+//   activeIndex: number;
+// };
+// type OptionsType = string[] | ModelValueObject[];
 
 const props = defineProps({
   options: {
-    type: Array,
+    type: Array as PropType<OptionsType>,
     default: () => [],
   },
   placeholder: {
-    type: String,
+    type: String as PropType<string>,
     default: "",
   },
   modelValue: {
@@ -41,17 +54,20 @@ const props = defineProps({
   },
 });
 const slots = useSlots();
+// const listboxTriggerRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const listboxTriggerRef = ref<InstanceType<typeof LuiInput> | null>(null);
+
 const listBoxWrapper: Ref<HTMLUListElement | null> = ref(null);
-const listboxActive = ref(false);
-const selectedOption: Ref<ModelValue> = ref(undefined);
+const listboxActive: Ref<boolean> = ref(false);
+const selectedOption: Ref<ModelValueObject | string | undefined> =
+  ref(undefined);
 // const errorMessages = {
 //   "modelValue/missing-field":
 //     "Missing field for modelValue, label and value fields are required when modelValue is object",
 //   "options/missing":
 //     "Options missing: should use options prop or lui-option as prop",
 // };
-const listboxState = reactive({
+const listboxState: ListboxStateType = reactive({
   items: [],
   activeIndex: 0,
 });
@@ -138,11 +154,12 @@ nextTick(() => {
   setState();
 });
 
-provide("selectedOption", {
+provide(ContextKey, {
   selectedOption,
   updateSelectedOption,
   focusButton,
 });
+
 watch(
   () => props.modelValue,
   (value) => {
@@ -163,11 +180,11 @@ onUnmounted(() => {
 });
 
 function focusButton() {
-  listboxTriggerRef?.value?.focus({ preventScroll: true });
+  listboxTriggerRef.value?.$el.focus({ preventScroll: true });
 }
 
 function closeListBox(e: any = null) {
-  if (e === null || !listboxTriggerRef?.value?.$el.contains(e.target)) {
+  if (e === null || !listboxTriggerRef.value?.$el.contains(e.target)) {
     listboxActive.value = false;
   }
 }
@@ -177,7 +194,7 @@ function toggleListbox() {
 }
 
 function setState() {
-  const propsOfSlots =
+  const slotsOptions =
     slots.default &&
     slots
       .default()
@@ -188,7 +205,7 @@ function setState() {
       )
       .flat();
   // validSlotTypes.includes(child.type.name)
-  const allOptions = props.options?.concat(propsOfSlots);
+  const allOptions = [...props.options].concat(slotsOptions || []);
   listboxState.items = allOptions;
 }
 
@@ -202,7 +219,9 @@ function setInitialSelectedOption() {
   const optionsExist = props.options.length > 0;
 
   const anyOptionSelected = () =>
-    props.options.some((o: any) => o.selected !== undefined && o.selected);
+    props.options.some(
+      (o: ModelValueObject | string) => typeof o !== "string" && o.selected
+    );
 
   const validSlotTypes = ["LuiOption"];
 
@@ -306,14 +325,7 @@ function listboxWrapperKeydown(event: KeyboardEvent) {
       break;
     case "Enter":
       // listBoxWrapper.value?.click();
-      updateSelectedOption({
-        label:
-          listboxState.items[listboxState.activeIndex]?.label ||
-          listboxState.items[listboxState.activeIndex],
-        value:
-          listboxState.items[listboxState.activeIndex]?.value ||
-          listboxState.items[listboxState.activeIndex],
-      });
+      updateSelectedOption(listboxState.items[listboxState.activeIndex]);
       closeListBox();
       nextTick(() => focusButton());
       break;
@@ -331,8 +343,8 @@ function listboxWrapperKeydown(event: KeyboardEvent) {
     // code block
   }
 }
-// const isObject = (variable: any) =>
-//   typeof variable === "object" && variable !== null && !Array.isArray(variable);
+const isObject = (variable: any) =>
+  typeof variable === "object" && variable !== null && !Array.isArray(variable);
 </script>
 <template>
   <div>
