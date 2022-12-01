@@ -88,6 +88,14 @@ function clearInput() {
   LuiInputRef.value.focus();
 }
 
+function focus() {
+  LuiInputRef.value.focus();
+}
+
+defineExpose({
+  focus,
+});
+
 function handleInputEvents(val: any) {
   emit("update:modelValue", val.target.value);
   // emit("change", val.target.value);
