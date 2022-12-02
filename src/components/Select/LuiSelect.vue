@@ -14,8 +14,9 @@ import {
   useSlots,
   watch,
   reactive,
+  computed,
 } from "vue";
-import type { PropType, Ref } from "vue";
+import type { PropType, Ref, ComponentPublicInstance } from "vue";
 import type {
   OptionsType,
   ModelValue,
@@ -87,7 +88,6 @@ function Focus(el: HTMLElement | null, target: string) {
         if (targetIndex < 0) return;
       }
       listboxState.currentIndex = targetIndex;
-      // el?.children[listboxState.targetIndex]?.focus({ preventScroll: true });
       break;
     case "first":
       targetIndex = 0;
@@ -95,17 +95,13 @@ function Focus(el: HTMLElement | null, target: string) {
         targetIndex++;
       }
       listboxState.currentIndex = targetIndex;
-      // el?.children[listboxState.targetIndex]?.focus();
       break;
     case "last":
-      // const lastIndex = listboxState.items.length - 1;
-      // listboxState.targetIndex = lastIndex;
       targetIndex = listboxState.items.length - 1;
       while (!targetElFocusable(targetIndex)) {
         targetIndex--;
       }
       listboxState.currentIndex = targetIndex;
-      // el?.children[listboxState.targetIndex]?.focus();
       break;
     case "selected":
       if (props.placeholder === selectedOption.value) {
@@ -134,7 +130,6 @@ function Focus(el: HTMLElement | null, target: string) {
     default:
     // code block
   }
-  console.log("before focus: ", el?.children[listboxState.currentIndex].id);
   listboxState.currentId = el?.children[listboxState.currentIndex]?.id;
   el?.children[listboxState.currentIndex]?.focus({ preventScroll: true });
 }
@@ -176,7 +171,7 @@ function focusButton() {
 }
 
 function closeListBox(e: any = null) {
-  if (e === null || !listboxTriggerRef.value?.$el.contains(e.target)) {
+  if (e === null || !dom(listboxTriggerRef)?.contains(e.target)) {
     listboxActive.value = false;
   }
 }
@@ -351,11 +346,30 @@ function listboxWrapperKeydown(event: KeyboardEvent) {
     // code block
   }
 }
+function findProperPosition<T extends Element | ComponentPublicInstance>(
+  el?: Ref<T | null>
+): string {
+  if (dom(el) === null) return "buttom";
+  // eslint-disable-next-line no-unsafe-optional-chaining
+  const { y, bottom } = dom(el)?.getBoundingClientRect();
+  const innerHeight = window.innerHeight;
+  return innerHeight - bottom >= y ? "bottom" : "top";
+}
+const computedPosition = computed(() => findProperPosition(listboxTriggerRef));
+function dom<T extends Element | ComponentPublicInstance>(
+  ref?: Ref<T | null>
+): T | null {
+  if (ref == null) return null;
+  if (ref.value == null) return null;
+
+  return (ref.value as { $el?: T }).$el ?? ref.value;
+}
 // const isObject = (variable: any) =>
 //   typeof variable === "object" && variable !== null && !Array.isArray(variable);
 </script>
 <template>
-  <div>
+  <div class="relative">
+    <div>{{ computedPosition }}</div>
     <LuiInput
       v-if="false"
       ref="listboxTriggerRef"
@@ -393,6 +407,10 @@ function listboxWrapperKeydown(event: KeyboardEvent) {
       :aria-labelledby="id"
       role="listbox"
       tabindex="0"
+      class="absolute"
+      :class="
+        computedPosition === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-2'
+      "
       :aria-activedescendant="listboxState.currentId"
       @keydown="listboxWrapperKeydown($event)"
     >
