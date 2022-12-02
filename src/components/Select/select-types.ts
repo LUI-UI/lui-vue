@@ -9,7 +9,8 @@ export interface ModelValueObject {
 export type ModelValue = ModelValueObject | string | undefined;
 export type ListboxStateType = {
   items: ModelValueObject[] | string[];
-  activeIndex: number;
+  currentIndex: number;
+  currentId: string | undefined;
 };
 export type OptionsType = string[] | ModelValueObject[];
 

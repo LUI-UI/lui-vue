@@ -1,6 +1,7 @@
 <script lang="ts">
 import { inject, computed, watch, nextTick } from "vue";
 import { ContextKey } from "./symbols";
+import { useId } from "./composables/index";
 export default {
   name: "LuiOption",
   inheritAttrs: false,
@@ -29,6 +30,7 @@ const props = defineProps({
 // const { selectedOption, updateSelectedOption, focusButton } =
 //   inject(ContextKey);
 const context = inject(ContextKey);
+const id = `lui-option-${useId()}`;
 
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
@@ -82,8 +84,9 @@ const isSelected = computed(() => {
 <template>
   <li
     role="option"
-    tabindex="0"
+    tabindex="-1"
     v-bind="$attrs"
+    :id="id"
     :aria-selected="isSelected"
     class="focus:border border-danger-500"
     :class="[

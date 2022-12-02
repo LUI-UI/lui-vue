@@ -22,22 +22,10 @@ import type {
   ModelValueObject,
   ListboxStateType,
 } from "./select-types";
+import { useId } from "./composables/index";
 import { ContextKey } from "./symbols";
 import LuiOption from "./LuiOption.vue";
 import LuiInput from "../Input/LuiInput.vue";
-
-// interface ModelValueObject {
-//   label: string;
-//   value: string | number;
-//   disabled?: boolean;
-//   selected?: boolean;
-// }
-// type ModelValue = string | ModelValueObject | undefined;
-// type ListboxStateType = {
-//   items: ModelValueObject[];
-//   activeIndex: number;
-// };
-// type OptionsType = string[] | ModelValueObject[];
 
 const props = defineProps({
   options: {
@@ -56,11 +44,13 @@ const props = defineProps({
 const slots = useSlots();
 // const listboxTriggerRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const listboxTriggerRef = ref<InstanceType<typeof LuiInput> | null>(null);
-
+const id = `lui-listbox-button-${useId()}`;
+const wrapperId = `lui-listbox-wrapper-${useId()}`;
 const listBoxWrapper: Ref<HTMLUListElement | null> = ref(null);
 const listboxActive: Ref<boolean> = ref(false);
 const selectedOption: Ref<ModelValueObject | string | undefined> =
   ref(undefined);
+
 // const errorMessages = {
 //   "modelValue/missing-field":
 //     "Missing field for modelValue, label and value fields are required when modelValue is object",
@@ -69,12 +59,13 @@ const selectedOption: Ref<ModelValueObject | string | undefined> =
 // };
 const listboxState: ListboxStateType = reactive({
   items: [],
-  activeIndex: 0,
+  currentIndex: 0,
+  currentId: "",
 });
 
 function Focus(el: HTMLElement | null, target: string) {
   /* eslint-disable no-case-declarations */
-  let targetIndex = listboxState.activeIndex;
+  let targetIndex = listboxState.currentIndex;
   const targetElFocusable = (targetIndex: number) =>
     listboxState.items[targetIndex]?.disabled === undefined ||
     listboxState.items[targetIndex]?.disabled === false;
@@ -86,7 +77,7 @@ function Focus(el: HTMLElement | null, target: string) {
         targetIndex++;
         if (targetIndex >= listboxState.items.length) return;
       }
-      listboxState.activeIndex = targetIndex;
+      listboxState.currentIndex = targetIndex;
       break;
     case "previous":
       targetIndex--;
@@ -95,7 +86,7 @@ function Focus(el: HTMLElement | null, target: string) {
         targetIndex--;
         if (targetIndex < 0) return;
       }
-      listboxState.activeIndex = targetIndex;
+      listboxState.currentIndex = targetIndex;
       // el?.children[listboxState.targetIndex]?.focus({ preventScroll: true });
       break;
     case "first":
@@ -103,7 +94,7 @@ function Focus(el: HTMLElement | null, target: string) {
       while (!targetElFocusable(targetIndex)) {
         targetIndex++;
       }
-      listboxState.activeIndex = targetIndex;
+      listboxState.currentIndex = targetIndex;
       // el?.children[listboxState.targetIndex]?.focus();
       break;
     case "last":
@@ -113,7 +104,7 @@ function Focus(el: HTMLElement | null, target: string) {
       while (!targetElFocusable(targetIndex)) {
         targetIndex--;
       }
-      listboxState.activeIndex = targetIndex;
+      listboxState.currentIndex = targetIndex;
       // el?.children[listboxState.targetIndex]?.focus();
       break;
     case "selected":
@@ -122,7 +113,7 @@ function Focus(el: HTMLElement | null, target: string) {
         while (!targetElFocusable(targetIndex)) {
           targetIndex++;
         }
-        listboxState.activeIndex = targetIndex;
+        listboxState.currentIndex = targetIndex;
       } else if (
         selectedOption.value?.disabled !== undefined &&
         selectedOption.value?.disabled === true
@@ -130,21 +121,22 @@ function Focus(el: HTMLElement | null, target: string) {
         while (!targetElFocusable(targetIndex)) {
           targetIndex++;
         }
-        listboxState.activeIndex = targetIndex;
+        listboxState.currentIndex = targetIndex;
       } else {
         targetIndex = listboxState.items.findIndex((item: any) =>
           typeof item === "string"
             ? item === selectedOption.value
             : item?.label === selectedOption.value?.label
         );
-        listboxState.activeIndex = targetIndex;
+        listboxState.currentIndex = targetIndex;
       }
       break;
     default:
     // code block
   }
-  // listboxState.activeIndex = targetIndex;
-  el?.children[listboxState.activeIndex]?.focus({ preventScroll: true });
+  console.log("before focus: ", el?.children[listboxState.currentIndex].id);
+  listboxState.currentId = el?.children[listboxState.currentIndex]?.id;
+  el?.children[listboxState.currentIndex]?.focus({ preventScroll: true });
 }
 
 const emit = defineEmits(["update:modelValue", "change"]);
@@ -180,7 +172,7 @@ onUnmounted(() => {
 });
 
 function focusButton() {
-  listboxTriggerRef.value?.$el.focus({ preventScroll: true });
+  listboxTriggerRef.value?.focus({ preventScroll: true });
 }
 
 function closeListBox(e: any = null) {
@@ -290,10 +282,7 @@ function setInitialSelectedOption() {
     } else {
       propsOfFirstSlot = firstSlot?.props;
     }
-    setPlaceholderOrValue({
-      label: propsOfFirstSlot.label,
-      value: propsOfFirstSlot.value,
-    });
+    setPlaceholderOrValue(propsOfFirstSlot);
   }
 }
 
@@ -313,46 +302,67 @@ function buttonKeydown(event: KeyboardEvent) {
     // code block
   }
 }
+// function handleKeyUp(event: KeyboardEvent) {
+//   switch (event.key) {
+//     case Keys.Space:
+//       // Required for firefox, event.preventDefault() in handleKeyDown for
+//       // the Space key doesn't cancel the handleKeyUp, which in turn
+//       // triggers a *click*.
+//       event.preventDefault();
+//       break;
+//   }
+// }
 
 function listboxWrapperKeydown(event: KeyboardEvent) {
   switch (event.code) {
     case "ArrowDown":
-      // event.preventDefault();
+      event.preventDefault();
       nextTick(() => Focus(listBoxWrapper.value, "next"));
       break;
     case "ArrowUp":
       nextTick(() => Focus(listBoxWrapper.value, "previous"));
       break;
     case "Enter":
-      // listBoxWrapper.value?.click();
-      updateSelectedOption(listboxState.items[listboxState.activeIndex]);
+      event.preventDefault();
+      event.stopPropagation();
+      updateSelectedOption(listboxState.items[listboxState.currentIndex]);
       closeListBox();
       nextTick(() => focusButton());
       break;
     case "Home":
+      event.preventDefault();
       nextTick(() => Focus(listBoxWrapper.value, "first"));
       break;
     case "End":
+      event.preventDefault();
       nextTick(() => Focus(listBoxWrapper.value, "last"));
       break;
     case "Escape":
+      event.preventDefault();
       closeListBox();
       nextTick(() => focusButton());
+      break;
+    case "Tab":
+      event.preventDefault();
+      event.stopPropagation();
+      // closeListBox();
       break;
     default:
     // code block
   }
 }
-const isObject = (variable: any) =>
-  typeof variable === "object" && variable !== null && !Array.isArray(variable);
+// const isObject = (variable: any) =>
+//   typeof variable === "object" && variable !== null && !Array.isArray(variable);
 </script>
 <template>
   <div>
     <LuiInput
+      v-if="false"
       ref="listboxTriggerRef"
-      id="lui-listbox-button-1"
+      :id="id"
       aria-haspopup="true"
       :aria-expanded="listboxActive"
+      :aria-controls="wrapperId"
       :value="selectedOption?.label || selectedOption"
       :placeholder="placeholder"
       readonly
@@ -360,14 +370,30 @@ const isObject = (variable: any) =>
       @click="toggleListbox"
       @keydown="buttonKeydown($event)"
     />
+    <button
+      ref="listboxTriggerRef"
+      :id="id"
+      aria-haspopup="true"
+      :aria-expanded="listboxActive"
+      :aria-controls="wrapperId"
+      readonly
+      v-bind="$attrs"
+      class="px-4 py-2 border border-secondary-400 rounded"
+      @click="toggleListbox"
+      @keydown="buttonKeydown($event)"
+    >
+      <span v-if="placeholder !== ''">{{ placeholder }}</span>
+      <span v-else>{{ selectedOption?.label || selectedOption }}</span>
+    </button>
     <ul
       v-show="listboxActive"
       ref="listBoxWrapper"
+      :id="wrapperId"
       aria-orientation="vertical"
-      aria-labelledby="lui-listbox-button-1"
+      :aria-labelledby="id"
       role="listbox"
       tabindex="0"
-      aria-activedescendant="this-should-match-the-item-id-which-hovered-or-focusud"
+      :aria-activedescendant="listboxState.currentId"
       @keydown="listboxWrapperKeydown($event)"
     >
       <LuiOption v-if="placeholder !== ''" disabled :label="placeholder" />
