@@ -1,7 +1,7 @@
 <script lang="ts">
 import { inject, computed, watch, nextTick } from "vue";
 import { ContextKey } from "./symbols";
-import { useId } from "./composables/index";
+import { useId } from "./hooks/index";
 export default {
   name: "LuiOption",
   inheritAttrs: false,
@@ -30,7 +30,7 @@ const props = defineProps({
 // const { selectedOption, updateSelectedOption, focusButton } =
 //   inject(ContextKey);
 const context = inject(ContextKey);
-const id = `lui-option-${useId()}`;
+const optionId = `lui-option-${useId()}`;
 
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
@@ -54,7 +54,7 @@ watch(
   }
 );
 
-function handleOptionClick() {
+function handleOptionClick(e) {
   context?.updateSelectedOption({
     value: props.value,
     label: props.label,
@@ -86,7 +86,7 @@ const isSelected = computed(() => {
     role="option"
     tabindex="-1"
     v-bind="$attrs"
-    :id="id"
+    :id="optionId"
     :aria-selected="isSelected"
     class="focus:border border-danger-500"
     :class="[

@@ -1,6 +1,6 @@
 import type { Ref } from "vue"
 
-export interface ModelValueObject {
+export interface ModelValueObject  {
   label: string;
   value: string | number;
   disabled?: boolean;
