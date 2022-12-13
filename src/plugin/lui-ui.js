@@ -61,6 +61,14 @@ module.exports = plugin(
           luiSafeList.push(`focus-visible:ring-${color}-500/40`);
         });
       }
+      if (state === "hover") {
+        rootColors.forEach((color) => {
+          luiSafeList.push(`hover:bg-${color}-600/20`);
+        });
+        rootColors.forEach((color) => {
+          luiSafeList.push(`dark:hover:bg-${color}-400/20`);
+        });
+      }
     });
     const allClassList = [...luiSafeList, config().safelist];
     config().safelist = [...new Set(allClassList.flat())];
