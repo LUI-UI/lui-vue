@@ -55,6 +55,7 @@ watch(
 );
 
 function handleOptionClick(e) {
+  e.preventDefault();
   context?.updateSelectedOption({
     value: props.value,
     label: props.label,

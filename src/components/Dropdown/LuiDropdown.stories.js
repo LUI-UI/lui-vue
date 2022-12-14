@@ -1,11 +1,10 @@
 import LuiDropdown from "./LuiDropdown.vue";
+import LuiMenuItem from "../Menu/LuiMenuItem.vue";
 import {
   variant,
   color,
   block,
   rounded,
-  prepend,
-  append,
   size,
   filter,
   icon,
@@ -20,15 +19,10 @@ export default {
     color,
     block,
     rounded,
-    prepend,
-    append,
     size,
     filter,
     icon,
     disabled,
-    onOnSelect: {
-      action: "select a item",
-    },
     onOnTrigger: {
       action: "menu triggered",
     },
@@ -39,21 +33,36 @@ export default {
 
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
-  components: { LuiDropdown },
+  components: { LuiDropdown, LuiMenuItem },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    function handleSelect(option) {
+    function selectItem(option) {
       console.log("selected option is: ", option);
       //..
     }
-    return { args, handleSelect };
+    return { args, selectItem };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   // <lui-checkbox v-bind="args" v-model="test" />
-  template: `<lui-dropdown v-bind="args" @onSelect="handleSelect" />`,
+  template: `
+    <div class="h-[1400px]">
+      <lui-dropdown v-bind="args">
+        <lui-menu-item v-for="i in 5" :key="i" @click="selectItem(i)">
+          menu-item-{{ i }}
+        </lui-menu-item>
+      </lui-dropdown>   
+      <div class="mt-[300px]">
+        <lui-dropdown v-bind="args">
+          <lui-menu-item v-for="i in 9" :key="i" @click="selectItem(i)">
+            menu-item-{{ i }}
+          </lui-menu-item>
+        </lui-dropdown>    
+      </div> 
+    </div>
+    `,
 });
 
 export const Medium = Template.bind({});
-Medium.args = { label: "Dropdown" };
+Medium.args = { text: "Dropdown" };
 export const Options = Template.bind({});
-Options.args = { label: "Dropdown", options: ["test", "just", "mkl"] };
+Options.args = { text: "Dropdown", options: ["test", "just", "mkl"] };

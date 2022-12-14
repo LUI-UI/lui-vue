@@ -5,32 +5,26 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { onMounted, onUnmounted, PropType, ref } from "vue";
-import type { ComponentPublicInstance, Ref } from "vue";
-import LuiDropdownItem from "./LuiDropdownItem.vue";
+import { PropType, ref } from "vue";
+// import type { ComponentPublicInstance, Ref } from "vue";
+// import LuiDropdownItem from "./LuiDropdownItem.vue";
 import LuiButton from "../Button/LuiButton.vue";
-import {
-  Variant,
-  Filter,
-  Rounded,
-  Block,
-  Icon,
-  Color,
-  Size,
-} from "@/globals/types";
-import { nextTick } from "process";
+import { useOutsideClick } from "../../composables/useOutsideClick";
+import { useFindProperPosition } from "../../composables/useFindProperPosition";
+import { useId } from "../../utils/useId";
+import { Variant, Filter, Rounded, Block, Color, Size } from "@/globals/types";
 
-type Options = null | string[];
-type Label = null | string;
+// type Options = null | string[];
+// type Label = null | string;
 
 const props = defineProps({
-  options: {
-    type: [Array, null] as PropType<Options>,
-    default: null,
-  },
-  label: {
-    type: [String, null] as PropType<Label>,
-    default: null,
+  // options: {
+  //   type: [Array, null] as PropType<Options>,
+  //   default: null,
+  // },
+  text: {
+    type: String as PropType<string>,
+    default: "",
   },
   variant: {
     type: String as PropType<Variant>,
@@ -56,72 +50,44 @@ const props = defineProps({
     type: Boolean as PropType<Block>,
     default: false,
   },
-  prepend: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
-  append: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
-  icon: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
 });
 // const props = defineProps<{
 //   options?: string[];
 // }>();
 console.log(props);
 
-const emit = defineEmits(["onSelect", "onTrigger"]);
-// const luiDropdownButton = ref<HTMLInputElement | null>(null);
+const emit = defineEmits(["onTrigger"]);
+const luiDropdownWrapper = ref<HTMLDivElement | null>(null);
 const luiDropdownButton = ref<InstanceType<typeof LuiButton> | null>(null);
-const luiDropdownWrapper = ref<HTMLInputElement | null>(null);
-const LuiDropdownMenu = ref<HTMLInputElement | null>(null);
+const LuiDropdownMenu = ref<HTMLUListElement | null>(null);
 const menuActive = ref(false);
+const buttonId = `lui-dropdown-button-${useId()}`;
+const menuId = `lui-dropdown-menu-${useId()}`;
 
-onMounted(() => {
-  document.addEventListener("click", closeDropdown);
-});
-onUnmounted(() => {
-  document.removeEventListener("click", closeDropdown);
-});
-function closeDropdown(e: any) {
-  // if (!luiDropdownButton?.value?.contains(e.target)) {
-  if (!luiDropdownButton?.value?.$el.contains(e.target)) {
-    menuActive.value = false;
-  }
+useOutsideClick(luiDropdownButton, () => closeMenu());
+const { properPosition } = useFindProperPosition(luiDropdownWrapper);
+
+function closeMenu() {
+  menuActive.value = false;
+  emit("onTrigger", menuActive.value);
 }
 
-// function findProperMenuPosition() {
-//   if (
-//     luiDropdownWrapper.value !== undefined &&
-//     luiDropdownWrapper?.value?.getBoundingClientRect() !== undefined
-//   ) {
-//     // eslint-disable-next-line no-unsafe-optional-chaining
-//     const { y, bottom } = luiDropdownWrapper?.value?.getBoundingClientRect();
-//     const innerHeight = window.innerHeight;
-//     return innerHeight - bottom >= y ? "bottom" : "top";
-//   }
-//   return "bottom";
-// }
 function openMenu() {
+  menuActive.value = true;
+  emit("onTrigger", menuActive.value);
+}
+function toogleMenu() {
   menuActive.value = !menuActive.value;
   emit("onTrigger", menuActive.value);
 }
-function handleButtonClick() {
-  openMenu();
-  // LuiDropdownMenu.value?.childNodes[0]
-  nextTick(() => {
-    dom(LuiDropdownMenu)?.focus({ preventScroll: true });
-  });
-  // console.log(
-  //   "withDomFn: "e,
-  //   dom(LuiDropdownMenu)?.focus({ preventScroll: true })
-  // );
-}
-
+// function openMenu() {
+//   menuActive.value = !menuActive.value;
+//   emit("onTrigger", menuActive.value);
+// }
+// function toggleMenu() {
+//   toogleMenu();
+// }
+function handleMenuKeyEvents(event: KeyboardEvent) {}
 function handleButtonKeyEvents(event: KeyboardEvent) {
   console.log(event);
   switch (event.code) {
@@ -129,7 +95,6 @@ function handleButtonKeyEvents(event: KeyboardEvent) {
     case "Enter":
     case "Space":
       // code block
-      console.log("just clicked the key!");
       event.preventDefault();
       openMenu();
       break;
@@ -140,45 +105,23 @@ function handleButtonKeyEvents(event: KeyboardEvent) {
     // code block
   }
 }
-
-// import { Ref, ComponentPublicInstance } from "vue";
-
-function dom<T extends Element | ComponentPublicInstance>(
-  ref?: Ref<T | null>
-): T | null {
-  if (ref == null) return null;
-  if (ref.value == null) return null;
-
-  return (ref.value as { $el?: T }).$el ?? ref.value;
-}
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3">
     <lui-button
-      id="menubutton"
+      :id="buttonId"
       ref="luiDropdownButton"
       type="button"
       aria-haspopup="true"
-      aria-controls="menu2"
-      :append="append"
+      :aria-expanded="menuActive"
+      :aria-controls="menuId"
       :block="block"
-      @click="handleButtonClick"
+      @click="toogleMenu"
       @keydown="handleButtonKeyEvents"
     >
-      <span v-if="label !== null">{{ label }}</span>
+      <span v-if="text !== null">{{ text }}</span>
       <slot v-else name="button" />
     </lui-button>
-    <!-- <button
-      id="menubutton"
-      ref="luiDropdownButton"
-      type="button"
-      aria-haspopup="true"
-      aria-controls="menu2"
-      @click="handleButtonClick"
-    >
-      <span v-if="label !== null">{{ label }}</span>
-      <slot v-else name="button" />
-    </button> -->
     <transition
       enter-active-class="transition duration-100 ease-out"
       enter-from-class="transform scale-95 opacity-0"
@@ -188,30 +131,20 @@ function dom<T extends Element | ComponentPublicInstance>(
       leave-to-class="transform scale-95 opacity-0"
     >
       <ul
-        id="menu2"
+        :id="menuId"
         role="menu"
-        aria-labelledby="menubutton"
         ref="LuiDropdownMenu"
+        :aria-labelledby="buttonId"
+        aria-activedescendant="current-active-item"
+        tabindex="0"
         v-show="menuActive"
-        class="p-2 bg-white rounded-lg border border-secondary-200 w-max absolute top-full mt-2"
+        class="p-2 bg-white rounded-lg border border-secondary-200 w-max absolute"
+        :class="
+          properPosition === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-2'
+        "
+        @keydown="handleMenuKeyEvents"
       >
-        <template v-if="options !== undefined">
-          <LuiDropdownItem
-            v-for="(option, index) in options"
-            :key="index"
-            @click="emit('onSelect', option)"
-          >
-            {{ option }}
-          </LuiDropdownItem>
-        </template>
-        <template v-else>
-          <!-- <slot /> -->
-          <LuiDropdownItem>
-            Accessible Rich Internet Application Specification ?
-          </LuiDropdownItem>
-          <LuiDropdownItem> Lorem, ipsum. </LuiDropdownItem>
-          <LuiDropdownItem> Lorem ipsum dolor sit. </LuiDropdownItem>
-        </template>
+        <slot />
       </ul>
     </transition>
   </div>

@@ -5,15 +5,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import {
-  ref,
-  nextTick,
-  provide,
-  useSlots,
-  watch,
-  reactive,
-  computed,
-} from "vue";
+import { ref, nextTick, provide, useSlots, watch, reactive } from "vue";
 import type { PropType, Ref } from "vue";
 import type {
   OptionsType,

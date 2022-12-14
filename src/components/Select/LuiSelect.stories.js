@@ -14,7 +14,11 @@ export const Default = (args) => ({
     const names = [
       { label: "sercan", value: "1", selected: false, disabled: true },
       { label: "bahyan", value: "2", selected: false },
-      { label: "serkan", value: "3", selected: false, disabled: true },
+      {
+        label: "serkan uzun uzun yazilar cok uzun yazilar daha da uzun yazi",
+        value: "3",
+        selected: false,
+      },
       { label: "rahmi", value: "4", selected: false },
       { label: "can", value: "5", selected: true },
     ];
