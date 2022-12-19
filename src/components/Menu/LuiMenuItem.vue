@@ -7,7 +7,12 @@ import {
 import { Color, Rounded, Size } from "@/globals/types";
 import { PropType, computed, useSlots } from "vue";
 import type { MenuItemTag } from "./menu-item-types";
+import { useId } from "../../utils/useId";
 const props = defineProps({
+  disabled: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   tag: {
     type: String as PropType<MenuItemTag>,
     default: "button",
@@ -26,6 +31,7 @@ const props = defineProps({
   },
 });
 const slots = useSlots();
+const menuItemId = `lui-menu-item-${useId()}`;
 const computedMenuItemClasses = computed(() => {
   const menuItemClasses: TwClassInterface = {
     width: "w-full",
@@ -89,6 +95,7 @@ const computedDefaultSlotClasses = computed(() => {
     role="menuitem"
     class="lui-menu-item"
     :is="tag"
+    :id="menuItemId"
     v-bind="$attrs"
     :class="computedMenuItemClasses"
   >
