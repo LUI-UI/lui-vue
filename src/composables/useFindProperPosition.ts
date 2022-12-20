@@ -16,7 +16,6 @@ export function useFindProperPosition<
 
   function updatePosition() {
     if (dom(el) === null) {
-      console.log("el is null..")
       properPosition.value = "bottom";
       return;
     }

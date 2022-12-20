@@ -5,14 +5,22 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, nextTick, useSlots, reactive } from "vue";
+import { ref, nextTick, useSlots, reactive, computed } from "vue";
 import type { PropType } from "vue";
 import LuiButton from "../Button/LuiButton.vue";
 import { useOutsideClick } from "../../composables/useOutsideClick";
 import { useFindProperPosition } from "../../composables/useFindProperPosition";
 import { useId } from "../../utils/useId";
 import { Variant, Filter, Rounded, Block, Color, Size } from "@/globals/types";
-
+type Position =
+  | "bottomLeft"
+  | "bottomRight"
+  | "topLeft"
+  | "topRight"
+  | "leftTop"
+  | "leftBottom"
+  | "rightTop"
+  | "rightBottom";
 const props = defineProps({
   // options: {
   //   type: [Array, null] as PropType<Options>,
@@ -21,6 +29,10 @@ const props = defineProps({
   text: {
     type: String as PropType<string>,
     default: "",
+  },
+  menuPosition: {
+    type: String as PropType<Position>,
+    default: "bottomLeft",
   },
   variant: {
     type: String as PropType<Variant>,
@@ -48,6 +60,7 @@ const props = defineProps({
   },
 });
 console.log(props);
+// positions: bottom-left, bottom-right, top-left, top-right, left-top, left-bottom, right-top, right-bottom
 const emit = defineEmits(["onTrigger"]);
 const slots = useSlots();
 const luiDropdownWrapper = ref<HTMLDivElement | null>(null);
@@ -62,7 +75,57 @@ const menuItemsState = reactive({
 });
 
 useOutsideClick(luiDropdownButton, () => closeMenu());
+
 const { properPosition } = useFindProperPosition(luiDropdownWrapper);
+
+const positionClasses = {
+  bottomLeft: {
+    classes: "top-full mt-1",
+    oppositeClasses: "bottom-full mb-1 left-0", // bottomRight
+    direction: "bottom",
+  },
+  topLeft: {
+    classes: "bottom-full mb-1 left-0",
+    oppositeClasses: "top-full mt-1", // bottomLEft
+    direction: "top",
+  },
+  bottomRight: {
+    classes: "top-full mt-1 right-0",
+    oppositeClasses: "bottom-full mb-1 right-0", // topRight
+    direction: "bottom",
+  },
+  topRight: {
+    classes: "bottom-full mb-1 right-0",
+    oppositeClasses: "top-full mt-1 right-0", // bottomRight
+    direction: "top",
+  },
+  leftTop: {
+    classes: "top-0 mr-1 right-full",
+    oppositeClasses: "bottom-0 mr-1 right-full", // leftBottom
+    direction: "bottom",
+  },
+  leftBottom: {
+    classes: "bottom-0 mr-1 right-full",
+    oppositeClasses: "top-0 mr-1 right-full", // leftTop
+    direction: "top",
+  },
+  rightTop: {
+    classes: "top-0 ml-1 left-full",
+    oppositeClasses: "bottom-0 ml-1 left-full", //rightBottom
+    direction: "bottom",
+  },
+  rightBottom: {
+    classes: "bottom-0 ml-1 left-full",
+    oppositeClasses: "top-0 ml-1 left-full", // rightTop
+    direction: "top",
+  },
+};
+
+const computedMenuPosition = computed(() => {
+  return positionClasses[props.menuPosition].direction === properPosition.value
+    ? positionClasses[props.menuPosition].classes
+    : positionClasses[props.menuPosition].oppositeClasses;
+});
 
 function closeMenu() {
   menuActive.value = false;
@@ -143,13 +206,10 @@ function handleMenuKeyEvents(event: KeyboardEvent) {
 }
 
 function handleButtonKeyEvents(event: KeyboardEvent) {
-  console.log(event);
-  console.log("aa:", menuItemsState);
   switch (event.code) {
     case "ArrowDown":
     case "Enter":
     case "Space":
-      // code block
       event.preventDefault();
       openMenu();
       focusAvailableElement(luiDropdownMenu.value, (i) => i + 1, 0);
@@ -193,7 +253,7 @@ function focusAvailableElement(
 }
 </script>
 <template>
-  <div ref="luiDropdownWrapper" class="relative leading-3">
+  <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
     <lui-button
       :id="buttonId"
       ref="luiDropdownButton"
@@ -216,6 +276,7 @@ function focusAvailableElement(
       leave-from-class="transform scale-100 opacity-100"
       leave-to-class="transform scale-95 opacity-0"
     >
+      <!-- :class="computedMenuPosition" -->
       <ul
         :id="menuId"
         role="menu"
@@ -225,9 +286,7 @@ function focusAvailableElement(
         tabindex="0"
         v-show="menuActive"
         class="p-2 bg-white rounded-lg border border-secondary-200 w-max absolute"
-        :class="
-          properPosition === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-2'
-        "
+        :class="computedMenuPosition"
         @keydown="handleMenuKeyEvents"
       >
         <slot />

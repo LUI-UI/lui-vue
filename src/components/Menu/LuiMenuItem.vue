@@ -38,8 +38,9 @@ const computedMenuItemClasses = computed(() => {
     display: "flex",
     justifyContent: "justify-between",
     alignItems: "items-center",
+    // outline: "outline-none",
     textColor: `text-${props.color}-600 dark:text-${props.color}-400 disabled:text-secondary-300 disabled:dark:text-secondary-700`,
-    backgroundColor: `hover:bg-${props.color}-600/20 dark:hover:bg-${props.color}-400/20 disabled:bg-transparent disabled:dark:bg-transparent`,
+    backgroundColor: `hover:bg-${props.color}-600/20 focus:bg-${props.color}-600/20 dark:hover:bg-${props.color}-400/20 dark:focus:bg-${props.color}-400/20 disabled:bg-transparent disabled:dark:bg-transparent`,
     fontSize: {
       "text-xs": props.size === "xs",
       "text-sm": props.size === "sm",

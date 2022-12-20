@@ -6,7 +6,7 @@ module.exports = plugin(
     const states = [
       "",
       "hover",
-      // "focus",
+      "focus",
       // "active",
       // "disabled",
       "focus-visible",

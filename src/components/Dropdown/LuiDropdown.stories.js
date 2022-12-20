@@ -7,7 +7,6 @@ import {
   rounded,
   size,
   filter,
-  icon,
   disabled,
 } from "../../../.storybook/global-story-argtypes";
 
@@ -21,8 +20,20 @@ export default {
     rounded,
     size,
     filter,
-    icon,
     disabled,
+    menuPosition: {
+      control: "select",
+      options: [
+        "bottomLeft",
+        "bottomRight",
+        "topLeft",
+        "topRight",
+        "leftTop",
+        "leftBottom",
+        "rightTop",
+        "rightBottom",
+      ],
+    },
     onOnTrigger: {
       action: "menu triggered",
     },
@@ -45,16 +56,16 @@ const Template = (args) => ({
   // And then the `args` are bound to your component with `v-bind="args"`
   // <lui-checkbox v-bind="args" v-model="test" />
   template: `
-    <div class="h-[1400px]">
+    <div class="h-[1400px] pl-12">
       <lui-dropdown v-bind="args">
         <lui-menu-item v-for="i in 5" :key="i" @click="selectItem(i)">
-          menu-item-{{ i }}
+          lui-menu-item-{{ i }}
         </lui-menu-item>
       </lui-dropdown>   
-      <div class="mt-[300px]">
+      <div class="mt-[450px]">
         <lui-dropdown v-bind="args">
-          <lui-menu-item v-for="i in 9" :key="i" @click="selectItem(i)">
-            menu-item-{{ i }}
+          <lui-menu-item v-for="i in 7" :key="i" @click="selectItem(i)">
+            lui-menu-item-{{ i }}
           </lui-menu-item>
         </lui-dropdown>    
       </div> 
