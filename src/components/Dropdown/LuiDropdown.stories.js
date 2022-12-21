@@ -47,19 +47,20 @@ const Template = (args) => ({
   components: { LuiDropdown, LuiMenuItem },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
+    const dditems = ["edit", "duplicate", "archive", "move", "delete"];
     function selectItem(option) {
       console.log("selected option is: ", option);
       //..
     }
-    return { args, selectItem };
+    return { args, selectItem, dditems };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   // <lui-checkbox v-bind="args" v-model="test" />
   template: `
     <div class="h-[1400px] pl-12">
       <lui-dropdown v-bind="args">
-        <lui-menu-item v-for="i in 5" :key="i" @click="selectItem(i)">
-          lui-menu-item-{{ i }}
+        <lui-menu-item v-for="(item,i) in dditems" :key="i" @click="selectItem(i)">
+          {{item}}
         </lui-menu-item>
       </lui-dropdown>   
       <div class="mt-[450px]">
