@@ -10,6 +10,7 @@ import type { PropType, Ref } from "vue";
 import { Rounded, Block, Icon, Size, State, StateIcon } from "@/globals/types";
 import type { Clear, ModelValue, Description } from "./input-types";
 import { useInputClasses } from "./composables";
+import { useGlobalDescriptionClasses } from "../../composables/index";
 
 const props = defineProps({
   size: {
@@ -55,13 +56,12 @@ const attrs = useAttrs();
 const slots = useSlots();
 const LuiInputRef: Ref = ref(null);
 
-const {
-  inputClasses,
-  descriptionClasses,
-  prependClasses,
-  stateIconClasses,
-  closeIconClasses,
-} = useInputClasses(toRefs(props), attrs);
+const { inputClasses, prependClasses, stateIconClasses, closeIconClasses } =
+  useInputClasses(toRefs(props), attrs);
+const { descriptionClasses } = useGlobalDescriptionClasses(
+  toRefs(props),
+  attrs
+);
 
 const stateIconName = computed(() => {
   return attrs.disabled
@@ -108,6 +108,9 @@ const iconSizes = computed(() =>
     ? "24"
     : "20"
 );
+const isDisabled = computed(
+  () => attrs.disabled !== undefined && attrs.disabled === true
+);
 </script>
 <template>
   <div
@@ -152,7 +155,7 @@ const iconSizes = computed(() =>
         </svg>
       </button>
       <span
-        v-if="state !== null && stateIcon"
+        v-if="stateIcon && state !== null && !isDisabled"
         :icon="stateIconName"
         :class="stateIconClasses"
       >
@@ -198,9 +201,12 @@ const iconSizes = computed(() =>
             d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"
           />
         </svg>
+      </span>
+      <span>
         <!-- disabled -->
         <svg
-          v-if="attrs?.disabled === true"
+          v-if="stateIcon && isDisabled"
+          :class="stateIconClasses"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           :width="iconSizes"
