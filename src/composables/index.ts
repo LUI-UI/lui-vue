@@ -104,7 +104,7 @@ export function useGlobalDescriptionClasses(
       lineHeight: "leading-normal",
       margin: "mt-1",
       textColor:
-        attrs.disabled !== undefined && attrs.disabled.value
+        attrs.disabled !== undefined && attrs.disabled === true
           ? "text-secondary-200 dark:text-secondary-700"
           : {
               "text-secondary-600 dark:text-secondary-400":

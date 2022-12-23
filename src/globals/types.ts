@@ -16,6 +16,7 @@ export type State = true | false | string | null;
 export type Description = string | null;
 export type CheckableModelValue = string[] | boolean | null;
 export type Text = string;
+export type StateIcon = false | true;
 // export type TextColor =
 //   | "white"
 //   | "solid"

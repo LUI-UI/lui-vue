@@ -89,3 +89,6 @@ export const state = {
   control: { type: "select" },
   options: ["warning", true, false, null],
 };
+export const stateIcon = {
+  control: { type: "boolean" }
+};

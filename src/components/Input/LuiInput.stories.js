@@ -7,6 +7,7 @@ import {
   disabled,
   description,
   state,
+  stateIcon,
 } from "../../../.storybook/global-story-argtypes";
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
@@ -22,9 +23,7 @@ export default {
     disabled,
     description,
     state,
-    stateIcon: {
-      control: { type: "boolean" },
-    },
+    stateIcon,
     clear: {
       control: { type: "boolean" },
     },

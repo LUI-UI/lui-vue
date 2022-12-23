@@ -1,16 +1,24 @@
 <script lang="ts">
 export default {
-  name: "LuiInput",
+  name: "LuiTextarea",
   inheritAttrs: false,
 };
 </script>
 <script setup lang="ts">
-import { computed, ref, useAttrs, toRefs, useSlots } from "vue";
-import type { PropType, Ref } from "vue";
-import { Rounded, Block, Icon, Size, State, StateIcon } from "@/globals/types";
-import type { Clear, ModelValue, Description } from "./input-types";
-import { useInputClasses } from "./composables";
+import { toRefs, useAttrs, computed } from "vue";
+import type { PropType } from "vue";
+import {
+  Rounded,
+  Size,
+  State,
+  Description,
+  StateIcon,
+  Block,
+} from "@/globals/types";
 
+import { useGlobalDescriptionClasses } from "../../composables/index";
+import { useTextareaClasses } from "./composables";
+type Resize = true | false | "y" | "x";
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
@@ -18,7 +26,7 @@ const props = defineProps({
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false,
+    default: "full",
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
@@ -28,77 +36,39 @@ const props = defineProps({
     type: [Boolean] as PropType<StateIcon>,
     default: null,
   },
-  block: {
-    type: Boolean as PropType<Block>,
-    default: false,
-  },
-  clear: {
-    type: Boolean as PropType<Clear>,
-    default: false,
-  },
-  prepend: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
   description: {
     type: [String, null] as PropType<Description>,
     default: null,
   },
+  resize: {
+    type: [Boolean, String] as PropType<Resize>,
+    default: true,
+  },
+  block: {
+    type: Boolean as PropType<Block>,
+    default: false,
+  },
   modelValue: {
-    type: [String, Number] as PropType<ModelValue>,
+    type: [String] as PropType<string>,
     default: "",
   },
 });
 
-const emit = defineEmits(["update:modelValue"]);
 const attrs = useAttrs();
-const slots = useSlots();
-const LuiInputRef: Ref = ref(null);
+const emit = defineEmits(["update:modelValue"]);
 
-const {
-  inputClasses,
-  descriptionClasses,
-  prependClasses,
-  stateIconClasses,
-  closeIconClasses,
-} = useInputClasses(toRefs(props), attrs);
-
-const stateIconName = computed(() => {
-  return attrs.disabled
-    ? "forbid-2"
-    : props.state === true
-    ? "checkbox-circle"
-    : props.state === "warning"
-    ? "feedback"
-    : props.state === false
-    ? "error-warning"
-    : "";
-});
-
-const computedAttrs = computed(() => {
-  const { class: attrClass, style, ...rest } = attrs;
-  return {
-    parent: { attrClass, style },
-    input: rest,
-  };
-});
-
-function clearInput() {
-  LuiInputRef.value.value = "";
-  LuiInputRef.value.focus();
-}
-
-const focus = () => LuiInputRef.value.focus();
-
-defineExpose({
-  focus,
-});
-
+const { descriptionClasses } = useGlobalDescriptionClasses(
+  toRefs(props),
+  attrs
+);
+const { textareaClasses, stateIconClasses } = useTextareaClasses(
+  toRefs(props),
+  attrs
+);
 function handleInputEvents(val: any) {
   emit("update:modelValue", val.target.value);
   // emit("change", val.target.value);
 }
-// 12 16 20 20 24
 const iconSizes = computed(() =>
   props.size === "xs"
     ? "12"
@@ -108,52 +78,27 @@ const iconSizes = computed(() =>
     ? "24"
     : "20"
 );
+const isDisabled = computed(
+  () => attrs.disabled !== undefined && attrs.disabled === true
+);
+
+// const emit = defineEmits(["update:modelValue"]);
+
+// function handleChange(e: any) {
+//   emit("update:modelValue", handleVModel(e));
+// }
 </script>
+
 <template>
-  <div
-    class="inline-block leading-3"
-    :class="[block ? 'w-full' : 'w-48', computedAttrs.parent.attrClass]"
-    :style="computedAttrs.parent.style"
-  >
+  <div class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
     <div class="relative">
-      <input
-        ref="LuiInputRef"
-        :value="modelValue"
-        :class="inputClasses"
-        v-bind="computedAttrs.input"
+      <textarea
+        v-bind="$attrs"
+        :class="textareaClasses"
         @input="handleInputEvents($event)"
       />
-      <!-- prepend should be above the input be able to use peer -->
       <span
-        v-if="!!slots.prepend"
-        :icon="prepend"
-        :class="prependClasses"
-        class="leading-none"
-      >
-        <slot name="prepend" />
-      </span>
-      <button
-        v-if="clear && !attrs.disabled"
-        @click="clearInput"
-        :class="closeIconClasses"
-      >
-        <!-- <lui-icon icon="close" class="leading-none" /> -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          :width="iconSizes"
-          :height="iconSizes"
-          fill="currentColor"
-        >
-          <path fill="none" d="M0 0h24v24H0z" />
-          <path
-            d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
-          />
-        </svg>
-      </button>
-      <span
-        v-if="state !== null && stateIcon"
-        :icon="stateIconName"
+        v-if="stateIcon && state !== null && !isDisabled"
         :class="stateIconClasses"
       >
         <!-- feedback -->
@@ -198,9 +143,10 @@ const iconSizes = computed(() =>
             d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z"
           />
         </svg>
+      </span>
+      <span v-if="stateIcon && isDisabled" :class="stateIconClasses">
         <!-- disabled -->
         <svg
-          v-if="attrs?.disabled === true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           :width="iconSizes"
@@ -213,8 +159,9 @@ const iconSizes = computed(() =>
           />
         </svg>
       </span>
+      
     </div>
-    <p v-if="description !== null" :class="descriptionClasses">
+    <p v-if="description" :class="descriptionClasses" class="">
       {{ description }}
     </p>
   </div>
