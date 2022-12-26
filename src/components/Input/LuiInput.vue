@@ -7,8 +7,16 @@ export default {
 <script setup lang="ts">
 import { computed, ref, useAttrs, toRefs, useSlots } from "vue";
 import type { PropType, Ref } from "vue";
-import { Rounded, Block, Icon, Size, State, StateIcon } from "@/globals/types";
-import type { Clear, ModelValue, Description } from "./input-types";
+import {
+  Rounded,
+  Block,
+  Icon,
+  Size,
+  State,
+  StateIcon,
+  Description,
+} from "@/globals/types";
+import type { Clear, ModelValue } from "./input-types";
 import { useInputClasses } from "./composables";
 import { useGlobalDescriptionClasses } from "../../composables/index";
 

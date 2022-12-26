@@ -5,7 +5,15 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, nextTick, provide, useSlots, watch, reactive } from "vue";
+import {
+  ref,
+  nextTick,
+  provide,
+  useSlots,
+  watch,
+  reactive,
+  computed,
+} from "vue";
 import type { PropType, Ref } from "vue";
 import type {
   OptionsType,
@@ -15,11 +23,38 @@ import type {
 } from "./select-types";
 import { ContextKey } from "./symbols";
 import { useId } from "./hooks/index";
-import { useOutsideClick, useFindProperPosition } from "./composables/index";
+// import { useOutsideClick, useFindProperPosition } from "./composables/index";
+import { useOutsideClick } from "../../composables/useOutsideClick";
+import { useFindProperPosition } from "../../composables/useFindProperPosition";
+import type { TwClassInterface } from "@/globals/interfaces";
+import {
+  Rounded,
+  Block,
+  Size,
+  State,
+  StateIcon,
+  Description,
+} from "@/globals/types";
 import LuiOption from "./LuiOption.vue";
 import LuiInput from "../Input/LuiInput.vue";
 
 const props = defineProps({
+  rounded: {
+    type: [Boolean, String] as PropType<Rounded>,
+    default: false,
+  },
+  block: {
+    type: Boolean as PropType<Block>,
+    default: false,
+  },
+  state: {
+    type: [String, Boolean, null] as PropType<State>,
+    default: null,
+  },
+  stateIcon: {
+    type: [Boolean] as PropType<StateIcon>,
+    default: null,
+  },
   options: {
     type: Array as PropType<OptionsType>,
     default: () => [],
@@ -27,6 +62,14 @@ const props = defineProps({
   placeholder: {
     type: String as PropType<string>,
     default: "",
+  },
+  size: {
+    type: String as PropType<Size>,
+    default: "md",
+  },
+  description: {
+    type: [String, null] as PropType<Description>,
+    default: null,
   },
   modelValue: {
     type: [Object, String, undefined] as PropType<ModelValue>,
@@ -61,24 +104,21 @@ const errorMessages = {
 const emit = defineEmits(["update:modelValue", "change"]);
 
 const { properPosition } = useFindProperPosition(selectWrapperRef);
+useOutsideClick(selectWrapperRef, () => closeListBox());
 
-// useOutsideClick(selectRef, () => {
-//   closeListBox();
-// });
-
-const vClickOutSide = {
-  mounted: function (el: any, binding: any, vnode) {
-    el.clickOutsideEvent = function (event) {
-      if (!(el == event.target || el.contains(event.target))) {
-        binding.value(event, el);
-      }
-    };
-    document.addEventListener("click", el.clickOutsideEvent);
-  },
-  unmounted: function (el) {
-    document.removeEventListener("click", el.clickOutsideEvent);
-  },
-};
+// const vClickOutSide = {
+//   mounted: function (el: any, binding: any, vnode) {
+//     el.clickOutsideEvent = function (event) {
+//       if (!(el == event.target || el.contains(event.target))) {
+//         binding.value(event, el);
+//       }
+//     };
+//     document.addEventListener("click", el.clickOutsideEvent);
+//   },
+//   unmounted: function (el) {
+//     document.removeEventListener("click", el.clickOutsideEvent);
+//   },
+// };
 
 nextTick(() => {
   setInitialSelectedOption();
@@ -165,7 +205,7 @@ function setInitialSelectedOption() {
   const isModelValueInvalid =
     props.modelValue !== undefined &&
     typeof props.modelValue !== "string" &&
-    (props.modelValue?.label === undefined ||
+    (props.modelValue?.text === undefined ||
       props.modelValue?.value === undefined);
 
   const optionsExist = props.options.length > 0;
@@ -265,7 +305,7 @@ function buttonKeydown(event: KeyboardEvent) {
         let selectedIndex = listboxState.items.findIndex((item: any) =>
           typeof item === "string"
             ? item === selectedOption.value
-            : item?.label === selectedOption.value?.label
+            : item?.text === selectedOption.value?.text
         );
         if (selectedIndex === -1) {
           focusAvailableElement(optionsRef.value, (i) => i + 1, 0);
@@ -331,12 +371,27 @@ function optionsKeydown(event: KeyboardEvent) {
     default:
   }
 }
-function handleClickOutside() {
-  optionsActive.value = false;
-}
-
-// const isObject = (variable: any) =>
-//   typeof variable === "object" && variable !== null && !Array.isArray(variable);
+const selectClasses = computed(() => {
+  const optionsWrapper: TwClassInterface = {
+    backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
+    borderWidth: "border",
+    borderColor: "border-secondary-200 dark:border-secondary-700",
+    borderRadius: {
+      "rounded-md": props.rounded === true,
+      "rounded-2xl": props.rounded === "full",
+    },
+    padding: {
+      "px-1.5 pt-1.5": props.size === "xs" || props.size === "sm",
+      "px-2 pt-2": props.size === "md",
+      "px-2.5 pt-2.5": props.size === "lg" || props.size === "xl",
+    },
+    boxShadow: "shadow-lg",
+    bottom: properPosition.value == "top" ? "bottom-full" : "",
+    top: properPosition.value == "bottom" ? "top-full" : "",
+    margin: properPosition.value == "bottom" ? "mt-2" : "mb-2",
+  };
+  return Object.values({ ...optionsWrapper });
+});
 </script>
 <template>
   <div
@@ -347,13 +402,12 @@ function handleClickOutside() {
     :aria-expanded="optionsActive"
     :aria-controls="optionsId"
     tabindex="-1"
-    v-click-out-side="handleClickOutside"
     @click="toggleOptions"
   >
     <LuiInput
       ref="selectRef"
       :id="selectId"
-      :value="selectedOption?.label || selectedOption"
+      :value="selectedOption?.text || selectedOption"
       :placeholder="placeholder"
       readonly
       v-bind="$attrs"
@@ -368,18 +422,16 @@ function handleClickOutside() {
       role="listbox"
       tabindex="0"
       class="absolute"
-      :class="
-        properPosition === 'bottom' ? 'top-full mt-2' : 'bottom-full mb-2'
-      "
+      :class="selectClasses"
       :aria-activedescendant="listboxState.currentId"
       @keydown="optionsKeydown($event)"
     >
-      <LuiOption v-if="placeholder !== ''" disabled :label="placeholder" />
+      <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
       <template v-if="options.length > 0">
         <LuiOption
           v-for="(option, index) in options"
           :key="index"
-          :label="option?.label || option"
+          :text="option?.text || option"
           :value="option.value"
           :selected="option.selected !== undefined && option.selected"
           :disabled="option.disabled !== undefined && option.disabled"

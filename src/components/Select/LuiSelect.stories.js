@@ -1,10 +1,29 @@
 import LuiSelect from "./LuiSelect.vue";
 import LuiOption from "./LuiOption.vue";
 import { ref } from "vue";
-
+import {
+  block,
+  rounded,
+  size,
+  prepend,
+  disabled,
+  description,
+  state,
+  stateIcon,
+} from "../../../.storybook/global-story-argtypes";
 export default {
   title: "LUI/Select",
   component: LuiSelect,
+  argTypes: {
+    block,
+    rounded,
+    size,
+    prepend,
+    disabled,
+    description,
+    state,
+    stateIcon,
+  },
 };
 
 export const Default = (args) => ({
@@ -12,15 +31,15 @@ export const Default = (args) => ({
   setup() {
     // const names = ["bayhan", "sercan", "serkan", "rahmi", "can"];
     const names = [
-      { label: "sercan", value: "1", selected: false, disabled: true },
-      { label: "bahyan", value: "2", selected: false },
+      { text: "sercan", value: "1", selected: false, disabled: true },
+      { text: "bahyan", value: "2", selected: false },
       {
-        label: "serkan uzun uzun yazilar cok uzun yazilar daha da uzun yazi",
+        text: "serkan uzun uzun yazilar cok uzun yazilar daha da uzun yazi",
         value: "3",
         selected: false,
       },
-      { label: "rahmi", value: "4", selected: false },
-      { label: "can", value: "5", selected: true },
+      { text: "rahmi", value: "4", selected: false },
+      { text: "can", value: "5", selected: true },
     ];
     const selectedName = ref(names[1]);
     let test = ref(1);
@@ -44,17 +63,23 @@ export const Default = (args) => ({
     </div>
     <div class="flex space-x-10 h-[1400px]">
       <div>
-        <lui-select v-model="selectedName" :options="names">
-          <lui-option label="slot option 6" value="6"></lui-option>
-          <lui-option v-for="i in 5" :key="i" :label="i + 'okeygoogle'" :value="i" :disabled="i == 1 || i == 2"></lui-option>
-          <lui-option label="slot option 7" value="7" disabled></lui-option>
+        <lui-select v-bind="args" v-model="selectedName" :options="names">
+          <lui-option v-for="i in 5" :key="i" :text="i + 'okeygoogle ve bazi baska kelimeler sen bilir misin bilmem '" :value="i" :disabled="i == 1 || i == 2">
+            <template #prepend>
+              <i class="ri-home-line"/>
+            </template>
+            <template #append>
+              <i class="ri-home-line"/>
+            </template>
+          </lui-option>
+          <lui-option text="slot option 7" value="7" disabled></lui-option>
         </lui-select>
       </div>
       <div class="mt-[600px]">
-        <lui-select>
-          <lui-option label="Second option first item" value="6"></lui-option>
-          <lui-option label="Second option 2. item" value="7"></lui-option>
-          <lui-option label="Second option 3.. item" value="11"></lui-option>
+        <lui-select v-bind="args">
+          <lui-option text="Second option first item" value="6"></lui-option>
+          <lui-option text="Second option 2. item" value="7"></lui-option>
+          <lui-option text="Second option 3.. item" value="11"></lui-option>
         </lui-select>
       </div>
     </div>
@@ -66,11 +91,11 @@ export const WithObjectArrays = (args) => ({
   components: { LuiSelect },
   setup() {
     const names = [
-      { label: "bahyan", value: "9" },
-      { label: "sercan", value: "10" },
-      { label: "serkan", value: "12" },
-      { label: "rahmi", value: "4" },
-      { label: "can", value: "7" },
+      { text: "bahyan", value: "9" },
+      { text: "sercan", value: "10" },
+      { text: "serkan", value: "12" },
+      { text: "rahmi", value: "4" },
+      { text: "can", value: "7" },
     ];
     const selectedName = ref(names[0]);
     return {
