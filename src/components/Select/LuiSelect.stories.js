@@ -58,9 +58,6 @@ export const Default = (args) => ({
     };
   },
   template: `
-    <div class="p-2">
-      SelectedName: {{selectedName}}
-    </div>
     <div class="flex space-x-10 h-[1400px]">
       <div>
         <lui-select v-bind="args" v-model="selectedName" :options="names">

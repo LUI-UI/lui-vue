@@ -47,7 +47,11 @@ const optionId = `lui-option-${useId()}`;
 
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
-  if (context?.selectedOption.value === undefined && props.selected) {
+  if (
+    context?.selectedOption.value === undefined &&
+    props.selected &&
+    !props.disabled
+  ) {
     context?.updateSelectedOption({
       value: props.value,
       text: props.text,
@@ -85,12 +89,13 @@ const isSelected = computed(() => {
 });
 
 const optionClasses = computed(() => {
+  //hover:bg-${props.color}-600/20
   const classes: TwClassInterface = {
     backgroundColor: props.disabled
       ? ""
       : isSelected.value === true
-      ? "bg-primary-500 hover:bg-secondary-500/20 focus:bg-secondary-500/20"
-      : "hover:bg-secondary-500/20 focus:bg-secondary-500/20",
+      ? "bg-primary-500 hover:text-primary-600 focus:text-primary-600"
+      : "hover:bg-primary-500/20 focus:bg-primary-500/20",
     padding: {
       "px-1.5 py-1": props.size === "xs",
       "px-2 py-1.5": props.size === "sm",
@@ -112,6 +117,7 @@ const optionClasses = computed(() => {
     display: slots.prepend || slots.append ? "flex" : "",
     alingItems: slots.prepend || slots.append ? "items-center" : "",
     cursor: props.disabled ? "cursor-not-allowed" : "",
+    pointerEvents: props.disabled ? "pointer-events-none" : "",
   };
   return Object.values({ ...classes });
 });

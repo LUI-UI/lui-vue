@@ -72,6 +72,7 @@ const computedMenuItemClasses = computed(() => {
     cursor: {
       ["cursor-pointer disabled:cursor-not-allowed"]: props.tag === "button",
     },
+    pointerEvents: props.disabled ? "pointer-events-none" : "",
   };
   return Object.values(menuItemClasses);
 });

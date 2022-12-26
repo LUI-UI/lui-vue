@@ -10,6 +10,7 @@ import {
   nextTick,
   provide,
   useSlots,
+  useAttrs,
   watch,
   reactive,
   computed,
@@ -77,6 +78,7 @@ const props = defineProps({
   },
 });
 const slots = useSlots();
+const attrs = useAttrs();
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const selectRef = ref<InstanceType<typeof LuiInput> | null>(null);
 const optionsRef: Ref<HTMLUListElement | null> = ref(null);
@@ -182,6 +184,7 @@ function closeListBox() {
 }
 
 function toggleOptions() {
+  if (attrs.disabled !== undefined && attrs.disabled === true) return;
   optionsActive.value = !optionsActive.value;
 }
 
@@ -395,6 +398,17 @@ const selectClasses = computed(() => {
   };
   return Object.values({ ...optionsWrapper });
 });
+// rounded, block, state, stateIcon, placeholder,size,description
+const inputProps = computed(() => ({
+  rounded: props.rounded,
+  block: props.block,
+  state: props.state,
+  stateIcon: props.stateIcon,
+  placeholder: props.placeholder,
+  size: props.size,
+  description: props.description,
+  ...attrs,
+}));
 </script>
 <template>
   <div
@@ -411,9 +425,8 @@ const selectClasses = computed(() => {
       ref="selectRef"
       :id="selectId"
       :value="selectedOption?.text || selectedOption"
-      :placeholder="placeholder"
       readonly
-      v-bind="$attrs"
+      v-bind="inputProps"
       @keydown="buttonKeydown($event)"
     />
     <ul
@@ -436,7 +449,9 @@ const selectClasses = computed(() => {
           :text="option?.text || option"
           :value="option.value"
           :selected="option.selected !== undefined && option.selected"
-          :disabled="option.disabled !== undefined && option.disabled"
+          :disabled="option.disabled"
+          :size="option.size"
+          :rounded="option.rounded"
         >
         </LuiOption>
       </template>
