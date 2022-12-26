@@ -62,7 +62,7 @@ export function useRadioClasses(props: PropTypes) {
       borderColor: "border-secondary-200 dark:border-secondary-700",
       borderRadius: "rounded-full before:rounded-full",
       backgroundColor:
-        "bg-transparent peer-checked:bg-primary-500 before:bg-transparent peer-checked:before:bg-white",
+        "bg-secondary-50 dark:bg-secondary-900 peer-checked:bg-primary-500 before:bg-transparent peer-checked:before:bg-white peer-disabled:before:bg-seconday-200 dark:peer-disabled:bg-secondary-800 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
       ringWidth: "peer-focus-visible:ring-2",
       ringColor: {
         "peer-focus-visible:ring-primary-500/40": props.state.value === null,

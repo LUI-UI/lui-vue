@@ -70,7 +70,7 @@ export function useCheckboxClasses(props: PropTypes) {
         "rounded-full": props.rounded.value === "full",
       },
       backgroundColor:
-        "bg-transparent peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
+        "bg-secondary-50 dark:bg-secondary-900 peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200",
       borderWidth: "border peer-checked:border-0",
       borderColor:
         "border-secondary-200 dark:border-secondary-700 peer-checked:border-transparent",

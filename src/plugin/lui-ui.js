@@ -61,12 +61,12 @@ module.exports = plugin(
           luiSafeList.push(`focus-visible:ring-${color}-500/40`);
         });
       }
-      if (state === "hover") {
+      if (state === "hover" || state === "focus") {
         rootColors.forEach((color) => {
-          luiSafeList.push(`hover:bg-${color}-600/20`);
+          luiSafeList.push(`${state}:bg-${color}-600/20`);
         });
         rootColors.forEach((color) => {
-          luiSafeList.push(`dark:hover:bg-${color}-400/20`);
+          luiSafeList.push(`${state}:hover:bg-${color}-400/20`);
         });
       }
     });

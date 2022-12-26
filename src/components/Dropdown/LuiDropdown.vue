@@ -12,6 +12,7 @@ import { useOutsideClick } from "../../composables/useOutsideClick";
 import { useFindProperPosition } from "../../composables/useFindProperPosition";
 import { useId } from "../../utils/useId";
 import { Variant, Filter, Rounded, Block, Color, Size } from "@/globals/types";
+import type { TwClassInterface } from "@/globals/interfaces";
 type Position =
   | "bottomLeft"
   | "bottomRight"
@@ -251,10 +252,99 @@ function focusAvailableElement(
   menuItemsState.currentId = currentEl?.id;
   nextTick(() => currentEl?.focus({ preventScroll: true }));
 }
+
+const dropdownMenuClasses = computed(() => {
+  const optionsWrapper: TwClassInterface = {
+    position: "absolute",
+    backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
+    borderWidth: "border",
+    borderColor: "border-secondary-200 dark:border-secondary-700",
+    borderRadius: {
+      "rounded-md": props.rounded === true,
+      "rounded-2xl": props.rounded === "full",
+    },
+    padding: {
+      "p-1.5": props.size === "xs" || props.size === "sm",
+      "p-2": props.size === "md",
+      "p-2.5": props.size === "lg" || props.size === "xl",
+    },
+    boxShadow: "shadow-lg",
+    bottom: properPosition.value == "top" ? "bottom-full" : "",
+    top: properPosition.value == "bottom" ? "top-full" : "",
+    margin: properPosition.value == "bottom" ? "mt-2" : "mb-2",
+    space:
+      props.size === "xs" || props.size === "sm" ? "space-y-1.5" : "space-y-2",
+  };
+  return Object.values({ ...optionsWrapper });
+});
+
+const defaultButtonProps = computed(() => ({
+  color: props.color,
+  block: props.block,
+  rounded: props.rounded,
+  size: props.size,
+  variant: props.variant,
+  filter: props.filter,
+}));
+
+function triggerIconSize(size) {
+  return size === "xs"
+    ? "12"
+    : size === "sm"
+    ? "16"
+    : size === "xl"
+    ? "24"
+    : "20";
+}
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
-    <lui-button
+    <div ref="luiDropdownButton" class="trigger-wrapper">
+      <slot
+        name="trigger"
+        :id="buttonId"
+        type="button"
+        aria-haspopup="true"
+        :aria-expanded="menuActive"
+        :aria-controls="menuId"
+        @click="toogleMenu"
+        @keydown="handleButtonKeyEvents"
+      >
+        <lui-button
+          :id="buttonId"
+          type="button"
+          aria-haspopup="true"
+          :aria-expanded="menuActive"
+          :aria-controls="menuId"
+          @click="toogleMenu"
+          @keydown="handleButtonKeyEvents"
+          v-bind="defaultButtonProps"
+        >
+          <!-- <template #prepend>
+            <slot name="triggerPrepend" />
+          </template> -->
+          {{ text }}
+          <template #append>
+            <slot name="triggerAppend">
+              <svg
+                viewBox="0 0 12 12"
+                :width="triggerIconSize(size)"
+                :height="triggerIconSize(size)"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
+                  fill="white"
+                />
+              </svg>
+            </slot>
+          </template>
+        </lui-button>
+      </slot>
+    </div>
+
+    <!-- <lui-button
       :id="buttonId"
       ref="luiDropdownButton"
       type="button"
@@ -267,7 +357,7 @@ function focusAvailableElement(
     >
       <span v-if="text !== null">{{ text }}</span>
       <slot v-else name="button" />
-    </lui-button>
+    </lui-button> -->
     <transition
       enter-active-class="transition duration-100 ease-out"
       enter-from-class="transform scale-95 opacity-0"
@@ -276,7 +366,6 @@ function focusAvailableElement(
       leave-from-class="transform scale-100 opacity-100"
       leave-to-class="transform scale-95 opacity-0"
     >
-      <!-- :class="computedMenuPosition" -->
       <ul
         :id="menuId"
         role="menu"
@@ -285,8 +374,7 @@ function focusAvailableElement(
         :aria-activedescendant="menuItemsState.currentIndex"
         tabindex="0"
         v-show="menuActive"
-        class="p-2 bg-white rounded-lg border border-secondary-200 w-max absolute"
-        :class="computedMenuPosition"
+        :class="[computedMenuPosition, dropdownMenuClasses]"
         @keydown="handleMenuKeyEvents"
       >
         <slot />

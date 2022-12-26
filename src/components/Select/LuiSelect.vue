@@ -373,6 +373,7 @@ function optionsKeydown(event: KeyboardEvent) {
 }
 const selectClasses = computed(() => {
   const optionsWrapper: TwClassInterface = {
+    position: "absolute",
     backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
     borderWidth: "border",
     borderColor: "border-secondary-200 dark:border-secondary-700",
@@ -381,14 +382,16 @@ const selectClasses = computed(() => {
       "rounded-2xl": props.rounded === "full",
     },
     padding: {
-      "px-1.5 pt-1.5": props.size === "xs" || props.size === "sm",
-      "px-2 pt-2": props.size === "md",
-      "px-2.5 pt-2.5": props.size === "lg" || props.size === "xl",
+      "p-1.5": props.size === "xs" || props.size === "sm",
+      "p-2": props.size === "md",
+      "p-2.5": props.size === "lg" || props.size === "xl",
     },
     boxShadow: "shadow-lg",
     bottom: properPosition.value == "top" ? "bottom-full" : "",
     top: properPosition.value == "bottom" ? "top-full" : "",
     margin: properPosition.value == "bottom" ? "mt-2" : "mb-2",
+    space:
+      props.size === "xs" || props.size === "sm" ? "space-y-1.5" : "space-y-2",
   };
   return Object.values({ ...optionsWrapper });
 });
@@ -421,7 +424,6 @@ const selectClasses = computed(() => {
       :aria-labelledby="selectId"
       role="listbox"
       tabindex="0"
-      class="absolute"
       :class="selectClasses"
       :aria-activedescendant="listboxState.currentId"
       @keydown="optionsKeydown($event)"

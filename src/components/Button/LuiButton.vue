@@ -101,7 +101,7 @@ const slots = useSlots();
         :class="computedIconSize"
         class="leading-none flex items-center"
       >
-        <slot name="append" />
+        <slot name="prepend" />
       </span>
       <span><slot></slot></span>
       <span
