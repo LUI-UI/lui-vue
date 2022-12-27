@@ -7,8 +7,9 @@ import type {
   Text,
   NarrowedVariant,
 } from "@/globals/types";
-import { PropType, ref, computed, toRefs, watchEffect, useSlots } from "vue";
-import {
+import { ref, computed, toRefs, watchEffect, useSlots } from "vue";
+import type { PropType } from "vue";
+import type {
   TwClassInterface,
   LayoutInterface,
   FlexGridInterface,

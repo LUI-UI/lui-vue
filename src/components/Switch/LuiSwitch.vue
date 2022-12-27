@@ -5,9 +5,9 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { toRefs, useAttrs, isRef, isProxy } from "vue";
+import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import {
+import type {
   Rounded,
   Size,
   State,

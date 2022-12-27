@@ -7,7 +7,12 @@ export default {
 <script setup lang="ts">
 import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import { Size, State, Description, CheckableModelValue } from "@/globals/types";
+import type {
+  Size,
+  State,
+  Description,
+  CheckableModelValue,
+} from "@/globals/types";
 
 import { useRadioClasses } from "./composables/index";
 import { useGlobalCheckbox } from "../../composables/index";

@@ -7,7 +7,7 @@ export default {
 <script setup lang="ts">
 import { toRefs, useAttrs, computed } from "vue";
 import type { PropType } from "vue";
-import {
+import type {
   Rounded,
   Size,
   State,

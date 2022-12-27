@@ -3,9 +3,16 @@ import { computed, useSlots } from "vue";
 //Types
 import type { Ref } from "vue";
 import type { TwClassInterface } from "@/globals/interfaces";
-// import type {  StateIcon } from "../input-types";
-import type { State, Rounded, Block, Size, Description } from "@/globals/types";
+import type {
+  State,
+  Rounded,
+  Block,
+  Size,
+  Description,
+  StateIcon,
+} from "@/globals/types";
 //Define Prop Types
+type Resize = true | false | "y" | "x";
 type PropTypes = {
   size: Ref<Size>;
   rounded: Ref<Rounded>;
@@ -13,6 +20,7 @@ type PropTypes = {
   stateIcon: Ref<StateIcon>;
   block: Ref<Block>;
   description: Ref<Description>;
+  resize: Ref<Resize>;
 };
 
 export function useTextareaClasses(props: PropTypes, attrs: any) {
@@ -99,7 +107,7 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
             "py-3.5 px-3": props.size.value === "xl",
           },
       resize: {
-        "resize": props.resize.value == true,
+        resize: props.resize.value == true,
         "resize-none": props.resize.value == false,
         "resize-x": props.resize.value == "x",
         "resize-y": props.resize.value == "y",

@@ -1,14 +1,19 @@
 import type { Ref } from "vue"
 
-export interface ModelValueObject  {
-  label: string;
+export interface ModelValueObject {
+  text: string;
   value: string | number;
   disabled?: boolean;
   selected?: boolean;
 }
 export type ModelValue = ModelValueObject | string | undefined;
+// export type ListboxStateType = {
+//   items: ModelValueObject[] | string[];
+//   currentIndex: number;
+//   currentId: string | undefined;
+// };
 export type ListboxStateType = {
-  items: ModelValueObject[] | string[];
+  items: any[];
   currentIndex: number;
   currentId: string | undefined;
 };

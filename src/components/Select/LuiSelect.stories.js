@@ -34,7 +34,7 @@ export const Default = (args) => ({
       { text: "sercan", value: "1", selected: false, disabled: true },
       { text: "bahyan", value: "2", selected: false },
       {
-        text: "serkan uzun uzun yazilar cok uzun yazilar daha da uzun yazi",
+        text: "serkan",
         value: "3",
         selected: false,
       },
@@ -60,7 +60,10 @@ export const Default = (args) => ({
   template: `
     <div class="flex space-x-10 h-[1400px]">
       <div>
-        <lui-select v-bind="args" v-model="selectedName" :options="names">
+        <lui-select v-bind="args" v-model="selectedName" :options="names" />
+      </div>
+      <div>
+        <lui-select>
           <lui-option v-for="i in 5" :key="i" :text="i + 'okeygoogle ve bazi baska kelimeler sen bilir misin bilmem '" :value="i" :disabled="i == 1 || i == 2">
             <template #prepend>
               <i class="ri-home-line"/>
@@ -69,7 +72,6 @@ export const Default = (args) => ({
               <i class="ri-home-line"/>
             </template>
           </lui-option>
-          <lui-option text="slot option 7" value="7" disabled></lui-option>
         </lui-select>
       </div>
       <div class="mt-[600px]">

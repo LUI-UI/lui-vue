@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import {
+import type {
   FlexGridInterface,
   LayoutInterface,
   TwClassInterface,
 } from "@/globals/interfaces";
-import { Color, Rounded, Size } from "@/globals/types";
-import { PropType, computed, useSlots } from "vue";
+import type { Color, Rounded, Size } from "@/globals/types";
+import { computed, useSlots } from "vue";
+import type { PropType } from "vue";
 import type { MenuItemTag } from "./menu-item-types";
 import { useId } from "../../utils/useId";
 const props = defineProps({
@@ -31,14 +32,14 @@ const props = defineProps({
   },
 });
 const slots = useSlots();
-const menuItemId = `lui-menu-item-${useId()}`;
+const menuItemId = `lui-dropdown-item-${useId()}`;
 const computedMenuItemClasses = computed(() => {
   const menuItemClasses: TwClassInterface = {
     width: "w-full",
     display: "flex",
     justifyContent: "justify-between",
     alignItems: "items-center",
-    outline: "outline-none",
+    outlineWidth: "outline-none",
     textColor: `text-${props.color}-600 dark:text-${props.color}-400 disabled:text-secondary-300 disabled:dark:text-secondary-700`,
     backgroundColor: `hover:bg-${props.color}-600/20 focus:bg-${props.color}-600/20 dark:hover:bg-${props.color}-400/20 dark:focus:bg-${props.color}-400/20 disabled:bg-transparent disabled:dark:bg-transparent`,
     fontSize: {
@@ -72,6 +73,7 @@ const computedMenuItemClasses = computed(() => {
     cursor: {
       ["cursor-pointer disabled:cursor-not-allowed"]: props.tag === "button",
     },
+    pointerEvents: props.disabled ? "pointer-events-none" : "",
   };
   return Object.values(menuItemClasses);
 });
@@ -114,6 +116,6 @@ const computedDefaultSlotClasses = computed(() => {
 
 <script lang="ts">
 export default {
-  name: "LuiMenuItem",
+  name: "LuiDropdownItem",
 };
 </script>

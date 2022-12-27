@@ -9,7 +9,7 @@ import type {
   Rounded,
 } from "@/globals/types";
 
-import {
+import type {
   TwClassInterface,
   LayoutInterface,
   FlexGridInterface,
@@ -17,7 +17,8 @@ import {
   BordersInterface,
 } from "@/globals/interfaces";
 
-import { PropType, computed, toRefs } from "vue";
+import { computed, toRefs } from "vue";
+import type { PropType } from "vue";
 
 import { useGlobalColorClasses } from "../../composables";
 

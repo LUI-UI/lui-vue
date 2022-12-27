@@ -1,12 +1,13 @@
-import {
+import type {
   BackgroundsInterface,
   BordersInterface,
   SpacingInterface,
   TypographyInterface,
 } from "@/globals/interfaces";
 import type { Border, Color, Filter, Variant } from "@/globals/types";
-import { State } from "@/globals/types";
-import { computed, Ref, toRef } from "vue";
+import type { State } from "@/globals/types";
+import type { Ref } from "vue";
+import { computed, toRef } from "vue";
 
 type PropTypes = {
   color: Ref<Color>;

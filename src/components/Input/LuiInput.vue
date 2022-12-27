@@ -7,10 +7,9 @@ export default {
 <script setup lang="ts">
 import { computed, ref, useAttrs, toRefs, useSlots } from "vue";
 import type { PropType, Ref } from "vue";
-import {
+import type {
   Rounded,
   Block,
-  Icon,
   Size,
   State,
   StateIcon,
@@ -45,10 +44,6 @@ const props = defineProps({
     type: Boolean as PropType<Clear>,
     default: false,
   },
-  prepend: {
-    type: [String, Object] as PropType<Icon>,
-    default: "none",
-  },
   description: {
     type: [String, null] as PropType<Description>,
     default: null,
@@ -71,25 +66,25 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   attrs
 );
 
-const stateIconName = computed(() => {
-  return attrs.disabled
-    ? "forbid-2"
-    : props.state === true
-    ? "checkbox-circle"
-    : props.state === "warning"
-    ? "feedback"
-    : props.state === false
-    ? "error-warning"
-    : "";
-});
+// const stateIconName = computed(() => {
+//   return attrs.disabled
+//     ? "forbid-2"
+//     : props.state === true
+//     ? "checkbox-circle"
+//     : props.state === "warning"
+//     ? "feedback"
+//     : props.state === false
+//     ? "error-warning"
+//     : "";
+// });
 
-const computedAttrs = computed(() => {
-  const { class: attrClass, style, ...rest } = attrs;
-  return {
-    parent: { attrClass, style },
-    input: rest,
-  };
-});
+// const computedAttrs = computed(() => {
+//   const { class: attrClass, style, ...rest } = attrs;
+//   return {
+//     parent: { attrClass, style },
+//     input: rest,
+//   };
+// });
 
 function clearInput() {
   LuiInputRef.value.value = "";
@@ -121,26 +116,17 @@ const isDisabled = computed(
 );
 </script>
 <template>
-  <div
-    class="inline-block leading-3"
-    :class="[block ? 'w-full' : 'w-48', computedAttrs.parent.attrClass]"
-    :style="computedAttrs.parent.style"
-  >
+  <div class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
     <div class="relative">
       <input
         ref="LuiInputRef"
         :value="modelValue"
         :class="inputClasses"
-        v-bind="computedAttrs.input"
+        v-bind="$attrs"
         @input="handleInputEvents($event)"
       />
       <!-- prepend should be above the input be able to use peer -->
-      <span
-        v-if="!!slots.prepend"
-        :icon="prepend"
-        :class="prependClasses"
-        class="leading-none"
-      >
+      <span v-if="!!slots.prepend" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
       <button
@@ -164,7 +150,6 @@ const isDisabled = computed(
       </button>
       <span
         v-if="stateIcon && state !== null && !isDisabled"
-        :icon="stateIconName"
         :class="stateIconClasses"
       >
         <!-- feedback -->

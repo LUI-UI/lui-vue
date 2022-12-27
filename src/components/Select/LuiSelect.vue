@@ -23,12 +23,12 @@ import type {
   ListboxStateType,
 } from "./select-types";
 import { ContextKey } from "./symbols";
-import { useId } from "./hooks/index";
+import { useId } from "../../utils/useId";
 // import { useOutsideClick, useFindProperPosition } from "./composables/index";
 import { useOutsideClick } from "../../composables/useOutsideClick";
 import { useFindProperPosition } from "../../composables/useFindProperPosition";
 import type { TwClassInterface } from "@/globals/interfaces";
-import {
+import type {
   Rounded,
   Block,
   Size,
@@ -84,8 +84,9 @@ const selectRef = ref<InstanceType<typeof LuiInput> | null>(null);
 const optionsRef: Ref<HTMLUListElement | null> = ref(null);
 const selectWrapperRef: Ref<HTMLDivElement | null> = ref(null);
 const optionsActive: Ref<boolean> = ref(false);
-const selectedOption: Ref<ModelValueObject | string | undefined> =
-  ref(undefined);
+const selectedOption: Ref<any> = ref(undefined);
+// const selectedOption: Ref<string | ModelValueObject | undefined> =
+//   ref(undefined);
 const listboxState: ListboxStateType = reactive({
   items: [],
   currentIndex: 0,
@@ -145,9 +146,17 @@ function focusAvailableElement(
 ) {
   const isTargetExist = (index: number) =>
     index >= 0 && index <= listboxState.items.length - 1;
-  const isTargetFocusable = (targetIndex: number) =>
-    listboxState.items[targetIndex]?.disabled === undefined ||
-    listboxState.items[targetIndex]?.disabled === false;
+  const isTargetFocusable = (targetIndex: number) => {
+    const target = listboxState.items[targetIndex];
+    if (
+      typeof target !== "string" &&
+      (target?.disabled === undefined || target?.disabled === false)
+    )
+      return true;
+    return false;
+  };
+  // listboxState.items[targetIndex]?.disabled === undefined ||
+  //   listboxState.items[targetIndex]?.disabled === false;
 
   let targetIndex = listboxState.currentIndex;
   if (initial !== null) {
@@ -165,7 +174,8 @@ function focusAvailableElement(
   listboxState.currentIndex = targetIndex;
   const currentEl = el?.children[listboxState.currentIndex];
   listboxState.currentId = currentEl?.id;
-  nextTick(() => currentEl?.focus({ preventScroll: true }));
+
+  nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }));
 }
 
 function updateSelectedOption(option: ModelValue) {
@@ -176,16 +186,19 @@ function updateSelectedOption(option: ModelValue) {
 
 function focusButton() {
   // selectRef.value?.focus({ preventScroll: true });
-  selectRef.value?.focus({ preventScroll: true });
+  selectRef.value?.focus();
 }
 
 function closeListBox() {
+  console.log("close calisti...");
   optionsActive.value = false;
 }
 
 function toggleOptions() {
-  if (attrs.disabled !== undefined && attrs.disabled === true) return;
+  // event.preventDefault();
   optionsActive.value = !optionsActive.value;
+  console.log("aaaa", optionsActive.value);
+  // if (attrs.disabled !== undefined && attrs.disabled === true) return;
 }
 
 function setState() {
@@ -399,6 +412,12 @@ const selectClasses = computed(() => {
   return Object.values({ ...optionsWrapper });
 });
 // rounded, block, state, stateIcon, placeholder,size,description
+// :text="option?.text || option"
+// :value="option.value"
+// :selected="option.selected"
+// :disabled="option.disabled"
+// :size="option.size"
+// :rounded="option.rounded"
 const inputProps = computed(() => ({
   rounded: props.rounded,
   block: props.block,
@@ -409,6 +428,16 @@ const inputProps = computed(() => ({
   description: props.description,
   ...attrs,
 }));
+
+const optionProps = (option: string | object) =>
+  typeof option === "string" ? { text: option } : { ...option };
+
+// selectedOption?.text || selectedOption
+const setInputValue = computed(() =>
+  typeof selectedOption.value === "string"
+    ? selectedOption.value
+    : selectedOption.value?.text
+);
 </script>
 <template>
   <div
@@ -424,7 +453,7 @@ const inputProps = computed(() => ({
     <LuiInput
       ref="selectRef"
       :id="selectId"
-      :value="selectedOption?.text || selectedOption"
+      :value="setInputValue"
       readonly
       v-bind="inputProps"
       @keydown="buttonKeydown($event)"
@@ -446,12 +475,7 @@ const inputProps = computed(() => ({
         <LuiOption
           v-for="(option, index) in options"
           :key="index"
-          :text="option?.text || option"
-          :value="option.value"
-          :selected="option.selected !== undefined && option.selected"
-          :disabled="option.disabled"
-          :size="option.size"
-          :rounded="option.rounded"
+          v-bind="optionProps(option)"
         >
         </LuiOption>
       </template>

@@ -6,12 +6,17 @@ export default {
 </script>
 <script setup lang="ts">
 import { toRefs, useSlots } from "vue";
-// import classNames from "classnames";
 import { useButtonClasses } from "./composables";
 import type { PropType } from "vue";
 import type { ButtonTag } from "./button-types";
-import { Variant, Filter, Rounded, Block, Color, Size } from "@/globals/types";
-// import LuiIcon from "../Icon/LuiIcon.vue";
+import type {
+  Variant,
+  Filter,
+  Rounded,
+  Block,
+  Color,
+  Size,
+} from "@/globals/types";
 
 const props = defineProps({
   tag: {

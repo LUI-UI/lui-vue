@@ -2,8 +2,8 @@
 import { inject, computed, watch, nextTick, useSlots } from "vue";
 import type { PropType } from "vue";
 import { ContextKey } from "./symbols";
-import { useId } from "./hooks/index";
-import { Rounded, Size } from "@/globals/types";
+import { useId } from "../../utils/useId";
+import type { Rounded, Size } from "@/globals/types";
 import type { TwClassInterface } from "@/globals/interfaces";
 
 export default {
@@ -71,7 +71,7 @@ watch(
   }
 );
 
-function handleOptionClick(e) {
+function handleOptionClick(e: any) {
   e.preventDefault();
   context?.updateSelectedOption({
     value: props.value,
@@ -108,14 +108,14 @@ const optionClasses = computed(() => {
       : isSelected.value === true
       ? "text-white"
       : "text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus:text-primary-500",
-    outline: "outline-none",
+    outlineWidth: "outline-none",
     // margin: props.size === "xs" || props.size === "sm" ? "mb-1.5" : "mb-2",
     borderRadius: {
       "rounded-md": props.rounded === true,
       "rounded-2xl": props.rounded === "full",
     },
     display: slots.prepend || slots.append ? "flex" : "",
-    alingItems: slots.prepend || slots.append ? "items-center" : "",
+    alignItems: slots.prepend || slots.append ? "items-center" : "",
     cursor: props.disabled ? "cursor-not-allowed" : "",
     pointerEvents: props.disabled ? "pointer-events-none" : "",
   };

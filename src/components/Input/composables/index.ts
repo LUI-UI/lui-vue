@@ -3,8 +3,15 @@ import { computed, useSlots } from "vue";
 //Types
 import type { Ref } from "vue";
 import type { TwClassInterface } from "@/globals/interfaces";
-import type { Clear, StateIcon } from "../input-types";
-import type { State, Rounded, Block, Size, Description } from "@/globals/types";
+import type { Clear } from "../input-types";
+import type {
+  State,
+  Rounded,
+  Block,
+  Size,
+  Description,
+  StateIcon,
+} from "@/globals/types";
 //Define Prop Types
 type PropTypes = {
   size: Ref<Size>;
