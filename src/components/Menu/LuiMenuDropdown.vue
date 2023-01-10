@@ -277,6 +277,7 @@ function focusAvailableElement(
 const dropdownMenuClasses = computed(() => {
   const optionsWrapper: TwClassInterface = {
     position: "absolute",
+    zIndex: "z-[999]",
     backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
     borderWidth: "border",
     borderColor: "border-secondary-200 dark:border-secondary-700",
