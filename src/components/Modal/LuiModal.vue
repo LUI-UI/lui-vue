@@ -15,6 +15,7 @@ const props = defineProps({
 });
 const emit = defineEmits(["close"]);
 console.log(props);
+console.log(emit);
 const teleportId = `lui-modal-teleport-${useId()}`;
 const { trapRef } = useFocusTrap();
 
@@ -31,7 +32,7 @@ createTeleportElement();
     <div
       v-if="show"
       ref="trapRef"
-      class="fixed top-0 left-0 w-full h-full flex items-center justify-center"
+      class="fixed z-20 top-0 left-0 w-full h-full flex items-center justify-center"
     >
       <div
         role="dialog"
@@ -40,14 +41,15 @@ createTeleportElement();
         aria-modal="true"
         class="bg-white px-10 py-8 rounded max-w-[400px]"
       >
-        <h1 id="dialog1_label">dialog content</h1>
+        <slot />
+        <!-- <h1 id="dialog1_label">dialog content</h1>
         <input placeholder="input 1" />
         <input placeholder="input 2" />
         <input placeholder="input 3" />
         <div class="flex items-center space-x-4">
           <button @click="emit('close')">Accept</button>
           <button @click="emit('close')">Cancel</button>
-        </div>
+        </div> -->
       </div>
     </div>
   </Teleport>
