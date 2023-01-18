@@ -38,12 +38,6 @@ export default {
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiInput },
-  // data() {
-  //   return {
-  //     test: "",
-  //   };
-  // },
-  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args };
   },
@@ -53,7 +47,6 @@ const Template = (args) => ({
 
 export const Medium = Template.bind({});
 Medium.args = { rounded: true, size: "md" };
-console.log({ Medium });
 export const Description = Template.bind({});
 Description.args = { description: "Input description text" };
 export const StateIcon = Template.bind({});

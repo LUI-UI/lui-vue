@@ -80,9 +80,9 @@ const props = defineProps({
 const slots = useSlots();
 const attrs = useAttrs();
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
-const selectRef = ref<InstanceType<typeof LuiInput> | null>(null);
-const optionsRef: Ref<HTMLUListElement | null> = ref(null);
-const selectWrapperRef: Ref<HTMLDivElement | null> = ref(null);
+const selectRef = ref<InstanceType<typeof LuiInput>>();
+const optionsRef = ref<HTMLUListElement>();
+const selectWrapperRef = ref<HTMLDivElement>();
 const optionsActive: Ref<boolean> = ref(false);
 const selectedOption: Ref<any> = ref(undefined);
 // const selectedOption: Ref<string | ModelValueObject | undefined> =
@@ -140,7 +140,7 @@ watch(
 );
 
 function focusAvailableElement(
-  el: HTMLElement | null,
+  el: HTMLElement | undefined,
   oparation: (i: number) => number,
   initial: number | null = null
 ) {
@@ -186,18 +186,17 @@ function updateSelectedOption(option: ModelValue) {
 
 function focusButton() {
   // selectRef.value?.focus({ preventScroll: true });
-  selectRef.value?.focus();
+  const select = selectRef.value as any;
+  select?.focus();
 }
 
 function closeListBox() {
-  console.log("close calisti...");
   optionsActive.value = false;
 }
 
 function toggleOptions() {
   // event.preventDefault();
   optionsActive.value = !optionsActive.value;
-  console.log("aaaa", optionsActive.value);
   // if (attrs.disabled !== undefined && attrs.disabled === true) return;
 }
 
@@ -230,8 +229,6 @@ function setInitialSelectedOption() {
     props.options.some(
       (o: ModelValueObject | string) => typeof o !== "string" && o.selected
     );
-
-  // const validSlotTypes = ["LuiOption"];
 
   function setPlaceholderOrValue(value: any) {
     if (props.placeholder === "") {
@@ -412,13 +409,7 @@ const selectClasses = computed(() => {
   };
   return Object.values({ ...optionsWrapper });
 });
-// rounded, block, state, stateIcon, placeholder,size,description
-// :text="option?.text || option"
-// :value="option.value"
-// :selected="option.selected"
-// :disabled="option.disabled"
-// :size="option.size"
-// :rounded="option.rounded"
+
 const inputProps = computed(() => ({
   rounded: props.rounded,
   block: props.block,
@@ -433,12 +424,20 @@ const inputProps = computed(() => ({
 const optionProps = (option: string | object) =>
   typeof option === "string" ? { text: option } : { ...option };
 
-// selectedOption?.text || selectedOption
 const setInputValue = computed(() =>
   typeof selectedOption.value === "string"
     ? selectedOption.value
     : selectedOption.value?.text
 );
+function arrowIconSize(size: string) {
+  return size === "xs"
+    ? "12"
+    : size === "sm"
+    ? "16"
+    : size === "xl"
+    ? "24"
+    : "20";
+}
 </script>
 <template>
   <div
@@ -458,7 +457,22 @@ const setInputValue = computed(() =>
       readonly
       v-bind="inputProps"
       @keydown="buttonKeydown($event)"
-    />
+    >
+      <template #append>
+        <svg
+          viewBox="0 0 12 12"
+          :width="arrowIconSize(size)"
+          :height="arrowIconSize(size)"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
+            fill="currentColor"
+          />
+        </svg>
+      </template>
+    </LuiInput>
     <ul
       v-show="optionsActive"
       ref="optionsRef"

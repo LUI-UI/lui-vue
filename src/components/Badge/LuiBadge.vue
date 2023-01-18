@@ -50,8 +50,9 @@ const props = defineProps({
 });
 const { backgroundColorClasses, textColorClasses, borderColorClasses } =
   useGlobalColorClasses(toRefs(props));
-const badgeWrapper = ref<HTMLDivElement | null>(null);
-const badgeContent = ref<HTMLSpanElement | null>(null);
+const badgeWrapper = ref<HTMLDivElement>();
+const badgeContent = ref<HTMLSpanElement>();
+
 const overflow = ref(false);
 watchEffect(() => {
   const wrapperWidh = badgeWrapper.value?.scrollWidth;

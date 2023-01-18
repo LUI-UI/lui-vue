@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: "LuiRadio",
+  name: "LuiModal",
   inheritAttrs: false,
 };
 </script>

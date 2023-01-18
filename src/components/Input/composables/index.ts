@@ -25,9 +25,11 @@ type PropTypes = {
 
 export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots();
+  // append slot - clear prop - stateIcon
   const iconStatus = computed(() => {
     return (props.stateIcon.value === true && props.state.value !== null) ||
-      props.clear.value === true
+      props.clear.value === true ||
+      slots.append
       ? slots.prepend
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
@@ -38,21 +40,40 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   const iconClasses: TwClassInterface = {
     position: "absolute",
     translate: "-translate-y-1/2",
+    leading: "leading-none",
     top: "top-2/4",
-    //12 16 20 20 24
     fontSize: {
       "text-xs": props.size.value === "xs",
       "text-base": props.size.value === "sm",
       "text-xl": props.size.value === "md" || props.size.value === "lg",
       "text-2xl": props.size.value === "xl",
     },
+    textColor:
+      attrs.disabled !== undefined && attrs.disabled.value
+        ? "text-secondary-300 dark:text-secondary-700"
+        : "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
   };
+  const wrapperClasses = computed(() => {
+    const classes: TwClassInterface = {
+      // class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'"
+      display: "inline-block",
+      leading: "leading-3",
+      width: props.block.value === true ? "block" : "w-48",
+    };
+    return Object.values({ ...classes });
+  });
   const inputClasses = computed(() => {
     const classes: TwClassInterface = {
       peer: "peer",
-      // fontSize: "text-base",
-      // lineHeight: "leading-normal",
       width: "w-full",
+      // 12 14 16 18 20
+      fontSize: {
+        "text-xs": props.size.value === "xs",
+        "text-sm": props.size.value === "sm",
+        "text-base": props.size.value === "md",
+        "text-lg": props.size.value === "lg",
+        "text-xl": props.size.value === "xl",
+      },
       textColor:
         "text-secondary-600 placeholder:text-secondary-400 disabled:placeholder:text-secondary-300 dark:text-secondary-300 dark:placeholder:text-secondary-600 dark:disabled:text-secondary-700",
       backgroundColor:
@@ -60,7 +81,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       outlineStyle: "outline-none",
       borderWidth: "border",
       borderStyle: "border-solid",
-      cursor: "disabled:cursor-not-allowed",
       borderColor: {
         ["border-secondary-200 focus:border-primary-500 disabled:border-secondary-200"]:
           props.state.value === null,
@@ -87,14 +107,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         "rounded-lg": props.rounded.value === true,
         "rounded-full": props.rounded.value === "full",
       },
-      // 12 14 16 18 20
-      fontSize: {
-        "text-xs": props.size.value === "xs",
-        "text-sm": props.size.value === "sm",
-        "text-base": props.size.value === "md",
-        "text-lg": props.size.value === "lg",
-        "text-xl": props.size.value === "xl",
-      },
+      cursor: "disabled:cursor-not-allowed",
       padding:
         iconStatus.value === "noIcon"
           ? // 6 - 8 - 10 - 10 - 12
@@ -135,25 +148,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     return Object.values({ ...classes });
   });
 
-  // const descriptionClasses = computed(() => {
-  //   const classes: TwClassInterface = {
-  //     fontSize: "text-sm",
-  //     lineHeight: "leading-normal",
-  //     margin: "mt-1",
-  //     textColor:
-  //       attrs.disabled !== undefined && attrs.disabled.value
-  //         ? "text-secondary-200 dark:text-secondary-700"
-  //         : {
-  //             "text-secondary-600 dark:text-secondary-400":
-  //               props.state.value === null,
-  //             "text-warning-500": props.state.value === "warning",
-  //             "text-danger-500": props.state.value === false,
-  //             "text-success-500": props.state.value === true,
-  //           },
-  //   };
-  //   return Object.values({ ...classes });
-  // });
-
   const prependClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
@@ -164,15 +158,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         "left-3": props.size.value === "md" || props.size.value === "lg",
         "left-4": props.size.value === "xl",
       },
-      textColor:
-        attrs.disabled !== undefined && attrs.disabled.value
-          ? "text-secondary-300 dark:text-secondary-700"
-          : "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
     };
     return Object.values({ ...classes });
   });
-
-  const stateIconClasses = computed(() => {
+  const appendClasses = computed(() => {
     const classes: TwClassInterface = {
       ...iconClasses,
       right: {
@@ -181,9 +170,25 @@ export function useInputClasses(props: PropTypes, attrs: any) {
         "right-3": props.size.value === "md" || props.size.value === "lg",
         "right-4": props.size.value === "xl",
       },
+    };
+    return Object.values({ ...classes });
+  });
+
+  const stateIconClasses = computed(() => {
+    const { textColor, ...rest } = iconClasses;
+    const classes: TwClassInterface = {
+      ...rest,
+      right: {
+        "right-2": props.size.value === "xs",
+        "right-2.5": props.size.value === "sm",
+        "right-3": props.size.value === "md" || props.size.value === "lg",
+        "right-4": props.size.value === "xl",
+      },
       textColor:
         attrs.disabled !== undefined && attrs.disabled === true
-          ? "text-secondary-300"
+          ? "text-secondary-300 dark:text-secondary-700"
+          : props.state.value === null
+          ? "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300"
           : {
               "text-warning-500": props.state.value === "warning",
               "text-danger-500": props.state.value === false,
@@ -204,8 +209,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       },
       display: "flex",
       outlineStyle: "outline-none",
-      textColor:
-        "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
+      // textColor:
+      //   "text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300",
       ringWidth: "focus-visible:ring-2",
       ringColor: "focus-visible:ring-secondary-200",
     };
@@ -213,8 +218,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   });
 
   return {
+    wrapperClasses,
     inputClasses,
     prependClasses,
+    appendClasses,
     stateIconClasses,
     closeIconClasses,
   };

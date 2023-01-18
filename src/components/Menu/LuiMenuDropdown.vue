@@ -20,6 +20,14 @@ import type {
   Size,
 } from "@/globals/types";
 import type { TwClassInterface } from "@/globals/interfaces";
+type MenuItems = {
+  disabled?: boolean;
+};
+type MenuStateType = {
+  items: MenuItems[];
+  currentIndex: number;
+  currentId: string;
+};
 type Position =
   | "bottomLeft"
   | "bottomRight"
@@ -29,11 +37,15 @@ type Position =
   | "leftBottom"
   | "rightTop"
   | "rightBottom";
+// Props
+// Emits
+// Reactive Variables(inc composables)
+// Computed
+// Methods
+// Watchers
+// Lifescycle hooks
+// Expose (define expose)
 const props = defineProps({
-  // options: {
-  //   type: [Array, null] as PropType<Options>,
-  //   default: null,
-  // },
   text: {
     type: String as PropType<string>,
     default: "",
@@ -67,20 +79,13 @@ const props = defineProps({
     default: false,
   },
 });
-console.log(props);
-type MenuItems = {
-  disabled?: boolean;
-};
-type MenuStateType = {
-  items: MenuItems[];
-  currentIndex: number;
-  currentId: string;
-};
+
 const emit = defineEmits(["onTrigger"]);
 const slots = useSlots();
-const luiDropdownWrapper = ref<HTMLDivElement | null>(null);
-const luiDropdownButton = ref<InstanceType<typeof LuiButton> | null>(null);
-const luiDropdownMenu = ref<HTMLUListElement | null>(null);
+// VARIABLES
+const luiDropdownWrapper = ref<HTMLElement>();
+const luiDropdownButton = ref<InstanceType<typeof LuiButton>>();
+const luiDropdownMenu = ref<HTMLUListElement>();
 const menuActive = ref(false);
 const buttonId = `lui-dropdown-button-${useId()}`;
 const menuId = `lui-dropdown-menu-${useId()}`;
@@ -89,13 +94,6 @@ const menuState: MenuStateType = reactive({
   currentIndex: 0,
   currentId: "",
 });
-
-useOutsideClick(luiDropdownButton, () => closeMenu());
-
-const { properPosition } = useFindProperPosition(luiDropdownWrapper);
-// const properPosition: string =
-//   useFindProperPosition(luiDropdownWrapper).properPosition;
-
 const positionClasses = {
   bottomLeft: {
     classes: "top-full mt-1",
@@ -138,12 +136,53 @@ const positionClasses = {
     direction: "top",
   },
 };
-
+const { properPosition } = useFindProperPosition(luiDropdownWrapper);
+// COMPUTEDS
 const computedMenuPosition = computed(() => {
   return positionClasses[props.menuPosition].direction === properPosition.value
     ? positionClasses[props.menuPosition].classes
     : positionClasses[props.menuPosition].oppositeClasses;
 });
+
+const dropdownMenuClasses = computed(() => {
+  const optionsWrapper: TwClassInterface = {
+    position: "absolute",
+    width: "w-max",
+    zIndex: "z-[999]",
+    backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
+    borderWidth: "border",
+    borderColor: "border-secondary-200 dark:border-secondary-700",
+    borderRadius: {
+      "rounded-md": props.rounded === true,
+      "rounded-2xl": props.rounded === "full",
+    },
+    padding: {
+      "p-1.5": props.size === "xs" || props.size === "sm",
+      "p-2": props.size === "md",
+      "p-2.5": props.size === "lg" || props.size === "xl",
+    },
+    boxShadow: "shadow-lg",
+    bottom: properPosition.value == "top" ? "bottom-full" : "",
+    top: properPosition.value == "bottom" ? "top-full" : "",
+    margin: properPosition.value == "bottom" ? "mt-2" : "mb-2",
+    space:
+      props.size === "xs" || props.size === "sm" ? "space-y-1.5" : "space-y-2",
+  };
+  return Object.values({ ...optionsWrapper });
+});
+
+const defaultButtonProps = computed(() => ({
+  color: props.color,
+  block: props.block,
+  rounded: props.rounded,
+  size: props.size,
+  variant: props.variant,
+  filter: props.filter,
+}));
+
+// METHODS
+
+useOutsideClick(luiDropdownWrapper, () => closeMenu());
 
 function closeMenu() {
   menuActive.value = false;
@@ -175,7 +214,7 @@ function toogleMenu() {
     menuState.items = slotProps;
   }
 })();
-// setInitialState();
+
 function handleMenuKeyEvents(event: KeyboardEvent) {
   switch (event.code) {
     case "ArrowDown":
@@ -274,41 +313,6 @@ function focusAvailableElement(
   }
 }
 
-const dropdownMenuClasses = computed(() => {
-  const optionsWrapper: TwClassInterface = {
-    position: "absolute",
-    zIndex: "z-[999]",
-    backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
-    borderWidth: "border",
-    borderColor: "border-secondary-200 dark:border-secondary-700",
-    borderRadius: {
-      "rounded-md": props.rounded === true,
-      "rounded-2xl": props.rounded === "full",
-    },
-    padding: {
-      "p-1.5": props.size === "xs" || props.size === "sm",
-      "p-2": props.size === "md",
-      "p-2.5": props.size === "lg" || props.size === "xl",
-    },
-    boxShadow: "shadow-lg",
-    bottom: properPosition.value == "top" ? "bottom-full" : "",
-    top: properPosition.value == "bottom" ? "top-full" : "",
-    margin: properPosition.value == "bottom" ? "mt-2" : "mb-2",
-    space:
-      props.size === "xs" || props.size === "sm" ? "space-y-1.5" : "space-y-2",
-  };
-  return Object.values({ ...optionsWrapper });
-});
-
-const defaultButtonProps = computed(() => ({
-  color: props.color,
-  block: props.block,
-  rounded: props.rounded,
-  size: props.size,
-  variant: props.variant,
-  filter: props.filter,
-}));
-
 function triggerIconSize(size: string) {
   return size === "xs"
     ? "12"
@@ -321,7 +325,7 @@ function triggerIconSize(size: string) {
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
-    <div ref="luiDropdownButton" class="trigger-wrapper">
+    <div ref="luiDropdownButton" class="trigger-wrapper cursor-pointer">
       <slot
         name="trigger"
         :id="buttonId"
