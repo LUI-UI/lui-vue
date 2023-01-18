@@ -121,16 +121,22 @@ const iconSizes = computed(() =>
 // const isDisabled = computed(
 //   () => attrs.disabled !== undefined && attrs.disabled === true
 // );
-
-const stateIconPaths = {
+type StateIconPathType = {
+  warning: string;
+  feedback: string;
+  success: string;
+  disabled: string;
+};
+const stateIconPaths: StateIconPathType = {
   // warning
-  false:
-    "M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z",
-  // feedback
   warning:
     "M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z",
+  // feedback
+  feedback:
+    "M6.455 19L2 22.5V4a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6.455zM4 18.385L5.763 17H20V5H4v13.385zM11 13h2v2h-2v-2zm0-6h2v5h-2V7z",
   // success
-  true: "M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z",
+  success:
+    "M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-.997-4L6.76 11.757l1.414-1.414 2.829 2.829 5.656-5.657 1.415 1.414L11.003 16z",
   disabled:
     "M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm4.891-11.477l-8.368 8.368a6.04 6.04 0 0 1-1.414-1.414l8.368-8.368a6.04 6.04 0 0 1 1.414 1.414z",
 };
@@ -196,7 +202,11 @@ const stateIconTemplate = (params: any) =>
           :path="
             attrs?.disabled === true
               ? stateIconPaths.disabled
-              : stateIconPaths[state]
+              : state === true
+              ? stateIconPaths.success
+              : state === false
+              ? stateIconPaths.warning
+              : stateIconPaths.feedback
           "
         />
       </span>

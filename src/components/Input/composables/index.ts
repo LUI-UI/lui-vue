@@ -40,7 +40,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   const iconClasses: TwClassInterface = {
     position: "absolute",
     translate: "-translate-y-1/2",
-    leading: "leading-none",
+    lineHeight: "leading-none",
     top: "top-2/4",
     fontSize: {
       "text-xs": props.size.value === "xs",
@@ -57,7 +57,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     const classes: TwClassInterface = {
       // class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'"
       display: "inline-block",
-      leading: "leading-3",
+      lineHeight: "leading-3",
       width: props.block.value === true ? "block" : "w-48",
     };
     return Object.values({ ...classes });
