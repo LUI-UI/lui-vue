@@ -175,7 +175,7 @@ const stateIconTemplate = (params: any) =>
 </script>
 <template>
   <div class="lui-input" :class="wrapperClasses">
-    <div class="relative">
+    <div class="relative" :class="block ? 'w-full' : ''">
       <input
         ref="LuiInputRef"
         :value="modelValue"

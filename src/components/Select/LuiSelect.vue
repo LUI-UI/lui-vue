@@ -442,6 +442,7 @@ function arrowIconSize(size: string) {
 <template>
   <div
     class="relative"
+    :class="block ? 'w-full' : ''"
     role="combobox"
     ref="selectWrapperRef"
     aria-haspopup="listbox"

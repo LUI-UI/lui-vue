@@ -58,7 +58,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       // class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'"
       display: "inline-block",
       lineHeight: "leading-3",
-      width: props.block.value === true ? "block" : "w-48",
+      width: props.block.value === true ? "w-full" : "w-48",
     };
     return Object.values({ ...classes });
   });

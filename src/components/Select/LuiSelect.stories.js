@@ -121,8 +121,10 @@ export const WithSlot = (args) => ({
     return { args, items, selectedItem, handleInp };
   },
   template: `
-    <lui-select v-slot="{onClick}" @change="handleInp">
-      <lui-option v-for="item in items" :key="item" :id="item" @click="onClick(item)">{{item}}</lui-option>
+    <div class="w-[800px]">
+    <lui-select v-bind="args" @change="handleInp">
+      <lui-option v-for="item in items" :key="item" :id="item">{{item}}</lui-option>
     </lui-select>
+    </div>
   `,
 });
