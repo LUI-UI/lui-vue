@@ -7,7 +7,7 @@ import type {
   Text,
   NarrowedVariant,
 } from "@/globals/types";
-import { ref, computed, toRefs, watchEffect, useSlots } from "vue";
+import { ref, computed, toRefs, useSlots } from "vue";
 import type { PropType } from "vue";
 import type {
   TwClassInterface,
@@ -53,18 +53,20 @@ const { backgroundColorClasses, textColorClasses, borderColorClasses } =
 const badgeWrapper = ref<HTMLDivElement>();
 const badgeContent = ref<HTMLSpanElement>();
 
-const overflow = ref(false);
-watchEffect(() => {
-  const wrapperWidh = badgeWrapper.value?.scrollWidth;
-  const contentWidth = badgeContent.value?.scrollWidth;
-  if (wrapperWidh && contentWidth) {
-    if (contentWidth > wrapperWidh) {
-      overflow.value = true;
-    } else {
-      overflow.value = false;
-    }
-  }
-});
+// const overflow = ref(false);
+const overflow = computed(() => props.text.length > 2);
+
+// watchEffect(() => {
+//   const wrapperWidh = badgeWrapper.value?.scrollWidth;
+//   const contentWidth = badgeContent.value?.scrollWidth;
+//   if (wrapperWidh && contentWidth) {
+//     if (contentWidth > wrapperWidh) {
+//       overflow.value = true;
+//     } else {
+//       overflow.value = false;
+//     }
+//   }
+// });
 const computedContainerClasses = computed(() => {
   const containerClasses: LayoutInterface = {
     position: "relative",

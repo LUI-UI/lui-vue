@@ -384,10 +384,13 @@ function optionsKeydown(event: KeyboardEvent) {
     default:
   }
 }
-const selectClasses = computed(() => {
+const optionsClasses = computed(() => {
   const optionsWrapper: TwClassInterface = {
     position: "absolute",
-    zIndex: "z-[999]",
+    zIndex: "z-50",
+    maxHeight: "max-h-96",
+    minWidth: "min-w-full",
+    overflow: "overflow-y-auto",
     backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
     borderWidth: "border",
     borderColor: "border-secondary-200 dark:border-secondary-700",
@@ -421,8 +424,15 @@ const inputProps = computed(() => ({
   ...attrs,
 }));
 
-const optionProps = (option: string | object) =>
-  typeof option === "string" ? { text: option } : { ...option };
+const optionProps = (option: string | object) => {
+  const commonProps = {
+    size: props.size,
+    rounded: props.rounded,
+  };
+  return typeof option === "string"
+    ? { text: option, ...commonProps }
+    : { ...option, ...commonProps };
+};
 
 const setInputValue = computed(() =>
   typeof selectedOption.value === "string"
@@ -482,7 +492,7 @@ function arrowIconSize(size: string) {
       :aria-labelledby="selectId"
       role="listbox"
       tabindex="0"
-      :class="selectClasses"
+      :class="optionsClasses"
       :aria-activedescendant="listboxState.currentId"
       @keydown="optionsKeydown($event)"
     >

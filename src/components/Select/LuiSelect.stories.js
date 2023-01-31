@@ -25,7 +25,6 @@ export default {
     stateIcon,
   },
 };
-
 export const Default = (args) => ({
   components: { LuiSelect, LuiOption },
   setup() {
@@ -113,18 +112,109 @@ export const WithObjectArrays = (args) => ({
 export const WithSlot = (args) => ({
   components: { LuiSelect, LuiOption },
   setup() {
-    const items = ["javascript", "go", "css"];
+    const items = ["javascript", "html", "css", "vuejs"];
     const selectedItem = ref(items[1]);
-    function handleInp() {
-      console.log("handle....");
-    }
-    return { args, items, selectedItem, handleInp };
+    return { args, items, selectedItem };
   },
   template: `
     <div class="w-[800px]">
-    <lui-select v-bind="args" @change="handleInp">
-      <lui-option v-for="item in items" :key="item" :id="item">{{item}}</lui-option>
-    </lui-select>
+      <lui-select v-bind="args" v-model="selectedItem">
+        <lui-option v-for="item in items" :key="item" :id="item" :text="item" />
+      </lui-select>
     </div>
+  `,
+});
+export const MaxHeight = (args) => ({
+  components: { LuiSelect, LuiOption },
+  setup() {
+    const cities = [
+      "Adana",
+      "Adiyaman",
+      "Afyon",
+      "Agri",
+      "Aksaray",
+      "Amasya",
+      "Ankara",
+      "Antalya",
+      "Ardahan",
+      "Artvin",
+      "Aydin",
+      "Balikesir",
+      "Bartin",
+      "Batman",
+      "Bayburt",
+      "Bilecik",
+      "Bingol",
+      "Bitlis",
+      "Bolu",
+      "Burdur",
+      "Bursa",
+      "Canakkale",
+      "Cankiri",
+      "Corum",
+      "Denizli",
+      "Diyarbakir",
+      "Duzce",
+      "Edirne",
+      "Elazig",
+      "Erzincan",
+      "Erzurum",
+      "Eskisehir",
+      "Gaziantep",
+      "Giresun",
+      "Gumushane",
+      "Hakkari",
+      "Hatay",
+      "Igdir",
+      "Isparta",
+      "Istanbul",
+      "Izmir",
+      "Kahramanmaras",
+      "Karabuk",
+      "Karaman",
+      "Kars",
+      "Kastamonu",
+      "Kayseri",
+      "Kilis",
+      "Kirikkale",
+      "Kirklareli",
+      "Kirsehir",
+      "Kocaeli",
+      "Konya",
+      "Kutahya",
+      "Malatya",
+      "Manisa",
+      "Mardin",
+      "Mersin",
+      "Mugla",
+      "Mus",
+      "Nevsehir",
+      "Nigde",
+      "Ordu",
+      "Osmaniye",
+      "Rize",
+      "Sakarya",
+      "Samsun",
+      "Sanliurfa",
+      "Siirt",
+      "Sinop",
+      "Sirnak",
+      "Sivas",
+      "Tekirdag",
+      "Tokat",
+      "Trabzon",
+      "Tunceli",
+      "Usak",
+      "Van",
+      "Yalova",
+      "Yozgat",
+      "Zonguldak",
+    ];
+    const selectedCity = ref(cities[0]);
+    return { args, cities, selectedCity };
+  },
+  template: `
+    
+      <lui-select v-bind="args" v-model="selectedItem" :options="cities" size="xl" />
   `,
 });

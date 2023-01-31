@@ -148,7 +148,10 @@ const dropdownMenuClasses = computed(() => {
   const optionsWrapper: TwClassInterface = {
     position: "absolute",
     width: "w-max",
-    zIndex: "z-[999]",
+    zIndex: "z-50",
+    maxHeight: "max-h-96",
+    minWidth: "min-w-full",
+    overflow: "overflow-y-auto",
     backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
     borderWidth: "border",
     borderColor: "border-secondary-200 dark:border-secondary-700",
