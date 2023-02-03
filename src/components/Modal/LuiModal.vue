@@ -37,7 +37,9 @@ function createTeleportElement() {
   teleportWrapper.setAttribute("id", teleportId);
   body[0].appendChild(teleportWrapper);
 }
-createTeleportElement();
+if (typeof window !== "undefined") {
+  createTeleportElement();
+}
 
 const computedModalClasses = computed(() => {
   const classes: TwClassInterface = {
