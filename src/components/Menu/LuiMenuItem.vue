@@ -5,7 +5,7 @@ import type {
   TwClassInterface,
 } from "@/globals/interfaces";
 import type { Color, Rounded, Size } from "@/globals/types";
-import { computed, useSlots } from "vue";
+import { computed, useSlots, ref } from "vue";
 import type { PropType } from "vue";
 import type { MenuItemTag } from "./menu-item-types";
 import { useId } from "../../utils/useId";
@@ -32,6 +32,7 @@ const props = defineProps({
   },
 });
 const slots = useSlots();
+const menuItemRef = ref<HTMLElement>();
 const menuItemId = `lui-dropdown-item-${useId()}`;
 const computedMenuItemClasses = computed(() => {
   const menuItemClasses: TwClassInterface = {
@@ -92,15 +93,20 @@ const computedDefaultSlotClasses = computed(() => {
   };
   return Object.values(defaultSlotClasses);
 });
+const focus = () => menuItemRef.value?.focus();
+defineExpose({
+  focus,
+});
 </script>
 <template>
   <component
     role="menuitem"
     class="lui-menu-item"
+    ref="menuItemRef"
     :is="tag"
     :id="menuItemId"
-    v-bind="$attrs"
     :class="computedMenuItemClasses"
+    v-bind="$attrs"
   >
     <span v-if="$slots.prepend" :class="computedAppendAndPrependClasses">
       <slot name="prepend" />
