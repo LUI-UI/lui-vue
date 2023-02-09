@@ -7,15 +7,10 @@ export default {
 <script setup lang="ts">
 import { toRefs, useAttrs } from "vue";
 import type { PropType } from "vue";
-import type {
-  Size,
-  State,
-  Description,
-  CheckableModelValue,
-} from "@/globals/types";
+import type { Size, State, Description } from "@/globals/types";
 
 import { useRadioClasses } from "./composables/index";
-import { useGlobalCheckbox } from "../../composables/index";
+// import { useGlobalCheckbox } from "../../composables/index";
 import { useGlobalDescriptionClasses } from "../../composables/index";
 
 const props = defineProps({
@@ -40,8 +35,8 @@ const props = defineProps({
     default: "",
   },
   modelValue: {
-    type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
-    default: undefined,
+    type: String as PropType<String>,
+    default: "",
   },
 });
 
@@ -52,11 +47,11 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
   attrs
 );
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
+// const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 
 const emit = defineEmits(["update:modelValue"]);
 function handleChange(e: any) {
-  emit("update:modelValue", handleVModel(e));
+  emit("update:modelValue", props.value);
 }
 </script>
 
@@ -64,9 +59,8 @@ function handleChange(e: any) {
   <div class="inline-block leading-3">
     <div class="relative">
       <input
-        type="checkbox"
+        type="radio"
         :class="inputClasses"
-        :checked="isInputChecked"
         :value="value"
         @change="handleChange"
         v-bind="$attrs"

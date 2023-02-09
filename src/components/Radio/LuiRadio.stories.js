@@ -1,4 +1,5 @@
 import LuiRadio from "./LuiRadio.vue";
+import { ref } from "vue";
 import {
   size,
   disabled,
@@ -25,30 +26,19 @@ export default {
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiRadio },
-  data() {
-    return {
-      e: false,
-      b: null,
-      checkedNames: ["Mike"],
-      nativeNames: ["b"],
-    };
-  },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args };
+    const checkedName = ref("Jack");
+    return { args, checkedName };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   // <lui-checkbox v-bind="args" v-model="test" />
   template: `
-  <div class="p-3">{{checkedNames}} - {{e}}</div>
-    <button class="bg-primary-500 text-white p-1 rounded" @click="checkedNames.push('John')">add new</button>
+  <div class="p-3">{{checkedName}}</div>
     <div class="p-2 space-x-4">
-      <lui-radio v-bind="args" id="jack" value="Jack" v-model="checkedNames" />
-      <lui-radio v-bind="args" id="john" value="John" v-model="checkedNames" />
-      <lui-radio v-bind="args" id="mike" value="Mike" v-model="checkedNames" />
-    </div>
-    <div class="p-2">
-      <lui-radio v-bind="args" v-model="e" />
+      <lui-radio v-bind="args" id="jack" name="cnames" value="Jack" v-model="checkedName" />
+      <lui-radio v-bind="args" id="john" name="cnames" value="John" v-model="checkedName" />
+      <lui-radio v-bind="args" id="mike" name="cnames" value="Mike" v-model="checkedName" />
     </div>`,
 });
 
