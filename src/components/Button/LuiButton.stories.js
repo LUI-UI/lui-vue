@@ -50,6 +50,21 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = { rounded: true };
+export const Rounded = (args) => ({
+  components: { LuiButton },
+  setup() {
+    const roundedValues = [false, true, "full"];
+    return { args, roundedValues };
+  },
+  template: `
+  <div class="flex space-x-4">
+      <div class="flex flex-col" v-for="(value,index) in roundedValues" :key="index">
+      <lui-button v-bind="args" :rounded="roundedValues[index]">
+      <span>My Button</span>
+    </lui-button>
+      </div>
+  </div>`,
+});
 export const Variants = (args) => ({
   components: { LuiButton },
   setup() {
@@ -134,14 +149,31 @@ export const Sizes = (args) => ({
 export const IconButton = (args) => ({
   components: { LuiButton },
   setup() {
-    return { args };
+    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    const roundedValues = [false, true, "full"];
+    function iconSize(size) {
+      return size === "xs"
+        ? "12"
+        : size === "sm"
+        ? "16"
+        : size === "xl"
+        ? "24"
+        : "20";
+    }
+    return { args, sizes, roundedValues, iconSize };
   },
   template: `
-    <lui-button v-bind="args">
-      <template #icon>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
-      </template>
-    </lui-button>`,
+  <div class="space-y-6">
+    <div v-bind="args" class="flex items-center space-x-6" v-for="value in roundedValues" :key="value">
+      <div class="flex" v-for="size in sizes" :key="size">
+        <lui-button :size="size" :rounded="value">
+          <template #icon>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :width="iconSize(size)" :height="iconSize(size)" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
+          </template>
+        </lui-button>
+      </div>
+    </div>
+  </div>`,
 });
 
 export const Rounded = (args) => ({
