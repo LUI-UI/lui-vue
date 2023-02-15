@@ -50,7 +50,21 @@ const Template = (args) => ({
 });
 export const Default = Template.bind({});
 Default.args = { rounded: true };
-
+export const Rounded = (args) => ({
+  components: { LuiButton },
+  setup() {
+    const roundedValues = [false, true, "full"];
+    return { args, roundedValues };
+  },
+  template: `
+  <div class="flex space-x-4">
+      <div class="flex flex-col" v-for="(value,index) in roundedValues" :key="index">
+      <lui-button v-bind="args" :rounded="roundedValues[index]">
+      <span>My Button</span>
+    </lui-button>
+      </div>
+  </div>`,
+});
 export const Variants = (args) => ({
   components: { LuiButton },
   setup() {
