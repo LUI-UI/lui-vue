@@ -5,13 +5,24 @@ export default {
 };
 </script>
 <script lang="ts" setup>
-import { onMounted, provide, ref, useSlots } from "vue";
+import {
+  onMounted,
+  provide,
+  ref,
+  useSlots,
+  nextTick,
+  computed,
+  watch,
+  h,
+} from "vue";
 import { ContextKey } from "./symbols";
 import { useId } from "../../utils/useId";
 import type { Ref, PropType } from "vue";
 import type { AlignmentTypes, TabTypes } from "./types";
+import type { TwClassInterface } from "@/globals/interfaces";
 import LuiMenuItem from "../Menu/LuiMenuItem.vue";
-import { nextTick } from "process";
+// import LuiBadge from "../Badge/LuiBadge.vue";
+
 const props = defineProps({
   alignTabs: {
     type: String as PropType<AlignmentTypes>,
@@ -25,14 +36,16 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  modelValue: {
+    type: [String, null] as PropType<string | null>,
+    default: null,
+  },
 });
 
-console.log(props);
 const slots = useSlots();
+// console.log("SLOTS:", slots);
 const tabs: Ref<TabTypes[]> = ref([]);
 const selectedTab: Ref<TabTypes | null> = ref(null);
-// const modal = ref<InstanceType<typeof MyModal> | null>(null)
-// type TabRefTypes = Ref<InstanceType<typeof LuiMenuItem>>;
 const tabRefs = ref<Array<InstanceType<typeof LuiMenuItem>>>([]);
 const emit = defineEmits(["onTabChange"]);
 
@@ -45,29 +58,54 @@ onMounted(() => {
   );
   if (!doesSlotsHasTitle) throw new Error("every slot needs title prop");
   // set tabs from slot(lui-tab) props
+  // console.log("default-Slots:", slots.default()[0]?.children.prepend());
   slots.default?.().map((slot: any) => {
     tabs.value.push({
       ...slot.props,
       tabId: `lui-tab-${useId()}`,
       panelId: `lui-tabpanel-${useId()}`,
+      prepend: slot?.children?.prepend && slot?.children?.prepend,
+      append: slot?.children?.append && slot?.children?.append,
     });
   });
-  console.log("Tabs: ", tabs.value);
+  console.log("TABS:", tabs.value);
   // set initial selectedTab
-  let initialActiveIndex = tabs.value.findIndex(
-    (tab) => tab?.active !== undefined && tab.active !== false
-  );
+  let initialActiveIndex;
+  if (props.modelValue !== null) {
+    initialActiveIndex = tabs.value.findIndex(
+      (tab) => tab.title === props.modelValue
+    );
+  } else {
+    initialActiveIndex = tabs.value.findIndex(
+      (tab) => tab?.active !== undefined && tab.active !== false
+    );
+  }
   initialActiveIndex = initialActiveIndex === -1 ? 0 : initialActiveIndex;
   selectedTab.value = tabs.value[initialActiveIndex];
 });
 
-function handleClick(tab: TabTypes) {
-  console.log("click:", tab);
+watch(
+  () => props.modelValue,
+  (newValue) => {
+    const newActiveTab = tabs.value.find((tab) => tab.title === newValue);
+    if (newActiveTab?.disabled !== undefined && newActiveTab.disabled !== false)
+      return;
+
+    setSelectedTab(newActiveTab as TabTypes);
+  }
+);
+
+function setSelectedTab(tab: TabTypes) {
   selectedTab.value = { ...tab };
   emit("onTabChange", tab);
 }
+function handleClick(tab: TabTypes) {
+  // selectedTab.value = { ...tab };
+  // emit("onTabChange", tab);
+  setSelectedTab(tab);
+}
 function changeTabProps(tab: TabTypes, oldTitle: string) {
-  // we got tabs from slots so they are not reactive, be able to react tab props changes this function triggers from luitab
+  // we got tabs from slots with useSlots, so they are not reactive, be able to react tab props changes this function triggers from luitab
   const index = tabs.value.findIndex((item) => item?.title == oldTitle);
   tabs.value[index] = { ...tab };
 }
@@ -99,11 +137,9 @@ function focusAvailableElement(
     else targetIndex = oparation(targetIndex);
     // after set new value could be undefined that targetIndex
   }
-  selectedTab.value = { ...tabs.value[focusableTarget] };
-  // const targetTab = tabRefs.value[focusableTarget as number];
+  setSelectedTab(tabs.value[focusableTarget]);
   nextTick(() => tabRefs.value[focusableTarget as number]?.focus());
   // nextTick(() => tabRefs.value[focusableTarget as number]?.focus());
-  // tabRefs.value[focusableTarget]?.focus();
 }
 function handleKeyEvents(event: KeyboardEvent, index: number) {
   switch (event?.code) {
@@ -126,10 +162,66 @@ function handleKeyEvents(event: KeyboardEvent, index: number) {
     default:
   }
 }
+// const renderNamedProps = (instance: any) => {
+//   return h("div", {}, instance === undefined ? null : instance());
+// };
+// const renderTest = ({ el }) => {
+//   console.log("El:", el);
+//   // console.log("Type:", typeof el.el);
+//   // return h(el);
+//   return h("div", { class: "test" }, []);
+// };
+const renderTest = ({ index }) => {
+  console.log("index:", index);
+  return h("div", {}, [slots?.default()[index]?.children?.prepend()]);
+};
+const renderTestAppend = ({ index }) => {
+  console.log("append:", slots?.default()[index]);
+  return h("div", {}, [slots?.default()[index]?.children?.append()]);
+};
+
+// function findInstance(index: number) {
+//   // const defaultSlot = slots.default && slots.default();
+//   // const instance = defaultSlot?[index].children?.prepend;
+//   const instance = slots.default && slots.default()[index]?.children?.prepend;
+//   console.log("instance", instance);
+//   return instance;
+// }
+// function setMenuItemSlotComponent(namedSlot: any) {
+//   if (namedSlot === undefined) return undefined;
+//   if (namedSlot?.type === "string") return namedSlot?.type;
+//   // we need the import lui-component so we need to check if a valid component requestted
+
+//   return namedSlot === undefined
+//     ? namedSlot
+//     : typeof namedSlot[0]?.type === "string"
+//     ? namedSlot[0]?.type
+//     : namedSlot[0]?.type?.name;
+// }
+
+const menuContainerClasses = computed(() => {
+  const classes: TwClassInterface = {
+    display: "flex",
+    // flexDirection: "flex-col",
+    justifyItems: {
+      "justify-start": props.alignTabs === "left",
+      "justify-center": props.alignTabs === "center",
+      "justify-end": props.alignTabs === "right",
+    },
+    overflow: "overflow-y-auto",
+    // borderWidth: "border-b-2",
+  };
+  return Object.values(classes);
+});
 </script>
 <template>
-  <div class="computedClasses.tabMenuContainer">
-    <div role="tablist" class="overflow-y-auto flex">
+  <div>
+    <div
+      role="tablist"
+      :class="menuContainerClasses"
+      class="relative after:bg-secondary-300 after:w-full after:h-0.5 after:absolute after:z-10 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
+      aria-orientation="horizontal"
+    >
       <LuiMenuItem
         v-for="(tab, index) in tabs"
         :key="tab.title"
@@ -141,56 +233,28 @@ function handleKeyEvents(event: KeyboardEvent, index: number) {
         :aria-selected="selectedTab.title === tab.title ? true : false"
         :aria-controls="tab.panelId"
         :disabled="tab.disabled !== undefined && tab.disabled !== false"
+        :block="stretch"
         @click="handleClick(tab)"
         @keydown="handleKeyEvents($event, index)"
         :color="selectedTab.title === tab.title ? 'primary' : 'secondary'"
-        class="relative after:w-full after:h-0.5 after:absolute after:z-10 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
+        class="relative after:w-full after:h-0.5 after:absolute after:z-20 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
         :class="
           selectedTab.title === tab.title
             ? 'after:bg-primary-500'
             : 'after:bg-transparent'
         "
       >
+        <template #prepend>
+          <renderTest v-if="tab.prepend !== undefined" :index="index" />
+        </template>
         {{ tab.title }}
+        <template #append>
+          <renderTestAppend v-if="tab.append !== undefined" :index="index" />
+        </template>
       </LuiMenuItem>
     </div>
-    <div class="tabpanel-wrapper mt-4">
+    <div class="flex justify-start pt-4 text-secondary-600">
       <slot />
     </div>
   </div>
-  <!-- <div class="tabs-wrapper">
-    <div role="tablist">
-      <button
-        id="tab-1"
-        type="button"
-        role="tab"
-        aria-selected="true"
-        aria-controls="tabpanel-1"
-        tabindex="0"
-      >
-        <span class="focus"> Maria Ahlefeldt </span>
-      </button>
-      <button
-        id="tab-2"
-        type="button"
-        role="tab"
-        aria-selected="false"
-        aria-controls="tabpanel-2"
-        tabindex="-1"
-      >
-        <span class="focus"> Carl Andersen </span>
-      </button>
-    </div>
-    <div id="tabpanel-1" role="tabpanel" tabindex="0" aria-labelledby="tab-1">
-      <p>
-        Maria Theresia Ahlefeldt (16 January 1755 – 20 December 1810) was a
-        Danish, (originally German), composer. She is known as the first female
-        composer in Denmark. Maria Theresia composed music for several ballets,
-        operas, and plays of the royal theatre. She was given good critic as a
-        composer and described as a “
-        <span lang="da"> virkelig Tonekunstnerinde </span>
-        ” ('a True Artist of Music').
-      </p>
-    </div>
-  </div> -->
 </template>

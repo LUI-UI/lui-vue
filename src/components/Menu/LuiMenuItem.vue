@@ -3,16 +3,21 @@ import type {
   FlexGridInterface,
   LayoutInterface,
   TwClassInterface,
+  TypographyInterface,
 } from "@/globals/interfaces";
-import type { Color, Rounded, Size } from "@/globals/types";
+import type { Color, Rounded, Size, Block } from "@/globals/types";
 import { computed, useSlots, ref } from "vue";
 import type { PropType } from "vue";
 import type { MenuItemTag } from "./menu-item-types";
 import { useId } from "../../utils/useId";
 const props = defineProps({
-  disabled: {
-    type: Boolean as PropType<boolean>,
-    default: false,
+  // disabled: {
+  //   type: Boolean as PropType<boolean>,
+  //   default: false,
+  // },
+  block: {
+    type: Boolean as PropType<Block>,
+    default: true,
   },
   tag: {
     type: String as PropType<MenuItemTag>,
@@ -36,7 +41,7 @@ const menuItemRef = ref<HTMLElement>();
 const menuItemId = `lui-dropdown-item-${useId()}`;
 const computedMenuItemClasses = computed(() => {
   const menuItemClasses: TwClassInterface = {
-    width: "w-full",
+    width: props.block ? "w-full" : "",
     display: "flex",
     justifyContent: "justify-between",
     alignItems: "items-center",
@@ -74,7 +79,8 @@ const computedMenuItemClasses = computed(() => {
     cursor: {
       ["cursor-pointer disabled:cursor-not-allowed"]: props.tag === "button",
     },
-    pointerEvents: props.disabled ? "pointer-events-none" : "",
+    // pointerEvents: props.disabled ? "pointer-events-none" : "",
+    pointerEvents: "disabled:pointer-events-none",
   };
   return Object.values(menuItemClasses);
 });
@@ -87,9 +93,13 @@ const computedAppendAndPrependClasses = computed(() => {
   return Object.values(appendAndPrependClasses);
 });
 const computedDefaultSlotClasses = computed(() => {
-  const defaultSlotClasses: FlexGridInterface | LayoutInterface = {
+  const defaultSlotClasses:
+    | FlexGridInterface
+    | LayoutInterface
+    | TypographyInterface = {
     display: "flex flex-1",
     alignItems: "items-center",
+    textColor: "text-inherit",
   };
   return Object.values(defaultSlotClasses);
 });

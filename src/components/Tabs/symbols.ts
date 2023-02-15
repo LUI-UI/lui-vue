@@ -8,9 +8,14 @@ import type { TabTypes } from "./types";
 //   disabled?: boolean;
 // };
 interface ContextDefination {
-  selectedTab: Ref<TabTypes | null>;
-  changeTabProps(tab: TabTypes, oldTitle: string): void;
+  selectedIndex: Ref<number>;
+  registerTab(tab: any): void;
+  // changeTabProps(tab: TabTypes, oldTitle: string): void;
 }
+// interface ContextDefination {
+//   selectedTab: Ref<TabTypes | null>;
+//   changeTabProps(tab: TabTypes, oldTitle: string): void;
+// }
 
 export const ContextKey = Symbol(
   "ContextKey"

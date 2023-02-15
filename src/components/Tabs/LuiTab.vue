@@ -23,9 +23,7 @@ const props = defineProps({
     default: false,
   },
 });
-console.log(props);
 const injection = inject(ContextKey);
-console.log({ injection });
 watch(
   () => [props.title, props.active, props.disabled],
   (_, oldValues) => {
@@ -42,6 +40,9 @@ watch(
     :aria-labelledby="injection?.selectedTab?.value?.tabId"
     class="computedClasses.panel"
   >
+    <!-- <Teleport to="#some-test-id">
+      <slot name="prepend" />
+    </Teleport> -->
     <slot />
   </div>
 </template>
