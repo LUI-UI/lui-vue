@@ -6,3 +6,8 @@ export type TabTypes = {
   active?: boolean;
   disabled?: boolean;
 };
+export interface TabContext {
+  selectedIndex: number;
+  tabs: HTMLButtonElement[];
+  panels: HTMLDivElement[];
+}

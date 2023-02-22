@@ -1,5 +1,5 @@
 import type { InjectionKey } from "vue";
-import type { TabTypes } from "./types";
+import type { TabTypes, TabContext } from "./types";
 // import type { ContextDefination } from "./select-types";
 // need remove types folder also using in luitabs bue
 // type TabTypes = {
@@ -8,8 +8,12 @@ import type { TabTypes } from "./types";
 //   disabled?: boolean;
 // };
 interface ContextDefination {
-  selectedIndex: Ref<number>;
   registerTab(tab: any): void;
+  unRegisterTab(tab: any): void;
+  registerPanel(panel: any): void;
+  unRegisterPanel(panel: any): void;
+  setSelectedIndex(index: number): void;
+  context: TabContext;
   // changeTabProps(tab: TabTypes, oldTitle: string): void;
 }
 // interface ContextDefination {

@@ -106,6 +106,7 @@ const computedDefaultSlotClasses = computed(() => {
 const focus = () => menuItemRef.value?.focus();
 defineExpose({
   focus,
+  el: menuItemRef,
 });
 </script>
 <template>

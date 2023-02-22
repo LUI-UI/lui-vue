@@ -4,29 +4,73 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref, defineProps, onMounted, provide } from "vue";
+import { defineProps, onMounted, provide, reactive, watch } from "vue";
 import { ContextKey } from "./symbols";
+import type { TabContext } from "./types";
 const props = defineProps({
   selectedIndex: {
     type: Number,
     default: -1, // left,center,right
   },
 });
-// const slots = useSlots();
-const selectedIndex = ref<number>(0);
-const tabs = ref<any[]>([]);
-function registerTab(tab: any) {
-  console.log("tab from register", tab);
-  tabs.value.push(tab.value);
-}
-// const tabs = slots?.default?.()[0]?.children?.default();
-// console.log("slots from group buttons:", slots.default()[0].children.default());
-// console.log("slots from group panels:", slots.default()[1].children.default());
-onMounted(() => {
-  selectedIndex.value = props.selectedIndex !== -1 ? props.selectedIndex : 0;
-  console.log("TABS::", tabs.value);
+const emit = defineEmits(["change"]);
+const context: TabContext = reactive({
+  selectedIndex: 0,
+  tabs: [],
+  panels: [],
 });
-provide(ContextKey, { selectedIndex, registerTab });
+watch(
+  () => props.selectedIndex,
+  (newValue) => {
+    // check item available
+    if (newValue < 0 || newValue > context.tabs.length - 1) {
+      console.log("the provided selectedIndex is not available");
+      return;
+    }
+    // check item disable
+    if (
+      context.tabs[newValue]?.disabled !== undefined &&
+      context.tabs[newValue].disabled === true
+    ) {
+      console.log("the provided selectedIndex is disabled");
+      return;
+    }
+    setSelectedIndex(newValue);
+  }
+);
+
+function registerTab(tab: any) {
+  context.tabs.push(tab.value?.el);
+}
+function unRegisterTab(tab: any) {
+  const tabIndex = context.tabs.findIndex((t) => t.id === tab.id);
+  context.tabs.splice(tabIndex, 1);
+}
+function registerPanel(panel: any) {
+  context.panels.push(panel.value);
+}
+function unRegisterPanel(panel: any) {
+  const panelIndex = context.panels.findIndex((p) => p.id === panel.id);
+  context.panels.splice(panelIndex, 1);
+}
+function setSelectedIndex(index: number) {
+  context.selectedIndex = index;
+  emit("change", context.selectedIndex);
+}
+
+onMounted(() => {
+  // need the throw an error if one of the required component not provided:
+  // lui-tab-group,lui-tab-buttons,lui-tab-button,lui-tab-panels,lui-tab-panel
+  context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0;
+});
+provide(ContextKey, {
+  context,
+  registerTab,
+  unRegisterTab,
+  registerPanel,
+  unRegisterPanel,
+  setSelectedIndex,
+});
 </script>
 <template>
   <slot />

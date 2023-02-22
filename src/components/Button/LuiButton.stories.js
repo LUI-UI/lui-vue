@@ -175,17 +175,3 @@ export const IconButton = (args) => ({
     </div>
   </div>`,
 });
-
-export const Rounded = (args) => ({
-  components: { LuiButton },
-  setup() {
-    return { args };
-  },
-  template: `
-    <div class="space-x-6">
-      <lui-button v-bind="args" :rounded="false"> button rounded </lui-button>
-      <lui-button v-bind="args" :rounded="true"> button rounded </lui-button>
-      <lui-button v-bind="args" rounded="full"> button rounded </lui-button>
-    </div>
-  `,
-});
