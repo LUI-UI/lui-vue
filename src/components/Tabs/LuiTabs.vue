@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 export default {
   name: "LuiTabs",
   inheritAttrs: false,
@@ -21,7 +21,6 @@ import type { Ref, PropType } from "vue";
 import type { AlignmentTypes, TabTypes } from "./types";
 import type { TwClassInterface } from "@/globals/interfaces";
 import LuiMenuItem from "../Menu/LuiMenuItem.vue";
-// import LuiBadge from "../Badge/LuiBadge.vue";
 
 const props = defineProps({
   alignTabs: {
@@ -139,7 +138,6 @@ function focusAvailableElement(
   }
   setSelectedTab(tabs.value[focusableTarget]);
   nextTick(() => tabRefs.value[focusableTarget as number]?.focus());
-  // nextTick(() => tabRefs.value[focusableTarget as number]?.focus());
 }
 function handleKeyEvents(event: KeyboardEvent, index: number) {
   switch (event?.code) {
@@ -162,15 +160,6 @@ function handleKeyEvents(event: KeyboardEvent, index: number) {
     default:
   }
 }
-// const renderNamedProps = (instance: any) => {
-//   return h("div", {}, instance === undefined ? null : instance());
-// };
-// const renderTest = ({ el }) => {
-//   console.log("El:", el);
-//   // console.log("Type:", typeof el.el);
-//   // return h(el);
-//   return h("div", { class: "test" }, []);
-// };
 const renderTest = ({ index }) => {
   console.log("index:", index);
   return h("div", {}, [slots?.default()[index]?.children?.prepend()]);
@@ -180,36 +169,15 @@ const renderTestAppend = ({ index }) => {
   return h("div", {}, [slots?.default()[index]?.children?.append()]);
 };
 
-// function findInstance(index: number) {
-//   // const defaultSlot = slots.default && slots.default();
-//   // const instance = defaultSlot?[index].children?.prepend;
-//   const instance = slots.default && slots.default()[index]?.children?.prepend;
-//   console.log("instance", instance);
-//   return instance;
-// }
-// function setMenuItemSlotComponent(namedSlot: any) {
-//   if (namedSlot === undefined) return undefined;
-//   if (namedSlot?.type === "string") return namedSlot?.type;
-//   // we need the import lui-component so we need to check if a valid component requestted
-
-//   return namedSlot === undefined
-//     ? namedSlot
-//     : typeof namedSlot[0]?.type === "string"
-//     ? namedSlot[0]?.type
-//     : namedSlot[0]?.type?.name;
-// }
-
 const menuContainerClasses = computed(() => {
   const classes: TwClassInterface = {
     display: "flex",
-    // flexDirection: "flex-col",
     justifyItems: {
       "justify-start": props.alignTabs === "left",
       "justify-center": props.alignTabs === "center",
       "justify-end": props.alignTabs === "right",
     },
     overflow: "overflow-y-auto",
-    // borderWidth: "border-b-2",
   };
   return Object.values(classes);
 });
@@ -257,4 +225,4 @@ const menuContainerClasses = computed(() => {
       <slot />
     </div>
   </div>
-</template>
+</template> -->

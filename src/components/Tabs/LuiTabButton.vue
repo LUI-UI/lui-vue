@@ -107,7 +107,6 @@ function handleKeyEvents(event: KeyboardEvent) {
     ref="tabRef"
     :id="tabButtonId"
     role="tab"
-    tag="tab"
     type="button"
     :block="stretch"
     :color="isSelected ? 'primary' : 'secondary'"

@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 export default {
   name: "LuiTab",
   inheritAttrs: false,
@@ -40,9 +40,6 @@ watch(
     :aria-labelledby="injection?.selectedTab?.value?.tabId"
     class="computedClasses.panel"
   >
-    <!-- <Teleport to="#some-test-id">
-      <slot name="prepend" />
-    </Teleport> -->
     <slot />
   </div>
-</template>
+</template> -->

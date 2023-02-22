@@ -11,7 +11,8 @@ export { default as LuiOption } from "./Select/LuiOption.vue";
 export { default as LuiSwitch } from "./Switch/LuiSwitch.vue";
 export { default as LuiTextarea } from "./Textarea/LuiTextarea.vue";
 export { default as LuiModal } from "./Modal/LuiModal.vue";
-// import * as utils from '../utils/useId'
-// export { utils }
-// const luiPlugin = require("../plugin/lui-ui.js");
-// export { luiPlugin };
+export { default as LuiTabGroup } from "./Tabs/LuiTabGroup.vue";
+export { default as LuiTabButtons } from "./Tabs/LuiTabButtons.vue";
+export { default as LuiTabButton } from "./Tabs/LuiTabButton.vue";
+export { default as LuiTabPanels } from "./Tabs/LuiTabPanels.vue";
+export { default as LuiTabPanel } from "./Tabs/LuiTabPanel.vue";
