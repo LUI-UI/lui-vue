@@ -1,6 +1,6 @@
 {
   "name": "@lui-ui/lui-vue",
-  "version": "0.37.0",
+  "version": "0.38.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
