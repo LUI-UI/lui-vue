@@ -97,9 +97,11 @@ const selectId = `lui-listbox-button-${useId()}`;
 const optionsId = `lui-listbox-wrapper-${useId()}`;
 const validSlotTypes = ["LuiOption"];
 const errorMessages = {
-  missing: {
+  type: {
     modelValue:
-      "Missing field for modelValue, label and value fields are required when modelValue is object",
+      "Wrong type for modelValue, typeof of modelValue should be string",
+  },
+  missing: {
     options: `Options missing: should use options prop or LuiOption component as slot`,
   },
 };
@@ -177,11 +179,19 @@ function focusAvailableElement(
 
   nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }));
 }
-
+interface OptionType {
+  text?: string;
+  value?: string;
+  selected?: boolean;
+}
 function updateSelectedOption(option: ModelValue) {
   selectedOption.value = option;
-  emit("update:modelValue", option);
-  emit("change", option);
+  let emitedVal = option;
+  if (typeof option !== "string") {
+    emitedVal = option?.text;
+  }
+  emit("update:modelValue", emitedVal);
+  emit("change", emitedVal);
 }
 
 function focusButton() {
@@ -217,11 +227,16 @@ function setState() {
 }
 
 function setInitialSelectedOption() {
+  // when options not provided also there is no slot we need the throw an error like you should use options prop or option component as slot.
+  // const isModelValueInvalid =
+  //   props.modelValue !== undefined &&
+  //   typeof props.modelValue !== "string" &&
+  //   (props.modelValue?.text === undefined ||
+  //     props.modelValue?.value === undefined);
   const isModelValueInvalid =
     props.modelValue !== undefined &&
-    typeof props.modelValue !== "string" &&
-    (props.modelValue?.text === undefined ||
-      props.modelValue?.value === undefined);
+    (typeof props.modelValue !== "string" ||
+      typeof props.modelValue !== "number");
 
   const optionsExist = props.options.length > 0;
 
@@ -267,7 +282,7 @@ function setInitialSelectedOption() {
       );
 
   if (isModelValueInvalid) {
-    throw new Error(errorMessages.missing.modelValue);
+    throw new Error(errorMessages.type.modelValue);
   }
   if (props.modelValue !== undefined) {
     // should we handle the case if modelValue does not match any option then if placeholder exist set placeholder than throw error?
@@ -413,6 +428,23 @@ const optionsClasses = computed(() => {
   return Object.values({ ...optionsWrapper });
 });
 
+const selectWrapperClasses = computed(() => {
+  const classes: TwClassInterface = {
+    position: "relative",
+    width: props.block ? "w-full" : "",
+    // pointerEvents:
+    //   attrs?.disabled !== undefined && attrs.disabled === true
+    //     ? "pointer-events-none"
+    //     : "",
+    // cursor: "cursor-wait",
+    // cursor:
+    //   attrs?.disabled !== undefined && attrs.disabled === true
+    //     ? "cursor-not-allowed"
+    //     : "cursor-pointer",
+  };
+  return Object.values({ ...classes });
+});
+
 const inputProps = computed(() => ({
   rounded: props.rounded,
   block: props.block,
@@ -451,11 +483,10 @@ function arrowIconSize(size: string) {
 </script>
 <template>
   <div
-    class="relative"
-    :class="block ? 'w-full' : ''"
     role="combobox"
     ref="selectWrapperRef"
     aria-haspopup="listbox"
+    :class="selectWrapperClasses"
     :aria-expanded="optionsActive"
     :aria-controls="optionsId"
     tabindex="-1"

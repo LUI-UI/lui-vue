@@ -4,7 +4,7 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { defineProps, onMounted, provide, reactive, watch } from "vue";
+import { onMounted, provide, reactive, watch } from "vue";
 import { ContextKey } from "./symbols";
 import type { TabContext } from "./types";
 const props = defineProps({
@@ -24,7 +24,7 @@ watch(
   (newValue) => {
     // check item available
     if (newValue < 0 || newValue > context.tabs.length - 1) {
-      console.log("the provided selectedIndex is not available");
+      // console.log("the provided selectedIndex is not available");
       return;
     }
     // check item disable
@@ -32,7 +32,7 @@ watch(
       context.tabs[newValue]?.disabled !== undefined &&
       context.tabs[newValue].disabled === true
     ) {
-      console.log("the provided selectedIndex is disabled");
+      // console.log("the provided selectedIndex is disabled");
       return;
     }
     setSelectedIndex(newValue);
@@ -49,6 +49,7 @@ function unRegisterTab(tab: any) {
 function registerPanel(panel: any) {
   context.panels.push(panel.value);
 }
+
 function unRegisterPanel(panel: any) {
   const panelIndex = context.panels.findIndex((p) => p.id === panel.id);
   context.panels.splice(panelIndex, 1);
@@ -60,7 +61,6 @@ function setSelectedIndex(index: number) {
 
 onMounted(() => {
   // need the throw an error if one of the required component not provided:
-  // lui-tab-group,lui-tab-buttons,lui-tab-button,lui-tab-panels,lui-tab-panel
   context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0;
 });
 provide(ContextKey, {

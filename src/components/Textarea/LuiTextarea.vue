@@ -93,9 +93,10 @@ const isDisabled = computed(
   <div class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
     <div class="relative">
       <textarea
-        v-bind="$attrs"
         :class="textareaClasses"
+        :value="modelValue"
         @input="handleInputEvents($event)"
+        v-bind="$attrs"
       />
       <span
         v-if="stateIcon && state !== null && !isDisabled"

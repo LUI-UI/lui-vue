@@ -77,7 +77,7 @@ const computedImageClasses = computed(() => {
         "rounded-lg": props.rounded === true,
         "rounded-full": props.rounded === "full",
       },
-      borderColor: borderColorClasses.borderColor,
+      borderColor: borderColorClasses.value,
     };
   return Object.values(containerClasses);
 });
@@ -133,12 +133,10 @@ const computedAvatarClasses = computed(() => {
       "text-3xl": props.size === "lg" || props.size === "xl",
     },
     backgroundColor:
-      props.src.length === 0 ? backgroundColorClasses.backgroundColor : null,
-    textColor: textColorClasses.textColor,
+      props.src.length === 0 ? backgroundColorClasses.value : null,
+    textColor: textColorClasses.value,
     borderColor:
-      props.src.length === 0
-        ? borderColorClasses.borderColor
-        : "border-transparent",
+      props.src.length === 0 ? borderColorClasses.value : "border-transparent",
   };
   return Object.values(avatarClasses);
 });

@@ -54,21 +54,23 @@ const computedModalClasses = computed(() => {
       "md:max-w-xl max-w-xs": props.size === "xl",
     },
     backgroundColor: "bg-secondary-50 dark:bg-secondary-900",
+    margin: "m-auto",
   };
   return Object.values(classes);
 });
 const computedOverlayClasses = computed(() => {
   const classes: TwClassInterface = {
-    position: "fixed",
+    position: "absolute",
     zIndex: "z-40",
     top: "top-0",
     left: "left-0",
     width: "w-full",
-    height: "h-full",
+    height: "min-h-screen",
     display: "flex",
-    alignItems: "items-center",
-    justifyContent: "justify-center",
+    // justifyContent: "justify-center",
     backgroundColor: "bg-secondary-900/40",
+    overflow: "overflow-y-auto",
+    padding: "p-8",
   };
   return Object.values(classes);
 });

@@ -84,7 +84,8 @@ const emit = defineEmits(["onTrigger"]);
 const slots = useSlots();
 // VARIABLES
 const luiDropdownWrapper = ref<HTMLElement>();
-const luiDropdownButton = ref<InstanceType<typeof LuiButton>>();
+// const luiDropdownButton = ref<InstanceType<typeof LuiButton>>();
+const luiDropdownTrigger = ref<HTMLDivElement>();
 const luiDropdownMenu = ref<HTMLUListElement>();
 const menuActive = ref(false);
 const buttonId = `lui-dropdown-button-${useId()}`;
@@ -137,6 +138,7 @@ const positionClasses = {
   },
 };
 const { properPosition } = useFindProperPosition(luiDropdownWrapper);
+
 // COMPUTEDS
 const computedMenuPosition = computed(() => {
   return positionClasses[props.menuPosition].direction === properPosition.value
@@ -184,9 +186,7 @@ const defaultButtonProps = computed(() => ({
 }));
 
 // METHODS
-
-useOutsideClick(luiDropdownWrapper, () => closeMenu());
-
+useOutsideClick(luiDropdownTrigger, () => closeMenu());
 function closeMenu() {
   menuActive.value = false;
   emit("onTrigger", menuActive.value);
@@ -328,7 +328,7 @@ function triggerIconSize(size: string) {
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
-    <div ref="luiDropdownButton" class="trigger-wrapper cursor-pointer">
+    <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
         name="trigger"
         :id="buttonId"

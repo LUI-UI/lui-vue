@@ -11,7 +11,7 @@ import { ContextKey } from "./symbols";
 import { computed, inject, onMounted, onUnmounted, ref } from "vue";
 import { useId } from "../../utils/useId";
 
-defineProps({
+const props = defineProps({
   size: {
     type: String as PropType<Size>,
     default: "md",
@@ -28,29 +28,31 @@ defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  id: {
+    type: String as PropType<string>,
+    default: () => `lui-tab-button-${useId()}`,
+  },
 });
-const tabButtonId = `lui-tab-button-${useId()}`;
+// const tabButtonId = `lui-tab-button-${useId()}`;
+// const modal = ref<InstanceType<typeof LuiMenuItem> | null>(null)
 const tabRef = ref(null);
 const injection = inject(ContextKey);
 
 onMounted(() => injection?.registerTab(tabRef));
 onUnmounted(() => injection?.unRegisterTab(tabRef));
-
 const isSelected = computed(() => {
-  const tabIndex = injection?.context.tabs.findIndex(
-    (t) => t.id === tabButtonId
-  );
-  return tabIndex == injection?.context.selectedIndex;
+  // const tabIndex = injection?.context.tabs.findIndex((t) => t.id === props.id);
+  // return tabIndex == injection?.context.selectedIndex;
+  const selectedTab = injection?.context.tabs[injection?.context.selectedIndex];
+  return selectedTab?.id === props.id;
 });
-const activePanelId = computed(
-  () => injection?.context.panels[injection.context.selectedIndex]?.id
-);
+// const activePanelId = computed(
+//   () => injection?.context.panels[injection.context.selectedIndex]?.id
+// );
 function handleMouseUp() {
   // we do not use click because click event comes after focus,
   // we want to focus tab when click event finish
-  const myIndex = injection?.context.tabs.findIndex(
-    (t) => t.id === tabButtonId
-  );
+  const myIndex = injection?.context.tabs.findIndex((t) => t.id === props.id);
   injection?.setSelectedIndex(myIndex as number);
 }
 
@@ -78,7 +80,6 @@ function handleKeyEvents(event: KeyboardEvent) {
       break;
     }
     case "ArrowLeft": {
-      console.log("targetLeft", targetIndex);
       setTargetIndex(targetIndex - 1);
       break;
     }
@@ -105,7 +106,7 @@ function handleKeyEvents(event: KeyboardEvent) {
 <template>
   <LuiMenuItem
     ref="tabRef"
-    :id="tabButtonId"
+    :id="id"
     role="tab"
     type="button"
     :block="stretch"
@@ -113,7 +114,9 @@ function handleKeyEvents(event: KeyboardEvent) {
     :size="size"
     :tabindex="isSelected ? '0' : '-1'"
     :aria-selected="isSelected"
-    :aria-controls="activePanelId"
+    :aria-controls="
+      injection?.context.panels[injection.context.selectedIndex]?.id
+    "
     :disabled="disabled"
     class="relative whitespace-nowrap cursor-pointer after:w-full after:h-0.5 after:absolute after:z-20 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
     :class="isSelected ? 'after:bg-primary-500' : 'after:bg-transparent'"

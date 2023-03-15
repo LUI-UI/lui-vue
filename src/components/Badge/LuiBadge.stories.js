@@ -6,6 +6,7 @@ import {
   border,
   icon,
 } from "../../../.storybook/global-story-argtypes";
+import { ref } from "vue";
 const sizeList = size.options;
 const colorList = color.options;
 const filterList = filter.options;
@@ -36,9 +37,10 @@ export default {
 const DefaultTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    return { args };
+    const activeColor = ref("secondary");
+    return { args, activeColor };
   },
-  template: `<lui-badge v-bind="args" />`,
+  template: ` <button @click="activeColor = 'primary'">change color!</button> {{activeColor}} <lui-badge v-bind="args" :color="activeColor" />`,
 });
 export const Default = DefaultTemplate.bind({});
 Default.args = { size: "md" };

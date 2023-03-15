@@ -19,8 +19,8 @@ type DescriptionPropTypes = {
   state: Ref<State>;
 };
 export function useGlobalColorClasses(props: PropTypes) {
-  const computedBackgroundColorClasses = computed<BackgroundsInterface>(() => {
-    return {
+  const computedBackgroundColorClasses = computed(() => {
+    const classes:BackgroundsInterface = {
       backgroundColor:
         props.variant.value === "solid"
           ? {
@@ -30,9 +30,10 @@ export function useGlobalColorClasses(props: PropTypes) {
             }
           : null,
     };
+    return Object.values({...classes})
   });
-  const computedTextColorClasses = computed<TypographyInterface>(() => {
-    return {
+  const computedTextColorClasses = computed(() => {
+    const classes:TypographyInterface = {
       textColor:
         props.variant.value === "solid"
           ? {
@@ -50,9 +51,10 @@ export function useGlobalColorClasses(props: PropTypes) {
                 props.filter.value === "darken", // filter darken
             },
     };
+    return Object.values({...classes})
   });
-  const computedBorderColorClasses = computed<BordersInterface>(() => {
-    return {
+  const computedBorderColorClasses = computed(() => {
+    const classes:BordersInterface = {
       borderColor:
         props.variant.value === "outline"
           ? {
@@ -73,11 +75,12 @@ export function useGlobalColorClasses(props: PropTypes) {
             }
           : "border-transparent",
     };
+    return Object.values({...classes})
   });
   return {
-    backgroundColorClasses: computedBackgroundColorClasses.value,
-    textColorClasses: computedTextColorClasses.value,
-    borderColorClasses: computedBorderColorClasses.value,
+    backgroundColorClasses: computedBackgroundColorClasses,
+    textColorClasses: computedTextColorClasses,
+    borderColorClasses: computedBorderColorClasses,
   };
 }
 

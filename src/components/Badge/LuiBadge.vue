@@ -176,9 +176,9 @@ const computedBadgeClasses = computed(() => {
       "text-sm": props.size === "md",
       "text-base": props.size === "lg" || props.size === "xl",
     },
-    backgroundColor: backgroundColorClasses.backgroundColor,
-    textColor: textColorClasses.textColor,
-    borderColor: borderColorClasses.borderColor,
+    backgroundColor: backgroundColorClasses.value,
+    textColor: textColorClasses.value,
+    borderColor: borderColorClasses.value,
   };
   return Object.values(badgeClasses);
 });

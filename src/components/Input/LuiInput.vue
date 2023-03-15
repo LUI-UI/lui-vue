@@ -183,7 +183,6 @@ const stateIconTemplate = (params: any) =>
         v-bind="$attrs"
         @input="handleInputEvents($event)"
       />
-      <!-- prepend should be above the input be able to use peer -->
       <span v-if="!!slots.prepend" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
@@ -197,7 +196,7 @@ const stateIconTemplate = (params: any) =>
       <span v-else-if="!!slots.append" :class="appendClasses">
         <slot name="append" />
       </span>
-      <span v-else-if="stateIcon" :class="stateIconClasses">
+      <span v-else-if="stateIcon && state !== null" :class="stateIconClasses">
         <stateIconTemplate
           :path="
             attrs?.disabled === true

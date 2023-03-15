@@ -16,8 +16,12 @@ const props = defineProps({
     type: String as PropType<AlignmentTypes>,
     default: "left",
   },
+  id: {
+    type: String as PropType<string>,
+    default: () => `lui-tab-panel-${useId()}`,
+  },
 });
-const panelId = `lui-tab-panel-${useId()}`;
+// const panelId = `lui-tab-panel-${useId()}`;
 const panelRef = ref(null);
 const injection = inject(ContextKey);
 
@@ -28,10 +32,13 @@ const selectedTabId = computed(
   () => injection?.context.tabs[injection.context.selectedIndex]?.id
 );
 const isSelected = computed(() => {
-  const panelIndex = injection?.context.panels.findIndex(
-    (p) => p?.id === panelId
-  );
-  return panelIndex == injection?.context.selectedIndex;
+  const selectedPanel =
+    injection?.context.panels[injection?.context.selectedIndex];
+  return selectedPanel?.id === props.id;
+  // const panelIndex = injection?.context.panels.findIndex(
+  //   (p) => p?.id === props.id
+  // );
+  // return panelIndex === injection?.context.selectedIndex;
 });
 const tabPanelClasses = computed(() => {
   const classes: TwClassInterface = {
@@ -49,7 +56,7 @@ const tabPanelClasses = computed(() => {
 <template>
   <div
     v-show="isSelected"
-    :id="panelId"
+    :id="id"
     ref="panelRef"
     role="tabpanel"
     tabindex="0"

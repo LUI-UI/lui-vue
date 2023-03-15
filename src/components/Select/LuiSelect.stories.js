@@ -40,7 +40,7 @@ export const Default = (args) => ({
       { text: "rahmi", value: "4", selected: false },
       { text: "can", value: "5", selected: true },
     ];
-    const selectedName = ref(names[1]);
+    const selectedName = ref(names[0]?.text);
     let test = ref(1);
     // <lui-option v-for="name in names" :key="name.value" :selected="name.selected" :value="name.value" :label="name.label" />
     // <span v-for="name in names" :key="name.value" class="block" >{{name.label}}</span>
@@ -95,7 +95,7 @@ export const WithObjectArrays = (args) => ({
       { text: "rahmi", value: "4" },
       { text: "can", value: "7" },
     ];
-    const selectedName = ref(names[0]);
+    const selectedName = ref(names[0].text);
     return {
       args,
       names,
@@ -214,7 +214,6 @@ export const MaxHeight = (args) => ({
     return { args, cities, selectedCity };
   },
   template: `
-    
-      <lui-select v-bind="args" v-model="selectedItem" :options="cities" size="xl" />
+      <lui-select v-bind="args" v-model="selectedCity" :options="cities" size="xl" />
   `,
 });
