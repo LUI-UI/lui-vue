@@ -235,8 +235,8 @@ function setInitialSelectedOption() {
   //     props.modelValue?.value === undefined);
   const isModelValueInvalid =
     props.modelValue !== undefined &&
-    (typeof props.modelValue !== "string" ||
-      typeof props.modelValue !== "number");
+    typeof props.modelValue !== "string" &&
+    typeof props.modelValue !== "number";
 
   const optionsExist = props.options.length > 0;
 

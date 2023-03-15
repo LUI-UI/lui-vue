@@ -46,7 +46,8 @@ const computedModalClasses = computed(() => {
     boxShadow: "shadow-lg",
     borderRadius: "rounded-xl",
     padding: "p-6",
-    width: {
+    width: "w-full",
+    maxWidth: {
       "max-w-xs": props.size === "xs",
       "md:max-w-sm max-w-xs": props.size === "sm",
       "md:max-w-md max-w-xs": props.size === "md",
@@ -84,6 +85,7 @@ const computedOverlayClasses = computed(() => {
         aria-labelledby="dialog1_label"
         aria-modal="true"
         :class="computedModalClasses"
+        v-bind="$attrs"
       >
         <div v-if="showIcon" class="float-right leading-3 ml-2">
           <LuiButton
