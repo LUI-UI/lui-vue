@@ -61,7 +61,7 @@ const computedModalClasses = computed(() => {
 });
 const computedOverlayClasses = computed(() => {
   const classes: TwClassInterface = {
-    position: "absolute",
+    position: "fixed",
     zIndex: "z-40",
     top: "top-0",
     left: "left-0",
