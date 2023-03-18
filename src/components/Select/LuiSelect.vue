@@ -38,7 +38,6 @@ import type {
 } from "@/globals/types";
 import LuiOption from "./LuiOption.vue";
 import LuiInput from "../Input/LuiInput.vue";
-
 const props = defineProps({
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
@@ -179,11 +178,7 @@ function focusAvailableElement(
 
   nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }));
 }
-interface OptionType {
-  text?: string;
-  value?: string;
-  selected?: boolean;
-}
+
 function updateSelectedOption(option: ModelValue) {
   selectedOption.value = option;
   let emitedVal = option;
@@ -250,7 +245,7 @@ function setInitialSelectedOption() {
     if (props.placeholder === "") {
       updateSelectedOption(value);
     } else {
-      updateSelectedOption(props.placeholder);
+      // updateSelectedOption(props.placeholder);
     }
   }
   const anySlotSelected = () =>
@@ -496,9 +491,9 @@ function arrowIconSize(size: string) {
     <LuiInput
       ref="selectRef"
       :id="selectId"
+      v-bind="inputProps"
       :value="setInputValue"
       readonly
-      v-bind="inputProps"
       @keydown="buttonKeydown($event)"
     >
       <template #append>

@@ -42,6 +42,9 @@ export const Default = (args) => ({
     ];
     const selectedName = ref(names[0]?.text);
     let test = ref(1);
+    function testChange() {
+      console.log("change...");
+    }
     // <lui-option v-for="name in names" :key="name.value" :selected="name.selected" :value="name.value" :label="name.label" />
     // <span v-for="name in names" :key="name.value" class="block" >{{name.label}}</span>
     // <span>ooooo</span>
@@ -54,12 +57,13 @@ export const Default = (args) => ({
       names,
       selectedName,
       test,
+      testChange,
     };
   },
   template: `
     <div class="flex space-x-10 h-[1400px]">
       <div>
-        <lui-select v-bind="args" v-model="selectedName" :options="names" />
+        <lui-select v-bind="args" placeholder="TEST!" @change="testChange" :options="['a','b','c']" />
       </div>
       <div>
         <lui-select>
