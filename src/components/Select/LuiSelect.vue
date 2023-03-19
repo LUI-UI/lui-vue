@@ -496,6 +496,9 @@ function arrowIconSize(size: string) {
       readonly
       @keydown="buttonKeydown($event)"
     >
+      <template #prepend>
+        <slot name="prepend" />
+      </template>
       <template #append>
         <svg
           viewBox="0 0 12 12"

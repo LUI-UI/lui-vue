@@ -67,10 +67,10 @@ export const Default = (args) => ({
       </div>
       <div>
         <lui-select>
+          <template #prepend>
+            <i class="ri-home-line"/>
+          </template>
           <lui-option v-for="i in 5" :key="i" :text="i + 'okeygoogle ve bazi baska kelimeler sen bilir misin bilmem '" :value="i" :disabled="i == 1 || i == 2">
-            <template #prepend>
-              <i class="ri-home-line"/>
-            </template>
             <template #append>
               <i class="ri-home-line"/>
             </template>
