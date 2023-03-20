@@ -30,10 +30,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     return (props.stateIcon.value === true && props.state.value !== null) ||
       props.clear.value === true ||
       slots.append
-      ? slots.prepend
+      ? props.prependIcon.value
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
-      : !!slots.prepend === false
+      : !props.prependIcon.value
       ? "noIcon"
       : "leftIcon"; // stateIcn-deactive
   });

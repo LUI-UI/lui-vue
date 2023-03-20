@@ -44,6 +44,10 @@ const props = defineProps({
     type: Boolean as PropType<Clear>,
     default: false,
   },
+  prependIcon: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
   description: {
     type: [String, null] as PropType<Description>,
     default: null,
@@ -72,7 +76,6 @@ const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),
   attrs
 );
-
 // const stateIconName = computed(() => {
 //   return attrs.disabled
 //     ? "forbid-2"

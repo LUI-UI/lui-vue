@@ -137,7 +137,13 @@ provide(ContextKey, {
 
 watch(
   () => props.modelValue,
-  (value) => updateSelectedOption(value)
+  (value, oldValue) => {
+    const rawValue = typeof value !== "string" ? value?.text : value;
+    if (rawValue !== selectedOption.value?.text) {
+      updateSelectedOption(value);
+    }
+    // updateSelectedOption(value);
+  }
 );
 
 function focusAvailableElement(
@@ -496,7 +502,7 @@ function arrowIconSize(size: string) {
       readonly
       @keydown="buttonKeydown($event)"
     >
-      <template #prepend>
+      <template v-if="$slots.prepend" #prepend>
         <slot name="prepend" />
       </template>
       <template #append>
