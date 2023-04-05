@@ -72,7 +72,7 @@ const computedImageClasses = computed(() => {
       display: "block",
       width: "w-full",
       height: "h-full",
-      objectFit: "object-cover",
+      objectFit: "object-contain",
       borderRadius: {
         "rounded-lg": props.rounded === true,
         "rounded-full": props.rounded === "full",

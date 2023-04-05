@@ -265,7 +265,7 @@ function setInitialSelectedOption() {
                 child.props.selected !== undefined &&
                 child.props.selected === true
             )
-          : slot.props.selected !== undefined && slot.props.selected === true
+          : slot.props && slot.props.selected && slot.props.selected === true
       );
 
   const isDefaultSlotValid = () =>

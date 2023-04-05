@@ -71,6 +71,7 @@ const {
   closeIconClasses,
   wrapperClasses,
   appendClasses,
+  iconStatus,
 } = useInputClasses(toRefs(props), attrs);
 const { descriptionClasses } = useGlobalDescriptionClasses(
   toRefs(props),

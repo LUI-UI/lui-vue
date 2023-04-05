@@ -1,4 +1,4 @@
-import { computed, useSlots } from "vue";
+import { computed, useSlots, watch, ref } from "vue";
 // import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
@@ -21,21 +21,29 @@ type PropTypes = {
   block: Ref<Block>;
   clear: Ref<Clear>;
   description: Ref<Description>;
+  prependIcon: Ref<boolean>;
 };
 
 export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots();
-  // append slot - clear prop - stateIcon
+  // watch(
+  //   () => props,
+  //   (val) => {
+  //     console.log("val", val);
+  //     // iconStatus.value = 'noIcon'
+  //   },
+  //   { immediate: true }
+  // );
   const iconStatus = computed(() => {
     return (props.stateIcon.value === true && props.state.value !== null) ||
       props.clear.value === true ||
       slots.append
-      ? props.prependIcon.value
+      ? props.prependIcon.value || slots.prepend
         ? "twoIcon"
         : "rightIcon" // stateIcon-active
-      : !props.prependIcon.value
-      ? "noIcon"
-      : "leftIcon"; // stateIcn-deactive
+      : props.prependIcon.value || slots.prepend
+      ? "leftIcon"
+      : "noIcon"; // stateIcn-deactive
   });
   const iconClasses: TwClassInterface = {
     position: "absolute",
@@ -224,5 +232,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     appendClasses,
     stateIconClasses,
     closeIconClasses,
+    iconStatus
   };
 }
