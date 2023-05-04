@@ -7,10 +7,7 @@ import dts from "vite-plugin-dts";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    dts(),
-  ],
+  plugins: [vue(), dts({ insertTypesEntry: true })],
   // resolve: {
   //   alias: {
   //     "@": path.resolve(__dirname, "./src"),
@@ -21,6 +18,7 @@ export default defineConfig({
     lib: {
       entry: path.resolve(__dirname, "./src/components/main.ts"),
       name: "LuiVue",
+      formats: ["es", "cjs", "umd"],
       fileName: (format) => `lui-vue.${format}.js`,
     },
     rollupOptions: {

@@ -46,7 +46,7 @@ const Template = (args) => ({
     return { args };
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: `<lui-button v-bind="args">My Button</lui-button>`,
+  template: `<lui-button v-bind="args">My Button</lui-button>`
 });
 export const Default = Template.bind({});
 Default.args = { rounded: true };

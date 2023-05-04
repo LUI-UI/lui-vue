@@ -1,4 +1,4 @@
-import { computed, useSlots, watch, ref } from "vue";
+import { computed, useSlots } from "vue";
 // import classNames from "classnames";
 //Types
 import type { Ref } from "vue";
@@ -232,6 +232,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     appendClasses,
     stateIconClasses,
     closeIconClasses,
-    iconStatus
+    iconStatus,
   };
 }
