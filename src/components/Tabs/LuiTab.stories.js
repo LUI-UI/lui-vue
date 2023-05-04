@@ -1,38 +1,38 @@
 // import LuiTabs from "./LuiTabs.vue";
-import LuiTabGroup from "./LuiTabGroup.vue";
-import LuiTabButtons from "./LuiTabButtons.vue";
-import LuiTabButton from "./LuiTabButton.vue";
-import LuiTabPanels from "./LuiTabPanels.vue";
-import LuiTabPanel from "./LuiTabPanel.vue";
-import { ref } from "vue";
+import LuiTabGroup from './LuiTabGroup.vue'
+import LuiTabButtons from './LuiTabButtons.vue'
+import LuiTabButton from './LuiTabButton.vue'
+import LuiTabPanels from './LuiTabPanels.vue'
+import LuiTabPanel from './LuiTabPanel.vue'
+import { ref } from 'vue'
 export default {
-  title: "LUI/Tab",
+  title: 'LUI/Tab',
   component: LuiTabGroup,
   argTypes: {
     alignTabs: {
-      control: { type: "select" },
-      options: ["left", "center", "right"],
+      control: { type: 'select' },
+      options: ['left', 'center', 'right']
     },
     alignContent: {
-      control: { type: "select" },
-      options: ["left", "center", "right"],
+      control: { type: 'select' },
+      options: ['left', 'center', 'right']
     },
     stretch: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' }
       // options: ["left", "center", "right"],
-    },
-  },
-};
+    }
+  }
+}
 export const Default = (args) => ({
   components: {
     LuiTabGroup,
     LuiTabButtons,
     LuiTabButton,
     LuiTabPanels,
-    LuiTabPanel,
+    LuiTabPanel
   },
   setup() {
-    return { args };
+    return { args }
   },
   template: `
   
@@ -51,19 +51,19 @@ export const Default = (args) => ({
       <lui-tab-panel>Panel-4</lui-tab-panel>
       <lui-tab-panel>Panel-5</lui-tab-panel>
     </lui-tab-panels>
-  </lui-tab-group>`,
-});
+  </lui-tab-group>`
+})
 export const WithControl = (args) => ({
   components: {
     LuiTabGroup,
     LuiTabButtons,
     LuiTabButton,
     LuiTabPanels,
-    LuiTabPanel,
+    LuiTabPanel
   },
   setup() {
-    const activeTab = ref(0);
-    return { args, activeTab };
+    const activeTab = ref(0)
+    return { args, activeTab }
   },
   template: `
   <lui-tab-group v-bind="args" :selectedIndex="activeTab">
@@ -81,5 +81,5 @@ export const WithControl = (args) => ({
       <lui-tab-panel>Panel-4</lui-tab-panel>
       <lui-tab-panel>Panel-5</lui-tab-panel>
     </lui-tab-panels>
-  </lui-tab-group>`,
-});
+  </lui-tab-group>`
+})

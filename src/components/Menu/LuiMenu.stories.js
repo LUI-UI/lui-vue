@@ -1,13 +1,9 @@
-import LuiMenuItem from "./LuiMenuItem.vue";
-import LuiMenuDropdown from "./LuiMenuDropdown.vue";
-import {
-  color,
-  size,
-  rounded,
-} from "../../../.storybook/global-story-argtypes.js";
+import LuiMenuItem from './LuiMenuItem.vue'
+import LuiMenuDropdown from './LuiMenuDropdown.vue'
+import { color, size, rounded } from '../../../.storybook/global-story-argtypes.js'
 
 export default {
-  title: "LUI/Menu",
+  title: 'LUI/Menu',
   component: LuiMenuDropdown,
   subcomponents: { LuiMenuItem }, //👈 Adds the ListItem component as a subcomponent
   argTypes: {
@@ -15,28 +11,28 @@ export default {
     size,
     rounded,
     menuPosition: {
-      control: { type: "select" },
+      control: { type: 'select' },
       options: [
-        "bottomLeft",
-        "bottomRight",
-        "topLeft",
-        "topRight",
-        "leftTop",
-        "leftBottom",
-        "rightTop",
-        "rightBottom",
-      ],
+        'bottomLeft',
+        'bottomRight',
+        'topLeft',
+        'topRight',
+        'leftTop',
+        'leftBottom',
+        'rightTop',
+        'rightBottom'
+      ]
     },
     tag: {
-      control: { type: "select" },
-      options: ["button", "a"],
-    },
-  },
-};
+      control: { type: 'select' },
+      options: ['button', 'a']
+    }
+  }
+}
 const DefaultTemplate = (args) => ({
   components: { LuiMenuDropdown, LuiMenuItem },
   setup() {
-    return { args };
+    return { args }
   },
   template: `<lui-menu-dropdown v-bind="args">
              <lui-menu-item v-bind="args"> Menu Item </lui-menu-item>
@@ -52,15 +48,15 @@ const DefaultTemplate = (args) => ({
                 </template>
              </lui-menu-item>
             </lui-menu-dropdown>
-  `,
-});
-export const Default = DefaultTemplate.bind({});
-Default.args = { size: "md", text: "dropdown" };
+  `
+})
+export const Default = DefaultTemplate.bind({})
+Default.args = { size: 'md', text: 'dropdown' }
 
 const customTriggerTemplate = (args) => ({
   components: { LuiMenuDropdown, LuiMenuItem },
   setup() {
-    return { args };
+    return { args }
   },
   template: `<lui-menu-dropdown v-bind="args">
               <template #trigger="{...attrs}">
@@ -73,14 +69,14 @@ const customTriggerTemplate = (args) => ({
               <lui-menu-item v-bind="args">Menu Item3</lui-menu-item>
               <lui-menu-item v-bind="args">this is the test item with a huge content for a dropdown item</lui-menu-item>
             </lui-menu-dropdown>
-  `,
-});
-export const CustomTrigger = customTriggerTemplate.bind({});
+  `
+})
+export const CustomTrigger = customTriggerTemplate.bind({})
 
 const iconTemplate = (args) => ({
   components: { LuiMenuDropdown, LuiMenuItem },
   setup() {
-    return { args };
+    return { args }
   },
   template: `<lui-menu-dropdown v-bind="args" text="Dropdown">
               <lui-menu-item>
@@ -104,15 +100,15 @@ const iconTemplate = (args) => ({
                 <span>Share</span>
               </lui-menu-item>
             </lui-menu-dropdown>
-  `,
-});
-export const WithIcons = iconTemplate.bind({});
-WithIcons.args = { size: "md" };
+  `
+})
+export const WithIcons = iconTemplate.bind({})
+WithIcons.args = { size: 'md' }
 
 const autoPositionTemplate = (args) => ({
   components: { LuiMenuDropdown, LuiMenuItem },
   setup() {
-    return { args };
+    return { args }
   },
   template: `
     <div class="h-[1300px]">
@@ -134,24 +130,24 @@ const autoPositionTemplate = (args) => ({
         </lui-menu-dropdown>
       </div>
     </div>
-  `,
-});
-export const AutoPosition = autoPositionTemplate.bind({});
+  `
+})
+export const AutoPosition = autoPositionTemplate.bind({})
 
 const positionsTemplate = (args) => ({
   components: { LuiMenuDropdown, LuiMenuItem },
   setup() {
     const positions = [
-      "bottomLeft",
-      "bottomRight",
-      "topLeft",
-      "topRight",
-      "leftTop",
-      "leftBottom",
-      "rightTop",
-      "rightBottom",
-    ];
-    return { args, positions };
+      'bottomLeft',
+      'bottomRight',
+      'topLeft',
+      'topRight',
+      'leftTop',
+      'leftBottom',
+      'rightTop',
+      'rightBottom'
+    ]
+    return { args, positions }
   },
   template: `
     <div class="h-[1000px]">
@@ -168,6 +164,6 @@ const positionsTemplate = (args) => ({
         </div>
       </div>
     </div>
-  `,
-});
-export const MenuPositions = positionsTemplate.bind({});
+  `
+})
+export const MenuPositions = positionsTemplate.bind({})

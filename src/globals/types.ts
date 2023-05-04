@@ -1,22 +1,16 @@
-export type Variant = "solid" | "outline" | "text" | "link";
-export type NarrowedVariant = "solid" | "outline";
-export type Filter = "darken" | "lighten" | "none";
-export type Color =
-  | "primary"
-  | "secondary"
-  | "success"
-  | "danger"
-  | "warning"
-  | "info";
-export type Rounded = false | true | "full";
-export type Block = true | false;
-export type Border = true | false;
-export type Size = "xs" | "sm" | "md" | "lg" | "xl";
-export type State = true | false | string | null;
-export type Description = string | null;
-export type CheckableModelValue = string[] | boolean | null;
-export type Text = string;
-export type StateIcon = false | true;
+export type Variant = 'solid' | 'outline' | 'text' | 'link'
+export type NarrowedVariant = 'solid' | 'outline'
+export type Filter = 'darken' | 'lighten' | 'none'
+export type Color = 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info'
+export type Rounded = false | true | 'full'
+export type Block = true | false
+export type Border = true | false
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+export type State = true | false | string | null
+export type Description = string | null
+export type CheckableModelValue = string[] | boolean | null
+export type Text = string
+export type StateIcon = false | true
 // export type TextColor =
 //   | "white"
 //   | "solid"

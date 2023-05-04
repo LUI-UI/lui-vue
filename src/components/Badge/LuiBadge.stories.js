@@ -1,23 +1,17 @@
-import LuiBadge from "./LuiBadge.vue";
-import {
-  color,
-  size,
-  filter,
-  border,
-  icon,
-} from "../../../.storybook/global-story-argtypes";
-import { ref } from "vue";
-const sizeList = size.options;
-const colorList = color.options;
-const filterList = filter.options;
+import LuiBadge from './LuiBadge.vue'
+import { color, size, filter, border, icon } from '../../../.storybook/global-story-argtypes'
+import { ref } from 'vue'
+const sizeList = size.options
+const colorList = color.options
+const filterList = filter.options
 export default {
-  title: "LUI/Badge",
+  title: 'LUI/Badge',
   component: LuiBadge,
   argTypes: {
     variant: {
-      control: "select",
-      options: ["solid", "outline"],
-      description: "My badge variant",
+      control: 'select',
+      options: ['solid', 'outline'],
+      description: 'My badge variant'
     },
     color,
     size,
@@ -25,31 +19,31 @@ export default {
     icon,
     border,
     position: {
-      control: "select",
-      options: ["top-left", "top-right", "bottom-left", "bottom-right"],
-      default: "bottom-right",
+      control: 'select',
+      options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
+      default: 'bottom-right'
     },
     text: {
-      control: "text",
-    },
-  },
-};
+      control: 'text'
+    }
+  }
+}
 const DefaultTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const activeColor = ref("secondary");
-    return { args, activeColor };
+    const activeColor = ref('secondary')
+    return { args, activeColor }
   },
-  template: ` <button @click="activeColor = 'primary'">change color!</button> {{activeColor}} <lui-badge v-bind="args" :color="activeColor" />`,
-});
-export const Default = DefaultTemplate.bind({});
-Default.args = { size: "md" };
+  template: ` <button @click="activeColor = 'primary'">change color!</button> {{activeColor}} <lui-badge v-bind="args" :color="activeColor" />`
+})
+export const Default = DefaultTemplate.bind({})
+Default.args = { size: 'md' }
 
 export const VariantTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const variants = ["solid", "outline"];
-    return { args, variants };
+    const variants = ['solid', 'outline']
+    return { args, variants }
   },
   template: `
   <div v-for="variant in variants" key="variant" class="flex items-center space-x-4 mb-4">
@@ -62,16 +56,16 @@ export const VariantTemplate = (args) => ({
     </lui-badge>
     <pre>{{variant}}</pre>
   </div>
-  `,
-});
-export const Variants = VariantTemplate.bind({});
+  `
+})
+export const Variants = VariantTemplate.bind({})
 
 const ColorTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const colors = colorList;
-    const filters = filterList;
-    return { args, colors, filters };
+    const colors = colorList
+    const filters = filterList
+    return { args, colors, filters }
   },
   template: `
 <div v-for="filter in filters" :key="filter">
@@ -93,15 +87,15 @@ const ColorTemplate = (args) => ({
 
 </div>
   
-  `,
-});
-export const Colors = ColorTemplate.bind({});
+  `
+})
+export const Colors = ColorTemplate.bind({})
 
 const SizeTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const sizes = sizeList;
-    return { args, sizes };
+    const sizes = sizeList
+    return { args, sizes }
   },
   template: `
   <div class="space-x-4 mb-4">
@@ -118,14 +112,14 @@ const SizeTemplate = (args) => ({
   </lui-badge>
   </div>
   
-  `,
-});
-export const Sizes = SizeTemplate.bind({});
+  `
+})
+export const Sizes = SizeTemplate.bind({})
 const PositionTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
-    return { args, positions };
+    const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+    return { args, positions }
   },
   template: `
     <div
@@ -164,15 +158,15 @@ const PositionTemplate = (args) => ({
         </lui-badge>
       </div>
     </div>
-  `,
-});
-export const Positions = PositionTemplate.bind({});
+  `
+})
+export const Positions = PositionTemplate.bind({})
 
 const BorderTemplate = (args) => ({
   components: { LuiBadge },
   setup() {
-    const positions = ["top-left", "top-right", "bottom-left", "bottom-right"];
-    return { args, positions };
+    const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
+    return { args, positions }
   },
   template: `
     <div
@@ -211,6 +205,6 @@ const BorderTemplate = (args) => ({
         </lui-badge>
       </div>
     </div>
-  `,
-});
-export const Border = BorderTemplate.bind({});
+  `
+})
+export const Border = BorderTemplate.bind({})

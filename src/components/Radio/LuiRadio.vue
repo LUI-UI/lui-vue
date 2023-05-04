@@ -1,22 +1,22 @@
 <script lang="ts">
 export default {
-  name: "LuiRadio",
-  inheritAttrs: false,
-};
+  name: 'LuiRadio',
+  inheritAttrs: false
+}
 </script>
 <script setup lang="ts">
-import { toRefs, useAttrs } from "vue";
-import type { PropType } from "vue";
-import type { Size, State, Description } from "@/globals/types";
+import { toRefs, useAttrs } from 'vue'
+import type { PropType } from 'vue'
+import type { Size, State, Description } from '@/globals/types'
 
-import { useRadioClasses } from "./composables/index";
+import { useRadioClasses } from './composables/index'
 // import { useGlobalCheckbox } from "../../composables/index";
-import { useGlobalDescriptionClasses } from "../../composables/index";
+import { useGlobalDescriptionClasses } from '../../composables/index'
 
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: "md",
+    default: 'md'
   },
   // rounded: {
   //   type: [Boolean, String] as PropType<Rounded>,
@@ -24,34 +24,31 @@ const props = defineProps({
   // },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null,
+    default: null
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null,
+    default: null
   },
   value: {
     type: String,
-    default: "",
+    default: ''
   },
   modelValue: {
     type: String as PropType<String>,
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 
-const attrs = useAttrs();
+const attrs = useAttrs()
 
-const { inputClasses, spanClasses } = useRadioClasses(toRefs(props));
-const { descriptionClasses } = useGlobalDescriptionClasses(
-  toRefs(props),
-  attrs
-);
+const { inputClasses, spanClasses } = useRadioClasses(toRefs(props))
+const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 // const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 function handleChange(e: any) {
-  emit("update:modelValue", props.value);
+  emit('update:modelValue', props.value)
 }
 </script>
 

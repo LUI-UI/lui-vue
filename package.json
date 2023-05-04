@@ -9,10 +9,12 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "format": "prettier --write src/",
     "safelist": "npx tailwindcss build",
     "pub": "yarn build && yarn safelist && yarn publish",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepare": "husky install"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -21,6 +23,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.6",
+    "@commitlint/cli": "^17.6.3",
+    "@commitlint/config-conventional": "^17.6.3",
     "@rushstack/eslint-patch": "^1.1.4",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
@@ -43,7 +47,9 @@
     "eslint-plugin-storybook": "^0.6.6",
     "eslint-plugin-vue": "^9.3.0",
     "gh-pages": "^4.0.0",
+    "husky": "^8.0.0",
     "jsdom": "^20.0.1",
+    "lint-staged": "^13.2.2",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.18",
     "prettier": "^2.7.1",
@@ -90,5 +96,11 @@
   "bugs": {
     "url": "https://github.com/LUI-UI/lui-vue/issues"
   },
-  "homepage": "https://LUI-UI.github.io/lui-vue"
+  "homepage": "https://LUI-UI.github.io/lui-vue",
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "npm run lint",
+      "npm run format"
+    ]
+  }
 }

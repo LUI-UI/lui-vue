@@ -1,23 +1,23 @@
-import LuiAvatar from "./LuiAvatar.vue";
+import LuiAvatar from './LuiAvatar.vue'
 import {
   color,
   size,
   filter,
   border,
   icon,
-  rounded,
-} from "../../../.storybook/global-story-argtypes";
+  rounded
+} from '../../../.storybook/global-story-argtypes'
 // const sizeList = size.options;
 // const colorList = color.options;
 // const filterList = filter.options;
 export default {
-  title: "LUI/Avatar",
+  title: 'LUI/Avatar',
   component: LuiAvatar,
   argTypes: {
     variant: {
-      control: "select",
-      options: ["solid", "outline"],
-      description: "My avatar variant",
+      control: 'select',
+      options: ['solid', 'outline'],
+      description: 'My avatar variant'
     },
     color,
     size,
@@ -26,25 +26,25 @@ export default {
     border,
     rounded,
     text: {
-      control: "text",
+      control: 'text'
     },
     src: {
-      control: "text",
+      control: 'text'
     },
     alt: {
-      control: "text",
-    },
-  },
-};
+      control: 'text'
+    }
+  }
+}
 const DefaultTemplate = (args) => ({
   components: { LuiAvatar },
   setup() {
-    return { args };
+    return { args }
   },
-  template: `<lui-avatar v-bind="args" />`,
-});
-export const Default = DefaultTemplate.bind({});
-Default.args = { size: "md" };
+  template: `<lui-avatar v-bind="args" />`
+})
+export const Default = DefaultTemplate.bind({})
+Default.args = { size: 'md' }
 
 // export const VariantTemplate = (args) => ({
 //   components: { LuiAvatar },

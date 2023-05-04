@@ -1,5 +1,5 @@
 {
-  "include": ["src", "types", "src/**/*.vue", "src/**/*.ts"],
+  "include": ["src/*.ts", "types", "src/**/*.vue", "src/**/*.ts"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
@@ -27,7 +27,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", ".storybook"]
 }
 // {
 //   "compilerOptions": {

@@ -1,21 +1,21 @@
-import LuiModal from "./LuiModal.vue";
-import { ref } from "vue";
-import { size } from "../../../.storybook/global-story-argtypes";
-import LuiButton from "../Button/LuiButton.vue";
-import LuiInput from "../Input/LuiInput.vue";
+import LuiModal from './LuiModal.vue'
+import { ref } from 'vue'
+import { size } from '../../../.storybook/global-story-argtypes'
+import LuiButton from '../Button/LuiButton.vue'
+import LuiInput from '../Input/LuiInput.vue'
 export default {
-  title: "LUI/Modal",
+  title: 'LUI/Modal',
   components: { LuiModal },
   argTypes: {
-    size,
-  },
-};
+    size
+  }
+}
 
 export const TestTemplate = (args) => ({
   components: { LuiModal, LuiButton, LuiInput },
   setup() {
-    const showModal = ref(false);
-    return { args, showModal };
+    const showModal = ref(false)
+    return { args, showModal }
   },
   template: `
     <div class="h-[4200px]">
@@ -110,14 +110,14 @@ export const TestTemplate = (args) => ({
       </lui-modal>
     </div>
 
-  `,
-});
+  `
+})
 
 const DefaultTemplate = (args) => ({
   components: { LuiModal, LuiButton },
   setup() {
-    let showModal = ref(true);
-    return { args, showModal };
+    let showModal = ref(true)
+    return { args, showModal }
   },
   template: `
     <button @click="showModal = true">open modal</button>
@@ -136,7 +136,7 @@ const DefaultTemplate = (args) => ({
         </div>
       </div>
     </lui-modal>
-  `,
-});
-export const Default = DefaultTemplate.bind({});
-Default.args = { size: "sm" };
+  `
+})
+export const Default = DefaultTemplate.bind({})
+Default.args = { size: 'sm' }

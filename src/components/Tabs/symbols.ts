@@ -1,5 +1,5 @@
-import type { InjectionKey } from "vue";
-import type { TabContext } from "./types";
+import type { InjectionKey } from 'vue'
+import type { TabContext } from './types'
 // import type { ContextDefination } from "./select-types";
 // need remove types folder also using in luitabs bue
 // type TabTypes = {
@@ -8,12 +8,12 @@ import type { TabContext } from "./types";
 //   disabled?: boolean;
 // };
 interface ContextDefination {
-  registerTab(tab: any): void;
-  unRegisterTab(tab: any): void;
-  registerPanel(panel: any): void;
-  unRegisterPanel(panel: any): void;
-  setSelectedIndex(index: number): void;
-  context: TabContext;
+  registerTab(tab: any): void
+  unRegisterTab(tab: any): void
+  registerPanel(panel: any): void
+  unRegisterPanel(panel: any): void
+  setSelectedIndex(index: number): void
+  context: TabContext
   // changeTabProps(tab: TabTypes, oldTitle: string): void;
 }
 // interface ContextDefination {
@@ -21,6 +21,4 @@ interface ContextDefination {
 //   changeTabProps(tab: TabTypes, oldTitle: string): void;
 // }
 
-export const ContextKey = Symbol(
-  "ContextKey"
-) as InjectionKey<ContextDefination>;
+export const ContextKey = Symbol('ContextKey') as InjectionKey<ContextDefination>

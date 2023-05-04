@@ -1,4 +1,4 @@
-import LuiInput from "./LuiInput.vue";
+import LuiInput from './LuiInput.vue'
 import {
   block,
   rounded,
@@ -7,12 +7,12 @@ import {
   disabled,
   description,
   state,
-  stateIcon,
-} from "../../../.storybook/global-story-argtypes";
+  stateIcon
+} from '../../../.storybook/global-story-argtypes'
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: "LUI/Input",
+  title: 'LUI/Input',
   component: LuiInput,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
@@ -25,39 +25,39 @@ export default {
     state,
     stateIcon,
     clear: {
-      control: { type: "boolean" },
+      control: { type: 'boolean' }
     },
     onInput: {
-      action: "typing",
-    },
-  },
+      action: 'typing'
+    }
+  }
   // args: {}, set default args for all components
-};
+}
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiInput },
   setup() {
-    return { args };
+    return { args }
   },
   // And then the `args` are bound to your component with `v-bind="args"`
-  template: '<lui-input v-bind="args" placeholder="type something" />',
-});
+  template: '<lui-input v-bind="args" placeholder="type something" />'
+})
 
-export const Medium = Template.bind({});
-Medium.args = { rounded: true, size: "md" };
-export const Description = Template.bind({});
-Description.args = { description: "Input description text" };
-export const StateIcon = Template.bind({});
-StateIcon.args = { stateIcon: true };
+export const Medium = Template.bind({})
+Medium.args = { rounded: true, size: 'md' }
+export const Description = Template.bind({})
+Description.args = { description: 'Input description text' }
+export const StateIcon = Template.bind({})
+StateIcon.args = { stateIcon: true }
 // export const Clear = Template.bind({});
 // Clear.args = { clear: true };
 export const Clear = (args) => ({
   components: { LuiInput },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, sizes };
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, sizes }
   },
   template: `
     <div class="flex items-center space-x-8">
@@ -69,14 +69,14 @@ export const Clear = (args) => ({
         clear 
       />
     </div>
-  `,
-});
+  `
+})
 export const States = (args) => ({
   components: { LuiInput },
   setup() {
-    const states = ["warning", true, false];
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, states, sizes };
+    const states = ['warning', true, false]
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, states, sizes }
   },
   template: `
     <div class="flex space-x-8 mb-8" v-for="size in sizes" :key="size">
@@ -89,23 +89,17 @@ export const States = (args) => ({
         state-icon 
       />
     </div>
-  `,
-});
+  `
+})
 
 export const PrependIcon = (args) => ({
   components: { LuiInput },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
     function iconSizes(size) {
-      return size === "xs"
-        ? "12"
-        : size === "sm"
-        ? "16"
-        : size === "xl"
-        ? "24"
-        : "20";
+      return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
     }
-    return { args, sizes, iconSizes };
+    return { args, sizes, iconSizes }
   },
   template: `
     <div class="flex items-center space-x-8">
@@ -120,5 +114,5 @@ export const PrependIcon = (args) => ({
         </template>
       </lui-input>
     </div>
-  `,
-});
+  `
+})

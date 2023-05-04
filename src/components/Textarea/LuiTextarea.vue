@@ -1,86 +1,65 @@
 <script lang="ts">
 export default {
-  name: "LuiTextarea",
-  inheritAttrs: false,
-};
+  name: 'LuiTextarea',
+  inheritAttrs: false
+}
 </script>
 <script setup lang="ts">
-import { toRefs, useAttrs, computed } from "vue";
-import type { PropType } from "vue";
-import type {
-  Rounded,
-  Size,
-  State,
-  Description,
-  StateIcon,
-  Block,
-} from "@/globals/types";
+import { toRefs, useAttrs, computed } from 'vue'
+import type { PropType } from 'vue'
+import type { Rounded, Size, State, Description, StateIcon, Block } from '@/globals/types'
 
-import { useGlobalDescriptionClasses } from "../../composables/index";
-import { useTextareaClasses } from "./composables";
-type Resize = true | false | "y" | "x";
+import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useTextareaClasses } from './composables'
+type Resize = true | false | 'y' | 'x'
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: "md",
+    default: 'md'
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: "full",
+    default: 'full'
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null,
+    default: null
   },
   stateIcon: {
     type: [Boolean] as PropType<StateIcon>,
-    default: null,
+    default: null
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null,
+    default: null
   },
   resize: {
     type: [Boolean, String] as PropType<Resize>,
-    default: true,
+    default: true
   },
   block: {
     type: Boolean as PropType<Block>,
-    default: false,
+    default: false
   },
   modelValue: {
     type: [String] as PropType<string>,
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 
-const attrs = useAttrs();
-const emit = defineEmits(["update:modelValue"]);
+const attrs = useAttrs()
+const emit = defineEmits(['update:modelValue'])
 
-const { descriptionClasses } = useGlobalDescriptionClasses(
-  toRefs(props),
-  attrs
-);
-const { textareaClasses, stateIconClasses } = useTextareaClasses(
-  toRefs(props),
-  attrs
-);
+const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
+const { textareaClasses, stateIconClasses } = useTextareaClasses(toRefs(props), attrs)
 function handleInputEvents(val: any) {
-  emit("update:modelValue", val.target.value);
+  emit('update:modelValue', val.target.value)
   // emit("change", val.target.value);
 }
 const iconSizes = computed(() =>
-  props.size === "xs"
-    ? "12"
-    : props.size === "sm"
-    ? "16"
-    : props.size === "xl"
-    ? "24"
-    : "20"
-);
-const isDisabled = computed(
-  () => attrs.disabled !== undefined && attrs.disabled === true
-);
+  props.size === 'xs' ? '12' : props.size === 'sm' ? '16' : props.size === 'xl' ? '24' : '20'
+)
+const isDisabled = computed(() => attrs.disabled !== undefined && attrs.disabled === true)
 
 // const emit = defineEmits(["update:modelValue"]);
 
@@ -98,10 +77,7 @@ const isDisabled = computed(
         @input="handleInputEvents($event)"
         v-bind="$attrs"
       />
-      <span
-        v-if="stateIcon && state !== null && !isDisabled"
-        :class="stateIconClasses"
-      >
+      <span v-if="stateIcon && state !== null && !isDisabled" :class="stateIconClasses">
         <!-- feedback -->
         <svg
           v-if="state === 'warning'"
@@ -160,7 +136,6 @@ const isDisabled = computed(
           />
         </svg>
       </span>
-      
     </div>
     <p v-if="description" :class="descriptionClasses" class="">
       {{ description }}

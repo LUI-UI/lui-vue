@@ -1,66 +1,54 @@
 <script lang="ts">
 export default {
-  name: "LuiSwitch",
-  inheritAttrs: false,
-};
+  name: 'LuiSwitch',
+  inheritAttrs: false
+}
 </script>
 <script setup lang="ts">
-import { toRefs, useAttrs } from "vue";
-import type { PropType } from "vue";
-import type {
-  Rounded,
-  Size,
-  State,
-  Description,
-  CheckableModelValue,
-} from "@/globals/types";
+import { toRefs, useAttrs } from 'vue'
+import type { PropType } from 'vue'
+import type { Rounded, Size, State, Description, CheckableModelValue } from '@/globals/types'
 
-import { useSwitchClasses } from "./composables/index";
-import {
-  useGlobalDescriptionClasses,
-  useGlobalCheckbox,
-} from "../../composables/index";
+import { useSwitchClasses } from './composables/index'
+import { useGlobalDescriptionClasses, useGlobalCheckbox } from '../../composables/index'
 
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: "md",
+    default: 'md'
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: "full",
+    default: 'full'
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null,
+    default: null
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null,
+    default: null
   },
   value: {
     type: String,
-    default: "",
+    default: ''
   },
   modelValue: {
     type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
-    default: undefined,
-  },
-});
+    default: undefined
+  }
+})
 
-const attrs = useAttrs();
+const attrs = useAttrs()
 
-const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props));
-const { descriptionClasses } = useGlobalDescriptionClasses(
-  toRefs(props),
-  attrs
-);
+const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props))
+const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
-const emit = defineEmits(["update:modelValue"]);
+const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs)
+const emit = defineEmits(['update:modelValue'])
 
 function handleChange(e: any) {
-  emit("update:modelValue", handleVModel(e));
+  emit('update:modelValue', handleVModel(e))
 }
 </script>
 

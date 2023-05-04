@@ -1,12 +1,7 @@
-import LuiCheckbox from "./LuiCheckbox.vue";
-import {
-  size,
-  disabled,
-  state,
-  description,
-} from "../../../.storybook/global-story-argtypes";
+import LuiCheckbox from './LuiCheckbox.vue'
+import { size, disabled, state, description } from '../../../.storybook/global-story-argtypes'
 export default {
-  title: "LUI/Checkbox",
+  title: 'LUI/Checkbox',
   component: LuiCheckbox,
   argTypes: {
     size,
@@ -14,16 +9,16 @@ export default {
     description,
     state,
     rounded: {
-      control: "select",
-      options: [true, false, "full"],
+      control: 'select',
+      options: [true, false, 'full']
     },
     onChange: {
-      action: "checked change",
-    },
-  },
+      action: 'checked change'
+    }
+  }
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   // args: {}, set default args for all components
-};
+}
 
 // const Template = (args) => ({
 //   components: { LuiCheckbox },
@@ -58,16 +53,16 @@ export default {
 export const Default = (args) => ({
   components: { LuiCheckbox },
   setup() {
-    return { args };
+    return { args }
   },
-  template: `<lui-checkbox v-bind="args" />`,
-});
+  template: `<lui-checkbox v-bind="args" />`
+})
 export const Rounded = (args) => ({
   components: { LuiCheckbox },
   setup() {
-    const roundedes = [false, true, "full"];
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, roundedes, sizes };
+    const roundedes = [false, true, 'full']
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, roundedes, sizes }
   },
   template: `
     <div class="space-y-6">
@@ -75,8 +70,8 @@ export const Rounded = (args) => ({
         <lui-checkbox v-for="size in sizes" :key="size" :rounded="rounded" :checked="true" :size="size" />
       </div>
     </div>
-  `,
-});
+  `
+})
 // export const Indeterminate = (args) => ({
 //   components: { LuiCheckbox },
 //   setup() {
@@ -93,9 +88,9 @@ export const Rounded = (args) => ({
 export const Description = (args) => ({
   components: { LuiCheckbox },
   setup() {
-    const states = [true, false, "warning", "null"];
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, states, sizes };
+    const states = [true, false, 'warning', 'null']
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, states, sizes }
   },
   template: `
     <div class="flex flex-col space-y-10">
@@ -103,17 +98,17 @@ export const Description = (args) => ({
         <lui-checkbox v-bind="args" v-for="size in sizes" :key="size" :size="size" :state="state" :checked="true" description="This is description text" />
       </div>
     </div>
-  `,
-});
+  `
+})
 export const Indeterminate = (args) => ({
   components: { LuiCheckbox },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, sizes };
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, sizes }
   },
   template: `
     <div class="flex items-center space-x-4">
       <lui-checkbox v-bind="args" v-for="size in sizes" :key="size" :size="size" :indeterminate="true" :checked="true" />
     </div>
-  `,
-});
+  `
+})

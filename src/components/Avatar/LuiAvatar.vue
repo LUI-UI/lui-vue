@@ -1,107 +1,99 @@
 <script setup lang="ts">
-import type {
-  Filter,
-  Color,
-  Size,
-  Border,
-  Text,
-  NarrowedVariant,
-  Rounded,
-} from "@/globals/types";
+import type { Filter, Color, Size, Border, Text, NarrowedVariant, Rounded } from '@/globals/types'
 
 import type {
   TwClassInterface,
   LayoutInterface,
   FlexGridInterface,
   SizingInterface,
-  BordersInterface,
-} from "@/globals/interfaces";
+  BordersInterface
+} from '@/globals/interfaces'
 
-import { computed, toRefs } from "vue";
-import type { PropType } from "vue";
+import { computed, toRefs } from 'vue'
+import type { PropType } from 'vue'
 
-import { useGlobalColorClasses } from "../../composables";
+import { useGlobalColorClasses } from '../../composables'
 
 const props = defineProps({
   variant: {
     type: String as PropType<NarrowedVariant>,
-    default: "solid",
+    default: 'solid'
   },
   color: {
     type: String as PropType<Color>,
-    default: "primary",
+    default: 'primary'
   },
   filter: {
     type: String as PropType<Filter>,
-    default: "none",
+    default: 'none'
   },
   size: {
     type: String as PropType<Size>,
-    default: "md",
+    default: 'md'
   },
   border: {
     type: Boolean as PropType<Border>,
-    default: false,
+    default: false
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false,
+    default: false
   },
   text: {
     type: String as PropType<Text>,
-    default: "",
+    default: ''
   },
   src: {
     type: String,
-    default: "",
+    default: ''
   },
   alt: {
     type: String,
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 
-const { backgroundColorClasses, textColorClasses, borderColorClasses } =
-  useGlobalColorClasses(toRefs(props));
+const { backgroundColorClasses, textColorClasses, borderColorClasses } = useGlobalColorClasses(
+  toRefs(props)
+)
 
 const computedImageClasses = computed(() => {
-  const containerClasses: LayoutInterface | SizingInterface | BordersInterface =
-    {
-      borderWidth: "border",
-      borderStyle: "border-solid",
-      display: "block",
-      width: "w-full",
-      height: "h-full",
-      objectFit: "object-contain",
-      borderRadius: {
-        "rounded-lg": props.rounded === true,
-        "rounded-full": props.rounded === "full",
-      },
-      borderColor: borderColorClasses.value,
-    };
-  return Object.values(containerClasses);
-});
+  const containerClasses: LayoutInterface | SizingInterface | BordersInterface = {
+    borderWidth: 'border',
+    borderStyle: 'border-solid',
+    display: 'block',
+    width: 'w-full',
+    height: 'h-full',
+    objectFit: 'object-contain',
+    borderRadius: {
+      'rounded-lg': props.rounded === true,
+      'rounded-full': props.rounded === 'full'
+    },
+    borderColor: borderColorClasses.value
+  }
+  return Object.values(containerClasses)
+})
 
 const computedIconClasses = computed(() => {
   const iconClasses: LayoutInterface | FlexGridInterface = {
-    display: "flex",
-    justifyContent: "justify-center",
-    alignItems: "items-center",
-  };
-  return Object.values(iconClasses);
-});
+    display: 'flex',
+    justifyContent: 'justify-center',
+    alignItems: 'items-center'
+  }
+  return Object.values(iconClasses)
+})
 
 const computedAvatarClasses = computed(() => {
   const avatarClasses: TwClassInterface = {
-    display: "flex",
+    display: 'flex',
     borderRadius: {
-      "rounded-lg": props.rounded === true,
-      "rounded-full": props.rounded === "full",
+      'rounded-lg': props.rounded === true,
+      'rounded-full': props.rounded === 'full'
     },
-    borderWidth: "border",
-    borderStyle: "border-solid",
-    justifyContent: "justify-center",
-    alignItems: "items-center",
+    borderWidth: 'border',
+    borderStyle: 'border-solid',
+    justifyContent: 'justify-center',
+    alignItems: 'items-center',
     // padding:
     //   props.text.length > 0 || !!slots.icon
     //     ? {
@@ -113,51 +105,42 @@ const computedAvatarClasses = computed(() => {
     //       }
     //     : null,
     width: {
-      "w-6": props.size === "xs",
-      "w-8": props.size === "sm",
-      "w-12": props.size === "md",
-      "w-16": props.size === "lg",
-      "w-20": props.size === "xl",
+      'w-6': props.size === 'xs',
+      'w-8': props.size === 'sm',
+      'w-12': props.size === 'md',
+      'w-16': props.size === 'lg',
+      'w-20': props.size === 'xl'
     },
 
     height: {
-      "h-6": props.size === "xs",
-      "h-8": props.size === "sm",
-      "h-12": props.size === "md",
-      "h-16": props.size === "lg",
-      "h-20": props.size === "xl",
+      'h-6': props.size === 'xs',
+      'h-8': props.size === 'sm',
+      'h-12': props.size === 'md',
+      'h-16': props.size === 'lg',
+      'h-20': props.size === 'xl'
     },
     fontSize: {
-      "text-sm": props.size === "xs" || props.size === "sm",
-      "text-xl": props.size === "md",
-      "text-3xl": props.size === "lg" || props.size === "xl",
+      'text-sm': props.size === 'xs' || props.size === 'sm',
+      'text-xl': props.size === 'md',
+      'text-3xl': props.size === 'lg' || props.size === 'xl'
     },
-    backgroundColor:
-      props.src.length === 0 ? backgroundColorClasses.value : null,
+    backgroundColor: props.src.length === 0 ? backgroundColorClasses.value : null,
     textColor: textColorClasses.value,
-    borderColor:
-      props.src.length === 0 ? borderColorClasses.value : "border-transparent",
-  };
-  return Object.values(avatarClasses);
-});
+    borderColor: props.src.length === 0 ? borderColorClasses.value : 'border-transparent'
+  }
+  return Object.values(avatarClasses)
+})
 </script>
 <template>
   <div class="lui-avatar" :class="computedAvatarClasses">
-    <img
-      :src="src"
-      :alt="alt"
-      :class="computedImageClasses"
-      v-if="src.length > 0"
-    />
-    <span :class="computedIconClasses" v-if="$slots.icon"
-      ><slot name="icon"></slot
-    ></span>
+    <img :src="src" :alt="alt" :class="computedImageClasses" v-if="src.length > 0" />
+    <span :class="computedIconClasses" v-if="$slots.icon"><slot name="icon"></slot></span>
     <span v-if="text.length > 0" ref="avatarContent">{{ text }}</span>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: "LuiAvatar",
-};
+  name: 'LuiAvatar'
+}
 </script>

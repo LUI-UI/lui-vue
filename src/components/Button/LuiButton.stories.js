@@ -1,4 +1,4 @@
-import LuiButton from "./LuiButton.vue";
+import LuiButton from './LuiButton.vue'
 import {
   variant,
   color,
@@ -6,12 +6,12 @@ import {
   rounded,
   size,
   filter,
-  disabled,
-} from "../../../.storybook/global-story-argtypes";
+  disabled
+} from '../../../.storybook/global-story-argtypes'
 
 // More on default export: https://storybook.js.org/docs/vue/writing-stories/introduction#default-export
 export default {
-  title: "LUI/Button",
+  title: 'LUI/Button',
   component: LuiButton,
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   argTypes: {
@@ -23,14 +23,14 @@ export default {
     filter,
     disabled,
     tag: {
-      control: { type: "select" },
-      options: ["button", "div", "a"],
+      control: { type: 'select' },
+      options: ['button', 'div', 'a']
     },
     onClick: {
-      action: "just clicked",
-    },
-  },
-};
+      action: 'just clicked'
+    }
+  }
+}
 
 // More on component templates: https://storybook.js.org/docs/vue/writing-stories/introduction#using-args
 const Template = (args) => ({
@@ -43,18 +43,18 @@ const Template = (args) => ({
   // },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args };
+    return { args }
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `<lui-button v-bind="args">My Button</lui-button>`
-});
-export const Default = Template.bind({});
-Default.args = { rounded: true };
+})
+export const Default = Template.bind({})
+Default.args = { rounded: true }
 export const Rounded = (args) => ({
   components: { LuiButton },
   setup() {
-    const roundedValues = [false, true, "full"];
-    return { args, roundedValues };
+    const roundedValues = [false, true, 'full']
+    return { args, roundedValues }
   },
   template: `
   <div class="flex space-x-4">
@@ -63,12 +63,12 @@ export const Rounded = (args) => ({
       <span>My Button</span>
     </lui-button>
       </div>
-  </div>`,
-});
+  </div>`
+})
 export const Variants = (args) => ({
   components: { LuiButton },
   setup() {
-    return { args };
+    return { args }
   },
   template: `
   <div class="space-x-2">
@@ -76,20 +76,13 @@ export const Variants = (args) => ({
     <lui-button v-bind="args" variant="outline">Outline</lui-button>
     <lui-button v-bind="args" variant="link">Link</lui-button>
     <lui-button v-bind="args" variant="text">Text</lui-button>
-  </div>`,
-});
+  </div>`
+})
 export const Colors = (args) => ({
   components: { LuiButton },
   setup() {
-    const colors = [
-      "primary",
-      "secondary",
-      "info",
-      "success",
-      "warning",
-      "danger",
-    ];
-    return { args, colors };
+    const colors = ['primary', 'secondary', 'info', 'success', 'warning', 'danger']
+    return { args, colors }
   },
   template: `
   <div class="space-x-2">
@@ -108,12 +101,12 @@ export const Colors = (args) => ({
     </lui-button>
   </div>
   
-  `,
-});
+  `
+})
 export const Sizes = (args) => ({
   components: { LuiButton },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
     // const iconSize = computed(() =>
     //   props.size === "xs"
     //     ? "12"
@@ -124,15 +117,9 @@ export const Sizes = (args) => ({
     //     : "20"
     // );
     function iconSize(size) {
-      return size === "xs"
-        ? "12"
-        : size === "sm"
-        ? "16"
-        : size === "xl"
-        ? "24"
-        : "20";
+      return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
     }
-    return { args, sizes, iconSize };
+    return { args, sizes, iconSize }
   },
   template: `<div class="flex items-center space-x-4">
     <div v-for="size in sizes" :key="size">
@@ -143,24 +130,18 @@ export const Sizes = (args) => ({
         </template>
       </lui-button>
     </div>
-  </div>`,
-});
+  </div>`
+})
 
 export const IconButton = (args) => ({
   components: { LuiButton },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    const roundedValues = [false, true, "full"];
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    const roundedValues = [false, true, 'full']
     function iconSize(size) {
-      return size === "xs"
-        ? "12"
-        : size === "sm"
-        ? "16"
-        : size === "xl"
-        ? "24"
-        : "20";
+      return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
     }
-    return { args, sizes, roundedValues, iconSize };
+    return { args, sizes, roundedValues, iconSize }
   },
   template: `
   <div class="space-y-6">
@@ -173,5 +154,5 @@ export const IconButton = (args) => ({
         </lui-button>
       </div>
     </div>
-  </div>`,
-});
+  </div>`
+})

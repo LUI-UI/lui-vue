@@ -1,14 +1,14 @@
-import LuiSwitch from "./LuiSwitch.vue";
+import LuiSwitch from './LuiSwitch.vue'
 import {
   rounded,
   size,
   disabled,
   state,
-  description,
-} from "../../../.storybook/global-story-argtypes";
+  description
+} from '../../../.storybook/global-story-argtypes'
 
 export default {
-  title: "LUI/Switch",
+  title: 'LUI/Switch',
   component: LuiSwitch,
   argTypes: {
     rounded,
@@ -17,24 +17,24 @@ export default {
     description,
     state,
     onChange: {
-      action: "switch change",
-    },
-  },
+      action: 'switch change'
+    }
+  }
   // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
   // args: {}, set default args for all components
-};
+}
 const Template = (args) => ({
   // Components used in your story `template` are defined in the `components` object
   components: { LuiSwitch },
   data() {
     return {
       test: false,
-      names: [],
-    };
+      names: []
+    }
   },
   // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
-    return { args };
+    return { args }
   },
   // And then the `args` are bound to your component with `v-bind="args"`
   template: `
@@ -44,32 +44,32 @@ const Template = (args) => ({
       <lui-switch v-bind="args" id="eser" value="eser" v-model="names" />
       <lui-switch v-bind="args" id="fatih" value="fatih" v-model="names" />
     </div>
-  `,
-});
-export const Medium = Template.bind({});
-Medium.args = { size: "md" };
-export const Rounded = Template.bind({});
-Rounded.args = { rounded: true };
-export const Disabled = Template.bind({});
-Disabled.args = { disabled: true, checked: true };
+  `
+})
+export const Medium = Template.bind({})
+Medium.args = { size: 'md' }
+export const Rounded = Template.bind({})
+Rounded.args = { rounded: true }
+export const Disabled = Template.bind({})
+Disabled.args = { disabled: true, checked: true }
 export const Sizes = (args) => ({
   components: { LuiSwitch },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    return { args, sizes };
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    return { args, sizes }
   },
   template: `
     <div class="flex items-center space-x-8">
       <lui-switch v-bind="args" v-for="size in sizes" :key="size" :size="size" />
     </div>
-  `,
-});
+  `
+})
 export const Description = (args) => ({
   components: { LuiSwitch },
   setup() {
-    const sizes = ["xs", "sm", "md", "lg", "xl"];
-    const states = [true, false, null, "warning"];
-    return { args, sizes, states };
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
+    const states = [true, false, null, 'warning']
+    return { args, sizes, states }
   },
   template: `
     <div class="flex flex-col space-y-8">
@@ -77,5 +77,5 @@ export const Description = (args) => ({
         <lui-switch v-bind="args" v-for="size in sizes" :key="size" :size="size" :state="state" description="Switch description" />
       </div>
     </div>
-  `,
-});
+  `
+})

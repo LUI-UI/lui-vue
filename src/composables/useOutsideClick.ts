@@ -1,19 +1,15 @@
-import type { Ref } from "vue";
-import { onMounted, onUnmounted } from "vue";
+import type { Ref } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 // interface customDomType extends Element, ComponentPublicInstance {
 //   contains: any;
 // }
-export function useOutsideClick(
-  ref: Ref<HTMLElement | undefined>,
-  callback: any
-) {
+export function useOutsideClick(ref: Ref<HTMLElement | undefined>, callback: any) {
   function handleClick(event: Event) {
-    if (event.target instanceof Node && !ref.value?.contains(event?.target))
-      callback();
+    if (event.target instanceof Node && !ref.value?.contains(event?.target)) callback()
   }
 
-  onMounted(() => document.addEventListener("click", handleClick));
-  onUnmounted(() => document.removeEventListener("click", handleClick));
+  onMounted(() => document.addEventListener('click', handleClick))
+  onUnmounted(() => document.removeEventListener('click', handleClick))
 }
 // function dom<T extends Element | ComponentPublicInstance>(
 //   ref?: Ref<T | null | undefined>
