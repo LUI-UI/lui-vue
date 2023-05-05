@@ -7,7 +7,7 @@ import type { TabContext } from './types'
 //   active?: boolean;
 //   disabled?: boolean;
 // };
-interface ContextDefination {
+export interface ContextDefination {
   registerTab(tab: any): void
   unRegisterTab(tab: any): void
   registerPanel(panel: any): void
