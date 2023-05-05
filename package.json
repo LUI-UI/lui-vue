@@ -47,7 +47,7 @@
     "eslint-plugin-storybook": "^0.6.6",
     "eslint-plugin-vue": "^9.3.0",
     "gh-pages": "^4.0.0",
-    "husky": "^8.0.0",
+    "husky": "^8.0.3",
     "jsdom": "^20.0.1",
     "lint-staged": "^13.2.2",
     "npm-run-all": "^4.1.5",
@@ -102,5 +102,10 @@
       "npm run lint",
       "npm run format"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
+    }
   }
 }
