@@ -6,7 +6,7 @@ module.exports = {
         'always',
         [
           "style", "lint", "review", "uiux", "deps", "build",
-          "release", "flags", "logs", "db", "security", "perf",
+          "release", "flags", "logs", "security", "perf",
           "a11y", "i18n", "typos", "literals", "analytics",
           "seo", "linux", "windows", "osx", "android", "ios"
         ],
