@@ -14,7 +14,8 @@
     "pub": "yarn build && yarn safelist && yarn publish",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "cm": "cz"
   },
   "dependencies": {},
   "peerDependencies": {
@@ -43,6 +44,8 @@
     "autoprefixer": "^10.4.13",
     "babel-loader": "^8.2.5",
     "classnames": "^2.3.2",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.22.0",
     "eslint-plugin-storybook": "^0.6.6",
     "eslint-plugin-vue": "^9.3.0",
@@ -106,6 +109,11 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
