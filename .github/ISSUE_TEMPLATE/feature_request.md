@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea for this project
 title: We need datepicker component[New component]
-labels: ''
+labels: enhancement
 assignees: ''
 
 ---
