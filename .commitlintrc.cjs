@@ -10,7 +10,6 @@ module.exports = {
           "a11y", "i18n", "typos", "literals", "analytics",
           "seo", "linux", "windows", "osx", "android", "ios"
         ],
-        // T
       ],
       'type-enum': [
         2,
