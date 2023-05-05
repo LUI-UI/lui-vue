@@ -7,32 +7,39 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+name: Report an issue with @lui-ui/lui-vue
+description: Tell us if something is not working as expected
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Thanks for reaching out!
+        Before submitting an issue please make sure that you use latest version
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: If possible, please include a link to a codesandbox with the reproduced problem
+  - type: dropdown
+    id: fix
+    attributes:
+      label: Do you know how to fix the issue
+      options:
+        - 'Yes'
+        - 'No'
+  - type: dropdown
+    id: participate
+    attributes:
+      label: Are you willing to participate in fixing this issue and create a pull request with the fix
+      options:
+        - 'Yes'
+        - 'No'
+  - type: textarea
+    id: possibleFix
+    attributes:
+      label: Possible fix
