@@ -14,7 +14,7 @@
     "pub": "yarn build && yarn safelist && yarn publish",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install",
+    "prepare": "node -e \"if (process.env.NODE_ENV !== 'production'){process.exit(1)} \" || husky install --also=dev",
     "cm": "cz"
   },
   "peerDependencies": {
