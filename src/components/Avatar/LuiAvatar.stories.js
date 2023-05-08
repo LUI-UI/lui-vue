@@ -7,9 +7,6 @@ import {
   icon,
   rounded
 } from '../../../.storybook/global-story-argtypes'
-// const sizeList = size.options;
-// const colorList = color.options;
-// const filterList = filter.options;
 export default {
   title: 'LUI/Avatar',
   component: LuiAvatar,
