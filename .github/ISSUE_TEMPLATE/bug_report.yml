@@ -1,14 +1,6 @@
----
-name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
-
----
-
-name: Report an issue with @lui-ui/lui-vue
+name: Report an issue
 description: Tell us if something is not working as expected
+labels: bug
 body:
   - type: markdown
     attributes:
@@ -22,9 +14,16 @@ body:
     validations:
       required: true
   - type: input
+    id: version
+    attributes:
+      label: What version of do you have in package.json?
+    validations:
+      required: false
+  - type: input
     id: link
     attributes:
       label: If possible, please include a link to a codesandbox with the reproduced problem
+      description: Codesandbox template – https://codesandbox.io/
   - type: dropdown
     id: fix
     attributes:
