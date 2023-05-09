@@ -20,11 +20,8 @@ export default {
       action: 'switch change'
     }
   }
-  // More on argTypes: https://storybook.js.org/docs/vue/api/argtypes
-  // args: {}, set default args for all components
 }
 const Template = (args) => ({
-  // Components used in your story `template` are defined in the `components` object
   components: { LuiSwitch },
   data() {
     return {
@@ -32,7 +29,6 @@ const Template = (args) => ({
       names: []
     }
   },
-  // The story's `args` need to be mapped into the template through the `setup()` method
   setup() {
     return { args }
   },
