@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.1](https://github.com/LUI-UI/lui-vue/compare/v0.63.0...v0.63.1) (2023-05-09)
+
+
+### Bug Fixes
+
+* **typo:** typo ([725698a](https://github.com/LUI-UI/lui-vue/commit/725698a6cfc63735274ee64a607a5eb1f6a689c0))
+
 ## [0.63.0](https://github.com/LUI-UI/lui-vue/compare/v0.62.0...v0.63.0) (2023-05-09)
 
 
