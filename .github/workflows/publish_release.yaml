@@ -25,7 +25,11 @@ jobs:
       # Install dependencies
       - name: Install dependencies
         run: yarn install
-        
+      
+      # Build the project
+      - name: Build
+        run: yarn build
+   
       # Create a new GitHub release using the updated package.json version
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
