@@ -1,10 +1,9 @@
 name: Commit Message Check
 
 on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+  push:
+    branches:
+      - '**'
 
 jobs:
   commitlint:
