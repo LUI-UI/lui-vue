@@ -41,7 +41,7 @@ const useFocusTrap = () => {
   }
 
   function initFocusTrap() {
-    // Bail out if there is no value.
+    // Bail out if there is no value..
     if (!trapRef.value) return
     focusableElements = Array.from(trapRef.value.querySelectorAll(focusableElementsSelector))
     firstFocusable = focusableElements[0]
