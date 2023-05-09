@@ -32,7 +32,6 @@ const Template = (args) => ({
   setup() {
     return { args }
   },
-  // And then the `args` are bound to your component with `v-bind="args"`
   template: `
   <div class="p-2">{{names}}</div>
     <div class="p-2 space-x-4">
