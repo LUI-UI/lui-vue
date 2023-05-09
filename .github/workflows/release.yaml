@@ -49,30 +49,22 @@ jobs:
       - name: Bump pre-release version
         if: startsWith(github.event.inputs.release-type, 'pre')
         run: |
-          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE
+          echo "NEW_VERSION=$(npm --no-git-tag-version --preid=beta version $RELEASE_TYPE)" >> $GITHUB_ENV
           echo "RELEASE_TAG=beta" >> $GITHUB_ENV
         env:
           RELEASE_TYPE: ${{ github.event.inputs.release-type }}
 
       # Update changelog unreleased section with new version
-      # - name: Update changelog
-      #  uses: superfaceai/release-changelog-action@v1
-      #  with:
-      #   path-to-changelog: CHANGELOG.md
-      #    version: ${{ env.NEW_VERSION }}
-      #    operation: release
-      # Update changelog unreleased section with new version
       - name: release-please
-        steps:
-        - uses: actions/checkout@v2
-        - uses: google-github-actions/release-please-action@v3
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            release-type: node
-            package-name: lui-ui/lui-vue
+        uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: node
+          package-name: lui-ui/lui-vue
+
       # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
         run: |
+          git fetch --tags
           git add "package.json"
           git add "CHANGELOG.md"
           git commit -m "chore: release ${{ env.NEW_VERSION }}"
@@ -90,21 +82,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git push origin && git push --tags
-
-       #Read version changelog
-      #- id: get-changelog
-      #  name: Get version changelog
-      #  uses: superfaceai/release-changelog-action@v2
-      #  with:
-      #    path-to-changelog: CHANGELOG.md
-      #    version: ${{ env.NEW_VERSION }}
-      #    operation: read
-      # #Update GitHub release with changelog
-      #- name: Update GitHub release documentation
-      #  uses: softprops/action-gh-release@v1
-      #  with:
-      #    tag_name: ${{ env.NEW_VERSION }}
-      #    body: ${{ steps.get-changelog.outputs.changelog }}
-      #    prerelease: ${{ startsWith(github.event.inputs.release-type, 'pre') }}
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
