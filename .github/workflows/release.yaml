@@ -63,11 +63,13 @@ jobs:
       #    operation: release
       # Update changelog unreleased section with new version
       - name: release-please
-        uses: actions/checkout@v2
-        uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: node
-          package-name: lui-ui/lui-vue
+        steps:
+        - uses: actions/checkout@v2
+        - uses: google-github-actions/release-please-action@v3
+          with:
+            token: ${{ secrets.GITHUB_TOKEN }}
+            release-type: node
+            package-name: lui-ui/lui-vue
       # Commit changes
       - name: Commit CHANGELOG.md and package.json changes and create tag
         run: |
