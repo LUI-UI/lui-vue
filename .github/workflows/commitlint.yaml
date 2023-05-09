@@ -1,0 +1,24 @@
+name: Commit Message Check
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  commitlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install commitlint
+        run: |
+          yarn add --dev @commitlint/cli @commitlint/config-conventional
+
+      - name: Lint commit messages
+        run: |
+          npx commitlint --from origin/${{ github.base_ref }} --to ${{ github.sha }} --config @commitlint/config-conventional
