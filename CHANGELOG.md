@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.3](https://github.com/LUI-UI/lui-vue/compare/v0.63.2...v0.63.3) (2023-05-09)
+
+
+### Bug Fixes
+
+* **usefocustrap.ts:** typo2 ([a07544f](https://github.com/LUI-UI/lui-vue/commit/a07544f59fd73caf85650dbffa8be33edea142eb))
+
 ## [0.63.2](https://github.com/LUI-UI/lui-vue/compare/v0.63.1...v0.63.2) (2023-05-09)
 
 
