@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.0](https://github.com/LUI-UI/lui-vue/compare/v0.62.0...v0.63.0) (2023-05-09)
+
+
+### Features
+
+* **github:** create pull request template ([8777125](https://github.com/LUI-UI/lui-vue/commit/8777125ca5f330b4bdefc2913d71777bf2e8be8c))
+
+
+### Bug Fixes
+
+* **switch:** remove unccessary lines ([3918670](https://github.com/LUI-UI/lui-vue/commit/3918670cdf6381f5895c05d266b6313896168b4e))
+
 ## [0.62.0](https://github.com/LUI-UI/lui-vue/compare/v0.61.6...v0.62.0) (2023-05-09)
 
 
