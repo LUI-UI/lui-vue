@@ -33,7 +33,6 @@ const Template = (args) => ({
     return { args }
   },
   template: `
-  <div class="p-2">{{names}}</div>
     <div class="p-2 space-x-4">
       <lui-switch v-bind="args" id="burak" value="burak" v-model="names" />
       <lui-switch v-bind="args" id="eser" value="eser" v-model="names" />
