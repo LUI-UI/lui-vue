@@ -115,7 +115,7 @@ provide(ContextKey, {
 
 watch(
   () => props.modelValue,
-  (value, oldValue) => {
+  (value) => {
     const rawValue = typeof value !== 'string' ? value?.text : value
     if (rawValue !== selectedOption.value?.text) {
       updateSelectedOption(value)
