@@ -8,7 +8,8 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'autorelease: pending') == false
+    if: |
+      contains(toJson(github.event.pull_request.labels.*.name), 'autorelease: pending') == false
     steps:
       # Checkout project repository
       - name: Checkout
@@ -39,7 +40,8 @@ jobs:
           package-name: lui-ui/lui-vue
   check-merged-pr:
     runs-on: ubuntu-latest
-    if: contains(github.event.pull_request.labels.*.name, 'autorelease: pending') == true
+    if: |
+      contains(toJson(github.event.pull_request.labels.*.name), 'autorelease: pending') == true
     steps:
       # Checkout project repository
       - name: Checkout
