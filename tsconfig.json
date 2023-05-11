@@ -1,13 +1,13 @@
 {
-  "include": ["src/*.ts", "types", "src/**/*.vue", "src/**/*.ts"],
+  "include": ["src/*.ts", "types", "src/**/*.vue", "src/**/*.ts", ".storybook/**/*.ts", "src/components/Select/LuiSelect.stories.js"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
-    "rootDir": "./src",
     "strict": true,
+    "rootDirs": ["./src", "./.storybook"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
@@ -16,8 +16,7 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["./src/*"],
-      // "*": ["src/*", "node_modules/*"]
+      "@/*": ["./src/*"]
     },
     "esModuleInterop": true,
     "target": "ESNext",
@@ -27,27 +26,5 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "exclude": ["node_modules", "dist", ".storybook"]
+  "exclude": ["node_modules", "dist"]
 }
-// {
-//   "compilerOptions": {
-//     "target": "ESNext",
-//     "useDefineForClassFields": true,
-//     "module": "ESNext",
-//     "moduleResolution": "Node",
-//     "strict": true,
-//     "jsx": "preserve",
-//     "sourceMap": true,
-//     "resolveJsonModule": true,
-//     "isolatedModules": true,
-//     "esModuleInterop": true,
-//     "lib": ["ESNext", "DOM"],
-//     "skipLibCheck": true,
-//     "baseUrl": ".",
-//     "paths": {
-//       "@/*": ["./src/*"]
-//     }
-//   },
-//   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-//   "references": [{ "path": "./tsconfig.node.json" }]
-// }

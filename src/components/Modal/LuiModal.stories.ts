@@ -3,21 +3,26 @@ import { ref } from 'vue'
 import { size } from '../../../.storybook/global-story-argtypes'
 import LuiButton from '../Button/LuiButton.vue'
 import LuiInput from '../Input/LuiInput.vue'
-export default {
+import type { Meta, StoryObj } from '@storybook/vue3'
+
+const meta: Meta<typeof LuiModal> = {
   title: 'LUI/Modal',
-  components: { LuiModal },
+  component: LuiModal,
   argTypes: {
     size
   }
 }
+export default meta
+type Story = StoryObj<typeof LuiModal>
 
-export const TestTemplate = (args) => ({
-  components: { LuiModal, LuiButton, LuiInput },
-  setup() {
-    const showModal = ref(false)
-    return { args, showModal }
-  },
-  template: `
+export const TestTemplate: Story = {
+  render: (args) => ({
+    components: { LuiModal, LuiButton, LuiInput },
+    setup() {
+      const showModal = ref(false)
+      return { args, showModal }
+    },
+    template: `
     <div class="h-[4200px]">
       <button @click="showModal = true">open modal</button>
       <lui-modal :show="showModal" v-bind="args" size="xl" @close="showModal = false">
@@ -111,15 +116,17 @@ export const TestTemplate = (args) => ({
     </div>
 
   `
-})
+  })
+}
 
-const DefaultTemplate = (args) => ({
-  components: { LuiModal, LuiButton },
-  setup() {
-    let showModal = ref(true)
-    return { args, showModal }
-  },
-  template: `
+export const Default: Story = {
+  render: (args) => ({
+    components: { LuiModal, LuiButton },
+    setup() {
+      const showModal = ref(true)
+      return { args, showModal }
+    },
+    template: `
     <button @click="showModal = true">open modal</button>
     <lui-modal :show="showModal" v-bind="args" @close="showModal = false">
       <div class="w-full">
@@ -136,7 +143,9 @@ const DefaultTemplate = (args) => ({
         </div>
       </div>
     </lui-modal>
-  `
-})
-export const Default = DefaultTemplate.bind({})
-Default.args = { size: 'sm' }
+  `,
+    args: {
+      size: 'md'
+    }
+  })
+}
