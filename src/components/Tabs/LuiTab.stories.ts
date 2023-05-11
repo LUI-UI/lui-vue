@@ -5,7 +5,9 @@ import LuiTabButton from './LuiTabButton.vue'
 import LuiTabPanels from './LuiTabPanels.vue'
 import LuiTabPanel from './LuiTabPanel.vue'
 import { ref } from 'vue'
-export default {
+import type { Meta, StoryObj } from '@storybook/vue3'
+
+const meta: Meta<typeof LuiTabGroup> = {
   title: 'LUI/Tab',
   component: LuiTabGroup,
   argTypes: {
@@ -23,18 +25,22 @@ export default {
     }
   }
 }
-export const Default = (args) => ({
-  components: {
-    LuiTabGroup,
-    LuiTabButtons,
-    LuiTabButton,
-    LuiTabPanels,
-    LuiTabPanel
-  },
-  setup() {
-    return { args }
-  },
-  template: `
+export default meta
+type Story = StoryObj<typeof LuiTabGroup>
+
+export const Default: Story = {
+  render: (args) => ({
+    components: {
+      LuiTabGroup,
+      LuiTabButtons,
+      LuiTabButton,
+      LuiTabPanels,
+      LuiTabPanel
+    },
+    setup() {
+      return { args }
+    },
+    template: `
   
   <lui-tab-group v-bind="args">
     <lui-tab-buttons align-tabs="left">
@@ -52,20 +58,22 @@ export const Default = (args) => ({
       <lui-tab-panel>Panel-5</lui-tab-panel>
     </lui-tab-panels>
   </lui-tab-group>`
-})
-export const WithControl = (args) => ({
-  components: {
-    LuiTabGroup,
-    LuiTabButtons,
-    LuiTabButton,
-    LuiTabPanels,
-    LuiTabPanel
-  },
-  setup() {
-    const activeTab = ref(0)
-    return { args, activeTab }
-  },
-  template: `
+  })
+}
+export const WithControls: Story = {
+  render: (args) => ({
+    components: {
+      LuiTabGroup,
+      LuiTabButtons,
+      LuiTabButton,
+      LuiTabPanels,
+      LuiTabPanel
+    },
+    setup() {
+      const activeTab = ref(0)
+      return { args, activeTab }
+    },
+    template: `
   <lui-tab-group v-bind="args" :selectedIndex="activeTab">
     <lui-tab-buttons align-tabs="left">
       <lui-tab-button>tab-1</lui-tab-button>
@@ -82,4 +90,5 @@ export const WithControl = (args) => ({
       <lui-tab-panel>Panel-5</lui-tab-panel>
     </lui-tab-panels>
   </lui-tab-group>`
-})
+  })
+}
