@@ -1,0 +1,32 @@
+name: PR Check
+
+on:
+  pull_request:
+    branches: [master, dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build package
+        run: yarn build
+
+      - name: Lint code
+        run: yarn lint
+
+      - name: Check types
+        run: yarn vue-tsc
+
+      - name: Build Storybook
+        run: yarn storybook build
