@@ -11,7 +11,7 @@ import {
 const descriptions = {
   docs: {
     component:
-      'Buttons allow users to take actions, and make choices with a single tap. Also provides the style for the non-button(div,a) element look like a button'
+      'Button allow users to take actions, and make choices with a single tap. Also provides the style for the non-button(div,a) element look like a button'
   },
   argTypes: {
     tag: 'Sets root element tag for lui-button.(Used to make a non-button(div,a) element look like a button.)'
