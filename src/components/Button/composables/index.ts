@@ -19,7 +19,14 @@ type PropTypes = {
 export function useButtonClasses(props: PropTypes) {
   const slots = useSlots()
   const hasIcon = computed(() => !!slots.icon)
-  const hasAnyIcon = computed(() => !!slots.icon || !!slots.prepend || !!slots.append)
+  const hasAnyIcon = computed(() => {
+    console.log('computed calisti..')
+    return !!slots.icon || !!slots.prepend || !!slots.append
+  })
+  const hasAnyIconMethod = () => {
+    console.log('method calisti..')
+    return !!slots.icon || !!slots.prepend || !!slots.append
+  }
 
   const computedButtonClasses = computed(() => {
     const buttonClasses: TwClassInterface = {
@@ -120,7 +127,7 @@ export function useButtonClasses(props: PropTypes) {
       },
       // display: "inline-block",
       display: {
-        flex: hasAnyIcon.value,
+        flex: hasAnyIconMethod(),
         'inline-block': !hasAnyIcon.value && props.tag.value !== 'button'
       },
       alignItems: {
