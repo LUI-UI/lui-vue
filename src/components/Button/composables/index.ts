@@ -19,7 +19,7 @@ type PropTypes = {
 export function useButtonClasses(props: PropTypes) {
   const slots = useSlots()
   const hasIcon = computed(() => !!slots.icon)
-  const hasAnyIcon = computed(() => !!slots.icon || !!slots.prepend || !!slots.append)
+  // const hasAnyIcon = computed(() => !!slots.icon || !!slots.prepend || !!slots.append)
 
   const computedButtonClasses = computed(() => {
     const buttonClasses: TwClassInterface = {
@@ -117,27 +117,7 @@ export function useButtonClasses(props: PropTypes) {
       borderRadius: {
         'rounded-lg': props.rounded.value === true,
         'rounded-full': props.rounded.value === 'full'
-      },
-      // display: "inline-block",
-      display: {
-        flex: hasAnyIcon.value,
-        'inline-block': !hasAnyIcon.value && props.tag.value !== 'button'
-      },
-      alignItems: {
-        'items-center': hasAnyIcon.value
-      },
-      justifyContent: {
-        'justify-center': hasAnyIcon.value
-      },
-      // 4 4 6 8 8
-      space:
-        !!slots.prepend || !!slots.append
-          ? {
-              'space-x-1': props.size.value === 'xs' || props.size.value === 'sm',
-              'space-x-1.5': props.size.value === 'md',
-              'space-x-2': props.size.value === 'lg' || props.size.value === 'xl'
-            }
-          : ''
+      }
     }
     return Object.values({ ...buttonClasses })
   })
