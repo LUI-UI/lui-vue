@@ -19,7 +19,8 @@ export default {
     onChange: {
       action: 'switch change'
     }
-  }
+  },
+  decorators: [() => ({ template: '<div class="space-x-4"><story/></div>' })]
 }
 const Template = (args) => ({
   components: { LuiSwitch },
@@ -71,5 +72,19 @@ export const Description = (args) => ({
         <lui-switch v-bind="args" v-for="size in sizes" :key="size" :size="size" :state="state" description="Switch description" />
       </div>
     </div>
+  `
+})
+/** There are 4 different states in s. */
+
+export const States = (args) => ({
+  components: { LuiSwitch },
+  setup() {
+    return { args }
+  },
+  template: `
+    <lui-switch :state="true" description="Switch description" />
+    <lui-switch :state="false" description="Switch description" />
+    <lui-switch :state="null" description="Switch description" />
+    <lui-switch state="warning" description="Switch description" />
   `
 })

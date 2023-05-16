@@ -1,53 +1,34 @@
+const descriptions = {
+  variant: 'Controls Lui component appearence',
+  narrowedVariant: 'Controls Lui component appearence',
+  block: 'Renders a 100% width Lui component (expands to the width of its parent container)',
+  rounded:
+    'Provides rendering of component corners without rounding, partially rounding, or completely rounding.',
+  size: 'Lui Component width, height and inline spacing options.',
+  stateIcon: 'Controls state icon display.'
+}
+
 export const variant = {
-  name: 'variant',
   control: 'select',
   options: ['solid', 'outline', 'text', 'link'],
-  type: { name: 'solid', required: false },
-  table: {
-    type: { summary: '"solid", "outline", "text", "link"' }
-  },
-  description: 'Controls Lui component appearence'
+  description: descriptions.variant
 }
 export const narrowedVariant = {
-  name: 'variant',
   control: 'select',
   options: ['solid', 'outline'],
-  type: { name: 'solid', required: false },
-  table: {
-    type: { summary: '"solid", "outline"' }
-  },
-  description: 'Controls Lui component appearence'
+  description: descriptions.narrowedVariant
 }
 export const color = {
-  name: 'color',
-  control: 'select',
-  options: ['primary', 'secondary', 'success', 'danger', 'warning', 'info'],
-  type: { name: 'color', required: false },
-  table: {
-    type: { summary: '"primary", "secondary", "success", "danger", "warning", "info"' }
-  },
   description: 'Lui components color options'
 }
 export const block = {
-  name: 'block',
   control: 'boolean',
-  options: [true, false],
-  type: { name: 'block', required: false },
-  table: {
-    type: { summary: 'true, false' }
-  },
-  description: 'Renders a 100% width Lui component (expands to the width of its parent container)'
+  description: descriptions.block
 }
 export const rounded = {
-  name: 'rounded',
   control: 'select',
   options: [true, false, 'full'],
-  type: { name: 'rounded', required: false },
-  table: {
-    type: { summary: 'true, false, "full"' }
-  },
-  description:
-    'Provides rendering of component corners without rounding, partially rounding, or completely rounding.'
+  description: descriptions.rounded
 }
 export const disabled = {
   control: 'boolean',
@@ -66,14 +47,9 @@ export const append = {
   options: ['home', 'add-circle', 'close', 'none']
 }
 export const size = {
-  name: 'size',
-  type: { name: 'string', required: false },
-  table: {
-    type: { summary: '"xs", "sm", "md", "lg", "xl"' }
-  },
   control: { type: 'select' },
   options: ['xs', 'sm', 'md', 'lg', 'xl'],
-  description: 'Lui Component width, height and inline spacing options.'
+  description: descriptions.size
 }
 export const filter = {
   control: 'select',
@@ -91,5 +67,6 @@ export const state = {
   options: ['warning', true, false, null]
 }
 export const stateIcon = {
-  control: { type: 'boolean' }
+  control: { type: 'boolean' },
+  description: descriptions.stateIcon
 }

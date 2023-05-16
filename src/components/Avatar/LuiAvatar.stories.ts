@@ -34,6 +34,13 @@ const meta: Meta<typeof LuiAvatar> = {
     alt: {
       control: 'text'
     }
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: 'This is a super avatar description!'
+      }
+    }
   }
 }
 export default meta

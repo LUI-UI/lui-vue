@@ -2,7 +2,7 @@ import type { StorybookConfig } from '@storybook/vue3-vite'
 import remarkGfm from 'remark-gfm'
 
 const config: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.@(js|ts)'],
+  stories: ['../src/components/**/*.stories.@(js|ts)', '../docs/**/*.mdx'],
   staticDirs: ['../src'],
   addons: [
     {

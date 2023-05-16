@@ -1,13 +1,13 @@
 import { computed, useSlots } from 'vue'
 //Types
 import type { Ref } from 'vue'
-import type { ButtonTag } from '../button-types'
+import type { Tag } from '../button-types'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
 
 //Define Prop Types
 type PropTypes = {
-  tag: Ref<ButtonTag>
+  tag: Ref<Tag>
   variant: Ref<Variant>
   color: Ref<Color>
   filter: Ref<Filter>
