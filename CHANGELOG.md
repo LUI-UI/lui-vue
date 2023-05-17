@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.12](https://github.com/LUI-UI/lui-vue/compare/v0.63.11...v0.63.12) (2023-05-17)
+
+
+### Bug Fixes
+
+* **release:** fix release typo issue ([49abdfc](https://github.com/LUI-UI/lui-vue/commit/49abdfc6a7d2e73f8fadb0d782e00987bbf81d80))
+* **stroybook:** remove storybook deprecated argtypes ([be5cc2f](https://github.com/LUI-UI/lui-vue/commit/be5cc2fba2b4253d8f38441f92af8e2c3fb2320d))
+* Update release.yaml ([9433c19](https://github.com/LUI-UI/lui-vue/commit/9433c191f61410925f647cf4ea0eb5a707f10f34))
+
 ## [0.63.11](https://github.com/LUI-UI/lui-vue/compare/v0.63.10...v0.63.11) (2023-05-17)
 
 
