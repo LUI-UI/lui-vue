@@ -105,14 +105,13 @@ const optionClasses = computed(() => {
       ? 'text-white'
       : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus:text-primary-500',
     outlineWidth: 'outline-none',
-    // margin: props.size === "xs" || props.size === "sm" ? "mb-1.5" : "mb-2",
     borderRadius: {
       'rounded-md': props.rounded === true,
       'rounded-2xl': props.rounded === 'full'
     },
     display: slots.prepend || slots.append ? 'flex' : '',
     alignItems: slots.prepend || slots.append ? 'items-center' : '',
-    cursor: props.disabled ? 'cursor-not-allowed' : '',
+    cursor: props.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     pointerEvents: props.disabled ? 'pointer-events-none' : ''
   }
   return Object.values({ ...classes })

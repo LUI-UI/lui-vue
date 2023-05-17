@@ -32,75 +32,10 @@ export const TestTemplate: Story = {
             Title and some
           </h1>
         </div>
-        <form>
-          <div class="mb-4 flex flex-col">
-            <label for="name" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="name"
-              type="text"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4 flex flex-col">
-            <label for="email" class="text-xs">
-              LAbel
-            </label>
-            <LuiInput
-              name="email"
-              type="email"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4 flex flex-col">
-            <label for="password" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="password"
-              type="password"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-8 flex flex-col">
-            <label for="comfirm-password" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="comfirm-password"
-              type="password"
-              size="md"          
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4">
-            <div class="pb-2">
-              <label class="text-sm text-danger mb-2" for="sign-up">
-                Label
-              </label>
-            </div>
-            <LuiButton
-              name="sign-up"
-              rounded
-              block
-              @click="signUp"
-            >
-              ButtonS
-            </LuiButton>
-          </div>
-        </form>
+        <p v-for="i in 15" :key="i" class="text-2xl text-gray-500 mb-20">
+        Your payment has been successfully submitted. We’ve sent you an email
+        with all of the details of your order.
+        </p> 
         <div class="flex flex-row justify-center items-center">
           <span class="pr-1">OKEY</span>
           <LuiButton

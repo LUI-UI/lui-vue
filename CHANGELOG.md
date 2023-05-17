@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.10](https://github.com/LUI-UI/lui-vue/compare/v0.63.9...v0.63.10) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** remove unnecesary lines ([98cf083](https://github.com/LUI-UI/lui-vue/commit/98cf0831aff210a2949b970af78097ad342404c5))
+
+## [0.63.9](https://github.com/LUI-UI/lui-vue/compare/v0.63.8...v0.63.9) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** add cursor-pointer to option ([b72347b](https://github.com/LUI-UI/lui-vue/commit/b72347bec8d99ff6afaff52c44146afe62f25325))
+
+## [0.63.8](https://github.com/LUI-UI/lui-vue/compare/v0.63.7...v0.63.8) (2023-05-17)
+
+
+### Bug Fixes
+
+* **button:** remove console.logs from button composable ([9da74d2](https://github.com/LUI-UI/lui-vue/commit/9da74d28ee8fcc42c7c4c783121d93eb3e0f3451))
+* **modal:** fix modal scroll overflow issue ([a95216c](https://github.com/LUI-UI/lui-vue/commit/a95216c2a0035089d540cfe01abf7fccd522e402))
+* **workflows:** change release action ([326dded](https://github.com/LUI-UI/lui-vue/commit/326dded06463f45d9c222454c2f84b8e9d550e5a))
+
 ## [0.63.7](https://github.com/LUI-UI/lui-vue/compare/v0.63.6...v0.63.7) (2023-05-11)
 
 

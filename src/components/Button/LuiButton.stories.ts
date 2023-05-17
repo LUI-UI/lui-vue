@@ -11,6 +11,7 @@ import {
   disabled
 } from '../../../.storybook/global-story-argtypes'
 import { ButtonSize } from './button-types'
+import { ref } from 'vue'
 
 const meta: Meta<typeof LuiButton> = {
   title: 'LUI/Button',
@@ -39,9 +40,14 @@ export const Default: Story = {
   render: (args) => ({
     components: { LuiButton },
     setup() {
-      return { args }
+      const show = ref(false)
+      return { args, show }
     },
-    template: `<lui-button v-bind="args">My Button</lui-button>`
+    template: `<lui-button @click="show = !show" v-bind="args">My Button
+      <template #prepend v-if="show">
+        <i class="ri-admin-fill" />
+      </template>
+    </lui-button>`
   })
 }
 
