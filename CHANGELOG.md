@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.9](https://github.com/LUI-UI/lui-vue/compare/v0.63.8...v0.63.9) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** add cursor-pointer to option ([b72347b](https://github.com/LUI-UI/lui-vue/commit/b72347bec8d99ff6afaff52c44146afe62f25325))
+
 ## [0.63.8](https://github.com/LUI-UI/lui-vue/compare/v0.63.7...v0.63.8) (2023-05-17)
 
 
