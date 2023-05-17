@@ -1,6 +1,6 @@
 import LuiRadio from './LuiRadio.vue'
 import { ref } from 'vue'
-import { size, disabled, state, description } from '../../../.storybook/global-story-argtypes'
+import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta: Meta<typeof LuiRadio> = {
@@ -8,12 +8,8 @@ const meta: Meta<typeof LuiRadio> = {
   component: LuiRadio,
   argTypes: {
     size,
-    disabled,
     description,
-    state,
-    onChange: {
-      action: 'checked change'
-    }
+    state
   }
 }
 export default meta

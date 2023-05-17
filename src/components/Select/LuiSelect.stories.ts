@@ -6,7 +6,6 @@ import {
   rounded,
   size,
   prepend,
-  disabled,
   description,
   state,
   stateIcon
@@ -21,7 +20,6 @@ const meta: Meta<typeof LuiSelect> = {
     rounded,
     size,
     prepend,
-    disabled,
     description,
     state,
     stateIcon

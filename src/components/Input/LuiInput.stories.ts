@@ -6,12 +6,11 @@ import {
   rounded,
   size,
   prepend,
-  disabled,
   description,
   state,
   stateIcon
 } from '../../../.storybook/global-story-argtypes'
-import { IconSize } from './input-types'
+import type { IconSize } from './input-types'
 
 const meta: Meta<typeof LuiInput> = {
   title: 'LUI/Input',
@@ -21,15 +20,11 @@ const meta: Meta<typeof LuiInput> = {
     rounded,
     size,
     prepend,
-    disabled,
     description,
     state,
     stateIcon,
     clear: {
-      control: { type: 'boolean' }
-    },
-    onInput: {
-      action: 'typing'
+      control: 'boolean'
     }
   }
 }
