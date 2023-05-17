@@ -105,7 +105,6 @@ const optionClasses = computed(() => {
       ? 'text-white'
       : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus:text-primary-500',
     outlineWidth: 'outline-none',
-    // margin: props.size === "xs" || props.size === "sm" ? "mb-1.5" : "mb-2",
     borderRadius: {
       'rounded-md': props.rounded === true,
       'rounded-2xl': props.rounded === 'full'
