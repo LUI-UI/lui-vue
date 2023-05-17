@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.11](https://github.com/LUI-UI/lui-vue/compare/v0.63.10...v0.63.11) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** remove unnecesary line ([b898cfa](https://github.com/LUI-UI/lui-vue/commit/b898cfa6c2d8363def519f72d16e1ae2bd9c17f0))
+* **publish.yaml:** add github and npm release to publish.yaml file ([585f7ae](https://github.com/LUI-UI/lui-vue/commit/585f7aeb8f76cf130f7650314ee6d85e8b5b6919))
+
 ## [0.63.10](https://github.com/LUI-UI/lui-vue/compare/v0.63.9...v0.63.10) (2023-05-17)
 
 
