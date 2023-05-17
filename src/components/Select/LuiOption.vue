@@ -112,7 +112,7 @@ const optionClasses = computed(() => {
     },
     display: slots.prepend || slots.append ? 'flex' : '',
     alignItems: slots.prepend || slots.append ? 'items-center' : '',
-    cursor: props.disabled ? 'cursor-not-allowed' : '',
+    cursor: props.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
     pointerEvents: props.disabled ? 'pointer-events-none' : ''
   }
   return Object.values({ ...classes })
