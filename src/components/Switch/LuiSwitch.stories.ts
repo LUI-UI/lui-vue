@@ -1,11 +1,5 @@
 import LuiSwitch from './LuiSwitch.vue'
-import {
-  rounded,
-  size,
-  disabled,
-  state,
-  description
-} from '../../../.storybook/global-story-argtypes'
+import { rounded, size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta: Meta<typeof LuiSwitch> = {
@@ -14,12 +8,8 @@ const meta: Meta<typeof LuiSwitch> = {
   argTypes: {
     rounded,
     size,
-    disabled,
     description,
-    state,
-    onChange: {
-      action: 'switch change'
-    }
+    state
   }
 }
 export default meta

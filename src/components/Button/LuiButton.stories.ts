@@ -7,10 +7,9 @@ import {
   block,
   rounded,
   size,
-  filter,
-  disabled
+  filter
 } from '../../../.storybook/global-story-argtypes'
-import { ButtonSize } from './button-types'
+import type { ButtonSize } from './button-types'
 import { ref } from 'vue'
 
 const meta: Meta<typeof LuiButton> = {
@@ -23,13 +22,9 @@ const meta: Meta<typeof LuiButton> = {
     rounded,
     size,
     filter,
-    disabled,
     tag: {
-      control: { type: 'select' },
+      control: 'select',
       options: ['button', 'div', 'a']
-    },
-    onClick: {
-      action: 'just clicked'
     }
   }
 }

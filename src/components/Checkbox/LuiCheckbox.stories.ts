@@ -1,5 +1,5 @@
 import LuiCheckbox from './LuiCheckbox.vue'
-import { size, disabled, state, description } from '../../../.storybook/global-story-argtypes'
+import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta: Meta<typeof LuiCheckbox> = {
@@ -7,15 +7,11 @@ const meta: Meta<typeof LuiCheckbox> = {
   component: LuiCheckbox,
   argTypes: {
     size,
-    disabled,
     description,
     state,
     rounded: {
       control: 'select',
       options: [true, false, 'full']
-    },
-    onChange: {
-      action: 'checked change'
     }
   }
 }

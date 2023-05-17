@@ -13,7 +13,7 @@ const meta: Meta<typeof LuiMenuDropdown> = {
     size,
     rounded,
     menuPosition: {
-      control: { type: 'select' },
+      control: 'select',
       options: [
         'bottomLeft',
         'bottomRight',
@@ -24,10 +24,6 @@ const meta: Meta<typeof LuiMenuDropdown> = {
         'rightTop',
         'rightBottom'
       ]
-    },
-    tag: {
-      control: { type: 'select' },
-      options: ['button', 'a']
     }
   }
 }
