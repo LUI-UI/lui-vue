@@ -132,6 +132,5 @@ const optionClasses = computed(() => {
     <span v-if="$slots.append" class="ml-auto">
       <slot name="append" />
     </span>
-    <!-- <span><slot /></span> -->
   </li>
 </template>
