@@ -20,6 +20,7 @@ export interface LayoutInterface {
   right?: string | object | null
   bottom?: string | object | null
   left?: string | object | null
+  inset?: string | object | null
   // topRightBottomLeft?: string | object | null;
   visibility?: string | object | null
   zIndex?: string | object | null
