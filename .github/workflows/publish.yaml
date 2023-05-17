@@ -1,12 +1,13 @@
-name: Prepare for release
+name: Run on PR Merged to Main and Publish to NPM
 on:
   pull_request:
     types:
       - closed
     branches:
       - main
+
 jobs:
-  release:
+  check-merged-pr:
     if: startsWith(github.event.pull_request.title, 'chore(main):')
     runs-on: ubuntu-latest
     steps:
@@ -21,20 +22,31 @@ jobs:
           registry-url: https://registry.npmjs.org/
           node-version: '16'
 
-      # Install dependencies (required by Run tests step)
+      # Install dependencies
       - name: Install dependencies
         run: yarn install
-
-  
-      # Configure Git
-      - name: Git configuration
+      
+      # Build the project
+      - name: Build
+        run: yarn build
+      
+      # Get version from package.json
+      - name: Get version
+        id: package-version
         run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
+          echo "::set-output name=version::$(node -p "require('./package.json').version")"
 
-      # Update changelog unreleased section with new version
-      - name: release-please
-        uses: google-github-actions/release-please-action@v3
+      # Create a new GitHub release using the updated package.json version
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
         with:
-          release-type: node
-          package-name: lui-ui/lui-vue
+          tag_name: ${{ steps.package-version.outputs.version }}
+          files: ./package.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+      # Publish to NPM
+      - name: Publish to NPM
+        run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
