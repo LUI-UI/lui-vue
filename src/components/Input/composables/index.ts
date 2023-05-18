@@ -19,14 +19,6 @@ type PropTypes = {
 
 export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots()
-  // watch(
-  //   () => props,
-  //   (val) => {
-  //     console.log("val", val);
-  //     // iconStatus.value = 'noIcon'
-  //   },
-  //   { immediate: true }
-  // );
   const iconStatus = computed(() => {
     return (props.stateIcon.value === true && props.state.value !== null) ||
       props.clear.value === true ||
@@ -67,6 +59,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     const classes: TwClassInterface = {
       peer: 'peer',
       width: 'w-full',
+      appearance: attrs.type !== undefined && attrs.type === 'search' ? 'remove-search-icon' : '',
       // 12 14 16 18 20
       fontSize: {
         'text-xs': props.size.value === 'xs',
