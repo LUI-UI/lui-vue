@@ -1,13 +1,6 @@
 import LuiButton from './LuiButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import {
-  variant,
-  color,
-  block,
-  rounded,
-  size,
-  filter
-} from '../../../.storybook/global-story-argtypes'
+import { variant, color, block, rounded, size } from '../../../.storybook/global-story-argtypes'
 
 const descriptions = {
   docs: {
@@ -33,7 +26,6 @@ const meta: Meta<typeof LuiButton> = {
     block,
     rounded,
     size,
-    filter,
     tag: {
       control: { type: 'select' },
       options: ['button', 'div', 'a'],
@@ -65,7 +57,7 @@ export default meta
 type Story = StoryObj<typeof LuiButton>
 
 const defaultTemplate = `<lui-button>Default Button</lui-button>`
-/** This is how a default LuiButton looks. The default color is the <i>primary</i> color. <br><br>The value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.*/
+/** This is how a default LuiButton looks. The default color is the <i>primary</i> color. <pre><code>The value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.</code></pre>*/
 export const Default: Story = {
   render: () => ({
     components: { LuiButton },
@@ -75,6 +67,41 @@ export const Default: Story = {
     docs: {
       source: {
         code: defaultTemplate
+      }
+    }
+  }
+}
+
+const disabledTemplate = `<lui-button disabled>Disabled Button</lui-button>`
+/** The <b>disabled</b> props is used to disable a LuiButton. */
+export const Disabled: Story = {
+  render: () => ({
+    components: { LuiButton },
+    template: disabledTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: disabledTemplate
+      }
+    }
+  }
+}
+
+const tagTemplate = `
+<lui-button tag="a" href="https://developer.mozilla.org" target="blank">Button tagged "a"</lui-button>
+<lui-button tag="div">Button tagged "div"</lui-button>
+`
+/** The <b>tag</b> props is used to assign the LuiButton a "div" or "a" functionality. When a LuiButton is passed a tag props, it acts like that element and can have its attributes. */
+export const Tag: Story = {
+  render: () => ({
+    components: { LuiButton },
+    template: tagTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: tagTemplate
       }
     }
   }
@@ -114,7 +141,7 @@ const colorTemplate = `
 export const Color: Story = {
   render: () => ({
     components: { LuiButton },
-    template: colorTemplate
+    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`
   }),
   args: { color },
   parameters: {
@@ -146,7 +173,6 @@ export const Filter: Story = {
     components: { LuiButton },
     template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
   }),
-  args: { filter },
   parameters: {
     docs: {
       source: {
@@ -220,18 +246,17 @@ export const Block: Story = {
 // <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
 
 const iconSlotTemplate = `
-<lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button>
+  <template #icon>
+    <i class="ri-home-line" />
+  </template>
+</lui-button>
 `
-
-/** To place an icon in a LuiButton the #icon slot can be used. (The icon size might be changed according to the button size.) <pre><code>NOTE: Here an icon library is used, if a svg icon was used, the font size would not be inherited. </code></pre> */
+/** To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the #append or #prepend slots. */
 export const IconSlot: Story = {
   render: () => ({
     components: { LuiButton },
-    template: `<div class="gap-x-2 gap-y-4">${iconSlotTemplate}</div>`
+    template: iconSlotTemplate
   }),
   parameters: {
     docs: {
@@ -245,7 +270,7 @@ export const IconSlot: Story = {
 const prependSlotTemplate = `
 <lui-button>
   <template #prepend>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/> </svg>
+    <i class="ri-home-line" />
   </template>
   Prepend
 </lui-button>
@@ -265,9 +290,9 @@ export const PrependSlot: Story = {
 
 const appendSlotTemplate = `
 <lui-button>
-Append
+  Append
   <template #append>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/> </svg>
+    <i class="ri-home-line" />
   </template>
 </lui-button>
 `
@@ -280,6 +305,29 @@ export const AppendSlot: Story = {
   parameters: {
     docs: {
       source: { code: appendSlotTemplate }
+    }
+  }
+}
+
+const inheritedSizeTemplate = `
+<lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button>
+`
+
+/** Here, the icon sizes are changed accordingly, because they're inherited from the button sizes. */
+export const InheritedIconSizes: Story = {
+  render: () => ({
+    components: { LuiButton },
+    template: `<div class="w-full gap-x-2 gap-y-4">${inheritedSizeTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: inheritedSizeTemplate
+      }
     }
   }
 }
