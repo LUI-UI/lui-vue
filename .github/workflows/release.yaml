@@ -21,8 +21,11 @@ jobs:
       # Install dependencies (required by Run tests step)
       - name: Install dependencies
         run: yarn install
-
-  
+        
+      # Build the project
+      - name: Build
+        run: yarn build
+        
       # Configure Git
       - name: Git configuration
         run: |
