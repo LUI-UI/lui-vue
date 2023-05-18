@@ -9,21 +9,21 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta: Meta<typeof LuiTabGroup> = {
   title: 'LUI/Tab',
-  component: LuiTabGroup,
-  argTypes: {
-    alignTabs: {
-      control: { type: 'select' },
-      options: ['left', 'center', 'right']
-    },
-    alignContent: {
-      control: { type: 'select' },
-      options: ['left', 'center', 'right']
-    },
-    stretch: {
-      control: { type: 'boolean' }
-      // options: ["left", "center", "right"],
-    }
-  }
+  component: LuiTabGroup
+  // argTypes: {
+  //   alignTabs: {
+  //     control: 'select',
+  //     options: ['left', 'center', 'right']
+  //   },
+  //   alignContent: {
+  //     control: 'select',
+  //     options: ['left', 'center', 'right']
+  //   },
+  //   stretch: {
+  //     control: 'boolean'
+  //     // options: ["left", "center", "right"],
+  //   }
+  // }
 }
 export default meta
 type Story = StoryObj<typeof LuiTabGroup>

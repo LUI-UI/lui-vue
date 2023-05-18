@@ -10,6 +10,7 @@ import { useButtonClasses } from './composables'
 import type { PropType } from 'vue'
 import type { Tag } from './button-types'
 import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
+import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   tag: {
@@ -40,18 +41,6 @@ const props = defineProps({
     type: Boolean as PropType<Block>,
     default: false
   }
-  // prepend: {
-  //   type: [String, Object] as PropType<Icon>,
-  //   default: "none",
-  // },
-  // append: {
-  //   type: [String, Object] as PropType<Icon>,
-  //   default: "none",
-  // },
-  // icon: {
-  //   type: [String, Object] as PropType<Icon>,
-  //   default: "none",
-  // },
   // loading: {
   //   type: Boolean as PropType<Loading>,
   //   default: false,
@@ -64,27 +53,45 @@ const props = defineProps({
 
 const { buttonClasses, computedIconSize } = useButtonClasses(toRefs(props))
 const slots = useSlots()
-// console.log(slots?.default().props.size = "lg");
+function dynamicSlotClasses() {
+  // We move this classes from composable, because of slots reactivity issue
+  // more details: https://github.com/LUI-UI/lui-vue/issues/33
+  const hasAnyIcon = slots.prepend || slots.append || slots.icon
+  const classes: TwClassInterface = {
+    display: {
+      flex: hasAnyIcon,
+      'inline-block': !hasAnyIcon && props.tag !== 'button'
+    },
+    alignItems: {
+      'items-center': hasAnyIcon
+    },
+    justifyContent: {
+      'justify-center': hasAnyIcon
+    },
+    space:
+      !!slots.prepend || !!slots.append
+        ? {
+            'space-x-1': props.size === 'xs' || props.size === 'sm',
+            'space-x-1.5': props.size === 'md',
+            'space-x-2': props.size === 'lg' || props.size === 'xl'
+          }
+        : ''
+  }
+  return Object.values({ ...classes })
+}
 </script>
 
 <template>
-  <component :is="tag" v-bind="$attrs" :class="buttonClasses" class="lui-button">
-    <!-- <lui-icon
-      v-if="icon !== 'none'"
-      :icon="icon"
-      :class="computedIconSize"
-      class="leading-none"
-    /> -->
+  <component
+    :is="tag"
+    v-bind="$attrs"
+    :class="[buttonClasses, dynamicSlotClasses()]"
+    class="lui-button"
+  >
     <span v-if="!!slots.icon" :class="computedIconSize" class="leading-none flex items-center">
       <slot name="icon" />
     </span>
     <template v-else>
-      <!-- <lui-icon
-        v-if="prepend !== 'none'"
-        :icon="prepend"
-        :class="computedIconSize"
-        class="leading-none"
-      /> -->
       <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="prepend" />
       </span>
@@ -92,27 +99,6 @@ const slots = useSlots()
       <span v-if="!!slots.append" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="append" />
       </span>
-      <!-- <lui-icon
-        v-if="append !== 'none'"
-        :icon="append"
-        class="leading-none"
-        :class="computedIconSize"
-      /> -->
-      <!-- <lui-icon
-        v-if="prepend !== 'none' || (loading && loaderPosition === 'left')"
-        :icon="loading && loaderPosition === 'left' ? 'loader-4' : prepend"
-        :size="computedIconSize"
-        class="leading-none"
-        :class="loading ? 'animate-spin inline-block' : ''"
-      />
-      <span><slot></slot></span>
-      <lui-icon
-        v-if="append !== 'none' || (loading && loaderPosition === 'right')"
-        :icon="loading && loaderPosition === 'right' ? 'loader-4' : append"
-        :size="computedIconSize"
-        class="leading-none"
-        :class="loading ? 'animate-spin inline-block' : ''"
-      /> -->
     </template>
   </component>
 </template>

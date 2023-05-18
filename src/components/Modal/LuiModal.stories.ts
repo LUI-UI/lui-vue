@@ -32,6 +32,7 @@ export const TestTemplate: Story = {
             Title and some
           </h1>
         </div>
+<<<<<<< HEAD
         <form>
           <div class="mb-4 flex flex-col">
             <label for="name" class="text-xs">
@@ -101,6 +102,12 @@ export const TestTemplate: Story = {
             </LuiButton>
           </div>
         </form>
+=======
+        <p v-for="i in 15" :key="i" class="text-2xl text-gray-500 mb-20">
+        Your payment has been successfully submitted. We’ve sent you an email
+        with all of the details of your order.
+        </p> 
+>>>>>>> 3fd6f77dfd8438e8e47af247b650f042fb7d2027
         <div class="flex flex-row justify-center items-center">
           <span class="pr-1">OKEY</span>
           <LuiButton

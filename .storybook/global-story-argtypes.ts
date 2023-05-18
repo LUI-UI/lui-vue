@@ -1,20 +1,11 @@
 const descriptions = {
-  variant: "Controls a Lui component's appearance",
-  narrowedVariant: "Controls a Lui component's appearance",
-  block: 'Renders a full width Lui component (expands to the width of its parent container)',
-  color: "Controls a Lui component's color",
+  variant: 'Controls Lui component appearence',
+  narrowedVariant: 'Controls Lui component appearence',
+  block: 'Renders a 100% width Lui component (expands to the width of its parent container)',
   rounded:
     'Provides rendering of component corners without rounding, partially rounding, or completely rounding.',
-  size: "Controls a Lui component's width, height and inline spacing options.",
-  disabled: 'Controls active or passive state of a Lui component',
-  border: '',
-  state: 'Controls the state of a Lui component based on color',
-  prepend: '',
-  append: '',
-  filter: 'Controls the tone of the color',
-  description: 'Provides a descriptive text',
-  icon: 'Provides an icon display',
-  stateIcon: 'Provides a state icon display.'
+  size: 'Lui Component width, height and inline spacing options.',
+  stateIcon: 'Controls state icon display.'
 }
 
 export const variant = {
@@ -27,67 +18,56 @@ export const narrowedVariant = {
   options: ['solid', 'outline'],
   description: descriptions.narrowedVariant
 }
+export const color = {
+  description: 'Lui components color options',
+  options: ['primary', 'secondary', 'info', 'success', 'warning', 'danger']
+}
 export const block = {
   control: 'boolean',
-  options: [true, false],
   description: descriptions.block
-}
-export const color = {
-  control: 'select',
-  options: ['primary', 'secondary', 'info', 'success', 'warning', 'danger'],
-  description: descriptions.color
 }
 export const rounded = {
   control: 'select',
   options: [true, false, 'full'],
   description: descriptions.rounded
 }
-export const size = {
-  control: { type: 'select' },
-  options: ['xs', 'sm', 'md', 'lg', 'xl'],
-  description: descriptions.size
-}
 export const disabled = {
   control: 'boolean',
-  options: [true, false],
-  description: descriptions.disabled
+  options: [true, false]
 }
 export const border = {
   control: 'boolean',
-  options: [true, false],
-  description: descriptions.border
+  options: [true, false]
 }
 export const prepend = {
   control: 'select',
-  options: ['home', 'add-circle', 'close', 'none'],
-  description: descriptions.prepend
+  options: ['home', 'add-circle', 'close', 'none']
 }
 export const append = {
   control: 'select',
-  options: ['home', 'add-circle', 'close', 'none'],
-  description: descriptions.append
+  options: ['home', 'add-circle', 'close', 'none']
+}
+export const size = {
+  control: 'select',
+  options: ['xs', 'sm', 'md', 'lg', 'xl'],
+  description: descriptions.size
 }
 export const filter = {
   control: 'select',
-  options: ['lighten', 'darken', 'none'],
-  description: descriptions.filter
-}
-export const description = {
-  control: 'text',
-  description: descriptions.description
-}
-export const state = {
-  control: { type: 'select' },
-  options: ['warning', true, false, null],
-  description: descriptions.state
+  options: ['lighten', 'darken', 'none']
 }
 export const icon = {
   control: 'select',
-  options: ['home', 'add-circle', 'close', 'none'],
-  description: descriptions.icon
+  options: ['home', 'add-circle', 'close', 'none']
+}
+export const description = {
+  control: 'text'
+}
+export const state = {
+  control: 'select',
+  options: ['warning', true, false, null]
 }
 export const stateIcon = {
-  control: { type: 'boolean' },
-  options: [true, false],
+  control: 'boolean',
   description: descriptions.stateIcon
 }

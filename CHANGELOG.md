@@ -1,11 +1,58 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file..
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+
+## [0.63.12](https://github.com/LUI-UI/lui-vue/compare/v0.63.11...v0.63.12) (2023-05-17)
+
+
+### Bug Fixes
+
+* **release:** fix release typo issue ([49abdfc](https://github.com/LUI-UI/lui-vue/commit/49abdfc6a7d2e73f8fadb0d782e00987bbf81d80))
+* **stroybook:** remove storybook deprecated argtypes ([be5cc2f](https://github.com/LUI-UI/lui-vue/commit/be5cc2fba2b4253d8f38441f92af8e2c3fb2320d))
+* Update release.yaml ([9433c19](https://github.com/LUI-UI/lui-vue/commit/9433c191f61410925f647cf4ea0eb5a707f10f34))
+
+## [0.63.11](https://github.com/LUI-UI/lui-vue/compare/v0.63.10...v0.63.11) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** remove unnecesary line ([b898cfa](https://github.com/LUI-UI/lui-vue/commit/b898cfa6c2d8363def519f72d16e1ae2bd9c17f0))
+* **publish.yaml:** add github and npm release to publish.yaml file ([585f7ae](https://github.com/LUI-UI/lui-vue/commit/585f7aeb8f76cf130f7650314ee6d85e8b5b6919))
+
+## [0.63.10](https://github.com/LUI-UI/lui-vue/compare/v0.63.9...v0.63.10) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** remove unnecesary lines ([98cf083](https://github.com/LUI-UI/lui-vue/commit/98cf0831aff210a2949b970af78097ad342404c5))
+
+## [0.63.9](https://github.com/LUI-UI/lui-vue/compare/v0.63.8...v0.63.9) (2023-05-17)
+
+
+### Bug Fixes
+
+* **option:** add cursor-pointer to option ([b72347b](https://github.com/LUI-UI/lui-vue/commit/b72347bec8d99ff6afaff52c44146afe62f25325))
+
+## [0.63.8](https://github.com/LUI-UI/lui-vue/compare/v0.63.7...v0.63.8) (2023-05-17)
+
+
+### Bug Fixes
+
+* **button:** remove console.logs from button composable ([9da74d2](https://github.com/LUI-UI/lui-vue/commit/9da74d28ee8fcc42c7c4c783121d93eb3e0f3451))
+* **modal:** fix modal scroll overflow issue ([a95216c](https://github.com/LUI-UI/lui-vue/commit/a95216c2a0035089d540cfe01abf7fccd522e402))
+* **workflows:** change release action ([326dded](https://github.com/LUI-UI/lui-vue/commit/326dded06463f45d9c222454c2f84b8e9d550e5a))
+
+## [0.63.7](https://github.com/LUI-UI/lui-vue/compare/v0.63.6...v0.63.7) (2023-05-11)
+
+
+### Bug Fixes
+
+* **package.json:** change prepare commands to be more specific ([420fc99](https://github.com/LUI-UI/lui-vue/commit/420fc99adc7da7afc2327bb1d6913dc663eb0d9f))
 
 ## [0.63.6](https://github.com/LUI-UI/lui-vue/compare/v0.63.5...v0.63.6) (2023-05-09)
 

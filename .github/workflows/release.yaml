@@ -1,10 +1,8 @@
 name: Prepare for release
 on:
-  workflow_dispatch:
-    inputs:
-      release-type:
-        description: 'Release type (one of): patch, minor, major, prepatch, preminor, premajor, prerelease'
-        required: true
+  push:
+    branches:
+      - main
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -34,6 +32,16 @@ jobs:
       # Update changelog unreleased section with new version
       - name: release-please
         uses: google-github-actions/release-please-action@v3
+        id: release
         with:
           release-type: node
           package-name: lui-ui/lui-vue
+      # The logic below handles the npm publication:
+      - name: Publish npm
+        if: ${{ steps.release.outputs.release_created }}
+        run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+        
+      
+      

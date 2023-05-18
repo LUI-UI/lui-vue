@@ -1,5 +1,5 @@
 import LuiBadge from './LuiBadge.vue'
-import { color, size, filter, border, icon } from '../../../.storybook/global-story-argtypes'
+import { color, size, filter, border } from '../../../.storybook/global-story-argtypes'
 import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
@@ -19,7 +19,6 @@ const meta: Meta<typeof LuiBadge> = {
     color,
     size,
     filter,
-    icon,
     border,
     position: {
       control: 'select',

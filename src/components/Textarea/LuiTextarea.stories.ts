@@ -2,7 +2,6 @@ import LuiTextarea from './LuiTextarea.vue'
 import {
   rounded,
   size,
-  disabled,
   state,
   description,
   stateIcon,
@@ -17,7 +16,6 @@ const meta: Meta<typeof LuiTextarea> = {
   argTypes: {
     rounded,
     size,
-    disabled,
     description,
     state,
     stateIcon,
