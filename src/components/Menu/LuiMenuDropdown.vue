@@ -312,7 +312,7 @@ function triggerIconSize(size: string) {
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
-    <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
+    <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer" tabindex="0">
       <slot
         name="trigger"
         :id="buttonId"
