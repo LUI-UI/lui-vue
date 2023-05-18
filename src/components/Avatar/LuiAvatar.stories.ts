@@ -2,11 +2,11 @@ import LuiAvatar from './LuiAvatar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import {
+  variant,
   color,
   size,
   filter,
   border,
-  icon,
   rounded
 } from '../../../.storybook/global-story-argtypes'
 
@@ -14,15 +14,10 @@ const meta: Meta<typeof LuiAvatar> = {
   title: 'LUI/Avatar',
   component: LuiAvatar,
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['solid', 'outline'],
-      description: 'My avatar variant'
-    },
+    variant,
     color,
     size,
     filter,
-    icon,
     border,
     rounded,
     text: {
