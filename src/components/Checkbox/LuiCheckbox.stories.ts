@@ -1,11 +1,5 @@
 import LuiCheckbox from './LuiCheckbox.vue'
-import {
-  size,
-  disabled,
-  state,
-  description,
-  rounded
-} from '../../../.storybook/global-story-argtypes'
+import { size, rounded, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const descriptions = {
@@ -14,7 +8,6 @@ const descriptions = {
       'LuiCheckbox allows the users to check or uncheck a checkbox and to add a description to it.'
   },
   argTypes: {
-    checked: 'Controls checked or unchecked state',
     indeterminate: 'Used to symbolize a “partially” checked state.'
   }
 }
@@ -24,22 +17,13 @@ const meta: Meta<typeof LuiCheckbox> = {
   component: LuiCheckbox,
   argTypes: {
     size,
-    disabled,
+    rounded,
     state,
     description,
-    rounded,
-    checked: {
-      control: 'boolean',
-      options: [true, false],
-      description: descriptions.argTypes.checked
-    },
     indeterminate: {
       control: 'boolean',
       options: [true, false],
       description: descriptions.argTypes.indeterminate
-    },
-    onChange: {
-      action: 'checked change'
     }
   }
 }
@@ -85,13 +69,12 @@ const disabledTemplate = `
 <lui-checkbox disabled />
 <lui-checkbox disabled checked />
 `
-/** The <b>disabled</b> props is used to disable LuiCheckbox. */
+/** The <b>disabled</b> props is used to disable a LuiCheckbox. */
 export const Disabled: Story = {
   render: () => ({
     components: { LuiCheckbox },
     template: `<div class="space-x-4">${disabledTemplate}</div>`
   }),
-  args: { disabled },
   parameters: {
     docs: {
       source: {
@@ -161,11 +144,11 @@ const descriptionTemplate = `
 export const Description: Story = {
   render: () => ({
     components: { LuiCheckbox },
+    args: { description },
     template: `
     <div class="w-1/2 grid grid-cols-2">${descriptionTemplate}</div>
   `
   }),
-  args: { description },
   parameters: {
     docs: {
       source: {
