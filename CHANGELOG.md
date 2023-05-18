@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.63.13](https://github.com/LUI-UI/lui-vue/compare/v0.63.12...v0.63.13) (2023-05-18)
+
+
+### Bug Fixes
+
+* **input:** remove 'X' icon from search input ([73693af](https://github.com/LUI-UI/lui-vue/commit/73693af25b2ebe3c56c3d6b5395ec46b5d12b971))
+
 ## [0.63.12](https://github.com/LUI-UI/lui-vue/compare/v0.63.11...v0.63.12) (2023-05-17)
 
 
