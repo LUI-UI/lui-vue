@@ -132,12 +132,13 @@ function focusAvailableElement(
   const isTargetExist = (index: number) => index >= 0 && index <= listboxState.items.length - 1
   const isTargetFocusable = (targetIndex: number) => {
     const target = listboxState.items[targetIndex]
-    if (
-      typeof target !== 'string' &&
-      (target?.disabled === undefined || target?.disabled === false)
-    )
-      return true
-    return false
+    return target?.disabled === undefined || target?.disabled === false
+    // if (
+    //   typeof target !== 'string' &&
+    //   (target?.disabled === undefined || target?.disabled === false)
+    // )
+    //   return true
+    // return false
   }
   // listboxState.items[targetIndex]?.disabled === undefined ||
   //   listboxState.items[targetIndex]?.disabled === false;
@@ -149,16 +150,13 @@ function focusAvailableElement(
     targetIndex = oparation(targetIndex)
   }
   if (!isTargetExist(targetIndex)) return
-
   while (!isTargetFocusable(targetIndex)) {
     targetIndex = oparation(targetIndex)
     if (!isTargetExist(targetIndex)) return
   }
-
   listboxState.currentIndex = targetIndex
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id
-
   nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
 }
 
@@ -201,7 +199,14 @@ function setState() {
       )
       .flat()
   // validSlotTypes.includes(child.type.name)
-  const allOptions = [...props.options].concat(slotsOptions || [])
+  let allOptions = [...props.options].concat(slotsOptions || [])
+  if (props.placeholder !== '') {
+    allOptions = [
+      { text: props.placeholder, value: props.placeholder, disabled: true, selected: false },
+      ...allOptions
+    ]
+  }
+
   listboxState.items = allOptions
 }
 
