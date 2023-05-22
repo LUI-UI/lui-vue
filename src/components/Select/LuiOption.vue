@@ -1,5 +1,5 @@
 <script lang="ts">
-import { inject, computed, watch, nextTick, useSlots } from 'vue'
+import { inject, computed, watch, nextTick, useSlots, ref } from 'vue'
 import type { PropType } from 'vue'
 import { ContextKey } from './symbols'
 import { useId } from '../../utils/useId'
@@ -44,6 +44,7 @@ const props = defineProps({
 const context = inject(ContextKey)
 const slots = useSlots()
 const optionId = `lui-option-${useId()}`
+const optionRef = ref(null)
 
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
@@ -116,11 +117,15 @@ const optionClasses = computed(() => {
   }
   return Object.values({ ...classes })
 })
+defineExpose({
+  el: optionRef
+})
 </script>
 <template>
   <li
     role="option"
     tabindex="-1"
+    ref="optionRef"
     v-bind="$attrs"
     :id="optionId"
     :aria-selected="isSelected"
