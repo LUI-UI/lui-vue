@@ -68,14 +68,14 @@ export const Default: Story = {
     template: `
     <div class="flex space-x-10 h-[1400px]">
       <div>
-        <lui-select v-bind="args" placeholder="TEST!" @change="testChange" :options="['a','b','c']" />
+        <lui-select v-bind="args" @change="testChange" :options="['a','b','c','d','e','f','g','h','i','j']" />
       </div>
       <div>
         <lui-select>
           <template #prepend>
             <i class="ri-home-line"/>
           </template>
-          <lui-option v-for="i in 5" :key="i" :text="i + 'okeygoogle ve bazi baska kelimeler sen bilir misin bilmem '" :value="i" :disabled="i == 1 || i == 2">
+          <lui-option v-for="i in 15" :key="i" :text="i + 'lui-option'" :value="i" :disabled="i == 9 ? true : false">
             <template #append>
               <i class="ri-home-line"/>
             </template>

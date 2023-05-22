@@ -60,6 +60,8 @@ const attrs = useAttrs()
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const selectRef = ref<InstanceType<typeof LuiInput>>()
 const optionsRef = ref<HTMLUListElement>()
+// const optionRef = ref<CustomType[]>([])
+
 const selectWrapperRef = ref<HTMLDivElement>()
 const optionsActive: Ref<boolean> = ref(false)
 const selectedOption: Ref<any> = ref(undefined)
@@ -123,7 +125,24 @@ watch(
     // updateSelectedOption(value);
   }
 )
+function isScrollable(element: HTMLElement) {
+  return element && element.clientHeight < element.scrollHeight
+}
+// // maintainScrollVisibility(options[index], this.listboxEl);
+function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLElement) {
+  const { offsetHeight, offsetTop } = activeElement
+  const { offsetHeight: parentOffsetHeight, scrollTop } = scrollParent
 
+  const marginBetweenOptions = 8
+  const isAbove = offsetTop < scrollTop
+  const isBelow = offsetTop + offsetHeight > scrollTop + parentOffsetHeight
+
+  if (isAbove) {
+    scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
+  } else if (isBelow) {
+    scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight + marginBetweenOptions)
+  }
+}
 function focusAvailableElement(
   el: HTMLElement | undefined,
   oparation: (i: number) => number,
@@ -133,15 +152,7 @@ function focusAvailableElement(
   const isTargetFocusable = (targetIndex: number) => {
     const target = listboxState.items[targetIndex]
     return target?.disabled === undefined || target?.disabled === false
-    // if (
-    //   typeof target !== 'string' &&
-    //   (target?.disabled === undefined || target?.disabled === false)
-    // )
-    //   return true
-    // return false
   }
-  // listboxState.items[targetIndex]?.disabled === undefined ||
-  //   listboxState.items[targetIndex]?.disabled === false;
 
   let targetIndex = listboxState.currentIndex
   if (initial !== null) {
@@ -158,8 +169,13 @@ function focusAvailableElement(
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id
   nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
+  if (isScrollable(optionsRef.value as HTMLElement)) {
+    handleScrollVisibility(
+      optionsRef.value?.children[listboxState.currentIndex] as HTMLElement,
+      optionsRef.value as HTMLElement
+    )
+  }
 }
-
 function updateSelectedOption(option: ModelValue) {
   selectedOption.value = option
   let emitedVal = option
