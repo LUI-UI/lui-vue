@@ -1,5 +1,4 @@
 import LuiRadio from './LuiRadio.vue'
-import { ref } from 'vue'
 import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
