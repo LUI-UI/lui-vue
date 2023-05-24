@@ -29,7 +29,7 @@ export default meta
 type Story = StoryObj<typeof LuiTabGroup>
 
 export const Default: Story = {
-  render: (args) => ({
+  render: () => ({
     components: {
       LuiTabGroup,
       LuiTabButtons,
@@ -37,12 +37,8 @@ export const Default: Story = {
       LuiTabPanels,
       LuiTabPanel
     },
-    setup() {
-      return { args }
-    },
     template: `
-  
-  <lui-tab-group v-bind="args">
+  <lui-tab-group>
     <lui-tab-buttons align-tabs="left">
       <lui-tab-button>tab-1</lui-tab-button>
       <lui-tab-button>tab-2</lui-tab-button>
@@ -61,7 +57,7 @@ export const Default: Story = {
   })
 }
 export const WithControls: Story = {
-  render: (args) => ({
+  render: () => ({
     components: {
       LuiTabGroup,
       LuiTabButtons,
@@ -71,10 +67,10 @@ export const WithControls: Story = {
     },
     setup() {
       const activeTab = ref(0)
-      return { args, activeTab }
+      return { activeTab }
     },
     template: `
-  <lui-tab-group v-bind="args" :selectedIndex="activeTab">
+  <lui-tab-group :selectedIndex="activeTab">
     <lui-tab-buttons align-tabs="left">
       <lui-tab-button>tab-1</lui-tab-button>
       <lui-tab-button>tab-2</lui-tab-button>
