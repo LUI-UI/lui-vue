@@ -1,6 +1,13 @@
 import LuiButton from './LuiButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { variant, color, block, rounded, size } from '../../../.storybook/global-story-argtypes'
+import {
+  variant,
+  color,
+  block,
+  rounded,
+  size,
+  filter
+} from '../../../.storybook/global-story-argtypes'
 
 const descriptions = {
   docs: {
@@ -284,10 +291,12 @@ export const PrependSlot: Story = {
   }),
   parameters: {
     docs: {
-      source: { code: prependSlotTemplate }
-    },
-    description: {
-      story: 'The slot #prepend is used to add a text to the right side of the icon.'
+      source: {
+        code: prependSlotTemplate
+      },
+      description: {
+        story: 'The slot #prepend is used to add a text to the right side of the icon.'
+      }
     }
   }
 }
@@ -307,10 +316,12 @@ export const AppendSlot: Story = {
   }),
   parameters: {
     docs: {
-      source: { code: appendSlotTemplate }
-    },
-    description: {
-      story: 'The slot #append is used to add a text to the left side of the icon.'
+      source: {
+        code: appendSlotTemplate
+      },
+      description: {
+        story: 'The slot #append is used to add a text to the left side of the icon.'
+      }
     }
   }
 }
@@ -347,19 +358,89 @@ export const InheritedIconSizes: Story = {
 }
 
 const tagTemplate = `
-<lui-button tag="button">Default</lui-button>
-<lui-button tag="a" href="https://developer.mozilla.org" target="blank">"a"</lui-button>
-<lui-button tag="div">Tag: "div"</lui-button>
+<div class="flex flex-col items-center space-y-2">
+  <span>tag="button"</span>
+  <div class="flex flex-col space-y-2">
+    <lui-button tag="button" color="info" :rounded="false" size="sm" block>
+      <template #prepend>
+        <i class="ri-add-circle-line" />
+      </template>Add to basket</lui-button>
+    <lui-button tag="button" color="danger" :rounded="false" size="sm" block>
+      <template #prepend>
+        <i class="ri-indeterminate-circle-line" />
+      </template>Remove</lui-button>
+  </div>
+</div>
+<div class="flex flex-col items-center space-y-2">
+  <span>tag="a"</span>
+  <div class="flex flex-col space-y-2">
+  <lui-button tag="a" href="#" target="_blank" color="info" filter="darken" size="md" rounded="full">
+    Home
+    <template #append>
+      <i class="ri-home-line" />
+    </template>
+  </lui-button>
+  <lui-button tag="a" href="#" target="_blank" color="secondary" filter="darken" size="md" rounded="full">
+    Profile
+    <template #append>
+      <i class="ri-user-line" />
+    </template>
+  </lui-button>
+  <lui-button tag="a" href="#" target="_blank" color="secondary" size="md" rounded="full">
+    Contact
+    <template #append>
+      <i class="ri-mail-line" />
+    </template>
+  </lui-button>
+  </div>
+</div>
+<div class="flex flex-col items-center space-y-2">
+  <span>tag="div"</span>
+  <div class="flex space-x-2">
+  <div>
+  <lui-button tag="div" color="primary" :rounded="true" size="xl">
+    <template #icon>
+      <i class="ri-facebook-fill" />
+    </template>
+  </lui-button>
+  </div>
+  <div>
+  <lui-button tag="div" color="warning" :rounded="true" size="xl">
+    <template #icon>
+      <i class="ri-instagram-fill" />
+    </template>
+  </lui-button>
+  </div>
+  <div>
+  <lui-button tag="div" color="danger" :rounded="true" size="xl">
+    <template #icon>
+      <i class="ri-youtube-fill" />
+    </template>
+  </lui-button>
+  </div>
+  </div>
+</div>
 `
 export const Tag: Story = {
   render: () => ({
     components: { LuiButton },
-    template: tagTemplate
+    template: `<div class="flex items-start justify-between">${tagTemplate}</div>`,
+    args: { color, rounded, size, filter, block }
   }),
   parameters: {
     docs: {
       source: {
-        code: tagTemplate
+        code: `
+<lui-button tag="button" color="warning" :rounded="false" filter="lighten" size="lg">
+  SUBMIT
+</lui-button>
+<lui-button tag="a" href="#" target="_blank" color="danger" size="md" rounded="full">
+  User Profile
+  <template #append><i class="ri-user-line" /></template>
+</lui-button>
+<lui-button tag="div" color="secondary" :rounded="true" size="xs">
+  <template #icon><i class="ri-home-line" /></template>
+</lui-button>`
       },
       description: {
         story:
