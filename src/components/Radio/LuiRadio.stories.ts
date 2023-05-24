@@ -5,7 +5,8 @@ import { ref } from 'vue'
 
 const descriptions = {
   docs: {
-    component: 'LuiRadio is used to select a value and you can also add a description to it.'
+    component:
+      'LuiRadio allows users to select a single option from a set of mutually exclusive choices, with only one radio button within the same group being selectable at a time.'
   }
 }
 
