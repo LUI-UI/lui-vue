@@ -36,12 +36,8 @@ export const Default: Story = {
       // const names = ["bayhan", "sercan", "serkan", "rahmi", "can"];
       const names = [
         { text: 'sercan', value: '1', selected: false, disabled: true },
-        { text: 'bahyan', value: '2', selected: false },
-        {
-          text: 'serkan',
-          value: '3',
-          selected: false
-        },
+        { text: 'bayhan', value: '2', selected: false },
+        { text: 'serkan', value: '3', selected: false },
         { text: 'rahmi', value: '4', selected: false },
         { text: 'can', value: '5', selected: true }
       ]
@@ -68,7 +64,7 @@ export const Default: Story = {
     template: `
     <div class="flex space-x-10 h-[1400px]">
       <div>
-        <lui-select v-bind="args" placeholder="TEST!" @change="testChange" :options="['a','b','c']" />
+        <lui-select placeholder="TEST!" @change="testChange" :options="['a','b','c']" />
       </div>
       <div>
         <lui-select>
@@ -83,7 +79,7 @@ export const Default: Story = {
         </lui-select>
       </div>
       <div class="mt-[600px]">
-        <lui-select v-bind="args">
+        <lui-select>
           <lui-option text="Second option first item" value="6"></lui-option>
           <lui-option text="Second option 2. item" value="7"></lui-option>
           <lui-option text="Second option 3.. item" value="11"></lui-option>
@@ -99,7 +95,7 @@ export const WithObjectArrays: Story = {
     components: { LuiSelect },
     setup() {
       const names = [
-        { text: 'bahyan', value: '9' },
+        { text: 'bayhan', value: '9' },
         { text: 'sercan', value: '10' },
         { text: 'serkan', value: '12' },
         { text: 'rahmi', value: '4' },
@@ -130,7 +126,7 @@ export const WithSlots: Story = {
     },
     template: `
     <div class="w-[800px]">
-      <lui-select v-bind="args" v-model="selectedItem">
+      <lui-select v-model="selectedItem">
         <lui-option v-for="item in items" :key="item" :id="item" :text="item" />
       </lui-select>
     </div>
@@ -228,7 +224,7 @@ export const MaxHeight: Story = {
       return { args, cities, selectedCity }
     },
     template: `
-      <lui-select v-bind="args" v-model="selectedCity" :options="cities" size="xl" />
+      <lui-select v-model="selectedCity" :options="cities" size="xl" />
   `
   })
 }
