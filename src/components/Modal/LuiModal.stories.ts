@@ -16,16 +16,16 @@ export default meta
 type Story = StoryObj<typeof LuiModal>
 
 export const TestTemplate: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { LuiModal, LuiButton, LuiInput },
     setup() {
       const showModal = ref(false)
-      return { args, showModal }
+      return { showModal }
     },
     template: `
     <div class="h-[4200px]">
       <button @click="showModal = true">open modal</button>
-      <lui-modal :show="showModal" v-bind="args" size="xl" @close="showModal = false">
+      <lui-modal :show="showModal" size="xl" @close="showModal = false">
         <div class="login-content w-full px-2">
         <div class="modal-title text-center">
           <h1 class="text-3xl font-bold mb-8 basic-text">
@@ -135,7 +135,7 @@ export const Default: Story = {
     },
     template: `
     <button @click="showModal = true">open modal</button>
-    <lui-modal :show="showModal" v-bind="args" @close="showModal = false">
+    <lui-modal :show="showModal" @close="showModal = false">
       <div class="w-full">
         <h2 class="text-xl font-bold mb-4">Information message</h2>
         <p class="mb-6">
