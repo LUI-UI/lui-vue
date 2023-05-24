@@ -5,7 +5,7 @@ import { variant, color, block, rounded, size } from '../../../.storybook/global
 const descriptions = {
   docs: {
     component:
-      'LuiButton allows the users to perform an action once activated. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
+      'LuiButton is used to perform an action once activated. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
   },
   argTypes: {
     tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)'
@@ -57,7 +57,6 @@ export default meta
 type Story = StoryObj<typeof LuiButton>
 
 const defaultTemplate = `<lui-button>Default Button</lui-button>`
-/** This is how a default LuiButton looks. The default color is the <i>primary</i> color. <pre><code>The value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.</code></pre>*/
 export const Default: Story = {
   render: () => ({
     components: { LuiButton },
@@ -67,13 +66,16 @@ export const Default: Story = {
     docs: {
       source: {
         code: defaultTemplate
+      },
+      description: {
+        story:
+          'This is how a default LuiButton looks. The default color is the <i>primary</i> color. <pre><code>The value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.</code></pre>'
       }
     }
   }
 }
 
 const disabledTemplate = `<lui-button disabled>Disabled Button</lui-button>`
-/** The <b>disabled</b> props is used to disable a LuiButton. */
 export const Disabled: Story = {
   render: () => ({
     components: { LuiButton },
@@ -83,25 +85,9 @@ export const Disabled: Story = {
     docs: {
       source: {
         code: disabledTemplate
-      }
-    }
-  }
-}
-
-const tagTemplate = `
-<lui-button tag="a" href="https://developer.mozilla.org" target="blank">Button tagged "a"</lui-button>
-<lui-button tag="div">Button tagged "div"</lui-button>
-`
-/** The <b>tag</b> props is used to assign the LuiButton a "div" or "a" functionality. When a LuiButton is passed a tag props, it acts like that element and can have its attributes. */
-export const Tag: Story = {
-  render: () => ({
-    components: { LuiButton },
-    template: tagTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: tagTemplate
+      },
+      description: {
+        story: 'The <b>disabled</b> props is used to disable a LuiButton.'
       }
     }
   }
@@ -113,7 +99,6 @@ const variantTemplate = `
 <lui-button variant="link">Link</lui-button>
 <lui-button variant="text">Text</lui-button>
 `
-/** There are 4 variant options to customize how a LuiButton looks. */
 export const Variant: Story = {
   render: () => ({
     components: { LuiButton },
@@ -124,6 +109,9 @@ export const Variant: Story = {
     docs: {
       source: {
         code: variantTemplate
+      },
+      description: {
+        story: 'There are 4 variant options to customize the LuiButton.'
       }
     }
   }
@@ -137,7 +125,6 @@ const colorTemplate = `
 <lui-button color="warning">Warning</lui-button>
 <lui-button color="danger">Danger</lui-button>
 `
-/** There are 6 options to customize the color of a LuiButton. (See the details: https://www...). */
 export const Color: Story = {
   render: () => ({
     components: { LuiButton },
@@ -148,6 +135,10 @@ export const Color: Story = {
     docs: {
       source: {
         code: colorTemplate
+      },
+      description: {
+        story:
+          'There are 6 options to customize the color of a LuiButton. (See the details: https://www...)'
       }
     }
   }
@@ -167,7 +158,6 @@ const filterTemplate = `
 <lui-button color="warning" filter="lighten">Lighten</lui-button>
 <lui-button color="danger" filter="lighten">Lighten</lui-button>
 `
-/** The <b>filter</b> props is used to lighten or darken the selected color.*/
 export const Filter: Story = {
   render: () => ({
     components: { LuiButton },
@@ -177,6 +167,9 @@ export const Filter: Story = {
     docs: {
       source: {
         code: filterTemplate
+      },
+      description: {
+        story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
       }
     }
   }
@@ -189,7 +182,6 @@ const sizeTemplate = `
 <lui-button size="lg">Large</lui-button>
 <lui-button size="xl">xLarge</lui-button>
 `
-/** There are 5 options to control the size of a LuiButton. (The size property might change the padding and/or the font size.) */
 export const Size: Story = {
   render: () => ({
     components: { LuiButton },
@@ -200,6 +192,10 @@ export const Size: Story = {
     docs: {
       source: {
         code: sizeTemplate
+      },
+      description: {
+        story:
+          'There are 5 options to control the size of a LuiButton. (The size property might change the padding and/or the font size.)'
       }
     }
   }
@@ -210,7 +206,6 @@ const roundedTemplate = `
 <lui-button :rounded="true">True</lui-button>
 <lui-button rounded="full">Full</lui-button>
 `
-/** There are 3 options to round the corners of a LuiButton. */
 export const Rounded: Story = {
   render: () => ({
     components: { LuiButton },
@@ -221,13 +216,15 @@ export const Rounded: Story = {
     docs: {
       source: {
         code: roundedTemplate
+      },
+      description: {
+        story: 'There are 3 options to round the corners of a LuiButton.'
       }
     }
   }
 }
 
 const blockTemplate = `<lui-button block>Block</lui-button>`
-/** The <b>block</b> props provides a full width button look.*/
 export const Block: Story = {
   render: () => ({
     components: { LuiButton },
@@ -238,12 +235,13 @@ export const Block: Story = {
     docs: {
       source: {
         code: blockTemplate
+      },
+      description: {
+        story: 'The <b>block</b> props provides a full width button look.'
       }
     }
   }
 }
-
-// <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M19 21H5a1 1 0 0 1-1-1v-9H1l10.327-9.388a1 1 0 0 1 1.346 0L23 11h-3v9a1 1 0 0 1-1 1zM6 19h12V9.157l-6-5.454-6 5.454V19z"/></svg>
 
 const iconSlotTemplate = `
 <lui-button>
@@ -252,7 +250,6 @@ const iconSlotTemplate = `
   </template>
 </lui-button>
 `
-/** To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the #append or #prepend slots. */
 export const IconSlot: Story = {
   render: () => ({
     components: { LuiButton },
@@ -262,6 +259,10 @@ export const IconSlot: Story = {
     docs: {
       source: {
         code: iconSlotTemplate
+      },
+      description: {
+        story:
+          'To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the #append or #prepend slots.'
       }
     }
   }
@@ -275,7 +276,6 @@ const prependSlotTemplate = `
   Prepend
 </lui-button>
 `
-/** The slot #prepend is used to add a text to the right side of the icon.*/
 export const PrependSlot: Story = {
   render: () => ({
     components: { LuiButton },
@@ -284,6 +284,9 @@ export const PrependSlot: Story = {
   parameters: {
     docs: {
       source: { code: prependSlotTemplate }
+    },
+    description: {
+      story: 'The slot #prepend is used to add a text to the right side of the icon.'
     }
   }
 }
@@ -296,7 +299,6 @@ const appendSlotTemplate = `
   </template>
 </lui-button>
 `
-/** The slot #append is used to add a text to the left side of the icon.*/
 export const AppendSlot: Story = {
   render: () => ({
     components: { LuiButton },
@@ -305,6 +307,9 @@ export const AppendSlot: Story = {
   parameters: {
     docs: {
       source: { code: appendSlotTemplate }
+    },
+    description: {
+      story: 'The slot #append is used to add a text to the left side of the icon.'
     }
   }
 }
@@ -316,17 +321,42 @@ const inheritedSizeTemplate = `
 <lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button>
 <lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button>
 `
-
-/** Here, the icon sizes are changed accordingly, because they're inherited from the button sizes. */
 export const InheritedIconSizes: Story = {
   render: () => ({
     components: { LuiButton },
-    template: `<div class="w-full gap-x-2 gap-y-4">${inheritedSizeTemplate}</div>`
+    template: `<div class="space-x-4">${inheritedSizeTemplate}</div>`
   }),
   parameters: {
     docs: {
       source: {
         code: inheritedSizeTemplate
+      },
+      description: {
+        story:
+          "Here, the icon sizes are changed accordingly, because they're inherited from the button sizes."
+      }
+    }
+  }
+}
+
+const tagTemplate = `
+<lui-button tag="button">Default</lui-button>
+<lui-button tag="a" href="https://developer.mozilla.org" target="blank">"a"</lui-button>
+<lui-button tag="div">Tag: "div"</lui-button>
+`
+export const Tag: Story = {
+  render: () => ({
+    components: { LuiButton },
+    template: tagTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: tagTemplate
+      },
+      description: {
+        story:
+          'The <b>tag</b> props is used to give the LuiButton the functionality of the "div" or "a" element. When a LuiButton is passed a tag props, it acts like that element and can have its attributes. tag="button" is passed as default.'
       }
     }
   }
