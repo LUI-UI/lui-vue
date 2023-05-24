@@ -6,7 +6,7 @@ import { ref } from 'vue'
 const descriptions = {
   docs: {
     component:
-      'LuiCheckbox is used to check or uncheck a value and you can also add a description to it.'
+      'LuiCheckbox allows users to select or deselect a specific option from a set of choices by clicking or tapping on the checkbox, providing a binary selection state.'
   },
   argTypes: {
     indeterminate: 'Used to symbolize a “partially” checked state.'
@@ -24,6 +24,7 @@ const meta: Meta<typeof LuiCheckbox> = {
     indeterminate: {
       control: 'boolean',
       options: [true, false],
+      default: false,
       description: descriptions.argTypes.indeterminate
     }
   },
