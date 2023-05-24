@@ -315,21 +315,27 @@ export const AppendSlot: Story = {
 }
 
 const inheritedSizeTemplate = `
+<div><lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+<div><lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+<div><lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+<div><lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+<div><lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+`
+export const InheritedIconSizes: Story = {
+  render: () => ({
+    components: { LuiButton },
+    template: `<div class="flex items-center space-x-4">${inheritedSizeTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `
 <lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button>
 <lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button>
 <lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button>
 <lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button>
 <lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button>
-`
-export const InheritedIconSizes: Story = {
-  render: () => ({
-    components: { LuiButton },
-    template: `<div class="space-x-4">${inheritedSizeTemplate}</div>`
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: inheritedSizeTemplate
+        `
       },
       description: {
         story:
