@@ -2,6 +2,13 @@ import LuiSwitch from './LuiSwitch.vue'
 import { rounded, size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
+const descriptions = {
+  docs: {
+    component:
+      'LuiSwitch provides a binary on/off or true/false functionality, allowing users to switch between two states with a single click or touch, typically used for enabling or disabling a feature or option.'
+  }
+}
+
 const meta: Meta<typeof LuiSwitch> = {
   title: 'LUI/Switch',
   component: LuiSwitch,
@@ -10,13 +17,18 @@ const meta: Meta<typeof LuiSwitch> = {
     size,
     description,
     state
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component }
+    }
   }
 }
 export default meta
 type Story = StoryObj<typeof LuiSwitch>
 
 const defaultTemplate = `<lui-switch />`
-/** This is how a default LuiSwitch looks. */
 export const Default: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -26,13 +38,15 @@ export const Default: Story = {
     docs: {
       source: {
         code: defaultTemplate
+      },
+      description: {
+        story: 'This is how a default LuiSwitch looks.'
       }
     }
   }
 }
 
 const checkedTemplate = `<lui-switch checked />`
-/** The <b>checked</b> props determines if the LuiSwitch is checked or not. */
 export const Checked: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -42,6 +56,9 @@ export const Checked: Story = {
     docs: {
       source: {
         code: checkedTemplate
+      },
+      description: {
+        story: 'The <b>checked</b> props determines if the LuiSwitch is checked or not.'
       }
     }
   }
@@ -51,7 +68,6 @@ const disabledTemplate = `
 <lui-switch checked disabled />
 <lui-switch disabled />
 `
-/** The <b>disabled</b> props is used to disable a LuiSwitch. */
 export const Disabled: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -61,6 +77,9 @@ export const Disabled: Story = {
     docs: {
       source: {
         code: disabledTemplate
+      },
+      description: {
+        story: 'The <b>disabled</b> props is used to disable a LuiSwitch.'
       }
     }
   }
@@ -73,7 +92,6 @@ const sizeTemplate = `
 <lui-switch size="lg" />
 <lui-switch size="xl" />
 `
-/** There are 5 options to control the size of a LuiSwitch. */
 export const Size: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -84,6 +102,9 @@ export const Size: Story = {
     docs: {
       source: {
         code: sizeTemplate
+      },
+      description: {
+        story: 'There are 5 options to control the size of a LuiSwitch.'
       }
     }
   }
@@ -94,7 +115,6 @@ const roundedTemplate = `
 <lui-switch :rounded="true" />
 <lui-switch rounded="full" />
 `
-/** There are 3 options to round the corners of a LuiSwitch. */
 export const Rounded: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -105,6 +125,9 @@ export const Rounded: Story = {
     docs: {
       source: {
         code: roundedTemplate
+      },
+      description: {
+        story: 'There are 3 options to round the corners of a LuiSwitch.'
       }
     }
   }
@@ -130,16 +153,16 @@ export const Description: Story = {
 }
 
 const stateTemplate = `
-<lui-switch :state="true" description="Switch description" />
-<lui-switch :state="false" description="Switch description" />
-<lui-switch state="warning" description="Switch description" />
-<lui-switch state="null" description="Switch description" />
+<lui-switch :state="true" description="This is a description" />
+<lui-switch :state="false" description="This is a description" />
+<lui-switch state="warning" description="This is a description" />
+<lui-switch state="null" description="This is a description" />
 `
 /** There are 4 states to change the description color of a LuiSwitch. */
 export const State: Story = {
   render: () => ({
     components: { LuiSwitch },
-    args: { description },
+    args: { state },
     template: `<div class="w-2/3 grid grid-cols-4">${stateTemplate}</div>`
   }),
   parameters: {
@@ -151,26 +174,12 @@ export const State: Story = {
   }
 }
 
-// const exampleTemplate = `
-// <div class="flex space-x-8">
-//   <p>Do you want to subscribe to our newsletter?</p>
-//   <lui-switch />
-// </div>
-// <div class="flex space-x-8">
-//   <p>Do you want to be notiffied by phone?</p>
-//   <lui-switch />
-// </div>
-// <div class="flex space-x-8">
-//   <p>Do you want to be notiffied by email?</p>
-//   <lui-switch />
-// </div>
-// `
+// const exampleTemplate = `<lui-switch />`
 // /** Here are some use cases of a LuiSwitch. */
 // export const Examples: Story = {
 //   render: () => ({
 //     components: { LuiSwitch },
-//     args: { description },
-//     template: `<div class="flex flex-col space-x-8">${exampleTemplate}</div>`
+//     template: exampleTemplate
 //   }),
 //   parameters: {
 //     docs: {
