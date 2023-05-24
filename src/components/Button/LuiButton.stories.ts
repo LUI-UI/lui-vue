@@ -5,7 +5,7 @@ import { variant, color, block, rounded, size } from '../../../.storybook/global
 const descriptions = {
   docs: {
     component:
-      'LuiButton is used to perform an action once activated. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
+      'LuiButton is used to trigger an action or event when clicked or activated by the user. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
   },
   argTypes: {
     tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)'
@@ -29,6 +29,7 @@ const meta: Meta<typeof LuiButton> = {
     tag: {
       control: { type: 'select' },
       options: ['button', 'div', 'a'],
+      default: 'button',
       description: descriptions.argTypes.tag
     },
     default: {
