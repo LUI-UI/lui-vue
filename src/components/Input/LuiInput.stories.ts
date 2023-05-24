@@ -5,7 +5,6 @@ import {
   block,
   rounded,
   size,
-  prepend,
   description,
   state,
   stateIcon
@@ -19,7 +18,6 @@ const meta: Meta<typeof LuiInput> = {
     block,
     rounded,
     size,
-    prepend,
     description,
     state,
     stateIcon,
@@ -38,7 +36,7 @@ export const Default: Story = {
     setup() {
       return { args }
     },
-    template: '<lui-input v-bind="args" placeholder="type something" />'
+    template: '<lui-input placeholder="type something" />'
   })
 }
 export const Medium: Story = {
@@ -47,7 +45,7 @@ export const Medium: Story = {
     setup() {
       return { args }
     },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
+    template: '<lui-input placeholder="type something" />',
     args: {
       rounded: true,
       size: 'md'
@@ -60,7 +58,7 @@ export const Description: Story = {
     setup() {
       return { args }
     },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
+    template: '<lui-input placeholder="type something" />',
     args: {
       description: 'Input description text'
     }
@@ -72,7 +70,7 @@ export const StateIcon: Story = {
     setup() {
       return { args }
     },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
+    template: '<lui-input placeholder="type something" />',
     args: {
       stateIcon: true
     }
@@ -87,7 +85,7 @@ export const Clear: Story = {
     },
     template: `
     <div class="flex items-center space-x-8">
-      <lui-input v-bind="args"
+      <lui-input
         v-for="size in sizes"
         :key="size"   
         :size="size" 
@@ -108,7 +106,7 @@ export const States: Story = {
     },
     template: `
     <div class="flex space-x-8 mb-8" v-for="size in sizes" :key="size">
-      <lui-input v-bind="args"
+      <lui-input
         v-for="state in states"
         :key="state"   
         :size="size" 
@@ -135,7 +133,7 @@ export const PrependIcon: Story = {
     <div class="flex items-center space-x-8">
       <lui-input 
         v-for="size in sizes" :key="size"
-        v-bind="args"
+       
         :size="size" 
         placeholder="Type something" 
       >
