@@ -29,38 +29,30 @@ const meta: Meta<typeof LuiTextarea> = {
 export default meta
 type Story = StoryObj<typeof LuiTextarea>
 
-export const TestTemplate: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
+export const Test: Story = {
+  render: () => ({
     components: { LuiTextarea },
-    // The story's `args` need to be mapped into the template through the `setup()` method
     setup() {
       const message = ref('okey google!')
-      return { args, message }
+      return { message }
     },
-    // And then the `args` are bound to your component with `v-bind="args"`
     template: `
     {{message}}
-    <lui-textarea v-bind="args" placeholder="text placeholder" v-model="message" />
+    <lui-textarea placeholder="text placeholder" v-model="message" />
   `
   })
 }
 export const Medium: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
+  render: () => ({
     components: { LuiTextarea },
-    // The story's `args` need to be mapped into the template through the `setup()` method
     setup() {
       const message = ref('okey google!')
-      return { args, message }
+      return { message }
     },
-    // And then the `args` are bound to your component with `v-bind="args"`
     template: `
     {{message}}
-    <lui-textarea v-bind="args" placeholder="text placeholder" v-model="message" />
+    <lui-textarea placeholder="text placeholder" v-model="message" />
   `,
-    args: {
-      size: 'md'
-    }
+    args: { size }
   })
 }
