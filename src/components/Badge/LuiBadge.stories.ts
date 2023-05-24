@@ -1,21 +1,23 @@
 import LuiBadge from './LuiBadge.vue'
-import { color, size, filter, border } from '../../../.storybook/global-story-argtypes'
+import { variant, color, size, filter, border } from '../../../.storybook/global-story-argtypes'
 import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-const sizeList = size.options
-const colorList = color.options
-const filterList = filter.options
+const descriptions = {
+  docs: {
+    component:
+      'LuiBadge visually represents additional information or status by displaying a small, typically circular, element containing text or icons, providing a quick and noticeable way to convey relevant details or notifications within an interface.'
+  },
+  argTypes: {
+    position: 'Used to control the position of ...'
+  }
+}
 
 const meta: Meta<typeof LuiBadge> = {
   title: 'LUI/Badge',
   component: LuiBadge,
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['solid', 'outline'],
-      description: 'My badge variant'
-    },
+    variant,
     color,
     size,
     filter,
@@ -23,10 +25,17 @@ const meta: Meta<typeof LuiBadge> = {
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
-      default: 'bottom-right'
+      default: 'bottom-right',
+      description: descriptions.argTypes.position
     },
     text: {
       control: 'text'
+    }
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component }
     }
   }
 }
@@ -35,27 +44,24 @@ export default meta
 type Story = StoryObj<typeof LuiBadge>
 
 export const Default: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { LuiBadge },
     setup() {
       const activeColor = ref('secondary')
-      return { args, activeColor }
+      return { activeColor }
     },
-    template: ` <button @click="activeColor = 'primary'">change color!</button> {{activeColor}} <lui-badge v-bind="args" :color="activeColor" />`
+    template: ` <button @click="activeColor = 'primary'">change color!</button> {{activeColor}} <lui-badge  :color="activeColor" />`
   })
 }
-export const VariantTemplate: Story = {
-  render: (args) => ({
+export const Variant: Story = {
+  render: () => ({
     components: { LuiBadge },
-    setup() {
-      const variants = ['solid', 'outline']
-      return { args, variants }
-    },
+    args: { variant },
     template: `
     <div v-for="variant in variants" key="variant" class="flex items-center space-x-4 mb-4">
-    <lui-badge v-bind="args" :variant="variant"/>
-      <lui-badge v-bind="args" :variant="variant" text="Badge"/>
-      <lui-badge v-bind="args" :variant="variant">
+    <lui-badge  :variant="variant"/>
+      <lui-badge  :variant="variant" text="Badge"/>
+      <lui-badge  :variant="variant">
         <template #icon>
         <i class="ri-user-line"></i>
         </template>
@@ -66,59 +72,192 @@ export const VariantTemplate: Story = {
   })
 }
 
-export const ColorTemplate: Story = {
-  render: (args) => ({
+export const Color: Story = {
+  render: () => ({
     components: { LuiBadge },
-    setup() {
-      const colors = colorList
-      const filters = filterList
-      return { args, colors, filters }
-    },
+    args: { color },
     template: `
-  <div v-for="filter in filters" :key="filter">
-  <pre>{{filter}}</pre>
-  
-      <div class="space-x-4 mb-4">
-      <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" :filter="filter"/>
-      </div>
-      <div class="space-x-4 mb-4">
-      <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" text="Badge" :filter="filter"/>
-      </div>
-      <div class="space-x-4 mb-4">
-      <lui-badge v-bind="args" v-for="color in colors" key="color" :color="color" :filter="filter">
-        <template #icon>
-        <i class="ri-user-line"></i>
-        </template>
-      </lui-badge>
-      </div>
-  
-  </div>
-    
+<lui-badge color="primary" />
+<lui-badge color="secondary" />
+<lui-badge color="info" />
+<lui-badge color="success" />
+<lui-badge color="warning" />
+<lui-badge color="danger">Danger</lui-badge>
+<lui-badge color="primary" text="Badge" />
+<lui-badge color="secondary" text="Badge" />
+<lui-badge color="info" text="Badge" />
+<lui-badge color="success" text="Badge" />
+<lui-badge color="warning" text="Badge" />
+<lui-badge color="danger" text="Badge" />
     `
   })
 }
-export const SizeTemplate: Story = {
-  render: (args) => ({
+
+export const Filter: Story = {
+  render: () => ({
     components: { LuiBadge },
-    setup() {
-      const sizes = sizeList
-      return { args, sizes }
-    },
+    args: { color, filter },
+    template: `
+<lui-badge color="primary" filter="lighten" />
+<lui-badge color="secondary" filter="lighten" />
+<lui-badge color="info" filter="lighten" />
+<lui-badge color="success" filter="lighten" />
+<lui-badge color="warning" filter="lighten" />
+<lui-badge color="danger" filter="lighten" />
+<lui-badge color="primary" filter="darken" />
+<lui-badge color="secondary" filter="darken" />
+<lui-badge color="info" filter="darken" />
+<lui-badge color="success" filter="darken" />
+<lui-badge color="warning" filter="darken" />
+<lui-badge color="danger" filter="darken" />
+<lui-badge color="primary" text="Badge" filter="lighten" />
+<lui-badge color="secondary" text="Badge" filter="lighten" />
+<lui-badge color="info" text="Badge" filter="lighten" />
+<lui-badge color="success" text="Badge" filter="lighten" />
+<lui-badge color="warning" text="Badge" filter="lighten" />
+<lui-badge color="danger" text="Badge" filter="lighten" />
+<lui-badge color="primary" text="Badge" filter="darken" />
+<lui-badge color="secondary" text="Badge" filter="darken" />
+<lui-badge color="info" text="Badge" filter="darken" />
+<lui-badge color="success" text="Badge" filter="darken" />
+<lui-badge color="warning" text="Badge" filter="darken" />
+<lui-badge color="danger" text="Badge" filter="darken" />
+<lui-badge color="primary"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="secondary"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="info"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="success"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="warning"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="danger"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="primary"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="secondary"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="info"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="success"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="warning"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="danger"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="primary" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="secondary" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="info" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="success" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="warning" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="danger" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+
+<lui-badge color="primary" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="secondary" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="info" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="success" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="warning" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+<lui-badge color="danger" text="Badge"><template #icon>
+<i class="ri-user-line"></i>
+</template>
+</lui-badge>
+`
+  })
+}
+
+export const Size: Story = {
+  render: () => ({
+    components: { LuiBadge },
     template: `
     <div class="space-x-4 mb-4">
-    <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size"/>
+    <lui-badge size="xs"/>
+    <lui-badge size="sm"/>
+    <lui-badge size="md"/>
+    <lui-badge size="lg"/>
+    <lui-badge size="xl"/>
     </div>
     <div class="space-x-4 mb-4">
-    <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size" text="Badge"/>
+    <lui-badge size="xs" text="Badge"/>
+    <lui-badge size="sm" text="Badge"/>
+    <lui-badge size="md" text="Badge"/>
+    <lui-badge size="lg" text="Badge"/>
+    <lui-badge size="xl" text="Badge"/>
     </div>
     <div class="space-x-4 mb-4">
-    <lui-badge v-bind="args" v-for="size in sizes" key="size" :size="size">
-      <template #icon>
+    <lui-badge size="xs"><template #icon>
       <i class="ri-user-line"></i>
-      </template>
-    </lui-badge>
+      </template></lui-badge>
+    <lui-badge size="sm"><template #icon>
+      <i class="ri-user-line"></i>
+      </template></lui-badge>
+    <lui-badge size="md"><template #icon>
+      <i class="ri-user-line"></i>
+      </template></lui-badge>
+    <lui-badge size="lg"><template #icon>
+      <i class="ri-user-line"></i>
+      </template></lui-badge>
+    <lui-badge size="xl"><template #icon>
+      <i class="ri-user-line"></i>
+      </template></lui-badge>
     </div>
-    
     `
   })
 }
@@ -137,7 +276,7 @@ export const PositionTemplate: Story = {
         class="p-6 flex space-x-12"
       >
         <div class="space-x-4 mb-4">
-          <lui-badge v-bind="args" color="success" :position="position">
+          <lui-badge  color="success" :position="position">
             <div
               class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
             >
@@ -146,7 +285,7 @@ export const PositionTemplate: Story = {
           </lui-badge>
         </div>
         <div class="space-x-4 mb-4">
-          <lui-badge v-bind="args" color="warning" :position="position" text="9">
+          <lui-badge  color="warning" :position="position" text="9">
             <div
               class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
             >
@@ -155,7 +294,7 @@ export const PositionTemplate: Story = {
           </lui-badge>
         </div>
         <div class="space-x-4 mb-4">
-          <lui-badge v-bind="args" color="danger" :position="position">
+          <lui-badge  color="danger" :position="position">
             <div
               class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
             >
@@ -184,7 +323,7 @@ export const BorderTemplate: Story = {
       class="p-6 flex space-x-12"
     >
       <div class="space-x-4 mb-4">
-        <lui-badge v-bind="args" color="success" :position="position" :border="true">
+        <lui-badge  color="success" :position="position" :border="true">
           <div
             class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
           >
@@ -193,7 +332,7 @@ export const BorderTemplate: Story = {
         </lui-badge>
       </div>
       <div class="space-x-4 mb-4">
-        <lui-badge v-bind="args" color="warning" :position="position" :border="true" text="9">
+        <lui-badge  color="warning" :position="position" :border="true" text="9">
           <div
             class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
           >
@@ -202,7 +341,7 @@ export const BorderTemplate: Story = {
         </lui-badge>
       </div>
       <div class="space-x-4 mb-4">
-        <lui-badge v-bind="args" color="danger" :position="position" :border="true">
+        <lui-badge  color="danger" :position="position" :border="true">
           <div
             class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
           >
