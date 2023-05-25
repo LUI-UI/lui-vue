@@ -47,7 +47,7 @@ const props = defineProps({
   },
   modelValue: {
     type: [String, Number] as PropType<ModelValue>,
-    default: ''
+    default: undefined
   }
 })
 
@@ -156,16 +156,25 @@ const stateIconTemplate = (params: any) =>
     },
     [h('path', { fill: 'none', d: 'M0 0h24v24H0z' }), h('path', { d: params.path })]
   )
+const computedAttrs = computed(() => {
+  // if v-model using we have to control the value,that is why we remove value prop in attrs
+  if (props.modelValue !== undefined && attrs.value) {
+    const attributes = { ...attrs }
+    delete attributes.value
+    return attributes
+  }
+  return attrs
+})
 </script>
 <template>
   <div class="lui-input" :class="wrapperClasses">
     <div class="relative" :class="block ? 'w-full' : ''">
       <input
         ref="LuiInputRef"
-        :value="modelValue"
         :class="inputClasses"
-        v-bind="$attrs"
+        :value="modelValue === undefined ? '' : modelValue"
         @input="handleInputEvents($event)"
+        v-bind="computedAttrs"
       />
       <span v-if="!!slots.prepend" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
