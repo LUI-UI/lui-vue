@@ -110,7 +110,7 @@ const variantTemplate = `
 export const Variant: Story = {
   render: () => ({
     components: { LuiButton },
-    template: variantTemplate
+    template: `<div class="flex space-x-4 items-center">${variantTemplate}</div>`
   }),
   args: { variant },
   parameters: {
@@ -171,6 +171,7 @@ export const Filter: Story = {
     components: { LuiButton },
     template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
   }),
+  args: { color, filter },
   parameters: {
     docs: {
       source: {
@@ -374,19 +375,19 @@ const tagTemplate = `
 <div class="flex flex-col items-center space-y-2">
   <span>tag="a"</span>
   <div class="flex flex-col space-y-2">
-  <lui-button tag="a" href="#" target="_blank" color="info" filter="darken" size="md" rounded="full">
+  <lui-button tag="div" color="info" filter="darken" size="md" rounded="full">
     Home
     <template #append>
       <i class="ri-home-line" />
     </template>
   </lui-button>
-  <lui-button tag="a" href="#" target="_blank" color="secondary" filter="darken" size="md" rounded="full">
+  <lui-button tag="div" color="secondary" filter="darken" size="md" rounded="full">
     Profile
     <template #append>
       <i class="ri-user-line" />
     </template>
   </lui-button>
-  <lui-button tag="a" href="#" target="_blank" color="secondary" size="md" rounded="full">
+  <lui-button tag="div" color="secondary" size="md" rounded="full">
     Contact
     <template #append>
       <i class="ri-mail-line" />
@@ -398,21 +399,21 @@ const tagTemplate = `
   <span>tag="div"</span>
   <div class="flex space-x-2">
   <div>
-  <lui-button tag="div" color="primary" :rounded="true" size="xl">
+  <lui-button tag="a" href="https://facebook.com" target="_blank" color="primary" :rounded="true" size="xl">
     <template #icon>
       <i class="ri-facebook-fill" />
     </template>
   </lui-button>
   </div>
   <div>
-  <lui-button tag="div" color="warning" :rounded="true" size="xl">
+  <lui-button tag="a" href="https://instagram.com" target="_blank" color="warning" :rounded="true" size="xl">
     <template #icon>
       <i class="ri-instagram-fill" />
     </template>
   </lui-button>
   </div>
   <div>
-  <lui-button tag="div" color="danger" :rounded="true" size="xl">
+  <lui-button tag="a" href="https://youtube.com" target="_blank" color="danger" :rounded="true" size="xl">
     <template #icon>
       <i class="ri-youtube-fill" />
     </template>
@@ -431,16 +432,48 @@ export const Tag: Story = {
     docs: {
       source: {
         code: `
-<lui-button tag="button" color="warning" :rounded="false" filter="lighten" size="lg">
-  SUBMIT
-</lui-button>
-<lui-button tag="a" href="#" target="_blank" color="danger" size="md" rounded="full">
-  User Profile
-  <template #append><i class="ri-user-line" /></template>
-</lui-button>
-<lui-button tag="div" color="secondary" :rounded="true" size="xs">
-  <template #icon><i class="ri-home-line" /></template>
-</lui-button>`
+    <lui-button tag="button" color="info" :rounded="false" size="sm" block>
+      <template #prepend>
+        <i class="ri-add-circle-line" />
+      </template>Add to basket</lui-button>
+    <lui-button tag="button" color="danger" :rounded="false" size="sm" block>
+      <template #prepend>
+        <i class="ri-indeterminate-circle-line" />
+      </template>Remove</lui-button>
+    <lui-button tag="div" variant="text" color="info" filter="darken" rounded="full">
+      Home
+      <template #append>
+        <i class="ri-home-line" />
+      </template>
+    </lui-button>
+    <lui-button tag="div" variant="text" color="secondary" filter="darken" rounded="full">
+      Profile
+      <template #append>
+        <i class="ri-user-line" />
+      </template>
+    </lui-button>
+    <lui-button tag="div" variant="text" color="secondary" rounded="full">
+      Contact
+      <template #append>
+        <i class="ri-mail-line" />
+      </template>
+    </lui-button>
+    <lui-button tag="a" variant="link" href="https://facebook.com" target="_blank" color="primary" :rounded="true" size="xl">
+      <template #icon>
+        <i class="ri-facebook-fill" />
+      </template>
+    </lui-button>
+    <lui-button tag="a" variant="link" href="https://instagram.com" target="_blank" color="warning" :rounded="true" size="xl">
+      <template #icon>
+        <i class="ri-instagram-fill" />
+      </template>
+    </lui-button>
+    <lui-button tag="a" variant="link" href="https://youtube.com" target="_blank" color="danger" :rounded="true" size="xl">
+      <template #icon>
+        <i class="ri-youtube-fill" />
+      </template>
+    </lui-button>
+        `
       },
       description: {
         story:
