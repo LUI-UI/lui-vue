@@ -48,6 +48,11 @@ watch(
       if (body !== null) {
         body.style.overflow = 'hidden'
       }
+    } else {
+      const body = document.querySelector('body')
+      if (body !== null) {
+        body.style.overflow = 'auto'
+      }
     }
   }
 )
