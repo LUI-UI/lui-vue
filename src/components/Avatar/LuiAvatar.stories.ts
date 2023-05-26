@@ -26,7 +26,9 @@ const meta: Meta<typeof LuiAvatar> = {
     size,
     rounded,
     filter,
-    icon: { description: descriptions.argTypes.slots.icon },
+    slots: {
+      icon: { description: descriptions.argTypes.slots.icon }
+    },
     text: {
       control: 'text',
       description: descriptions.argTypes.text
