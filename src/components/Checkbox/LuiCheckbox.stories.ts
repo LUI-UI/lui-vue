@@ -113,9 +113,9 @@ const sizeTemplate = `
 export const Size: Story = {
   render: () => ({
     components: { LuiCheckbox },
+    args: { size },
     template: `<div class="w-1/2 grid grid-cols-5 gap-x-2 gap-y-4 items-end justify-start">${sizeTemplate}</div>`
   }),
-  args: { size },
   parameters: {
     docs: {
       source: {
@@ -139,9 +139,9 @@ const roundedTemplate = `
 export const Rounded: Story = {
   render: () => ({
     components: { LuiCheckbox },
+    args: { rounded },
     template: `<div class="w-1/3 grid grid-cols-3 gap-y-4">${roundedTemplate}</div>`
   }),
-  args: { rounded },
   parameters: {
     docs: {
       source: {
@@ -183,9 +183,7 @@ export const State: Story = {
   render: () => ({
     components: { LuiCheckbox },
     args: { state },
-    template: `
-    <div class="grid grid-cols-4">${stateTemplate}</div>
-  `
+    template: `<div class="grid grid-cols-4">${stateTemplate}</div>`
   }),
   parameters: {
     docs: {
