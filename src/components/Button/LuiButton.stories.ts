@@ -271,7 +271,7 @@ export const IconSlot: Story = {
       },
       description: {
         story:
-          'To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the #append or #prepend slots.'
+          'To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the <b>append</b> or <b>prepend</b> slots.'
       }
     }
   }
@@ -296,7 +296,8 @@ export const PrependSlot: Story = {
         code: prependSlotTemplate
       },
       description: {
-        story: 'The slot #prepend is used to add a text to the right side of the icon.'
+        story:
+          'The <b>prepend</b> slot is used to add a text in the LuiButton to the right side of the icon.'
       }
     }
   }
@@ -321,7 +322,8 @@ export const AppendSlot: Story = {
         code: appendSlotTemplate
       },
       description: {
-        story: 'The slot #append is used to add a text to the left side of the icon.'
+        story:
+          'The <b>append</b> slot is used to add a text in the LuiButton to the left side of the icon.'
       }
     }
   }
