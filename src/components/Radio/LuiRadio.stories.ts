@@ -126,7 +126,7 @@ export const Description: Story = {
         code: descriptionTemplate
       },
       description: {
-        story: 'The <b>description</b> props helps us to add a text to a LuiRadio.'
+        story: 'The <b>description</b> props helps us to add a description to a LuiRadio.'
       }
     }
   }

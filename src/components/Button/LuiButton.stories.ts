@@ -15,13 +15,13 @@ const descriptions = {
       'LuiButton is used to trigger an action or event when clicked or activated by the user. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
   },
   argTypes: {
-    tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)'
-  },
-  slots: {
-    default: 'Used as a default slot to place a text in a LuiButton',
-    icon: 'Used to place an icon in a LuiButton, can not be used to add text',
-    prepend: 'Used to add a text to the right side of the icon',
-    append: 'Used to add a text to the left side of the icon'
+    tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)',
+    slots: {
+      default: 'Used as a default slot to place a text in a LuiButton',
+      icon: 'Used to place an icon in a LuiButton, can not be used to add text',
+      prepend: 'Used to add a text to the right side of the icon',
+      append: 'Used to add a text to the left side of the icon'
+    }
   }
 }
 const meta: Meta<typeof LuiButton> = {
@@ -39,17 +39,19 @@ const meta: Meta<typeof LuiButton> = {
       default: 'button',
       description: descriptions.argTypes.tag
     },
-    default: {
-      description: descriptions.slots.default
-    },
-    icon: {
-      description: descriptions.slots.icon
-    },
-    prepend: {
-      description: descriptions.slots.prepend
-    },
-    append: {
-      description: descriptions.slots.append
+    slots: {
+      default: {
+        description: descriptions.argTypes.slots.default
+      },
+      icon: {
+        description: descriptions.argTypes.slots.icon
+      },
+      prepend: {
+        description: descriptions.argTypes.slots.prepend
+      },
+      append: {
+        description: descriptions.argTypes.slots.append
+      }
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
