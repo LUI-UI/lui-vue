@@ -96,8 +96,8 @@ const sizeTemplate = `
 export const Size: Story = {
   render: () => ({
     components: { LuiRadio },
-    template: `<div class="flex items-center space-x-4">${sizeTemplate}</div>`,
-    args: { size }
+    args: { size },
+    template: `<div class="flex items-center space-x-4">${sizeTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -117,8 +117,8 @@ const descriptionTemplate = `
 export const Description: Story = {
   render: () => ({
     components: { LuiRadio },
-    template: `<div class="w-1/2 grid grid-cols-2">${descriptionTemplate}</div>`,
-    args: { description }
+    args: { description },
+    template: `<div class="w-1/2 grid grid-cols-2">${descriptionTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -141,8 +141,8 @@ const stateTemplate = `
 export const State: Story = {
   render: () => ({
     components: { LuiRadio },
-    template: `<div class="w-2/3 grid grid-cols-4">${stateTemplate}</div>`,
-    args: { state }
+    args: { state },
+    template: `<div class="w-2/3 grid grid-cols-4">${stateTemplate}</div>`
   }),
   parameters: {
     docs: {
