@@ -136,7 +136,6 @@ export const Rounded: Story = {
 const descriptionTemplate = `
 <lui-switch description="Switch description" />
 `
-/** The <b>description</b> props helps us to add a text to a LuiSwitch. */
 export const Description: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -147,6 +146,9 @@ export const Description: Story = {
     docs: {
       source: {
         code: descriptionTemplate
+      },
+      description: {
+        story: 'The <b>description</b> props helps us to add a text to a LuiSwitch.'
       }
     }
   }
@@ -158,7 +160,6 @@ const stateTemplate = `
 <lui-switch state="warning" description="This is a description" />
 <lui-switch state="null" description="This is a description" />
 `
-/** There are 4 states to change the description color of a LuiSwitch. */
 export const State: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -169,23 +170,10 @@ export const State: Story = {
     docs: {
       source: {
         code: stateTemplate
+      },
+      description: {
+        story: 'There are 4 states to change the description color of a LuiSwitch.'
       }
     }
   }
 }
-
-// const exampleTemplate = `<lui-switch />`
-// /** Here are some use cases of a LuiSwitch. */
-// export const Examples: Story = {
-//   render: () => ({
-//     components: { LuiSwitch },
-//     template: exampleTemplate
-//   }),
-//   parameters: {
-//     docs: {
-//       source: {
-//         code: exampleTemplate
-//       }
-//     }
-//   }
-// }
