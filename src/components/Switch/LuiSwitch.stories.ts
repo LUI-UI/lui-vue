@@ -148,7 +148,7 @@ export const Description: Story = {
         code: descriptionTemplate
       },
       description: {
-        story: 'The <b>description</b> props helps us to add a description to a LuiSwitch.'
+        story: 'The <b>description</b> props is used to add a description to a LuiSwitch.'
       }
     }
   }
