@@ -312,7 +312,7 @@ function triggerIconSize(size: string) {
 </script>
 <template>
   <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
-    <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer" tabindex="0">
+    <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
         name="trigger"
         :id="buttonId"
@@ -322,6 +322,7 @@ function triggerIconSize(size: string) {
         :aria-controls="menuId"
         @click="toogleMenu"
         @keydown="handleButtonKeyEvents"
+        tabindex="0"
       >
         <lui-button
           :id="buttonId"
