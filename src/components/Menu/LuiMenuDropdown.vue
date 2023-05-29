@@ -322,6 +322,7 @@ function triggerIconSize(size: string) {
         :aria-controls="menuId"
         @click="toogleMenu"
         @keydown="handleButtonKeyEvents"
+        tabindex="0"
       >
         <lui-button
           :id="buttonId"
