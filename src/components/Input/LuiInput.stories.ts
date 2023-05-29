@@ -1,5 +1,4 @@
 import LuiInput from './LuiInput.vue'
-import LuiButton from '../Button/LuiButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import {
   size,
@@ -16,7 +15,11 @@ const descriptions = {
       'LuiInput allows users to input and interact with data, such as text, numbers, or selections, including features for validation and error handling.'
   },
   argTypes: {
-    clear: ''
+    clear: '',
+    slots: {
+      prepend: 'Used to add a text to the right side of the icon',
+      append: 'Used to add a text to the left side of the icon'
+    }
   }
 }
 
@@ -34,6 +37,14 @@ const meta: Meta<typeof LuiInput> = {
       control: 'boolean',
       options: [true, false],
       description: descriptions.argTypes.clear
+    },
+    slots: {
+      prepend: {
+        description: descriptions.argTypes.slots.prepend
+      },
+      append: {
+        description: descriptions.argTypes.slots.append
+      }
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
@@ -165,7 +176,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props helps us to add a description to a LuiInput, used for validation and error handling.'
+          'The <b>description</b> props is used to add a description to a LuiInput, typically used for validation and error handling.'
       }
     }
   }
