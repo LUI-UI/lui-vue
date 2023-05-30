@@ -509,7 +509,6 @@ function resetSelectedOption() {
 }
 </script>
 <template>
-  id: {{ listboxState.currentId }} index: {{ listboxState.currentIndex }}
   <div
     role="combobox"
     ref="selectWrapperRef"
