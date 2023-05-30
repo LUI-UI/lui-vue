@@ -1,6 +1,13 @@
 import LuiAvatar from './LuiAvatar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { variant, color, size, rounded, filter } from '../../../.storybook/global-story-argtypes'
+import {
+  variant,
+  color,
+  size,
+  rounded,
+  filter,
+  text
+} from '../../../.storybook/global-story-argtypes'
 
 const descriptions = {
   docs: {
@@ -8,7 +15,6 @@ const descriptions = {
       'LuiAvatar shows a small icon, image or text to identify a user or entity, used in profiles, comments, or messaging, adding a personalized touch to the interface.'
   },
   argTypes: {
-    text: 'Used to place a text in the component',
     src: 'Used to place an image in the component',
     alt: 'Used to give an alt text to the image',
     slots: {
@@ -22,16 +28,13 @@ const meta: Meta<typeof LuiAvatar> = {
   component: LuiAvatar,
   argTypes: {
     variant,
+    text,
     color,
     size,
     rounded,
     filter,
     slots: {
       icon: { description: descriptions.argTypes.slots.icon }
-    },
-    text: {
-      control: 'text',
-      description: descriptions.argTypes.text
     },
     src: {
       control: 'text',
@@ -227,6 +230,7 @@ const textTemplate = `<lui-avatar text="T" />`
 export const Text: Story = {
   render: () => ({
     components: { LuiAvatar },
+    args: { text },
     template: textTemplate
   }),
   parameters: {
