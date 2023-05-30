@@ -25,7 +25,7 @@ export const TestTemplate: Story = {
     template: `
     <div class="h-[4200px]">
       <button @click="showModal = true">open modal</button>
-      <lui-modal :show="showModal" v-bind="args" size="xl" @close="showModal = false">
+      <lui-modal :show="showModal" v-bind="args" size="xl" @close="showModal = false" aria-labelled-by="deneme modal">
         <div class="login-content w-full px-2">
         <div class="modal-title text-center">
           <h1 class="text-3xl font-bold mb-8 basic-text">
@@ -49,7 +49,7 @@ export const TestTemplate: Story = {
         </div>
       </lui-modal>
     </div>
-
+    
   `
   })
 }
