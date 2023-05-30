@@ -1,6 +1,6 @@
 import LuiBadge from './LuiBadge.vue'
 import LuiAvatar from '../Avatar/LuiAvatar.vue'
-import { variant, color, size, filter } from '../../../.storybook/global-story-argtypes'
+import { variant, color, size, filter, text } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const descriptions = {
@@ -11,7 +11,6 @@ const descriptions = {
   argTypes: {
     border: "Controls a Lui component's border",
     position: 'Used to control the position of the LuiBadge',
-    text: 'Used to place a text in the component',
     slots: {
       icon: 'Used to place an icon in the component'
     }
@@ -23,6 +22,7 @@ const meta: Meta<typeof LuiBadge> = {
   component: LuiBadge,
   argTypes: {
     variant,
+    text,
     color,
     size,
     filter,
@@ -41,10 +41,6 @@ const meta: Meta<typeof LuiBadge> = {
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
       default: 'bottom-right',
       description: descriptions.argTypes.position
-    },
-    text: {
-      control: 'text',
-      description: descriptions.argTypes.text
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
@@ -210,6 +206,7 @@ const textTemplate = `
 export const Text: Story = {
   render: () => ({
     components: { LuiBadge },
+    args: { text },
     template: textTemplate
   }),
   parameters: {
