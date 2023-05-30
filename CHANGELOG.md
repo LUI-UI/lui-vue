@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.64.1](https://github.com/LUI-UI/lui-vue/compare/v0.64.0...v0.64.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **modal:** fix modal aria-labelledby issue ([34943b3](https://github.com/LUI-UI/lui-vue/commit/34943b3118e74870b49128f9d4a7439856fe93c3))
+
 ## [0.64.0](https://github.com/LUI-UI/lui-vue/compare/v0.63.13...v0.64.0) (2023-05-30)
 
 
