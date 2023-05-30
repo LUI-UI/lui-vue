@@ -533,7 +533,6 @@ function resetSelectedOption() {
       <template #prepend>
         <slot name="prepend" />
       </template>
-
       <template #append>
         <svg
           viewBox="0 0 12 12"
@@ -571,7 +570,7 @@ function resetSelectedOption() {
         </LuiOption>
       </template>
       <template v-else>
-        <LuiOption text="Nothing found" disabled />
+        <LuiOption text="Nothing found on this search" disabled />
       </template>
       <slot v-if="slots.default" />
     </ul>
