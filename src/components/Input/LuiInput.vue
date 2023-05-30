@@ -5,7 +5,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, ref, useAttrs, toRefs, useSlots, h } from 'vue'
+import { computed, ref, useAttrs, toRefs, useSlots, h, Comment } from 'vue'
 import type { PropType } from 'vue'
 import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
 import type { Clear, ModelValue } from './input-types'
@@ -37,17 +37,13 @@ const props = defineProps({
     type: Boolean as PropType<Clear>,
     default: false
   },
-  prependIcon: {
-    type: Boolean as PropType<boolean>,
-    default: false
-  },
   description: {
     type: [String, null] as PropType<Description>,
     default: null
   },
   modelValue: {
     type: [String, Number] as PropType<ModelValue>,
-    default: ''
+    default: undefined
   }
 })
 
@@ -66,25 +62,6 @@ const {
   appendClasses
 } = useInputClasses(toRefs(props), attrs)
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-// const stateIconName = computed(() => {
-//   return attrs.disabled
-//     ? "forbid-2"
-//     : props.state === true
-//     ? "checkbox-circle"
-//     : props.state === "warning"
-//     ? "feedback"
-//     : props.state === false
-//     ? "error-warning"
-//     : "";
-// });
-
-// const computedAttrs = computed(() => {
-//   const { class: attrClass, style, ...rest } = attrs;
-//   return {
-//     parent: { attrClass, style },
-//     input: rest,
-//   };
-// });
 
 function clearInput() {
   if (LuiInputRef.value?.value != undefined) {
@@ -156,18 +133,40 @@ const stateIconTemplate = (params: any) =>
     },
     [h('path', { fill: 'none', d: 'M0 0h24v24H0z' }), h('path', { d: params.path })]
   )
+const computedAttrs = computed(() => {
+  // if v-model using we have to control the value,that is why we remove value prop in attrs
+  if (props.modelValue !== undefined && attrs.value) {
+    const attributes = { ...attrs }
+    delete attributes.value
+    return attributes
+  }
+  return attrs
+})
+
+function isSlotExist(slot: any) {
+  return slot !== undefined
+}
+function hasSlotContent(slots: any, name: string) {
+  const slot = slots[name]?.()[0]
+  return (
+    isSlotExist(slot) &&
+    slot.type !== Comment &&
+    slot.children.length > 0 &&
+    slot.children.every((vnode: any) => vnode.type !== Comment)
+  )
+}
 </script>
 <template>
   <div class="lui-input" :class="wrapperClasses">
     <div class="relative" :class="block ? 'w-full' : ''">
       <input
         ref="LuiInputRef"
-        :value="modelValue"
         :class="inputClasses"
-        v-bind="$attrs"
+        :value="modelValue === undefined ? '' : modelValue"
         @input="handleInputEvents($event)"
+        v-bind="computedAttrs"
       />
-      <span v-if="!!slots.prepend" :class="prependClasses" class="leading-none">
+      <span v-if="hasSlotContent($slots, 'prepend')" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
       <button v-if="clear && !attrs.disabled" @click="clearInput" :class="closeIconClasses">
