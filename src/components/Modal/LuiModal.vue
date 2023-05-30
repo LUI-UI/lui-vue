@@ -24,10 +24,6 @@ const props = defineProps({
   size: {
     type: String as PropType<Size>,
     default: 'sm'
-  },
-  ariaLabelledBy: {
-    type: String as PropType<string>,
-    default: 'lui-modal'
   }
 })
 const emit = defineEmits(['close'])
@@ -114,7 +110,7 @@ const computedModalClasses = computed(() => {
         <div
           role="dialog"
           :id="modalId"
-          :aria-labelledby="ariaLabelledBy"
+          aria-labelledby="lui-modal"
           aria-modal="true"
           :class="computedModalClasses"
           v-bind="$attrs"
