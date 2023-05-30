@@ -570,7 +570,7 @@ function resetSelectedOption() {
         </LuiOption>
       </template>
       <template v-else>
-        <LuiOption text="Nothing found" disabled />
+        <LuiOption text="Nothing found on this search" disabled />
       </template>
       <slot v-if="slots.default" />
     </ul>
