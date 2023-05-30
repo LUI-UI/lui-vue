@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.64.2](https://github.com/LUI-UI/lui-vue/compare/v0.64.1...v0.64.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* **select:** deleted unnecessary data showing ([4679f40](https://github.com/LUI-UI/lui-vue/commit/4679f409d9a42919485c027fdd4c882af0ddddcf))
+* **select:** deleted unnecessery showing data ([9581c61](https://github.com/LUI-UI/lui-vue/commit/9581c61b27a874cc60d72c46b54ebe6c0e19a38c))
+
 ## [0.64.1](https://github.com/LUI-UI/lui-vue/compare/v0.64.0...v0.64.1) (2023-05-30)
 
 
