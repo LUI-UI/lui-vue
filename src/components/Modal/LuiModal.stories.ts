@@ -2,157 +2,172 @@ import LuiModal from './LuiModal.vue'
 import { ref } from 'vue'
 import { size } from '../../../.storybook/global-story-argtypes'
 import LuiButton from '../Button/LuiButton.vue'
-import LuiInput from '../Input/LuiInput.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
+
+const descriptions = {
+  docs: {
+    component:
+      'LuiModal presents content on top of the main application or webpage, typically in a separate overlay. It is used to capture user attention, display additional information, or prompt for user interaction while temporarily blocking interaction with the underlying content.'
+  }
+}
 
 const meta: Meta<typeof LuiModal> = {
   title: 'LUI/Modal',
   component: LuiModal,
   argTypes: {
     size
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component }
+    }
   }
 }
+
 export default meta
 type Story = StoryObj<typeof LuiModal>
 
-export const TestTemplate: Story = {
+const modalTemplate = `
+<div class="w-full">
+    <h2 class="text-xl font-bold mb-4">Information message</h2>
+    <p class="mb-6">
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+      when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+      It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+    </p>
+  </div>
+`
+const defaultTemplate = `
+<lui-button @click="showModal=true" rounded>Open Modal</lui-button>
+<lui-modal :show="showModal" @close="showModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+`
+export const Default: Story = {
   render: () => ({
-    components: { LuiModal, LuiButton, LuiInput },
+    components: { LuiModal, LuiButton },
+    args: { size },
     setup() {
       const showModal = ref(false)
       return { showModal }
     },
-    template: `
-    <div class="h-[4200px]">
-      <button @click="showModal = true">open modal</button>
-      <lui-modal :show="showModal" size="xl" @close="showModal = false">
-        <div class="login-content w-full px-2">
-        <div class="modal-title text-center">
-          <h1 class="text-3xl font-bold mb-8 basic-text">
-            Title and some
-          </h1>
-        </div>
-<<<<<<< HEAD
-        <form>
-          <div class="mb-4 flex flex-col">
-            <label for="name" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="name"
-              type="text"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4 flex flex-col">
-            <label for="email" class="text-xs">
-              LAbel
-            </label>
-            <LuiInput
-              name="email"
-              type="email"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4 flex flex-col">
-            <label for="password" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="password"
-              type="password"
-              size="md"
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-8 flex flex-col">
-            <label for="comfirm-password" class="text-xs">
-              Label
-            </label>
-            <LuiInput
-              name="comfirm-password"
-              type="password"
-              size="md"          
-              block
-              rounded
-              state-icon
-            />
-          </div>
-          <div class="mb-4">
-            <div class="pb-2">
-              <label class="text-sm text-danger mb-2" for="sign-up">
-                Label
-              </label>
-            </div>
-            <LuiButton
-              name="sign-up"
-              rounded
-              block
-              @click="signUp"
-            >
-              ButtonS
-            </LuiButton>
-          </div>
-        </form>
-=======
-        <p v-for="i in 15" :key="i" class="text-2xl text-gray-500 mb-20">
-        Your payment has been successfully submitted. We’ve sent you an email
-        with all of the details of your order.
-        </p> 
->>>>>>> 3fd6f77dfd8438e8e47af247b650f042fb7d2027
-        <div class="flex flex-row justify-center items-center">
-          <span class="pr-1">OKEY</span>
-          <LuiButton
-            variant="link"
-            color="primary"
-            class="underline"
-          >
-            Some btn label
-          </LuiButton>
-        </div>
-        </div>
-      </lui-modal>
-    </div>
-
-  `
-  })
+    template: defaultTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate
+      },
+      description: {
+        story:
+          'When you click on the button, a default LuiModal is shown. Its visibility is controlled by the <b>show</b> props.'
+      }
+    }
+  }
 }
 
-export const Default: Story = {
-  render: (args) => ({
+const showIconTemplate = `
+<lui-button @click="showModal=true" rounded>Open Modal</lui-button>
+<lui-modal :show-icon="false" :show="showModal" @close="showModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+`
+export const ShowIcon: Story = {
+  render: () => ({
     components: { LuiModal, LuiButton },
     setup() {
-      const showModal = ref(true)
-      return { args, showModal }
+      const showModal = ref(false)
+      return { showModal }
     },
-    template: `
-    <button @click="showModal = true">open modal</button>
-    <lui-modal :show="showModal" @close="showModal = false">
-      <div class="w-full">
-        <h2 class="text-xl font-bold mb-4">Information message</h2>
-        <p class="mb-6">
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-          Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-          It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
-        </p>
-        <div class="flex space-x-3 ml-auto">
-          <lui-button rounded color="primary">Confirm</lui-button>
-          <lui-button rounded color="secondary">Cancel</lui-button>
-        </div>
-      </div>
-    </lui-modal>
-  `,
-    args: {
-      size: 'md'
+    template: showIconTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: showIconTemplate
+      },
+      description: {
+        story:
+          "The <b>show-icon</b> props controls the visibility of the cross icon on the highest right part of the LuiModal. It's used to close the modal and shown by default but you can make it invisible."
+      }
     }
-  })
+  }
+}
+
+const sizeTemplate = `
+<lui-button @click="xsModal=true" rounded>xSmall Modal</lui-button>
+<lui-modal size="xs" :show="xsModal" @close="xsModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="xsModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="smModal=true" rounded>Small Modal</lui-button>
+<lui-modal size="sm" :show="smModal" @close="smModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="smModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="mdModal=true" rounded>Medium Modal</lui-button>
+<lui-modal size="md" :show="mdModal" @close="mdModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="mdModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="lgModal=true" rounded>Large Modal</lui-button>
+<lui-modal size="lg" :show="lgModal" @close="lgModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="lgModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="xlModal=true" rounded>xLarge Modal</lui-button>
+<lui-modal size="xl" :show="xlModal" @close="xlModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="xlModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+`
+export const Size: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
+    setup() {
+      const xsModal = ref(false)
+      const smModal = ref(false)
+      const mdModal = ref(false)
+      const lgModal = ref(false)
+      const xlModal = ref(false)
+      return { xsModal, smModal, mdModal, lgModal, xlModal }
+    },
+    template: sizeTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: sizeTemplate
+      },
+      description: {
+        story:
+          'The <b>size</b> props is used to control the width of the LuiModal and note that the height changes responsively so that the modal content can fit.'
+      }
+    }
+  }
 }
