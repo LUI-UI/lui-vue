@@ -5,7 +5,6 @@ import {
   block,
   rounded,
   size,
-  prepend,
   description,
   state,
   stateIcon
@@ -19,7 +18,6 @@ const meta: Meta<typeof LuiSelect> = {
     block,
     rounded,
     size,
-    prepend,
     description,
     state,
     stateIcon
@@ -72,9 +70,6 @@ export const Default: Story = {
       </div>
       <div>
         <lui-select>
-          <template #prepend>
-            <i class="ri-home-line"/>
-          </template>
           <lui-option v-for="i in 15" :key="i" :text="i + 'lui-option'" :value="i" :disabled="i == 9 ? true : false">
             <template #append>
               <i class="ri-home-line"/>
@@ -93,7 +88,115 @@ export const Default: Story = {
   `
   })
 }
+export const Searcable: Story = {
+  render: (args) => ({
+    components: { LuiSelect },
+    setup() {
+      const names = [
+        { text: 'bahyan', value: '9' },
+        { text: 'sercan', value: '10' },
+        { text: 'serkan', value: '12' },
+        { text: 'rahmi', value: '4' },
+        { text: 'can', value: '7' }
+      ]
+      const cities = [
+        'Adana',
+        'Adiyaman',
+        'Afyon',
+        'Agri',
+        'Aksaray',
+        'Amasya',
+        'Ankara',
+        'Antalya',
+        'Ardahan',
+        'Artvin',
+        'Aydin',
+        'Balikesir',
+        'Bartin',
+        'Batman',
+        'Bayburt',
+        'Bilecik',
+        'Bingol',
+        'Bitlis',
+        'Bolu',
+        'Burdur',
+        'Bursa',
+        'Canakkale',
+        'Cankiri',
+        'Corum',
+        'Denizli',
+        'Diyarbakir',
+        'Duzce',
+        'Edirne',
+        'Elazig',
+        'Erzincan',
+        'Erzurum',
+        'Eskisehir',
+        'Gaziantep',
+        'Giresun',
+        'Gumushane',
+        'Hakkari',
+        'Hatay',
+        'Igdir',
+        'Isparta',
+        'Istanbul',
+        'Izmir',
+        'Kahramanmaras',
+        'Karabuk',
+        'Karaman',
+        'Kars',
+        'Kastamonu',
+        'Kayseri',
+        'Kilis',
+        'Kirikkale',
+        'Kirklareli',
+        'Kirsehir',
+        'Kocaeli',
+        'Konya',
+        'Kutahya',
+        'Malatya',
+        'Manisa',
+        'Mardin',
+        'Mersin',
+        'Mugla',
+        'Mus',
+        'Nevsehir',
+        'Nigde',
+        'Ordu',
+        'Osmaniye',
+        'Rize',
+        'Sakarya',
+        'Samsun',
+        'Sanliurfa',
+        'Siirt',
+        'Sinop',
+        'Sirnak',
+        'Sivas',
+        'Tekirdag',
+        'Tokat',
+        'Trabzon',
+        'Tunceli',
+        'Usak',
+        'Van',
+        'Yalova',
+        'Yozgat',
+        'Zonguldak'
+      ]
+      const selectedCity = ref('Adana')
+      return {
+        args,
+        names,
+        cities,
+        selectedCity
+      }
+    },
+    template: `
+    <lui-select searchable :options="cities" v-model="selectedCity">
 
+    </lui-select>
+  `
+  })
+}
 export const WithObjectArrays: Story = {
   render: (args) => ({
     components: { LuiSelect },

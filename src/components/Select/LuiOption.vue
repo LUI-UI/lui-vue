@@ -45,7 +45,7 @@ const context = inject(ContextKey)
 const slots = useSlots()
 const optionId = `lui-option-${useId()}`
 const optionRef = ref(null)
-
+const isHovered = computed(() => optionId === context?.currentId.value)
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
   if (context?.selectedOption.value === undefined && props.selected && !props.disabled) {
@@ -91,8 +91,10 @@ const optionClasses = computed(() => {
     backgroundColor: props.disabled
       ? ''
       : isSelected.value === true
-      ? 'bg-primary-500 hover:text-primary-600 focus:text-primary-600'
-      : 'hover:bg-primary-500/20 focus:bg-primary-500/20',
+      ? 'bg-primary-500 hover:text-primary-600 focus-visible:text-primary-600'
+      : isHovered.value
+      ? 'bg-primary-500/20'
+      : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20',
     padding: {
       'px-1.5 py-1': props.size === 'xs',
       'px-2 py-1.5': props.size === 'sm',
@@ -104,7 +106,9 @@ const optionClasses = computed(() => {
       ? 'text-secondary-300 dark:text-secondary-700'
       : isSelected.value === true
       ? 'text-white'
-      : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus:text-primary-500',
+      : isHovered.value
+      ? 'text-primary-500'
+      : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus-visible:text-primary-500',
     outlineWidth: 'outline-none',
     borderRadius: {
       'rounded-md': props.rounded === true,
