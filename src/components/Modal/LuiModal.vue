@@ -43,10 +43,11 @@ if (typeof window !== 'undefined') {
 watch(
   () => props.show,
   (val) => {
-    if (val && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       const body = document.querySelector('body')
+      const overflowValue = val ? 'hidden' : 'auto'
       if (body !== null) {
-        body.style.overflow = 'hidden'
+        body.style.overflow = overflowValue
       }
     }
   }
