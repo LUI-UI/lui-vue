@@ -28,6 +28,23 @@ const meta: Meta<typeof LuiTabGroup> = {
 export default meta
 type Story = StoryObj<typeof LuiTabGroup>
 
+const defaultTemplate = `
+<lui-tab-group>
+  <lui-tab-buttons align-tabs="left">
+    <lui-tab-button>tab-1</lui-tab-button>
+    <lui-tab-button>tab-2</lui-tab-button>
+    <lui-tab-button>tab-3</lui-tab-button>
+    <lui-tab-button>tab-4</lui-tab-button>
+    <lui-tab-button>tab-5</lui-tab-button>
+  </lui-tab-buttons>
+  <lui-tab-panels>
+    <lui-tab-panel><div>Panel-1</div></lui-tab-panel>
+    <lui-tab-panel>Panel-2</lui-tab-panel>
+    <lui-tab-panel>Panel-3</lui-tab-panel>
+    <lui-tab-panel>Panel-4</lui-tab-panel>
+    <lui-tab-panel>Panel-5</lui-tab-panel>
+  </lui-tab-panels>
+</lui-tab-group>`
 export const Default: Story = {
   render: () => ({
     components: {
@@ -37,25 +54,10 @@ export const Default: Story = {
       LuiTabPanels,
       LuiTabPanel
     },
-    template: `
-  <lui-tab-group>
-    <lui-tab-buttons align-tabs="left">
-      <lui-tab-button>tab-1</lui-tab-button>
-      <lui-tab-button>tab-2</lui-tab-button>
-      <lui-tab-button>tab-3</lui-tab-button>
-      <lui-tab-button>tab-4</lui-tab-button>
-      <lui-tab-button>tab-5</lui-tab-button>
-    </lui-tab-buttons>
-    <lui-tab-panels>
-      <lui-tab-panel><div>Panel-1</div></lui-tab-panel>
-      <lui-tab-panel>Panel-2</lui-tab-panel>
-      <lui-tab-panel>Panel-3</lui-tab-panel>
-      <lui-tab-panel>Panel-4</lui-tab-panel>
-      <lui-tab-panel>Panel-5</lui-tab-panel>
-    </lui-tab-panels>
-  </lui-tab-group>`
+    template: defaultTemplate
   })
 }
+
 export const WithControls: Story = {
   render: () => ({
     components: {
