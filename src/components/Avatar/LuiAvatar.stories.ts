@@ -6,7 +6,8 @@ import {
   size,
   rounded,
   filter,
-  text
+  text,
+  border
 } from '../../../.storybook/global-story-argtypes'
 
 const descriptions = {
@@ -17,9 +18,7 @@ const descriptions = {
   argTypes: {
     src: 'Used to place an image in the component',
     alt: 'Used to give an alt text to the image',
-    slots: {
-      icon: 'Used to place an icon in the component'
-    }
+    icon: 'Used to place an icon in the component'
   }
 }
 
@@ -33,9 +32,8 @@ const meta: Meta<typeof LuiAvatar> = {
     size,
     rounded,
     filter,
-    slots: {
-      icon: { description: descriptions.argTypes.slots.icon }
-    },
+    border,
+    icon: { description: descriptions.argTypes.icon },
     src: {
       control: 'text',
       description: descriptions.argTypes.src
@@ -156,7 +154,7 @@ export const Color: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { color },
-    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -188,7 +186,7 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { color, filter },
-    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -197,6 +195,45 @@ export const Filter: Story = {
       },
       description: {
         story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
+      }
+    }
+  }
+}
+
+const borderTemplate = `
+<lui-avatar border color="primary" filter="lighten" />
+<lui-avatar border color="secondary" filter="lighten" />
+<lui-avatar border color="info" filter="lighten" />
+<lui-avatar border color="success" filter="lighten" />
+<lui-avatar border color="warning" filter="lighten" />
+<lui-avatar border color="danger" filter="lighten" />
+<lui-avatar border color="primary" />
+<lui-avatar border color="secondary" />
+<lui-avatar border color="info" />
+<lui-avatar border color="success" />
+<lui-avatar border color="warning" />
+<lui-avatar border color="danger" />
+<lui-avatar border color="primary" filter="darken" />
+<lui-avatar border color="secondary" filter="darken" />
+<lui-avatar border color="info" filter="darken" />
+<lui-avatar border color="success" filter="darken" />
+<lui-avatar border color="warning" filter="darken" />
+<lui-avatar border color="danger" filter="darken" />
+`
+export const Border: Story = {
+  render: () => ({
+    components: { LuiAvatar },
+    args: { border },
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${borderTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: borderTemplate
+      },
+      description: {
+        story:
+          'The <b>border</b> props is used to place a thin border around the LuiAvatar. The border color changes according to the avatar color.'
       }
     }
   }
@@ -245,7 +282,7 @@ export const Text: Story = {
   }
 }
 
-const srcTemplate = `<lui-avatar :rounded="true" size="lg" src="https://www.w3schools.com/howto/img_avatar.png" />`
+const srcTemplate = `<lui-avatar src="https://www.w3schools.com/howto/img_avatar.png" />`
 export const Src: Story = {
   render: () => ({
     components: { LuiAvatar },
@@ -263,7 +300,7 @@ export const Src: Story = {
   }
 }
 
-const altTemplate = `<lui-avatar rounded="full" size="lg" src="https://www.w3schools.com/howto/img_avatar2.png" alt="User" />`
+const altTemplate = `<lui-avatar src="https://www.w3schools.com/howto/img_avatar2.png" alt="User Avatar" />`
 export const Alt: Story = {
   render: () => ({
     components: { LuiAvatar },
