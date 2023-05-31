@@ -5,12 +5,13 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { computed, ref, useAttrs, toRefs, useSlots, h, Comment } from 'vue'
+import { computed, ref, useAttrs, toRefs, useSlots, h } from 'vue'
 import type { PropType } from 'vue'
 import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
 import type { Clear, ModelValue } from './input-types'
 import { useInputClasses } from './composables'
 import { useGlobalDescriptionClasses } from '../../composables/index'
+import { hasSlotContent } from '../../utils/hasSlotContent'
 
 const props = defineProps({
   size: {
@@ -142,19 +143,6 @@ const computedAttrs = computed(() => {
   }
   return attrs
 })
-
-function isSlotExist(slot: any) {
-  return slot !== undefined
-}
-function hasSlotContent(slots: any, name: string) {
-  const slot = slots[name]?.()[0]
-  return (
-    isSlotExist(slot) &&
-    slot.type !== Comment &&
-    slot.children.length > 0 &&
-    slot.children.every((vnode: any) => vnode.type !== Comment)
-  )
-}
 </script>
 <template>
   <div class="lui-input" :class="wrapperClasses">
@@ -166,7 +154,7 @@ function hasSlotContent(slots: any, name: string) {
         @input="handleInputEvents($event)"
         v-bind="computedAttrs"
       />
-      <span v-if="hasSlotContent($slots, 'prepend')" :class="prependClasses" class="leading-none">
+      <span v-if="hasSlotContent(slots.prepend)" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
       <button v-if="clear && !attrs.disabled" @click="clearInput" :class="closeIconClasses">

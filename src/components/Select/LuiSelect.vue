@@ -15,6 +15,7 @@ import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useFindProperPosition } from '../../composables/useFindProperPosition'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
+import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from './LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 const props = defineProps({
@@ -530,7 +531,7 @@ function resetSelectedOption() {
       @input="setSearchQuery"
       @blur="resetSelectedOption"
     >
-      <template #prepend>
+      <template v-if="hasSlotContent(slots.prepend)" #prepend>
         <slot name="prepend" />
       </template>
       <template #append>

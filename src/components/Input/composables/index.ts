@@ -23,10 +23,10 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     return (props.stateIcon.value === true && props.state.value !== null) ||
       props.clear.value === true ||
       slots.append
-      ? hasSlotContent(slots, 'prepend')
+      ? hasSlotContent(slots.prepend)
         ? 'twoIcon'
         : 'rightIcon' // stateIcon-active
-      : hasSlotContent(slots, 'prepend')
+      : hasSlotContent(slots.prepend)
       ? 'leftIcon'
       : 'noIcon' // stateIcn-deactive
   })
