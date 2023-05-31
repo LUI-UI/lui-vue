@@ -16,12 +16,10 @@ const descriptions = {
   },
   argTypes: {
     tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)',
-    slots: {
-      default: 'Used as a default slot to place a text in a LuiButton',
-      icon: 'Used to place an icon in a LuiButton, can not be used to add text',
-      prepend: 'Used to add a text to the right side of the icon',
-      append: 'Used to add a text to the left side of the icon'
-    }
+    default: 'Used as a default slot to place a text in a LuiButton',
+    icon: 'Used to place an icon in a LuiButton, can not be used to add text',
+    prepend: 'Used to add a text to the right side of the icon',
+    append: 'Used to add a text to the left side of the icon'
   }
 }
 const meta: Meta<typeof LuiButton> = {
@@ -39,19 +37,17 @@ const meta: Meta<typeof LuiButton> = {
       default: 'button',
       description: descriptions.argTypes.tag
     },
-    slots: {
-      default: {
-        description: descriptions.argTypes.slots.default
-      },
-      icon: {
-        description: descriptions.argTypes.slots.icon
-      },
-      prepend: {
-        description: descriptions.argTypes.slots.prepend
-      },
-      append: {
-        description: descriptions.argTypes.slots.append
-      }
+    default: {
+      description: descriptions.argTypes.default
+    },
+    icon: {
+      description: descriptions.argTypes.icon
+    },
+    prepend: {
+      description: descriptions.argTypes.prepend
+    },
+    append: {
+      description: descriptions.argTypes.append
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
@@ -363,125 +359,26 @@ export const InheritedIconSizes: Story = {
 }
 
 const tagTemplate = `
-<div class="flex flex-col items-center space-y-2">
-  <span>tag="button"</span>
-  <div class="flex flex-col space-y-2">
-    <lui-button tag="button" color="info" :rounded="false" size="sm" block>
-      <template #prepend>
-        <i class="ri-add-circle-line" />
-      </template>Add to basket</lui-button>
-    <lui-button tag="button" color="danger" :rounded="false" size="sm" block>
-      <template #prepend>
-        <i class="ri-indeterminate-circle-line" />
-      </template>Remove</lui-button>
-  </div>
-</div>
-<div class="flex flex-col items-center space-y-2">
-  <span>tag="a"</span>
-  <div class="flex flex-col space-y-2">
-  <lui-button tag="div" color="info" filter="darken" size="md" rounded="full">
-    Home
-    <template #append>
-      <i class="ri-home-line" />
-    </template>
-  </lui-button>
-  <lui-button tag="div" color="secondary" filter="darken" size="md" rounded="full">
-    Profile
-    <template #append>
-      <i class="ri-user-line" />
-    </template>
-  </lui-button>
-  <lui-button tag="div" color="secondary" size="md" rounded="full">
-    Contact
-    <template #append>
-      <i class="ri-mail-line" />
-    </template>
-  </lui-button>
-  </div>
-</div>
-<div class="flex flex-col items-center space-y-2">
-  <span>tag="div"</span>
-  <div class="flex space-x-2">
-  <div>
-  <lui-button tag="a" href="https://facebook.com" target="_blank" color="primary" :rounded="true" size="xl">
-    <template #icon>
-      <i class="ri-facebook-fill" />
-    </template>
-  </lui-button>
-  </div>
-  <div>
-  <lui-button tag="a" href="https://instagram.com" target="_blank" color="warning" :rounded="true" size="xl">
-    <template #icon>
-      <i class="ri-instagram-fill" />
-    </template>
-  </lui-button>
-  </div>
-  <div>
-  <lui-button tag="a" href="https://youtube.com" target="_blank" color="danger" :rounded="true" size="xl">
-    <template #icon>
-      <i class="ri-youtube-fill" />
-    </template>
-  </lui-button>
-  </div>
-  </div>
-</div>
+<lui-button tag="div" variant="outline">
+  This is a button.
+</lui-button>
+<lui-button tag="a" href="https://google.com" target="_blank">
+  Go to Google
+</lui-button>
 `
 export const Tag: Story = {
   render: () => ({
     components: { LuiButton },
-    template: `<div class="flex items-start justify-between">${tagTemplate}</div>`,
-    args: { color, rounded, size, filter, block }
+    template: `<div class="flex space-x-4">${tagTemplate}</div>`
   }),
   parameters: {
     docs: {
       source: {
-        code: `
-    <lui-button tag="button" color="info" :rounded="false" size="sm" block>
-      <template #prepend>
-        <i class="ri-add-circle-line" />
-      </template>Add to basket</lui-button>
-    <lui-button tag="button" color="danger" :rounded="false" size="sm" block>
-      <template #prepend>
-        <i class="ri-indeterminate-circle-line" />
-      </template>Remove</lui-button>
-    <lui-button tag="div" variant="text" color="info" filter="darken" rounded="full">
-      Home
-      <template #append>
-        <i class="ri-home-line" />
-      </template>
-    </lui-button>
-    <lui-button tag="div" variant="text" color="secondary" filter="darken" rounded="full">
-      Profile
-      <template #append>
-        <i class="ri-user-line" />
-      </template>
-    </lui-button>
-    <lui-button tag="div" variant="text" color="secondary" rounded="full">
-      Contact
-      <template #append>
-        <i class="ri-mail-line" />
-      </template>
-    </lui-button>
-    <lui-button tag="a" variant="link" href="https://facebook.com" target="_blank" color="primary" :rounded="true" size="xl">
-      <template #icon>
-        <i class="ri-facebook-fill" />
-      </template>
-    </lui-button>
-    <lui-button tag="a" variant="link" href="https://instagram.com" target="_blank" color="warning" :rounded="true" size="xl">
-      <template #icon>
-        <i class="ri-instagram-fill" />
-      </template>
-    </lui-button>
-    <lui-button tag="a" variant="link" href="https://youtube.com" target="_blank" color="danger" :rounded="true" size="xl">
-      <template #icon>
-        <i class="ri-youtube-fill" />
-      </template>
-    </lui-button>
-        `
+        code: tagTemplate
       },
       description: {
         story:
-          'The <b>tag</b> props is used to give the LuiButton the functionality of the "div" or "a" element. When a LuiButton is passed a tag props, it acts like that element and can have its attributes. tag="button" is passed as default.'
+          'The <b>tag</b> props is used to give the LuiButton the functionality of the "div" or "a" element. When a LuiButton is passed a tag props, it acts like that element and can have its attributes.'
       }
     }
   }
