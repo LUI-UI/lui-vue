@@ -1,6 +1,13 @@
 import LuiBadge from './LuiBadge.vue'
 import LuiAvatar from '../Avatar/LuiAvatar.vue'
-import { variant, color, size, filter, text } from '../../../.storybook/global-story-argtypes'
+import {
+  variant,
+  color,
+  size,
+  filter,
+  text,
+  border
+} from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const descriptions = {
@@ -11,9 +18,7 @@ const descriptions = {
   argTypes: {
     border: "Controls a Lui component's border",
     position: 'Used to control the position of the LuiBadge',
-    slots: {
-      icon: 'Used to place an icon in the component'
-    }
+    icon: 'Used to place an icon in the component'
   }
 }
 
@@ -22,20 +27,12 @@ const meta: Meta<typeof LuiBadge> = {
   component: LuiBadge,
   argTypes: {
     variant,
+    border,
     text,
     color,
     size,
     filter,
-    slots: {
-      icon: {
-        description: descriptions.argTypes.slots.icon
-      }
-    },
-    border: {
-      control: 'boolean',
-      options: [true, false],
-      description: descriptions.argTypes.border
-    },
+    icon: { description: descriptions.argTypes.icon },
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
@@ -178,13 +175,30 @@ export const Filter: Story = {
 }
 
 const borderTemplate = `
-<lui-badge color="secondary" filter="lighten" :border="true" />
-<lui-badge color="danger" filter="lighten" :border="true" />
+<lui-badge border color="primary" filter="lighten" />
+<lui-badge border color="secondary" filter="lighten" />
+<lui-badge border color="info" filter="lighten" />
+<lui-badge border color="success" filter="lighten" />
+<lui-badge border color="warning" filter="lighten" />
+<lui-badge border color="danger" filter="lighten" />
+<lui-badge border color="primary" />
+<lui-badge border color="secondary" />
+<lui-badge border color="info" />
+<lui-badge border color="success" />
+<lui-badge border color="warning" />
+<lui-badge border color="danger" />
+<lui-badge border color="primary" filter="darken" />
+<lui-badge border color="secondary" filter="darken" />
+<lui-badge border color="info" filter="darken" />
+<lui-badge border color="success" filter="darken" />
+<lui-badge border color="warning" filter="darken" />
+<lui-badge border color="danger" filter="darken" />
 `
 export const Border: Story = {
   render: () => ({
     components: { LuiBadge },
-    template: borderTemplate
+    args: { border },
+    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${borderTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -216,7 +230,7 @@ export const Text: Story = {
       },
       description: {
         story:
-          'The <b>text</b> props is used to place a text in the LuiBadge. The size of the badge changes so that the text can fit.'
+          'The <b>text</b> props is used to place a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
       }
     }
   }
@@ -225,13 +239,13 @@ export const Text: Story = {
 const iconSlotTemplate = `
 <lui-badge>
   <template #icon>
-    <i class="ri-wifi-line"></i>
+    <i class="ri-wifi-line" />
   </template>
 </lui-badge>
 `
 export const IconSlot: Story = {
   render: () => ({
-    components: { LuiBadge },
+    components: { LuiBadge, LuiAvatar },
     template: iconSlotTemplate
   }),
   parameters: {
@@ -241,7 +255,7 @@ export const IconSlot: Story = {
       },
       description: {
         story:
-          'To place an icon in a LuiBadge the #icon slot can be used. The size of the badge changes so that the icon can fit.'
+          'To place an icon in a LuiBadge the #icon slot can be used. Note that the size of the badge changes so that the icon can fit.'
       }
     }
   }
@@ -284,104 +298,3 @@ export const Position: Story = {
     }
   }
 }
-
-const labelsTemplate = `
-<lui-badge text="Admin" color="danger" />
-<lui-badge text="Editor" color="success" />
-<lui-badge text="User" color="primary" />
-`
-export const Labels: Story = {
-  render: () => ({
-    components: { LuiBadge },
-    template: labelsTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: labelsTemplate
-      },
-      description: {
-        story: 'Here are some use cases of a LuiBadge component for labels.'
-      }
-    }
-  }
-}
-
-const avatarTemplate = `<lui-avatar :rounded="true" src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" />`
-const statusesTemplate = `
-<lui-badge color="warning">
-  <template #icon>
-    <i class="ri-check-line" />
-  </template>
-  ${avatarTemplate}
-</lui-badge>
-`
-export const Statuses: Story = {
-  render: () => ({
-    components: { LuiBadge, LuiAvatar },
-    template: statusesTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: statusesTemplate
-      },
-      description: {
-        story: 'Here are some use cases of a LuiBadge component for statuses.'
-      }
-    }
-  }
-}
-
-const messageTemplate = `<lui-avatar color="secondary" filter="darken" :rounded="true">
-    <template #icon>
-      <i class="ri-mail-fill" />
-    </template>
-  </lui-avatar>`
-const notificationsTemplate = `
-<lui-badge position="top-right" text="9" color="info">
-  ${messageTemplate}
-</lui-badge>
-`
-export const Notifications: Story = {
-  render: () => ({
-    components: { LuiBadge, LuiAvatar },
-    template: notificationsTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: notificationsTemplate
-      },
-      description: {
-        story: 'Here are some use cases of a LuiBadge component for notifications.'
-      }
-    }
-  }
-}
-
-// <lui-badge position="top-left" :border="true">
-//   <div
-//     class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
-//   >
-//     <i class="ri-user-line"></i>
-//   </div>
-// </lui-badge>
-// <lui-badge position="top-right" :border="true" text="9">
-//   <div
-//     class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
-//   >
-//     <i class="ri-user-line"></i>
-//   </div>
-// </lui-badge>
-// <lui-badge position="bottom-left" :border="true">
-//   <div
-//     class="flex w-8 h-8 rounded-md items-center justify-center bg-secondary-500 text-secondary-50"
-//   >
-//     <i class="ri-user-line"></i>
-//   </div>
-//   <template #icon>
-//     <i class="ri-wifi-off-fill"></i>
-//   </template>
-// </lui-badge>
-// `
