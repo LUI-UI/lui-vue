@@ -3,6 +3,7 @@ const descriptions = {
   narrowedVariant: "Controls a Lui component's appearance",
   block: 'Renders a full width Lui component (expands to the width of its parent container)',
   color: "Controls a Lui component's color",
+  text: 'Used to place a text in the component',
   rounded:
     "Provides rendering of a Lui component's corners without rounding, partially rounding, or completely rounding.",
   size: "Controls a Lui component's width, height and inline spacing options.",
@@ -60,4 +61,8 @@ export const filter = {
 export const description = {
   control: 'text',
   description: descriptions.description
+}
+export const text = {
+  control: 'text',
+  description: descriptions.text
 }
