@@ -7,6 +7,48 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.64.2](https://github.com/LUI-UI/lui-vue/compare/v0.64.1...v0.64.2) (2023-05-30)
+
+
+### Bug Fixes
+
+* **select:** deleted unnecessary data showing ([4679f40](https://github.com/LUI-UI/lui-vue/commit/4679f409d9a42919485c027fdd4c882af0ddddcf))
+* **select:** deleted unnecessery showing data ([9581c61](https://github.com/LUI-UI/lui-vue/commit/9581c61b27a874cc60d72c46b54ebe6c0e19a38c))
+
+## [0.64.1](https://github.com/LUI-UI/lui-vue/compare/v0.64.0...v0.64.1) (2023-05-30)
+
+
+### Bug Fixes
+
+* **modal:** fix modal aria-labelledby issue ([34943b3](https://github.com/LUI-UI/lui-vue/commit/34943b3118e74870b49128f9d4a7439856fe93c3))
+
+## [0.64.0](https://github.com/LUI-UI/lui-vue/compare/v0.63.13...v0.64.0) (2023-05-30)
+
+
+### Features
+
+* **lui-modal:** changing modal mobile visuals and added arialabelledby dynamically ([48c79cf](https://github.com/LUI-UI/lui-vue/commit/48c79cfe1109de6e877eeda095a92e17d5603f02))
+* **select:** add searchable future to select ([d709b37](https://github.com/LUI-UI/lui-vue/commit/d709b3759920c5cc8969dfd27b70166589c0d6af))
+
+
+### Bug Fixes
+
+* **input:** fix same time usage bug value and v-model ([05164b5](https://github.com/LUI-UI/lui-vue/commit/05164b5fc681c35012f1938beb642b10cdab040a))
+* **lui-modal:** fix scroll canceling when modal closed ([731792f](https://github.com/LUI-UI/lui-vue/commit/731792f3c695cf5ffe8d0264632dd03e05c0c800))
+* **lui-modal:** fix scroll canceling when modal closed ([559ffc7](https://github.com/LUI-UI/lui-vue/commit/559ffc7c8a6aa4c9d113b34e55a93422e4d5fda1))
+* **luicheckbox:** checkbox check icon dark mode color fix ([d8a116c](https://github.com/LUI-UI/lui-vue/commit/d8a116c0791cc04bae220fe49122746c13593f3c)), closes [#73](https://github.com/LUI-UI/lui-vue/issues/73)
+* **luimenudropdown:** add focus feature to custom trigger ([a825df8](https://github.com/LUI-UI/lui-vue/commit/a825df8211f96fb8c80fddc7863676da5674b9aa)), closes [#50](https://github.com/LUI-UI/lui-vue/issues/50)
+* **luimenudropdown:** fix dropdown trigger bug ([7d0c8d7](https://github.com/LUI-UI/lui-vue/commit/7d0c8d75ef9142d1e22f6d543ae45ea9a72de2a8)), closes [#50](https://github.com/LUI-UI/lui-vue/issues/50)
+* **select:** fix scroll issue when navigate with keyboard on select options ([335c0b9](https://github.com/LUI-UI/lui-vue/commit/335c0b9c760a422145a30781e3db21cb7cb90b85))
+* **select:** fix select keyboard navigation issue ([20efc92](https://github.com/LUI-UI/lui-vue/commit/20efc925ee2bf64083a809c651066cbc4ac50495))
+
+## [0.63.13](https://github.com/LUI-UI/lui-vue/compare/v0.63.12...v0.63.13) (2023-05-18)
+
+
+### Bug Fixes
+
+* **input:** remove 'X' icon from search input ([73693af](https://github.com/LUI-UI/lui-vue/commit/73693af25b2ebe3c56c3d6b5395ec46b5d12b971))
+
 ## [0.63.12](https://github.com/LUI-UI/lui-vue/compare/v0.63.11...v0.63.12) (2023-05-17)
 
 

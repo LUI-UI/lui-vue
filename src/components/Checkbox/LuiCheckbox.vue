@@ -109,28 +109,12 @@ const iconSize = computed(() =>
       >
         <path
           d="M9.64286 3.42857L4.63393 8.57143L2.35714 6.23376"
-          stroke="currentColor"
+          class="stroke-white dark:stroke-secondary-800"
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
         />
       </svg>
-      <!-- <svg
-        v-if="indeterminate"
-        :width="iconSize.indeterminate.width"
-        height="2"
-        viewBox="0 0 16 2"
-        :class="iconClasses"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0.999977 1H15"
-          stroke="white"
-          :stroke-width="iconSize.indeterminate.stroke"
-          stroke-linecap="round"
-        />
-      </svg> -->
       <svg
         v-if="indeterminate && size === 'xs'"
         width="10"
@@ -140,7 +124,12 @@ const iconSize = computed(() =>
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H9" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+        <path
+          class="stroke-white dark:stroke-secondary-800"
+          d="M1 1H9"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
       </svg>
       <svg
         v-if="indeterminate && size === 'sm'"
@@ -151,7 +140,12 @@ const iconSize = computed(() =>
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H11" stroke="white" stroke-width="1.75" stroke-linecap="round" />
+        <path
+          class="stroke-white dark:stroke-secondary-800"
+          d="M1 1H11"
+          stroke-width="1.75"
+          stroke-linecap="round"
+        />
       </svg>
       <svg
         v-if="indeterminate && size === 'md'"
@@ -162,7 +156,12 @@ const iconSize = computed(() =>
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H15" stroke="white" stroke-width="2" stroke-linecap="round" />
+        <path
+          class="stroke-white dark:stroke-secondary-800"
+          d="M1 1H15"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
       </svg>
       <svg
         v-if="indeterminate && size === 'lg'"
@@ -173,7 +172,12 @@ const iconSize = computed(() =>
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H17" stroke="white" stroke-width="2" stroke-linecap="round" />
+        <path
+          class="stroke-white dark:stroke-secondary-800"
+          d="M1 1H17"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
       </svg>
       <svg
         v-if="indeterminate && size === 'xl'"
@@ -184,7 +188,12 @@ const iconSize = computed(() =>
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M1 1H21" stroke="white" stroke-width="2" stroke-linecap="round" />
+        <path
+          class="stroke-white dark:stroke-secondary-800"
+          d="M1 1H21"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
       </svg>
     </div>
     <p v-if="description !== null" :class="descriptionClasses">

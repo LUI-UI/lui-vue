@@ -43,10 +43,11 @@ if (typeof window !== 'undefined') {
 watch(
   () => props.show,
   (val) => {
-    if (val && typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') {
       const body = document.querySelector('body')
+      const overflowValue = val ? 'hidden' : 'auto'
       if (body !== null) {
-        body.style.overflow = 'hidden'
+        body.style.overflow = overflowValue
       }
     }
   }
@@ -54,18 +55,18 @@ watch(
 const computedModalClasses = computed(() => {
   const classes: TwClassInterface = {
     boxShadow: 'shadow-lg',
-    borderRadius: 'rounded-xl',
+    borderRadius: 'md:rounded-xl',
     padding: 'p-6',
     width: 'w-full',
     maxWidth: {
-      'max-w-xs': props.size === 'xs',
-      'md:max-w-sm max-w-xs': props.size === 'sm',
-      'md:max-w-md max-w-xs': props.size === 'md',
-      'md:max-w-lg max-w-xs': props.size === 'lg',
-      'md:max-w-xl max-w-xs': props.size === 'xl'
+      'md:max-w-xs': props.size === 'xs',
+      'md:max-w-sm': props.size === 'sm',
+      'md:max-w-md': props.size === 'md',
+      'md:max-w-lg': props.size === 'lg',
+      'md:max-w-xl': props.size === 'xl'
     },
     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-    margin: 'm-auto'
+    margin: 'mt-auto md:my-auto md:mx-auto'
   }
   return Object.values(classes)
 })
@@ -104,12 +105,12 @@ const computedModalClasses = computed(() => {
   <Teleport :to="`#${teleportId}`">
     <div v-if="show" ref="trapRef" class="fixed inset-0 z-50 overflow-hidden">
       <div
-        class="dialog-wrapper fixed inset-0 bg-secondary-900/40 flex justify-center p-8 overflow-auto"
+        class="dialog-wrapper fixed inset-0 bg-secondary-900/40 flex justify-center pt-56 md:p-4 overflow-auto"
       >
         <div
           role="dialog"
           :id="modalId"
-          aria-labelledby="dialog1_label"
+          aria-labelledby="lui-modal"
           aria-modal="true"
           :class="computedModalClasses"
           v-bind="$attrs"
@@ -125,7 +126,6 @@ const computedModalClasses = computed(() => {
               </svg>
             </LuiButton>
           </div>
-
           <slot />
         </div>
       </div>

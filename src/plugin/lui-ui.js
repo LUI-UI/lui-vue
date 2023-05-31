@@ -2,7 +2,7 @@
 const plugin = require('tailwindcss/plugin')
 const colors = require('tailwindcss/colors')
 module.exports = plugin(
-  function ({ config }) {
+  function ({ config, addUtilities }) {
     const states = [
       '',
       'hover',
@@ -54,6 +54,14 @@ module.exports = plugin(
     })
     const allClassList = [...luiSafeList, config().safelist]
     config().safelist = [...new Set(allClassList.flat())]
+    const utilities = {
+      '.remove-search-icon::-webkit-search-cancel-button, .remove-search-icon::-webkit-search-decoration':
+        {
+          '-webkit-appearance': 'none',
+          appearance: 'none'
+        }
+    }
+    addUtilities(utilities)
   },
   {
     darkMode: 'class',

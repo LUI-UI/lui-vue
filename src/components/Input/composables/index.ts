@@ -5,6 +5,7 @@ import type { Ref } from 'vue'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Clear } from '../input-types'
 import type { State, Rounded, Block, Size, Description, StateIcon } from '@/globals/types'
+import { hasSlotContent } from '../../../utils/hasSlotContent'
 //Define Prop Types
 type PropTypes = {
   size: Ref<Size>
@@ -14,27 +15,18 @@ type PropTypes = {
   block: Ref<Block>
   clear: Ref<Clear>
   description: Ref<Description>
-  prependIcon: Ref<boolean>
 }
 
 export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots()
-  // watch(
-  //   () => props,
-  //   (val) => {
-  //     console.log("val", val);
-  //     // iconStatus.value = 'noIcon'
-  //   },
-  //   { immediate: true }
-  // );
   const iconStatus = computed(() => {
     return (props.stateIcon.value === true && props.state.value !== null) ||
       props.clear.value === true ||
       slots.append
-      ? props.prependIcon.value || slots.prepend
+      ? hasSlotContent(slots, 'prepend')
         ? 'twoIcon'
         : 'rightIcon' // stateIcon-active
-      : props.prependIcon.value || slots.prepend
+      : hasSlotContent(slots, 'prepend')
       ? 'leftIcon'
       : 'noIcon' // stateIcn-deactive
   })
@@ -67,6 +59,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
     const classes: TwClassInterface = {
       peer: 'peer',
       width: 'w-full',
+      appearance: attrs.type !== undefined && attrs.type === 'search' ? 'remove-search-icon' : '',
       // 12 14 16 18 20
       fontSize: {
         'text-xs': props.size.value === 'xs',

@@ -5,7 +5,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { ref, nextTick, provide, useSlots, useAttrs, watch, reactive, computed } from 'vue'
+import { ref, nextTick, provide, useSlots, useAttrs, watch, reactive, computed, toRef } from 'vue'
 import type { PropType, Ref } from 'vue'
 import type { OptionsType, ModelValue, ModelValueObject, ListboxStateType } from './select-types'
 import { ContextKey } from './symbols'
@@ -50,6 +50,10 @@ const props = defineProps({
     type: [String, null] as PropType<Description>,
     default: null
   },
+  searchable: {
+    type: Boolean as PropType<boolean>,
+    default: false
+  },
   modelValue: {
     type: [Object, String, undefined] as PropType<ModelValue>,
     default: undefined
@@ -60,9 +64,13 @@ const attrs = useAttrs()
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const selectRef = ref<InstanceType<typeof LuiInput>>()
 const optionsRef = ref<HTMLUListElement>()
+// const optionRef = ref<CustomType[]>([])
+
 const selectWrapperRef = ref<HTMLDivElement>()
 const optionsActive: Ref<boolean> = ref(false)
 const selectedOption: Ref<any> = ref(undefined)
+const selectedOptionBackup: Ref<string> = ref('')
+const searchQuery = ref<string>('')
 // const selectedOption: Ref<string | ModelValueObject | undefined> =
 //   ref(undefined);
 const listboxState: ListboxStateType = reactive({
@@ -88,20 +96,6 @@ const emit = defineEmits(['update:modelValue', 'change'])
 const { properPosition } = useFindProperPosition(selectWrapperRef)
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
-// const vClickOutSide = {
-//   mounted: function (el: any, binding: any, vnode) {
-//     el.clickOutsideEvent = function (event) {
-//       if (!(el == event.target || el.contains(event.target))) {
-//         binding.value(event, el);
-//       }
-//     };
-//     document.addEventListener("click", el.clickOutsideEvent);
-//   },
-//   unmounted: function (el) {
-//     document.removeEventListener("click", el.clickOutsideEvent);
-//   },
-// };
-
 nextTick(() => {
   setInitialSelectedOption()
   setState()
@@ -110,7 +104,8 @@ nextTick(() => {
 provide(ContextKey, {
   selectedOption,
   updateSelectedOption,
-  focusButton
+  focusButton,
+  currentId: toRef(listboxState, 'currentId')
 })
 
 watch(
@@ -123,53 +118,75 @@ watch(
     // updateSelectedOption(value);
   }
 )
+const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
+// const computedOptions = computed(() => props.options.length > 0)
+function isScrollable(element: HTMLElement) {
+  return element && element.clientHeight < element.scrollHeight
+}
+// // maintainScrollVisibility(options[index], this.listboxEl);
+function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLElement) {
+  const { offsetHeight, offsetTop } = activeElement
+  const { offsetHeight: parentOffsetHeight, scrollTop } = scrollParent
 
+  const marginBetweenOptions = 8
+  const isAbove = offsetTop < scrollTop
+  const isBelow = offsetTop + offsetHeight > scrollTop + parentOffsetHeight
+
+  if (isAbove) {
+    scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
+  } else if (isBelow) {
+    scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight + marginBetweenOptions)
+  }
+}
 function focusAvailableElement(
   el: HTMLElement | undefined,
   oparation: (i: number) => number,
   initial: number | null = null
 ) {
-  const isTargetExist = (index: number) => index >= 0 && index <= listboxState.items.length - 1
+  const isTargetExist = (index: number) => index >= 0 && index <= targetItems.value.length - 1
   const isTargetFocusable = (targetIndex: number) => {
-    const target = listboxState.items[targetIndex]
-    if (
-      typeof target !== 'string' &&
-      (target?.disabled === undefined || target?.disabled === false)
-    )
-      return true
-    return false
+    const target = targetItems.value[targetIndex]
+    return target?.disabled === undefined || target?.disabled === false
   }
-  // listboxState.items[targetIndex]?.disabled === undefined ||
-  //   listboxState.items[targetIndex]?.disabled === false;
-
   let targetIndex = listboxState.currentIndex
+  // set target
   if (initial !== null) {
     targetIndex = initial
   } else {
     targetIndex = oparation(targetIndex)
   }
   if (!isTargetExist(targetIndex)) return
-
   while (!isTargetFocusable(targetIndex)) {
     targetIndex = oparation(targetIndex)
     if (!isTargetExist(targetIndex)) return
   }
-
   listboxState.currentIndex = targetIndex
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id
-
-  nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
-}
-
-function updateSelectedOption(option: ModelValue) {
-  selectedOption.value = option
-  let emitedVal = option
-  if (typeof option !== 'string') {
-    emitedVal = option?.text
+  if (!props.searchable) {
+    nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
   }
-  emit('update:modelValue', emitedVal)
-  emit('change', emitedVal)
+  nextTick(() => {
+    if (isScrollable(optionsRef.value as HTMLElement)) {
+      handleScrollVisibility(
+        optionsRef.value?.children[listboxState.currentIndex] as HTMLElement,
+        optionsRef.value as HTMLElement
+      )
+    }
+  })
+}
+function updateSelectedOption(option: ModelValue) {
+  const optionAsString = option && typeof option !== 'string' ? option.text : option
+  selectedOption.value = optionAsString
+  if (props.searchable) {
+    selectedOptionBackup.value = optionAsString as string
+    searchQuery.value = ''
+    listboxState.currentIndex = targetItems.value.findIndex((i) =>
+      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString
+    )
+  }
+  emit('update:modelValue', optionAsString)
+  emit('change', optionAsString)
 }
 
 function focusButton() {
@@ -201,7 +218,14 @@ function setState() {
       )
       .flat()
   // validSlotTypes.includes(child.type.name)
-  const allOptions = [...props.options].concat(slotsOptions || [])
+  let allOptions = [...props.options].concat(slotsOptions || [])
+  if (props.placeholder !== '') {
+    allOptions = [
+      { text: props.placeholder, value: props.placeholder, disabled: true, selected: false },
+      ...allOptions
+    ]
+  }
+
   listboxState.items = allOptions
 }
 
@@ -284,8 +308,49 @@ function setInitialSelectedOption() {
     setPlaceholderOrValue(propsOfFirstSlot)
   }
 }
+function handleKeydownEvents(event: KeyboardEvent) {
+  switch (event.code) {
+    case 'ArrowDown':
+      event.preventDefault()
+      focusAvailableElement(optionsRef.value, (i) => i + 1)
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      focusAvailableElement(optionsRef.value, (i) => i - 1)
+      break
+    case 'Enter':
+      event.preventDefault()
+      event.stopPropagation()
+      updateSelectedOption(targetItems.value[listboxState.currentIndex])
+      closeListBox()
+      nextTick(() => focusButton())
+      break
+    case 'Home':
+      event.preventDefault()
+      focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+      break
+    case 'End':
+      event.preventDefault()
+      {
+        const last = targetItems.value.length - 1
+        focusAvailableElement(optionsRef.value, (i) => i - 1, last)
+      }
 
+      break
+    case 'Escape':
+      event.preventDefault()
+      closeListBox()
+      nextTick(() => focusButton())
+      break
+    case 'Tab':
+      event.preventDefault()
+      event.stopPropagation()
+      break
+    default:
+  }
+}
 function buttonKeydown(event: KeyboardEvent) {
+  const isFirstPress = !optionsActive.value
   switch (event.code) {
     case 'ArrowDown':
     case 'ArrowUp':
@@ -296,25 +361,21 @@ function buttonKeydown(event: KeyboardEvent) {
         if (!optionsActive.value) {
           toggleOptions()
         }
-        // nextTick(() => Focus(optionsRef.value, "selected"));
-        // if selected item exist
-        // check is selected item disabled (it is possible for some case)
-        // if not disabled focus the selected item
-        // if disabled focus next element
-        // if not exist
-        // focus first item
-        let selectedIndex = listboxState.items.findIndex((item: any) =>
-          typeof item === 'string'
-            ? item === selectedOption.value
-            : item?.text === selectedOption.value?.text
-        )
-        if (selectedIndex === -1) {
-          focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+        if (props.searchable && !isFirstPress) {
+          handleKeydownEvents(event)
         } else {
-          focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
+          const selectedIndex = listboxState.items.findIndex((item: any) =>
+            typeof item === 'string'
+              ? item === selectedOption.value
+              : item?.text === selectedOption.value?.text
+          )
+          if (selectedIndex === -1) {
+            focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+          } else {
+            focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
+          }
         }
       }
-
       break
     default:
     // code block
@@ -332,45 +393,7 @@ function buttonKeydown(event: KeyboardEvent) {
 // }
 
 function optionsKeydown(event: KeyboardEvent) {
-  switch (event.code) {
-    case 'ArrowDown':
-      event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i + 1)
-      break
-    case 'ArrowUp':
-      event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i - 1)
-      break
-    case 'Enter':
-      event.preventDefault()
-      event.stopPropagation()
-      updateSelectedOption(listboxState.items[listboxState.currentIndex])
-      closeListBox()
-      nextTick(() => focusButton())
-      break
-    case 'Home':
-      event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
-      break
-    case 'End':
-      event.preventDefault()
-      {
-        const last = listboxState.items.length - 1
-        focusAvailableElement(optionsRef.value, (i) => i - 1, last)
-      }
-
-      break
-    case 'Escape':
-      event.preventDefault()
-      closeListBox()
-      nextTick(() => focusButton())
-      break
-    case 'Tab':
-      event.preventDefault()
-      event.stopPropagation()
-      break
-    default:
-  }
+  handleKeydownEvents(event)
 }
 const optionsClasses = computed(() => {
   const optionsWrapper: TwClassInterface = {
@@ -403,7 +426,7 @@ const optionsClasses = computed(() => {
 const selectWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
-    width: props.block ? 'w-full' : ''
+    width: props.block ? 'w-full' : 'max-w-max'
     // pointerEvents:
     //   attrs?.disabled !== undefined && attrs.disabled === true
     //     ? "pointer-events-none"
@@ -437,12 +460,52 @@ const optionProps = (option: string | object) => {
     ? { text: option, ...commonProps }
     : { ...option, ...commonProps }
 }
+// function setInputValue() {
+//   return typeof selectedOption.value === 'string'
+//     ? selectedOption.value
+//     : selectedOption.value?.text
+// }
+// const setInputValue = computed(() =>
+//   typeof selectedOption.value === 'string' ? selectedOption.value : selectedOption.value?.text
+// )
 
-const setInputValue = computed(() =>
-  typeof selectedOption.value === 'string' ? selectedOption.value : selectedOption.value?.text
-)
 function arrowIconSize(size: string) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
+}
+
+const searchedOptions = computed(() => {
+  return [...props.options].filter((option: any) => {
+    const optionAsString = typeof option !== 'string' ? option.text : option
+    return searchQuery.value
+      .toLocaleLowerCase()
+      .split(' ')
+      .every((q) => optionAsString.toLocaleLowerCase().includes(q))
+  })
+})
+
+function setSearchQuery(event: Event) {
+  if (!optionsActive.value) {
+    optionsActive.value = true
+  }
+  const inputValue = (event.target as HTMLInputElement).value
+  searchQuery.value = inputValue
+  if (searchedOptions.value.length > 0) {
+    const currentEl = optionsRef.value?.children[0]
+    focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+    listboxState.currentIndex = 0
+    listboxState.currentId = currentEl?.id
+  } else {
+    listboxState.currentIndex = 0
+    listboxState.currentId = ''
+  }
+}
+function resetSelectedOption() {
+  if (props.searchable && searchedOptions.value.length === 0) {
+    updateSelectedOption(selectedOptionBackup.value)
+    if (optionsActive.value) {
+      toggleOptions()
+    }
+  }
 }
 </script>
 <template>
@@ -460,11 +523,14 @@ function arrowIconSize(size: string) {
       ref="selectRef"
       :id="selectId"
       v-bind="inputProps"
-      :value="setInputValue"
-      readonly
-      @keydown="buttonKeydown($event)"
+      :readonly="!searchable"
+      autocomplete="off"
+      @keydown="buttonKeydown"
+      v-model="selectedOption"
+      @input="setSearchQuery"
+      @blur="resetSelectedOption"
     >
-      <template v-if="$slots.prepend" #prepend>
+      <template #prepend>
         <slot name="prepend" />
       </template>
       <template #append>
@@ -495,11 +561,18 @@ function arrowIconSize(size: string) {
       @keydown="optionsKeydown($event)"
     >
       <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
-      <template v-if="options.length > 0">
-        <LuiOption v-for="(option, index) in options" :key="index" v-bind="optionProps(option)">
+      <template v-if="searchedOptions.length > 0">
+        <LuiOption
+          v-for="(option, index) in searchedOptions"
+          :key="index"
+          v-bind="optionProps(option)"
+        >
         </LuiOption>
       </template>
-      <slot v-if="$slots.default" />
+      <template v-else>
+        <LuiOption text="Nothing found on this search" disabled />
+      </template>
+      <slot v-if="slots.default" />
     </ul>
   </div>
 </template>

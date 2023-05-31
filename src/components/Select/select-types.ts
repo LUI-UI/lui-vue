@@ -23,4 +23,5 @@ export interface ContextDefination {
   selectedOption: Ref<ModelValue>
   updateSelectedOption(option: ModelValue): void
   focusButton(): void
+  currentId: Ref<string>
 }
