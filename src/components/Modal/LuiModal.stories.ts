@@ -71,7 +71,6 @@ export const Default: Story = {
     }
   }
 }
-
 const showIconTemplate = `
 <lui-button @click="showModal=true" rounded>Open Modal</lui-button>
 <lui-modal :show-icon="false" :show="showModal" @close="showModal=false">
@@ -103,7 +102,6 @@ export const ShowIcon: Story = {
     }
   }
 }
-
 const sizeTemplate = `
 <lui-button @click="xsModal=true" rounded>xSmall Modal</lui-button>
 <lui-modal size="xs" :show="xsModal" @close="xsModal=false">
