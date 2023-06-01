@@ -16,10 +16,8 @@ const descriptions = {
   },
   argTypes: {
     clear: '',
-    slots: {
-      prepend: 'Used to add a text to the right side of the icon',
-      append: 'Used to add a text to the left side of the icon'
-    }
+    prepend: 'Used to add a text to the right side of the icon',
+    append: 'Used to add a text to the left side of the icon'
   }
 }
 
@@ -38,13 +36,11 @@ const meta: Meta<typeof LuiInput> = {
       options: [true, false],
       description: descriptions.argTypes.clear
     },
-    slots: {
-      prepend: {
-        description: descriptions.argTypes.slots.prepend
-      },
-      append: {
-        description: descriptions.argTypes.slots.append
-      }
+    prepend: {
+      description: descriptions.argTypes.prepend
+    },
+    append: {
+      description: descriptions.argTypes.append
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
@@ -257,12 +253,13 @@ export const Append: Story = {
 
 const prependTemplate = `<lui-input placeholder="Type something">
   <template #prepend>
-    <i class="ri-search-line" />
+   <i class="ri-search-line" />
   </template>
 </lui-input>`
 export const Prepend: Story = {
   render: () => ({
     components: { LuiInput },
+    args: { prepend },
     template: prependTemplate
   }),
   parameters: {
@@ -277,61 +274,3 @@ export const Prepend: Story = {
     }
   }
 }
-
-// const formTemplate = `
-//   <lui-input type="text" id="name" :state="sampleForm.errors.name.state" placeholder="Name" required />
-//   <lui-button @click="validateForm" type="submit">Submit</lui-button>
-// `
-// export const Form: Story = {
-//   render: () => ({
-//     components: { LuiInput, LuiButton },
-//     args: { state, description },
-//     setup() {
-//       const sampleForm = {
-//         name: '',
-//         errors: {
-//           name: {
-//             state: true,
-//             message: ''
-//           }
-//         }
-//       }
-
-//       const validateForm = () => {
-//         // Validate name field
-//         if (sampleForm.name === '') {
-//           sampleForm.errors.name.state = false
-//           sampleForm.errors.name.message = 'Please enter your name.'
-//         }
-
-//         // Other custom validations can be added here
-
-//         // Submit form if there are no errors
-//         if (sampleForm.errors.name.state !== false) {
-//           // Submit form logic
-//           console.log('Form submitted successfully!')
-//         }
-//       }
-
-//       const nameInput = document.getElementById('name') as HTMLInputElement
-
-//       nameInput.addEventListener('invalid', (event) => {
-//         event.preventDefault()
-//         nameInput.setCustomValidity('Please enter a name.')
-//       })
-//       return { sampleForm, validateForm, nameInput }
-//     },
-//     template: `<form class="flex flex-col gap-y-4">${formTemplate}</form>`
-//   }),
-//   parameters: {
-//     docs: {
-//       source: {
-//         code: `<form>${formTemplate}</form>`
-//       },
-//       description: {
-//         story:
-//           'Here is a basic form to demonstrate validation and error handling with multiple LuiInput components.'
-//       }
-//     }
-//   }
-// }
