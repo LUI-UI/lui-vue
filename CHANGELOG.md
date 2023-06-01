@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.64.3](https://github.com/LUI-UI/lui-vue/compare/v0.64.2...v0.64.3) (2023-05-31)
+
+
+### Bug Fixes
+
+* **utils:** change hasSlotContent utils ([cc1728b](https://github.com/LUI-UI/lui-vue/commit/cc1728be144d497ccef4b8c6a27636dc6b1cc46e))
+
 ## [0.64.2](https://github.com/LUI-UI/lui-vue/compare/v0.64.1...v0.64.2) (2023-05-30)
 
 

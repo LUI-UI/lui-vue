@@ -1,15 +1,14 @@
 import { Comment } from 'vue'
 
-function isSlotExist(slots: any, name: string) {
-  return slots !== undefined && slots[name] !== undefined
+function asArray(arg: any) {
+  return Array.isArray(arg) ? arg : arg != null ? [arg] : []
 }
-
-export function hasSlotContent(slots: any, name: string) {
-  const slot = slots[name]?.()[0]
-  return (
-    isSlotExist(slots, name) &&
-    slot.type !== Comment &&
-    slot.children.length > 0 &&
-    slot.children.every((vnode: any) => vnode.type !== Comment)
-  )
+function isVNodeEmpty(vnode: any) {
+  return !vnode || asArray(vnode).every((vnode) => vnode.type === Comment)
+}
+function isSlotEmpty(slot: any, props = {}) {
+  return isVNodeEmpty(slot?.(props))
+}
+export function hasSlotContent(slot: any, props = {}) {
+  return !isSlotEmpty(slot, props)
 }
