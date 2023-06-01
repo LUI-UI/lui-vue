@@ -1,5 +1,5 @@
 import LuiMenuItem from './LuiMenuItem.vue'
-import { color, size, rounded } from '../../../.storybook/global-story-argtypes'
+import { color, size, rounded, block } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const descriptions = {
@@ -8,7 +8,8 @@ const descriptions = {
   },
   argTypes: {
     prepend: 'Used to add a text to the right side of the icon',
-    append: 'Used to add a text to the left side of the icon'
+    append: 'Used to add a text to the left side of the icon',
+    tag: 'Sets root element tag for the component and is used to make it look like this element. (e.g. button, div, a) '
   }
 }
 
@@ -18,11 +19,18 @@ const meta: Meta<typeof LuiMenuItem> = {
   argTypes: {
     color,
     size,
+    block,
     rounded,
+    tag: {
+      control: { type: 'select' },
+      options: ['button', 'div', 'a'],
+      default: 'button',
+      description: descriptions.argTypes.tag
+    },
     prepend: { description: descriptions.argTypes.prepend },
     append: { description: descriptions.argTypes.append }
   },
-  decorators: [() => ({ template: '<div class="h-[160px] space-x-2"><story/></div>' })],
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
       description: { component: descriptions.docs.component }
@@ -32,11 +40,15 @@ const meta: Meta<typeof LuiMenuItem> = {
 export default meta
 type Story = StoryObj<typeof LuiMenuItem>
 
-const defaultTemplate = `<lui-menu-item>Menu Item</lui-menu-item>`
+const defaultTemplate = `
+<lui-menu-item>Menu Item 1</lui-menu-item>
+<lui-menu-item>Menu Item 2</lui-menu-item>
+<lui-menu-item>Menu Item 3</lui-menu-item>
+`
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: defaultTemplate
+    template: `<div class="flex">${defaultTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -44,21 +56,22 @@ export const Default: Story = {
         code: defaultTemplate
       },
       description: {
-        story: 'This is how a default LuiMenuDropdown looks.'
+        story:
+          'This is how a default LuiMenuItem looks. Note that it takes the full width of its container by default.'
       }
     }
   }
 }
 
 const disabledTemplate = `
-    <lui-menu-item>Menu Item</lui-menu-item>
-    <lui-menu-item disabled>Disabled Menu Item</lui-menu-item>
-    <lui-menu-item>Menu Item</lui-menu-item>
+<lui-menu-item>Menu Item 1</lui-menu-item>
+<lui-menu-item disabled>Disabled Menu Item 2</lui-menu-item>
+<lui-menu-item>Menu Item 3</lui-menu-item>
 `
 export const Disabled: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: disabledTemplate
+    template: `<div class="flex">${disabledTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -73,14 +86,15 @@ export const Disabled: Story = {
 }
 
 const roundedTemplate = `
-<lui-menu-item :rounded="false">Menu Item</lui-menu-item>
-<lui-menu-item :rounded="true">Menu Item</lui-menu-item>
-<lui-menu-item rounded="full">Menu Item</lui-menu-item>
+<lui-menu-item :rounded="false">Menu Item 1</lui-menu-item>
+<lui-menu-item :rounded="true">Menu Item 2</lui-menu-item>
+<lui-menu-item rounded="full">Menu Item 3</lui-menu-item>
 `
 export const Rounded: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: `<div class="flex flex-col space-x-4">${roundedTemplate}</div>`
+    args: { rounded },
+    template: `<div class="flex">${roundedTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -88,48 +102,57 @@ export const Rounded: Story = {
         code: roundedTemplate
       },
       description: {
-        story: 'There are 3 options to round the corners of a LuiMenuDropdown.'
+        story: 'There are 3 options to round the corners of a LuiMenuItem.'
       }
     }
   }
 }
 
 const sizeTemplate = `
-    <lui-menu-item size="xs">xSmall</lui-menu-item>
-    <lui-menu-item size="sm">Small</lui-menu-item>
-    <lui-menu-item size="md">Medium</lui-menu-item>
-    <lui-menu-item size="lg">Large</lui-menu-item>
-    <lui-menu-item size="xl">xLarge</lui-menu-item>
+<div><lui-menu-item size="xs">xSmall</lui-menu-item></div>
+<div><lui-menu-item size="sm">Small</lui-menu-item></div>
+<div><lui-menu-item size="md">Medium</lui-menu-item></div>
+<div><lui-menu-item size="lg">Large</lui-menu-item></div>
+<div><lui-menu-item size="xl">xLarge</lui-menu-item></div>
 `
 export const Size: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: sizeTemplate
+    args: { size },
+    template: `<div class="flex items-baseline space-x-8">${sizeTemplate}</div>`
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: `
+<lui-menu-item size="xs">xSmall</lui-menu-item>
+<lui-menu-item size="sm">Small</lui-menu-item>
+<lui-menu-item size="md">Medium</lui-menu-item>
+<lui-menu-item size="lg">Large</lui-menu-item>
+<lui-menu-item size="xl">xLarge</lui-menu-item>
+        `
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiMenuItem.'
+        story:
+          'There are 5 options to control the size of a LuiMenuItem. Note that the text size changes responsively.'
       }
     }
   }
 }
 
 const colorTemplate = `
-    <lui-menu-item color="primary">Primary</lui-menu-item>
-    <lui-menu-item color="secondary">Secondary</lui-menu-item>
-    <lui-menu-item color="info">Info</lui-menu-item>
-    <lui-menu-item color="success">Success</lui-menu-item>
-    <lui-menu-item color="warning">Warning</lui-menu-item>
-    <lui-menu-item color="danger">Danger</lui-menu-item>
+<lui-menu-item color="primary">Primary</lui-menu-item>
+<lui-menu-item color="secondary">Secondary</lui-menu-item>
+<lui-menu-item color="info">Info</lui-menu-item>
+<lui-menu-item color="success">Success</lui-menu-item>
+<lui-menu-item color="warning">Warning</lui-menu-item>
+<lui-menu-item color="danger">Danger</lui-menu-item>
 `
 export const Color: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: colorTemplate
+    args: { color },
+    template: `<div class="flex">${colorTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -137,50 +160,20 @@ export const Color: Story = {
         code: colorTemplate
       },
       description: {
-        story: 'There are 6 options to customize the color of a LuiMenuItem.'
-      }
-    }
-  }
-}
-
-const filterTemplate = `
-<lui-menu-item color="primary" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="secondary" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="info" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="success" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="warning" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="danger" filter="darken">Darken</lui-menu-item>
-<lui-menu-item color="primary" filter="lighten">Lighten</lui-menu-item>
-<lui-menu-item color="secondary" filter="lighten">Lighten</lui-menu-item>
-<lui-menu-item color="info" filter="lighten">Lighten</lui-menu-item>
-<lui-menu-item color="success" filter="lighten">Lighten</lui-menu-item>
-<lui-menu-item color="warning" filter="lighten">Lighten</lui-menu-item>
-<lui-menu-item color="danger" filter="lighten">Lighten</lui-menu-item>
-`
-export const Filter: Story = {
-  render: () => ({
-    components: { LuiMenuItem },
-    template: filterTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: filterTemplate
-      },
-      description: {
-        story: 'There are 6 options to customize the color of a LuiMenuItem.'
+        story:
+          'There are 6 options to customize the color of a LuiMenuItem. The <b>color</b> props changes the text color and the background color on hover.'
       }
     }
   }
 }
 
 const prependTemplate = `
-  <lui-menu-item>
-    <template #prepend>
-      <i class="ri-edit-box-line" />
-    </template>
-    Edit
-  </lui-menu-item>
+<lui-menu-item>
+  <template #prepend>
+    <i class="ri-edit-box-line" />
+  </template>
+  Edit
+</lui-menu-item>
 `
 export const PrependSlot: Story = {
   render: () => ({
@@ -201,13 +194,12 @@ export const PrependSlot: Story = {
 }
 
 const appendTemplate = `
-  <lui-menu-item>
-    Duplicate
-    <template #append>
-      <i class="ri-file-copy-line" />
-    </template>
-  </lui-menu-item>
-
+<lui-menu-item>
+  Duplicate
+  <template #append>
+    <i class="ri-file-copy-line" />
+  </template>
+</lui-menu-item>
 `
 export const AppendSlot: Story = {
   render: () => ({
@@ -221,7 +213,29 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>append</b> slot is used to add a text in the LuiButton to the left side of the icon.'
+          'The <b>append</b> slot is used to add a text in the LuiMenuItem to the left side of the icon.'
+      }
+    }
+  }
+}
+
+const tagTemplate = `
+<lui-menu-item tag="button">Button Menu Item</lui-menu-item>
+<lui-menu-item tag="a" href="https://google.com" target="_blank">Link Menu Item</lui-menu-item>
+`
+export const Tag: Story = {
+  render: () => ({
+    components: { LuiMenuItem },
+    template: `<div class="flex">${tagTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: tagTemplate
+      },
+      description: {
+        story:
+          "The <b>tag</b> props is used to give the LuiMenuItem the functionality of the 'button' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
       }
     }
   }
