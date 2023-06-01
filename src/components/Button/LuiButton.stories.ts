@@ -15,9 +15,8 @@ const descriptions = {
       'LuiButton is used to trigger an action or event when clicked or activated by the user. It also gives the non-button elements (e.g. div, a ) a style to make them look and act like a button.'
   },
   argTypes: {
-    tag: 'Sets root element tag for LuiButton and is used to make a non-button element (e.g. div, a) look like a button.)',
-    default: 'Used as a default slot to place a text in a LuiButton',
-    icon: 'Used to place an icon in a LuiButton, can not be used to add text',
+    tag: 'Sets root element tag for the component and is used to make it look like this element. (e.g. button, div, a) ',
+    icon: 'Used to place an icon in the component, can not be used to add text',
     prepend: 'Used to add a text to the right side of the icon',
     append: 'Used to add a text to the left side of the icon'
   }
@@ -36,9 +35,6 @@ const meta: Meta<typeof LuiButton> = {
       options: ['button', 'div', 'a'],
       default: 'button',
       description: descriptions.argTypes.tag
-    },
-    default: {
-      description: descriptions.argTypes.default
     },
     icon: {
       description: descriptions.argTypes.icon
@@ -378,7 +374,7 @@ export const Tag: Story = {
       },
       description: {
         story:
-          'The <b>tag</b> props is used to give the LuiButton the functionality of the "div" or "a" element. When a LuiButton is passed a tag props, it acts like that element and can have its attributes.'
+          "The <b>tag</b> props is used to give the LuiButton the functionality of the 'div' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
       }
     }
   }
