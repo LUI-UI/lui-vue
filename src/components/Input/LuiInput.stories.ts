@@ -233,7 +233,7 @@ const appendTemplate = `<lui-input placeholder="Type something">
    <i class="ri-search-line" />
   </template>
 </lui-input>`
-export const Append: Story = {
+export const AppendSlot: Story = {
   render: () => ({
     components: { LuiInput },
     template: appendTemplate
@@ -256,10 +256,9 @@ const prependTemplate = `<lui-input placeholder="Type something">
    <i class="ri-search-line" />
   </template>
 </lui-input>`
-export const Prepend: Story = {
+export const PrependSlot: Story = {
   render: () => ({
     components: { LuiInput },
-    args: { prepend },
     template: prependTemplate
   }),
   parameters: {
