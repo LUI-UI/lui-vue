@@ -36,28 +36,21 @@ export const Default: Story = {
     setup() {
       return { args }
     },
-    template: `<lui-menu-dropdown v-bind="args">
-             <lui-menu-item v-bind="args"> Menu Item </lui-menu-item>
-             <lui-menu-item v-bind="args"> Menu Item </lui-menu-item>
-             <lui-menu-item :disabled="true" v-bind="args"> Menu Item </lui-menu-item>
-             <lui-menu-item href="https://contentrain.io" target="_blank" v-bind="args"> 
-                <template #prepend>
-                <i class="ri-home-line"/>
-                </template>
-                  Menu Item
-                <template #append>
-                <i class="ri-arrow-down-line"/>
-                </template>
-             </lui-menu-item>
-            </lui-menu-dropdown>
-  `,
+    template: `
+    <lui-menu-dropdown v-bind="args" text="Menu">
+      <lui-menu-item v-bind="args"> Menu Item 1</lui-menu-item>
+      <lui-menu-item v-bind="args"> Menu Item 2</lui-menu-item>
+      <lui-menu-item v-bind="args"> Menu Item 3</lui-menu-item>
+      <lui-menu-item v-bind="args"> Menu Item 4</lui-menu-item>
+      <lui-menu-item v-bind="args"> Menu Item 5</lui-menu-item>
+    </lui-menu-dropdown>`,
     args: {
       size: 'md',
       text: 'dropdown'
     }
   })
 }
-export const customTriggerTemplate: Story = {
+export const CustomTriggerTemplate: Story = {
   render: (args) => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     setup() {
@@ -77,7 +70,7 @@ export const customTriggerTemplate: Story = {
   `
   })
 }
-export const iconTemplate: Story = {
+export const IconTemplate: Story = {
   render: (args) => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     setup() {
@@ -110,7 +103,7 @@ export const iconTemplate: Story = {
   })
 }
 
-export const autoPositionTemplate: Story = {
+export const AutoPositionTemplate: Story = {
   render: (args) => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     setup() {
@@ -140,7 +133,7 @@ export const autoPositionTemplate: Story = {
   })
 }
 
-export const positionsTemplate: Story = {
+export const PositionsTemplate: Story = {
   render: (args) => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     setup() {

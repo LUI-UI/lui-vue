@@ -167,6 +167,14 @@ const dropdownMenuClasses = computed(() => {
   }
   return Object.values({ ...optionsWrapper })
 })
+const dropdownWrapperClasses = computed(() => {
+  const classes: TwClassInterface = {
+    position: 'relative',
+    letterSpacing: 'leading-3',
+    width: props.block ? 'w-full' : 'w-fit'
+  }
+  return Object.values({ ...classes })
+})
 
 const defaultButtonProps = computed(() => ({
   color: props.color,
@@ -311,7 +319,7 @@ function triggerIconSize(size: string) {
 }
 </script>
 <template>
-  <div ref="luiDropdownWrapper" class="relative leading-3 w-fit">
+  <div ref="luiDropdownWrapper" :class="dropdownWrapperClasses">
     <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
         name="trigger"
