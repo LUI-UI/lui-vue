@@ -71,7 +71,7 @@ const defaultTemplate = `
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="mb-28">${defaultTemplate}</div>`
+    template: `<div class="py-28">${defaultTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -79,7 +79,8 @@ export const Default: Story = {
         code: defaultTemplate
       },
       description: {
-        story: 'This is how a default LuiMenuDropdown looks with two LuiMenuItem components.'
+        story:
+          'This is how a default LuiMenuDropdown looks with two LuiMenuItem components. Note that it has an auto-positioning behavior that makes the menu drop up or down whereever there is adequate space.'
       }
     }
   }
@@ -95,7 +96,7 @@ export const Text: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { text },
-    template: `<div class="mb-28">${textTemplate}</div>`
+    template: `<div class="py-28">${textTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -105,6 +106,30 @@ export const Text: Story = {
       description: {
         story:
           'The <b>text</b> props is used to place a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
+      }
+    }
+  }
+}
+
+const blockTemplate = `
+<lui-menu-dropdown block text="Text">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+`
+export const Block: Story = {
+  render: () => ({
+    components: { LuiMenuDropdown, LuiMenuItem },
+    args: { text },
+    template: `<div class="py-28">${blockTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: blockTemplate
+      },
+      description: {
+        story: 'The <b>block</b> props provides a full width menu look.'
       }
     }
   }
@@ -124,7 +149,7 @@ export const Variant: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { variant },
-    template: `<div class="flex space-x-4 mb-28">${variantTemplate}</div>`
+    template: `<div class="flex space-x-4 py-28">${variantTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -156,7 +181,7 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { rounded },
-    template: `<div class="flex space-x-4 mb-28">${roundedTemplate}</div>`
+    template: `<div class="flex space-x-4 py-28">${roundedTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -196,7 +221,7 @@ export const Size: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { size },
-    template: `<div class="flex items-center space-x-4 mb-28">${sizeTemplate}</div>`
+    template: `<div class="flex items-center space-x-4 py-28">${sizeTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -240,7 +265,7 @@ export const Color: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color },
-    template: `<div class="flex space-x-8 mb-28">${colorTemplate}</div>`
+    template: `<div class="flex space-x-8 py-28">${colorTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -308,7 +333,7 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color, filter },
-    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 mb-28">${filterTemplate}</div>`
+    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 py-28">${filterTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -334,7 +359,7 @@ const triggerTemplate = `
 export const TriggerSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem, LuiButton },
-    template: `<div class="mb-28">${triggerTemplate}</div>`
+    template: `<div class="py-28">${triggerTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -350,11 +375,7 @@ export const TriggerSlot: Story = {
 }
 
 const menuPositionTemplate = `
-<lui-menu-dropdown menu-position="leftBottom" text="leftBottom">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="rightBottom" text="rightBottom">
+<lui-menu-dropdown menu-position="topLeft" text="topLeft">
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
 </lui-menu-dropdown>
@@ -362,7 +383,27 @@ const menuPositionTemplate = `
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
 </lui-menu-dropdown>
+<lui-menu-dropdown menu-position="topRight" text="topRight">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
 <lui-menu-dropdown menu-position="rightTop" text="rightTop">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+<lui-menu-dropdown menu-position="bottomLeft" text="bottomLeft">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+<lui-menu-dropdown menu-position="leftBottom" text="leftBottom">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+<lui-menu-dropdown menu-position="bottomRight" text="bottomRight">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+<lui-menu-dropdown menu-position="rightBottom" text="rightBottom">
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
 </lui-menu-dropdown>
@@ -370,7 +411,7 @@ const menuPositionTemplate = `
 export const MenuPosition: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="m-32 grid grid-cols-2 gap-x-2 gap-y-4">${menuPositionTemplate}</div>`
+    template: `<div class="py-28 px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`
   }),
   parameters: {
     docs: {
