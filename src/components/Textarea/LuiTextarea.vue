@@ -27,7 +27,7 @@ const props = defineProps({
   },
   stateIcon: {
     type: [Boolean] as PropType<StateIcon>,
-    default: null
+    default: false
   },
   description: {
     type: [String, null] as PropType<Description>,
