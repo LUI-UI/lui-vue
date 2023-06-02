@@ -25,6 +25,10 @@ const props = defineProps({
     type: Boolean as PropType<Boolean>,
     default: true
   },
+  radius: {
+    type: Boolean as PropType<Boolean>,
+    default: true
+  },
   size: {
     type: String as PropType<Size>,
     default: 'sm'
@@ -59,7 +63,7 @@ watch(
 const computedModalClasses = computed(() => {
   const classes: TwClassInterface = {
     boxShadow: 'shadow-lg',
-    borderRadius: 'md:rounded-xl',
+    borderRadius: props.radius ? 'md:rounded-xl' : '',
     padding: props.padding ? 'p-6' : '',
     width: 'w-full',
     maxWidth: {
