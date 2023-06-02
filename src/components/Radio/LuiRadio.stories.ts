@@ -136,7 +136,7 @@ const stateTemplate = `
 <lui-radio :state="true" description="This is a description" checked />
 <lui-radio :state="false" description="This is a description" checked />
 <lui-radio state="warning" description="This is a description" checked />
-<lui-radio state="null" description="This is a description" checked />
+<lui-radio :state="null" description="This is a description" checked />
 `
 export const State: Story = {
   render: () => ({
