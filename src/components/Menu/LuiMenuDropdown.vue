@@ -9,7 +9,7 @@ import { ref, nextTick, useSlots, reactive, computed } from 'vue'
 import type { PropType } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useFindProperPosition } from '../../composables/useFindProperPosition'
+import { useProperPosition } from '../../composables/useProperPosition'
 import { useId } from '../../utils/useId'
 import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
@@ -130,7 +130,16 @@ const positionClasses = {
     direction: 'top'
   }
 }
-const { properPosition } = useFindProperPosition(luiDropdownWrapper)
+type TargetPositionType = 'bottom' | 'top'
+function setTargetPosition(): TargetPositionType {
+  const positionLowerCase = props.menuPosition.toLowerCase()
+  return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
+}
+const { properPosition } = useProperPosition({
+  triggerEl: luiDropdownWrapper,
+  MenuEl: luiDropdownMenu,
+  targetPosition: setTargetPosition()
+})
 
 // COMPUTEDS
 const computedMenuPosition = computed(() => {

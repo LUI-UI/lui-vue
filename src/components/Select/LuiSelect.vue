@@ -12,7 +12,7 @@ import { ContextKey } from './symbols'
 import { useId } from '../../utils/useId'
 // import { useOutsideClick, useFindProperPosition } from "./composables/index";
 import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useFindProperPosition } from '../../composables/useFindProperPosition'
+import { useProperPosition } from '../../composables/useProperPosition'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
 import { hasSlotContent } from '../../utils/hasSlotContent'
@@ -94,7 +94,11 @@ const errorMessages = {
 
 const emit = defineEmits(['update:modelValue', 'change'])
 
-const { properPosition } = useFindProperPosition(selectWrapperRef)
+const { properPosition } = useProperPosition({
+  triggerEl: selectWrapperRef,
+  MenuEl: optionsRef,
+  targetPosition: 'bottom'
+})
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
 nextTick(() => {
