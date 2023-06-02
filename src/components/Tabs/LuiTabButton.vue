@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import LuiMenuItem from '../Menu/LuiMenuItem.vue'
+import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
 import type { Size } from '@/globals/types'
 import type { PropType } from 'vue'
 import { ContextKey } from './symbols'
