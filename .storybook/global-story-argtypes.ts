@@ -1,16 +1,18 @@
 const descriptions = {
-  variant: "Controls a Lui component's appearance",
-  narrowedVariant: "Controls a Lui component's appearance",
-  block: 'Renders a full width Lui component (expands to the width of its parent container)',
-  color: "Controls a Lui component's color",
+  variant: "Controls the component's appearance",
+  narrowedVariant: "Controls the component's appearance",
+  block: 'Renders a full width component (expands to the width of its parent container)',
+  color: "Controls the component's color",
   text: 'Used to place a text in the component',
-  rounded:
-    "Provides rendering of a Lui component's corners without rounding, partially rounding, or completely rounding.",
-  size: "Controls a Lui component's width, height and inline spacing options.",
-  stateIcon: 'Provides a state icon display.',
-  state: 'Controls the state of a Lui component based on color',
-  filter: 'Controls the tone of the color',
-  description: 'Provides a descriptive text'
+  rounded: "Controls the rounding of the component's corners",
+  size: "Controls the component's width, height and inline spacing options",
+  stateIcon:
+    'Provides a state icon inside the component and is used for validation and error handling',
+  state:
+    'Provides a colored border around the component and is used for validation and error handling',
+  filter: "Controls the tone of the component's color",
+  description: 'Used to add a description to the component',
+  border: "Controls the component's border visibility"
 }
 
 export const variant = {
@@ -24,6 +26,11 @@ export const narrowedVariant = {
   description: descriptions.narrowedVariant
 }
 export const block = {
+  control: 'boolean',
+  options: [true, false],
+  description: descriptions.block
+}
+export const border = {
   control: 'boolean',
   options: [true, false],
   description: descriptions.block
