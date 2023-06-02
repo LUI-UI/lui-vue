@@ -25,9 +25,13 @@ const props = defineProps({
     type: Boolean as PropType<Boolean>,
     default: true
   },
-  radius: {
+  rounded: {
     type: Boolean as PropType<Boolean>,
     default: true
+  },
+  fullScreen: {
+    type: Boolean as PropType<Boolean>,
+    default: false
   },
   size: {
     type: String as PropType<Size>,
@@ -60,19 +64,33 @@ watch(
     }
   }
 )
+const computedDialogWrapperClasses = computed(() => {
+  const classes: TwClassInterface = {
+    position: 'fixed',
+    inset: 'inset-0',
+    backgroundColor: 'bg-secondary-900/40',
+    display: 'flex',
+    justifyItems: 'justify-center',
+    padding: props.fullScreen ? '' : 'pt-56 md:p-4',
+    overflow: 'overflow-auto'
+  }
+  return Object.values(classes)
+})
 const computedModalClasses = computed(() => {
   const classes: TwClassInterface = {
     boxShadow: 'shadow-lg',
-    borderRadius: props.radius ? 'md:rounded-xl' : '',
+    borderRadius: props.rounded && !props.fullScreen ? 'md:rounded-xl' : '',
     padding: props.padding ? 'p-6' : '',
     width: 'w-full',
-    maxWidth: {
-      'md:max-w-xs': props.size === 'xs',
-      'md:max-w-sm': props.size === 'sm',
-      'md:max-w-md': props.size === 'md',
-      'md:max-w-lg': props.size === 'lg',
-      'md:max-w-xl': props.size === 'xl'
-    },
+    maxWidth: props.fullScreen
+      ? 'max-w-full'
+      : {
+          'md:max-w-xs': props.size === 'xs',
+          'md:max-w-sm': props.size === 'sm',
+          'md:max-w-md': props.size === 'md',
+          'md:max-w-lg': props.size === 'lg',
+          'md:max-w-xl': props.size === 'xl'
+        },
     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
     margin: 'mt-auto md:my-auto md:mx-auto'
   }
@@ -112,9 +130,7 @@ const computedModalClasses = computed(() => {
 <template>
   <Teleport :to="`#${teleportId}`">
     <div v-if="show" ref="trapRef" class="fixed inset-0 z-50 overflow-hidden">
-      <div
-        class="dialog-wrapper fixed inset-0 bg-secondary-900/40 flex justify-center pt-56 md:p-4 overflow-auto"
-      >
+      <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
         <div
           role="dialog"
           :id="modalId"

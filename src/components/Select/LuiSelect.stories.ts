@@ -183,17 +183,27 @@ export const Searcable: Story = {
         'Zonguldak'
       ]
       const selectedCity = ref('Adana')
+      const isShow = ref(false)
+      function handleChange() {
+        console.log('change..')
+      }
       return {
         args,
         names,
         cities,
-        selectedCity
+        selectedCity,
+        handleChange,
+        isShow
       }
     },
     template: `
-    <lui-select searchable :options="cities" v-model="selectedCity">
-
-    </lui-select>
+    <button @click="isShow = !isShow">show</button>
+    <div v-if="isShow">
+      <select @change="handleChange">
+        <option>1</option>
+        <option>2</option>
+      </select>
+    </div>
   `
   })
 }
