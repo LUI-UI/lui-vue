@@ -9,6 +9,7 @@ const descriptions = {
   argTypes: {
     prepend: 'Used to add a text to the right side of the icon',
     append: 'Used to add a text to the left side of the icon',
+    default: 'Used as default to add a text in the component',
     tag: 'Sets root element tag for the component and is used to make it look like this element. (e.g. button, div, a) '
   }
 }
@@ -28,7 +29,8 @@ const meta: Meta<typeof LuiMenuItem> = {
       description: descriptions.argTypes.tag
     },
     prepend: { description: descriptions.argTypes.prepend },
-    append: { description: descriptions.argTypes.append }
+    append: { description: descriptions.argTypes.append },
+    default: { description: descriptions.argTypes.default }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
