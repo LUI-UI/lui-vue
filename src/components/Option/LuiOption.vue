@@ -1,7 +1,7 @@
 <script lang="ts">
 import { inject, computed, watch, nextTick, useSlots, ref } from 'vue'
 import type { PropType } from 'vue'
-import { ContextKey } from './symbols'
+import { ContextKey } from '../Select/symbols'
 import { useId } from '../../utils/useId'
 import type { Rounded, Size } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
