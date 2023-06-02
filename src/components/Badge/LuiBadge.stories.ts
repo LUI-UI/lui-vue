@@ -18,7 +18,8 @@ const descriptions = {
   argTypes: {
     border: "Controls a Lui component's border",
     position: 'Used to control the position of the LuiBadge',
-    icon: 'Used to place an icon in the component'
+    icon: 'Used to place an icon in the component',
+    default: 'Used as default to add a text in the component'
   }
 }
 
@@ -33,6 +34,7 @@ const meta: Meta<typeof LuiBadge> = {
     size,
     filter,
     icon: { description: descriptions.argTypes.icon },
+    default: { description: descriptions.argTypes.default },
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
