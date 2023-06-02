@@ -8,6 +8,13 @@ const descriptions = {
   docs: {
     component:
       'LuiModal presents content on top of the main application or webpage, typically in a separate overlay. It is used to capture user attention, display additional information, or prompt for user interaction while temporarily blocking interaction with the underlying content.'
+  },
+  argTypes: {
+    default: 'Used as default to add a text in the component',
+    show: 'Controls the visibility of the modal',
+    showIcon:
+      'Controls the visibility of the cross icon in the modal that triggers the close event',
+    close: 'Event used to control the action when the cross icon in the modal is clicked'
   }
 }
 
@@ -15,7 +22,21 @@ const meta: Meta<typeof LuiModal> = {
   title: 'LUI/Modal',
   component: LuiModal,
   argTypes: {
-    size
+    size,
+    show: {
+      control: 'boolean',
+      options: [true, false],
+      description: descriptions.argTypes.show,
+      default: false
+    },
+    showIcon: {
+      control: 'boolean',
+      options: [true, false],
+      description: descriptions.argTypes.showIcon,
+      default: true
+    },
+    close: { description: descriptions.argTypes.close },
+    default: { description: descriptions.argTypes.default }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
