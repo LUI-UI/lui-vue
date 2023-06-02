@@ -16,7 +16,7 @@ import { useFindProperPosition } from '../../composables/useFindProperPosition'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
 import { hasSlotContent } from '../../utils/hasSlotContent'
-import LuiOption from './LuiOption.vue'
+import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 const props = defineProps({
   rounded: {
@@ -33,7 +33,7 @@ const props = defineProps({
   },
   stateIcon: {
     type: [Boolean] as PropType<StateIcon>,
-    default: null
+    default: false
   },
   options: {
     type: Array as PropType<OptionsType>,
