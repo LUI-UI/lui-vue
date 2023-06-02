@@ -15,9 +15,9 @@ const descriptions = {
       'LuiInput allows users to input and interact with data, such as text, numbers, or selections, including features for validation and error handling.'
   },
   argTypes: {
-    clear: '',
-    prepend: 'Used to add a text to the right side of the icon',
-    append: 'Used to add a text to the left side of the icon'
+    clear: 'Provides a cross icon to clear the input automatically when clicked',
+    prepend: 'Used to add an icon to the left side of the component',
+    append: 'Used to add an icon to the right side of the component'
   }
 }
 
@@ -179,7 +179,7 @@ export const Description: Story = {
 }
 
 const stateTemplate = `
-<lui-input state="null" placeholder="Type something" />
+<lui-input :state="null" placeholder="Type something" />
 <lui-input :state="true" description="This is a description" placeholder="Type something" />
 <lui-input :state="false" description="This is a description" placeholder="Type something" />
 <lui-input state="warning" description="This is a description" placeholder="Type something" />
@@ -204,7 +204,7 @@ export const State: Story = {
 }
 
 const stateIconTemplate = `
-<lui-input state-icon state="null" placeholder="Type something" />
+<lui-input state-icon :state="null" placeholder="Type something" />
 <lui-input state-icon :state="true" placeholder="Type something" />
 <lui-input state-icon :state="false" placeholder="Type something" />
 <lui-input state-icon state="warning" placeholder="Type something" />
@@ -268,7 +268,7 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot can be used to place an icon in the left side of the LuiInput.'
+          'The <b>prepend</b> slot can be used to place an icon to the left side of the LuiInput.'
       }
     }
   }
