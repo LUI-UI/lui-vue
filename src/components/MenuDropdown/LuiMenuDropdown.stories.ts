@@ -1,6 +1,6 @@
 import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
 import LuiMenuDropdown from './LuiMenuDropdown.vue'
-import LuiButton from '../Button/LuiButton.vue'
+import LuiBadge from '../Badge/LuiBadge.vue'
 import {
   color,
   size,
@@ -19,9 +19,9 @@ const descriptions = {
   },
   argTypes: {
     menuPosition: 'Used to control the position of the menu items',
-    prepend: 'Used to add a text to the right side of the icon',
-    append: 'Used to add a text to the left side of the icon',
-    trigger: 'Used to insert a template for the dropdown menu look'
+    trigger: 'Used to insert a template in the component',
+    default: 'Used as default to add a text in the component',
+    triggerAppend: 'Used to add an icon in the component'
   }
 }
 
@@ -37,8 +37,10 @@ const meta: Meta<typeof LuiMenuDropdown> = {
     block,
     filter,
     text,
+    triggerAppend: { description: descriptions.argTypes.triggerAppend },
     menuPosition: {
       control: 'select',
+      default: 'bottomLeft',
       options: [
         'bottomLeft',
         'bottomRight',
@@ -50,6 +52,12 @@ const meta: Meta<typeof LuiMenuDropdown> = {
         'rightBottom'
       ],
       description: descriptions.argTypes.menuPosition
+    },
+    trigger: {
+      description: descriptions.argTypes.trigger
+    },
+    default: {
+      description: descriptions.argTypes.default
     }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
@@ -144,12 +152,20 @@ const variantTemplate = `
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
 </lui-menu-dropdown>
+<lui-menu-dropdown variant="link" text="Link">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+<lui-menu-dropdown variant="text" text="Text">
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
 `
 export const Variant: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { variant },
-    template: `<div class="flex space-x-4 py-28">${variantTemplate}</div>`
+    template: `<div class="flex space-x-4 py-28 items-center">${variantTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -157,7 +173,7 @@ export const Variant: Story = {
         code: variantTemplate
       },
       description: {
-        story: 'There are 2 variant options to customize the LuiMenuDropdown.'
+        story: 'There are 4 variant options to customize the LuiMenuDropdown.'
       }
     }
   }
@@ -350,7 +366,7 @@ export const Filter: Story = {
 const triggerTemplate = `
 <lui-menu-dropdown>
   <template #trigger="{...attrs}">
-    <lui-button v-bind="attrs">Menu Button</lui-button>
+    <lui-badge v-bind="attrs" text="Badge Menu" />
   </template>  
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
@@ -358,7 +374,7 @@ const triggerTemplate = `
 `
 export const TriggerSlot: Story = {
   render: () => ({
-    components: { LuiMenuDropdown, LuiMenuItem, LuiButton },
+    components: { LuiMenuDropdown, LuiMenuItem, LuiBadge },
     template: `<div class="py-28">${triggerTemplate}</div>`
   }),
   parameters: {
@@ -368,7 +384,34 @@ export const TriggerSlot: Story = {
       },
       description: {
         story:
-          'With the <b>trigger</b> slot you can insert a template in the LuiMenuDropdown. To do that you should trigger the <b>attrs</b> and bind it to the component.'
+          'With the <b>trigger</b> slot you can insert any template or other LUI components and make LuiMenuDropdown look like this template. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.'
+      }
+    }
+  }
+}
+
+const triggerAppendTemplate = `
+<lui-menu-dropdown>
+  <template #triggerAppend>
+    <i class="ri-wifi-line" />
+  </template>  
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+`
+export const TriggerAppendSlot: Story = {
+  render: () => ({
+    components: { LuiMenuDropdown, LuiMenuItem },
+    template: `<div class="py-28">${triggerAppendTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: triggerAppendTemplate
+      },
+      description: {
+        story:
+          'The <b>triggerAppend</b> slot is used to place an icon in the LuiMenuDropdown, to the right side of the text if any'
       }
     }
   }
