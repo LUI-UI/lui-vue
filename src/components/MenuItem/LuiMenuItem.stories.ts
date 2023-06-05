@@ -7,8 +7,8 @@ const descriptions = {
     component: 'LuiMenuItem allows users to choose from available menu items.'
   },
   argTypes: {
-    prepend: 'Used to add an icon to the left side of the component',
-    append: 'Used to add an icon to the right side of the component',
+    prepend: 'Used to place an icon to the left side of the component',
+    append: 'Used to place an icon to the right side of the component',
     default: 'Used as default to add a text in the component',
     tag: 'Sets root element tag for the component and is used to make it look like this element. (e.g. button, div, a) '
   }
@@ -214,7 +214,7 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot is used to add an icon to the left side of the component, before the text.'
+          'The <b>prepend</b> slot is used to place an icon to the left side of the component, before the text.'
       }
     }
   }
@@ -246,7 +246,7 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>append</b> slot is used to add an icon to the right side of the component, after the text.'
+          'The <b>append</b> slot is used to place an icon to the right side of the component, after the text.'
       }
     }
   }
