@@ -16,7 +16,6 @@ const descriptions = {
       'LuiBadge is a small, typically circular, element containing text or icons, used to signify notifications, statuses, or labels.'
   },
   argTypes: {
-    border: "Controls a Lui component's border",
     position: 'Used to control the position of the LuiBadge',
     icon: 'Used to place an icon in the component',
     default: 'Used as default to add a text in the component'
