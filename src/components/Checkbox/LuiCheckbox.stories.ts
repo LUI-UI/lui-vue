@@ -174,10 +174,10 @@ export const Description: Story = {
 }
 
 const stateTemplate = `
-<lui-checkbox :state="true" description="This is a description." checked/>
-<lui-checkbox :state="false" description="This is a description." checked />
-<lui-checkbox state="warning" description="This is a description." checked />
 <lui-checkbox :state="null" description="This is a description." checked />
+<lui-checkbox :state="true" description="This is a description." checked/>
+<lui-checkbox state="warning" description="This is a description." checked />
+<lui-checkbox :state="false" description="This is a description." checked />
 `
 export const State: Story = {
   render: () => ({
