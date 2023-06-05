@@ -12,7 +12,7 @@ const descriptions = {
     'Provides a colored border around the component and is used for validation and error handling',
   filter: "Controls the tone of the component's color",
   description: 'Used to add a description to the component',
-  border: "Controls the component's border visibility"
+  border: "Controls the component's border"
 }
 
 export const variant = {
