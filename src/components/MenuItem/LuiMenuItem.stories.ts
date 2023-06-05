@@ -7,8 +7,8 @@ const descriptions = {
     component: 'LuiMenuItem allows users to choose from available menu items.'
   },
   argTypes: {
-    prepend: 'Used to add a text to the right side of the icon',
-    append: 'Used to add a text to the left side of the icon',
+    prepend: 'Used to add an icon to the left side of the component',
+    append: 'Used to add an icon to the right side of the component',
     default: 'Used as default to add a text in the component',
     tag: 'Sets root element tag for the component and is used to make it look like this element. (e.g. button, div, a) '
   }
@@ -42,15 +42,11 @@ const meta: Meta<typeof LuiMenuItem> = {
 export default meta
 type Story = StoryObj<typeof LuiMenuItem>
 
-const defaultTemplate = `
-<lui-menu-item>Menu Item 1</lui-menu-item>
-<lui-menu-item>Menu Item 2</lui-menu-item>
-<lui-menu-item>Menu Item 3</lui-menu-item>
-`
+const defaultTemplate = `<lui-menu-item>Menu Item 1</lui-menu-item>`
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: `<div class="flex">${defaultTemplate}</div>`
+    template: defaultTemplate
   }),
   parameters: {
     docs: {
@@ -59,7 +55,30 @@ export const Default: Story = {
       },
       description: {
         story:
-          'This is how a default LuiMenuItem looks. Note that it takes the full width of its container by default.'
+          "This is how a default LuiMenuItem looks. Note that it's passed the block props as default and takes the full width of its container."
+      }
+    }
+  }
+}
+
+const blockTemplate = `
+<lui-menu-item :block="true">Menu Item 1</lui-menu-item>
+<lui-menu-item :block="false">Menu Item 2</lui-menu-item>
+`
+export const Block: Story = {
+  render: () => ({
+    components: { LuiMenuItem },
+    args: { block },
+    template: `<div class="">${blockTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: blockTemplate
+      },
+      description: {
+        story:
+          'The <b>block</b> props is used to render a full width LuiMenuItem and is passed "true" as default. When it is "false", it takes space as much as the text.'
       }
     }
   }
@@ -176,11 +195,17 @@ const prependTemplate = `
   </template>
   Edit
 </lui-menu-item>
+<lui-menu-item>
+  <template #prepend>
+    <i class="ri-file-copy-line" />
+  </template>
+  Duplicate
+</lui-menu-item>
 `
 export const PrependSlot: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: prependTemplate
+    template: `<div class="w-1/6">${prependTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -189,13 +214,19 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot is used to add a text in the LuiMenuItem to the right side of the icon.'
+          'The <b>prepend</b> slot is used to add an icon to the left side of the component, before the text.'
       }
     }
   }
 }
 
 const appendTemplate = `
+<lui-menu-item>
+  Edit
+  <template #append>
+    <i class="ri-edit-box-line" />
+  </template>
+</lui-menu-item>
 <lui-menu-item>
   Duplicate
   <template #append>
@@ -206,7 +237,7 @@ const appendTemplate = `
 export const AppendSlot: Story = {
   render: () => ({
     components: { LuiMenuItem },
-    template: appendTemplate
+    template: `<div class="w-1/6">${appendTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -215,7 +246,7 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>append</b> slot is used to add a text in the LuiMenuItem to the left side of the icon.'
+          'The <b>append</b> slot is used to add an icon to the right side of the component, after the text.'
       }
     }
   }
