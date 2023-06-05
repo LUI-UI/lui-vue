@@ -566,18 +566,20 @@ function resetSelectedOption() {
       @keydown="optionsKeydown($event)"
     >
       <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
-      <template v-if="searchedOptions.length > 0">
-        <LuiOption
-          v-for="(option, index) in searchedOptions"
-          :key="index"
-          v-bind="optionProps(option)"
-        >
-        </LuiOption>
+      <template v-if="options.length > 0">
+        <template v-if="searchedOptions.length > 0">
+          <LuiOption
+            v-for="(option, index) in searchedOptions"
+            :key="index"
+            v-bind="optionProps(option)"
+          >
+          </LuiOption>
+        </template>
+        <template v-else>
+          <LuiOption text="Nothing found on this search" disabled />
+        </template>
       </template>
-      <template v-else>
-        <LuiOption text="Nothing found on this search" disabled />
-      </template>
-      <slot v-if="slots.default" />
+      <slot v-else />
     </ul>
   </div>
 </template>
