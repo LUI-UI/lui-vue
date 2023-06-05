@@ -60,7 +60,7 @@ const meta: Meta<typeof LuiMenuDropdown> = {
       description: descriptions.argTypes.default
     }
   },
-  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  decorators: [() => ({ template: '<div class="py-28 space-x-2"><story/></div>' })],
   parameters: {
     docs: {
       description: { component: descriptions.docs.component }
@@ -79,7 +79,7 @@ const defaultTemplate = `
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="py-28">${defaultTemplate}</div>`
+    template: `<div class="">${defaultTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -88,7 +88,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'This is how a default LuiMenuDropdown looks with two LuiMenuItem components. Note that it has an auto-positioning behavior that makes the menu drop up or down whereever there is adequate space.'
+          'This is how a default LuiMenuDropdown looks with two LuiMenuItem components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space.'
       }
     }
   }
@@ -104,7 +104,7 @@ export const Text: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { text },
-    template: `<div class="py-28">${textTemplate}</div>`
+    template: `<div class="">${textTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -129,7 +129,7 @@ export const Block: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { text },
-    template: `<div class="py-28">${blockTemplate}</div>`
+    template: blockTemplate
   }),
   parameters: {
     docs: {
@@ -165,7 +165,7 @@ export const Variant: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { variant },
-    template: `<div class="flex space-x-4 py-28 items-center">${variantTemplate}</div>`
+    template: `<div class="flex space-x-4 items-center">${variantTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -197,7 +197,7 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { rounded },
-    template: `<div class="flex space-x-4 py-28">${roundedTemplate}</div>`
+    template: `<div class="flex space-x-4 ">${roundedTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -237,7 +237,7 @@ export const Size: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { size },
-    template: `<div class="flex items-center space-x-4 py-28">${sizeTemplate}</div>`
+    template: `<div class="flex items-center space-x-4 ">${sizeTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -281,7 +281,7 @@ export const Color: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color },
-    template: `<div class="flex space-x-8 py-28">${colorTemplate}</div>`
+    template: `<div class="flex space-x-8 ">${colorTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -349,7 +349,7 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color, filter },
-    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 py-28">${filterTemplate}</div>`
+    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 ">${filterTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -375,7 +375,7 @@ const triggerTemplate = `
 export const TriggerSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem, LuiBadge },
-    template: `<div class="py-28">${triggerTemplate}</div>`
+    template: triggerTemplate
   }),
   parameters: {
     docs: {
@@ -384,14 +384,14 @@ export const TriggerSlot: Story = {
       },
       description: {
         story:
-          'With the <b>trigger</b> slot you can insert any template or other LUI components and make LuiMenuDropdown look like this template. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.'
+          'With the <b>trigger</b> slot you can insert any template or other LUI components and replace the default LuiMenuDropdown lookLui. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.'
       }
     }
   }
 }
 
 const triggerAppendTemplate = `
-<lui-menu-dropdown>
+<lui-menu-dropdown text="Connect">
   <template #triggerAppend>
     <i class="ri-wifi-line" />
   </template>  
@@ -402,7 +402,7 @@ const triggerAppendTemplate = `
 export const TriggerAppendSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="py-28">${triggerAppendTemplate}</div>`
+    template: triggerAppendTemplate
   }),
   parameters: {
     docs: {
@@ -411,7 +411,7 @@ export const TriggerAppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>triggerAppend</b> slot is used to place an icon in the LuiMenuDropdown, to the right side of the text if any'
+          'The <b>triggerAppend</b> slot is used to replace the default down arrow icon in the right side of the LuiMenuDropdown, with another icon.'
       }
     }
   }
@@ -454,7 +454,7 @@ const menuPositionTemplate = `
 export const MenuPosition: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="py-28 px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`
+    template: `<div class="px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -463,7 +463,7 @@ export const MenuPosition: Story = {
       },
       description: {
         story:
-          'The <b>menu-position</b> props is used to control the position where the dropdown menu opens.'
+          'The <b>menu-position</b> props is used to customize the position and alignment of where the dropdown menu opens.'
       }
     }
   }
