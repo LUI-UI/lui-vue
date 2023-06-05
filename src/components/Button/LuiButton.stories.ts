@@ -265,7 +265,7 @@ export const IconSlot: Story = {
       },
       description: {
         story:
-          'To place an icon in a LuiButton the #icon slot can be used. With the #icon slot, you can not add a text. To add a text next to the icon, you must use the <b>append</b> or <b>prepend</b> slots.'
+          'The <b>icon</b> slot can be used to place an icon in a LuiButton. Note that to add a text next to the icon, you must use the <b>append</b> or <b>prepend</b> slots.'
       }
     }
   }
