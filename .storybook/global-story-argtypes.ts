@@ -3,7 +3,7 @@ const descriptions = {
   narrowedVariant: "Controls the component's appearance",
   block: 'Renders a full width component (expands to the width of its parent container)',
   color: "Controls the component's color",
-  text: 'Used to place a text in the component',
+  text: 'Used to add a text in the component',
   rounded: "Controls the rounding of the component's corners",
   size: "Controls the component's width, height and inline spacing options",
   stateIcon:
