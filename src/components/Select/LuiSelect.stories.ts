@@ -14,10 +14,10 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 const descriptions = {
   docs: {
     component:
-      'LuiSelect presents a dropdown list of options, allowing users to choose a single value from the available options. LuiOption represents an individual choice within the LuiSelect, providing a selectable item with a text and value.'
+      'LuiSelect, when used with LuiOption, presents a dropdown list of options, allowing users to choose a single value from the available options.'
   },
   argTypes: {
-    prepend: 'Used to add an icon to the left side of the component',
+    prepend: 'Used to place an icon to the left side of the component',
     default: 'Used as default to add a text in the component',
     searchable: 'Provides a search feature to filter the options',
     placeholder: 'Used to add a placeholder text to the LuiSelect',
@@ -43,9 +43,6 @@ const meta: Meta<typeof LuiSelect> = {
       description: descriptions.argTypes.searchable
     },
     options: {
-      control: '',
-      options: '',
-      default: '',
       description: descriptions.argTypes.options
     },
     prepend: { description: descriptions.argTypes.prepend },
@@ -55,7 +52,7 @@ const meta: Meta<typeof LuiSelect> = {
     },
     default: { description: descriptions.argTypes.default }
   },
-  decorators: [() => ({ template: '<div class="pb-28 space-x-2"><story/></div>' })],
+  decorators: [() => ({ template: '<div class="py-40 space-x-2"><story/></div>' })],
   parameters: {
     docs: {
       description: { component: descriptions.docs.component }
@@ -67,77 +64,35 @@ export default meta
 type Story = StoryObj<typeof LuiSelect>
 
 const defaultTemplate = `
-<lui-select v-model="selectedName">
-  <lui-option text="Bayhan" value="Bayhan" :selected="true"></lui-option>
-  <lui-option text="Sercan" value="Sercan" :selected="false"></lui-option>
+<lui-select>
+  <lui-option text="Mary" value="Mary"></lui-option>
+  <lui-option text="Jane" value="Jane"></lui-option>
 </lui-select>
 `
 export const Default: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    setup() {
-      const selectedName = ref('Select an employee')
-      return { selectedName }
-    },
-    template: `<div>{{selectedName}}${defaultTemplate}</div>`
+    template: `<p class="pl-2 pb-2">selectedName: {{selectedName}}</p>${defaultTemplate}`
   }),
   parameters: {
     docs: {
       source: {
-        code: `<div>{{selectedName}}${defaultTemplate}</div>`
+        code: defaultTemplate
       },
       description: {
-        story: ''
+        story:
+          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> props to the LuiOption components or use the <b>options</b> props as described below.'
       }
     }
   }
 }
 
-export const WithObjectArrays: Story = {
-  render: () => ({
-    components: { LuiSelect, LuiOption },
-    template: defaultTemplate
-  })
-}
-
-const blockTemplate = `<lui-select block placeholder="Block" :options="['a','b','c']" />`
-export const Block: Story = {
-  render: () => ({
-    components: { LuiSelect, LuiOption },
-    args: { block },
-    template: blockTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: blockTemplate
-      },
-      description: {
-        story: ''
-      }
-    }
-  }
-}
-
-const disabledTemplate = `<lui-select disabled placeholder="Dİsabled" :options="['a','b','c']" />`
-export const Disabled: Story = {
-  render: () => ({
-    components: { LuiSelect, LuiOption },
-    template: disabledTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: disabledTemplate
-      },
-      description: {
-        story: ''
-      }
-    }
-  }
-}
-
-const placeholderTemplate = `<lui-select placeholder="xSmall" :options="['a','b','c']" />`
+const placeholderTemplate = `
+<lui-select placeholder="Names">
+  <lui-option text="Mary" value="Mary"></lui-option>
+  <lui-option text="Jane" value="Jane"></lui-option>
+</lui-select>
+`
 export const Placeholder: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
@@ -149,16 +104,20 @@ export const Placeholder: Story = {
         code: placeholderTemplate
       },
       description: {
-        story: ''
+        story: 'With the <b>placeholder</b> props you can give a placeholder text to the LuiSelect.'
       }
     }
   }
 }
 
-const optionsTemplate = `<lui-select placeholder="Options" :options="['a','b','c']" />`
+const optionsTemplate = `<lui-select :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
 export const Options: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
+    setup() {
+      const selectedName = ref('')
+      return { selectedName }
+    },
     template: optionsTemplate
   }),
   parameters: {
@@ -167,20 +126,63 @@ export const Options: Story = {
         code: optionsTemplate
       },
       description: {
-        story: ''
+        story:
+          'Instead of using LuiOption components, you can simply pass the <b>options</b> props to the LuiSelect and provide the options in an object array including <b>text</b> and <b>value</b> properties.'
+      }
+    }
+  }
+}
+
+const blockTemplate = `<lui-select block placeholder="Block" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
+export const Block: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    args: { block },
+    template: blockTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: blockTemplate
+      },
+      description: {
+        story: 'The <b>block</b> props provides a full width select menu look.'
+      }
+    }
+  }
+}
+
+const disabledTemplate = `
+<lui-select disabled placeholder="Disabled">
+  <lui-option disabled text="Mary" value="Mary"></lui-option>
+  <lui-option disabled text="Jane" value="Jane"></lui-option>
+</lui-select>
+`
+export const Disabled: Story = {
+  render: () => ({
+    components: { LuiSelect, LuiOption },
+    template: disabledTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: disabledTemplate
+      },
+      description: {
+        story: 'The <b>disabled</b> props is used to disable either the LuiSelect or the LuiOption.'
       }
     }
   }
 }
 
 const roundedTemplate = `
-<lui-select :rounded="false" placeholder="Names" :options="['a','b','c']" />
-<lui-select :rounded="true" placeholder="Names" :options="['a','b','c']" />
-<lui-select rounded="full" placeholder="Names" :options="['a','b','c']" />
+<lui-select :rounded="false" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :rounded="true" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select rounded="full" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const Rounded: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     args: { rounded },
     template: `<div class="flex space-x-8">${roundedTemplate}</div>`
   }),
@@ -197,15 +199,15 @@ export const Rounded: Story = {
 }
 
 const sizeTemplate = `
-<lui-select size="xs" placeholder="xSmall" :options="['a','b','c']" />
-<lui-select size="sm" placeholder="Small" :options="['a','b','c']" />
-<lui-select size="md" placeholder="Medium" :options="['a','b','c']" />
-<lui-select size="lg" placeholder="Large" :options="['a','b','c']" />
-<lui-select size="xl" placeholder="xLarge" :options="['a','b','c']" />
+<lui-select size="xs" placeholder="xSmall" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select size="sm" placeholder="Small" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select size="md" placeholder="Medium" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select size="lg" placeholder="Large" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select size="xl" placeholder="xLarge" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const Size: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     args: { size },
     template: `<div class="flex space-x-1">${sizeTemplate}</div>`
   }),
@@ -221,10 +223,10 @@ export const Size: Story = {
   }
 }
 
-const descriptionTemplate = `<lui-select description="This is a description" placeholder="Names" :options="['a','b','c']" />`
+const descriptionTemplate = `<lui-select description="This is a description" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
 export const Description: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     args: { description },
     template: descriptionTemplate
   }),
@@ -241,14 +243,14 @@ export const Description: Story = {
 }
 
 const stateTemplate = `
-<lui-select :state="null" description="This is a description" placeholder="null" :options="['a','b','c']" />
-<lui-select state="success" description="This is a description" placeholder="success" :options="['a','b','c']" />
-<lui-select state="warning" description="This is a description" placeholder="warning" :options="['a','b','c']" />
-<lui-select state="danger" description="This is a description" placeholder="danger" :options="['a','b','c']" />
+<lui-select :state="null" description="This is a description" placeholder="null" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select state="success" description="This is a description" placeholder="success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select state="warning" description="This is a description" placeholder="warning" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select state="danger" description="This is a description" placeholder="danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const State: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     args: { state },
     template: stateTemplate
   }),
@@ -265,14 +267,14 @@ export const State: Story = {
 }
 
 const stateIconTemplate = `
-<lui-select :state-icon="true" :state="null" description="This is a description" placeholder="Null" :options="['a','b','c']" />
-<lui-select :state-icon="true" state="success" description="This is a description" placeholder="success" :options="['a','b','c']" />
-<lui-select :state-icon="true" state="warning" description="This is a description" placeholder="warning" :options="['a','b','c']" />
-<lui-select :state-icon="true" state="danger" description="This is a description" placeholder="danger" :options="['a','b','c']" />
+<lui-select :state-icon="true" :state="null" description="This is a description" placeholder="Null" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state-icon="true" state="success" description="This is a description" placeholder="Success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state-icon="true" state="warning" description="This is a description" placeholder="Warning" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state-icon="true" state="danger" description="This is a description" placeholder="Danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const StateIcon: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     args: { stateIcon },
     template: stateIconTemplate
   }),
@@ -289,7 +291,7 @@ export const StateIcon: Story = {
 }
 
 const prependTemplate = `
-<lui-select placeholder="Prepend" :options="['a','b','c']">
+<lui-select placeholder="Prepend">
   <template #prepend>
     <i class="ri-home-line />
   </template>
@@ -297,7 +299,7 @@ const prependTemplate = `
 `
 export const PrependSlot: Story = {
   render: () => ({
-    components: { LuiSelect, LuiOption },
+    components: { LuiSelect },
     template: prependTemplate
   }),
   parameters: {
@@ -307,32 +309,7 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot can be used to place an icon to the left side of the LuiOption.'
-      }
-    }
-  }
-}
-
-const appendTemplate = `
-<lui-select placeholder="Append" :options="['a','b','c']">
-  <template #append>
-    <i class="ri-home-line />
-  </template>
-</lui-select>
-`
-export const AppendSlot: Story = {
-  render: () => ({
-    components: { LuiSelect, LuiOption },
-    template: appendTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: appendTemplate
-      },
-      description: {
-        story:
-          'The <b>append</b> slot can be used to place an icon in the right side of the LuiOption.'
+          'The <b>prepend</b> slot can be used to place an icon to the left side of the component, before the text.'
       }
     }
   }
