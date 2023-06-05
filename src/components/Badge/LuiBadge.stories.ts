@@ -231,7 +231,7 @@ export const Text: Story = {
       },
       description: {
         story:
-          'The <b>text</b> props is used to place a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
+          'The <b>text</b> props is used to add a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
       }
     }
   }
@@ -256,7 +256,7 @@ export const IconSlot: Story = {
       },
       description: {
         story:
-          'To place an icon in a LuiBadge the #icon slot can be used. Note that the size of the badge changes so that the icon can fit.'
+          'The <b>icon</b> slot can be used to place an icon in a LuiBadge. Note that the size of the badge changes so that the icon can fit.'
       }
     }
   }
