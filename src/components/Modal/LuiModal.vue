@@ -85,11 +85,11 @@ const computedModalClasses = computed(() => {
     maxWidth: props.fullScreen
       ? 'max-w-full'
       : {
-          'md:max-w-xs': props.size === 'xs',
-          'md:max-w-sm': props.size === 'sm',
-          'md:max-w-md': props.size === 'md',
-          'md:max-w-lg': props.size === 'lg',
-          'md:max-w-xl': props.size === 'xl'
+          'md:max-w-sm': props.size === 'xs',
+          'md:max-w-xl': props.size === 'sm',
+          'md:max-w-2xl': props.size === 'md',
+          'md:max-w-4xl': props.size === 'lg',
+          'md:max-w-6xl': props.size === 'xl'
         },
     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
     margin: 'mt-auto md:my-auto md:mx-auto'
