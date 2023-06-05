@@ -148,7 +148,8 @@ export const Description: Story = {
         code: descriptionTemplate
       },
       description: {
-        story: 'The <b>description</b> props is used to add a description to a LuiSwitch.'
+        story:
+          'The <b>description</b> props is used to add a description to a LuiSwitch, typically used for validation and error handling.'
       }
     }
   }
@@ -172,7 +173,8 @@ export const State: Story = {
         code: stateTemplate
       },
       description: {
-        story: 'There are 4 states to change the description color of a LuiSwitch.'
+        story:
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiSwitch. When used with the <b>description</b> props they also change the color of the description.'
       }
     }
   }
