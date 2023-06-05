@@ -16,8 +16,8 @@ const descriptions = {
   },
   argTypes: {
     clear: 'Provides a cross icon to clear the input automatically when clicked',
-    prepend: 'Used to add an icon to the left side of the component',
-    append: 'Used to add an icon to the right side of the component'
+    prepend: 'Used to place an icon to the left side of the component',
+    append: 'Used to place an icon to the right side of the component'
   }
 }
 
