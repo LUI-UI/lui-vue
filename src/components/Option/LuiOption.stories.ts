@@ -17,8 +17,8 @@ const descriptions = {
       'LuiOption represents an individual choice within the LuiSelect, providing a selectable item with a text and value.'
   },
   argTypes: {
-    prepend: 'Used to add an icon to the left side of the component',
-    append: 'Used to add an icon to the right side of the component',
+    prepend: 'Used to place an icon to the left side of the component',
+    append: 'Used to place an icon to the right side of the component',
     default: 'Used as default to add a text in the component'
   }
 }
@@ -294,6 +294,56 @@ export const PrependSlot: Story = {
       },
       description: {
         story: ''
+      }
+    }
+  }
+}
+
+const prependTemplate = `
+<lui-select placeholder="Prepend" :options="['a','b','c']">
+  <template #prepend>
+    <i class="ri-home-line />
+  </template>
+</lui-select>
+`
+export const PrependSlot: Story = {
+  render: () => ({
+    components: { LuiSelect, LuiOption },
+    template: prependTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: prependTemplate
+      },
+      description: {
+        story:
+          'The <b>prepend</b> slot can be used to place an icon to the left side of the LuiOption.'
+      }
+    }
+  }
+}
+
+const appendTemplate = `
+<lui-select placeholder="Append" :options="['a','b','c']">
+  <template #append>
+    <i class="ri-home-line />
+  </template>
+</lui-select>
+`
+export const AppendSlot: Story = {
+  render: () => ({
+    components: { LuiSelect, LuiOption },
+    template: appendTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: appendTemplate
+      },
+      description: {
+        story:
+          'The <b>append</b> slot can be used to place an icon in the right side of the LuiOption.'
       }
     }
   }
