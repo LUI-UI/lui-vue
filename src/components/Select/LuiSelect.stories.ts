@@ -115,131 +115,120 @@ export const Options: Story = {
   render: () => ({
     components: { LuiSelect },
     setup() {
-      const selectedName = ref('')
-      return { selectedName }
+      const names = [
+        { text: 'bahyan', value: '9' },
+        { text: 'sercan', value: '10' },
+        { text: 'serkan', value: '12' },
+        { text: 'rahmi', value: '4' },
+        { text: 'can', value: '7' }
+      ]
+      const cities = [
+        'Adana',
+        'Adiyaman',
+        'Afyon',
+        'Agri',
+        'Aksaray',
+        'Amasya',
+        'Ankara',
+        'Antalya',
+        'Ardahan',
+        'Artvin',
+        'Aydin',
+        'Balikesir',
+        'Bartin',
+        'Batman',
+        'Bayburt',
+        'Bilecik',
+        'Bingol',
+        'Bitlis',
+        'Bolu',
+        'Burdur',
+        'Bursa',
+        'Canakkale',
+        'Cankiri',
+        'Corum',
+        'Denizli',
+        'Diyarbakir',
+        'Duzce',
+        'Edirne',
+        'Elazig',
+        'Erzincan',
+        'Erzurum',
+        'Eskisehir',
+        'Gaziantep',
+        'Giresun',
+        'Gumushane',
+        'Hakkari',
+        'Hatay',
+        'Igdir',
+        'Isparta',
+        'Istanbul',
+        'Izmir',
+        'Kahramanmaras',
+        'Karabuk',
+        'Karaman',
+        'Kars',
+        'Kastamonu',
+        'Kayseri',
+        'Kilis',
+        'Kirikkale',
+        'Kirklareli',
+        'Kirsehir',
+        'Kocaeli',
+        'Konya',
+        'Kutahya',
+        'Malatya',
+        'Manisa',
+        'Mardin',
+        'Mersin',
+        'Mugla',
+        'Mus',
+        'Nevsehir',
+        'Nigde',
+        'Ordu',
+        'Osmaniye',
+        'Rize',
+        'Sakarya',
+        'Samsun',
+        'Sanliurfa',
+        'Siirt',
+        'Sinop',
+        'Sirnak',
+        'Sivas',
+        'Tekirdag',
+        'Tokat',
+        'Trabzon',
+        'Tunceli',
+        'Usak',
+        'Van',
+        'Yalova',
+        'Yozgat',
+        'Zonguldak'
+      ]
+      const selectedCity = ref('Adana')
+      const isShow = ref(false)
+      function handleChange() {
+        console.log('change..')
+      }
+      return {
+        args,
+        names,
+        cities,
+        selectedCity,
+        handleChange,
+        isShow
+      }
     },
-    template: optionsTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: optionsTemplate
-      },
-      description: {
-        story:
-          'Instead of using LuiOption components, you can simply pass the <b>options</b> props to the LuiSelect and provide the options in an object array including <b>text</b> and <b>value</b> properties.'
-      }
-    }
-  }
-}
-
-const blockTemplate = `<lui-select block placeholder="Block" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
-export const Block: Story = {
-  render: () => ({
-    components: { LuiSelect },
-    args: { block },
-    template: blockTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: blockTemplate
-      },
-      description: {
-        story: 'The <b>block</b> props provides a full width select menu look.'
-      }
-    }
-  }
-}
-
-const disabledTemplate = `
-<lui-select disabled placeholder="Disabled">
-  <lui-option disabled text="Mary" value="Mary"></lui-option>
-  <lui-option disabled text="Jane" value="Jane"></lui-option>
-</lui-select>
-`
-export const Disabled: Story = {
-  render: () => ({
-    components: { LuiSelect, LuiOption },
-    template: disabledTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: disabledTemplate
-      },
-      description: {
-        story: 'The <b>disabled</b> props is used to disable either the LuiSelect or the LuiOption.'
-      }
-    }
-  }
-}
-
-const roundedTemplate = `
-<lui-select :rounded="false" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select :rounded="true" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select rounded="full" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-`
-export const Rounded: Story = {
-  render: () => ({
-    components: { LuiSelect },
-    args: { rounded },
-    template: `<div class="flex space-x-8">${roundedTemplate}</div>`
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: roundedTemplate
-      },
-      description: {
-        story: ''
-      }
-    }
-  }
-}
-
-const sizeTemplate = `
-<lui-select size="xs" placeholder="xSmall" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select size="sm" placeholder="Small" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select size="md" placeholder="Medium" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select size="lg" placeholder="Large" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select size="xl" placeholder="xLarge" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-`
-export const Size: Story = {
-  render: () => ({
-    components: { LuiSelect },
-    args: { size },
-    template: `<div class="flex space-x-1">${sizeTemplate}</div>`
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: sizeTemplate
-      },
-      description: {
-        story: ''
-      }
-    }
-  }
-}
-
-const descriptionTemplate = `<lui-select description="This is a description" placeholder="Names" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
-export const Description: Story = {
-  render: () => ({
-    components: { LuiSelect },
-    args: { description },
-    template: descriptionTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: descriptionTemplate
-      },
-      description: {
-        story: ''
-      }
-    }
-  }
+    template: `
+    <button @click="isShow = !isShow">show</button>
+    <div v-if="isShow">
+      <select @change="handleChange">
+        <option>1</option>
+        <option>2</option>
+      </select>
+    </div>
+  `
+  })
 }
 
 const stateTemplate = `
