@@ -21,7 +21,7 @@ const descriptions = {
     menuPosition: 'Used to control the position of the menu items',
     trigger: 'Used to insert a template in the component',
     default: 'Used as default to add a text in the component',
-    triggerAppend: 'Used to add an icon in the component'
+    triggerAppend: 'Used to place an icon in the component'
   }
 }
 
@@ -113,7 +113,7 @@ export const Text: Story = {
       },
       description: {
         story:
-          'The <b>text</b> props is used to place a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
+          'The <b>text</b> props is used to add a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
       }
     }
   }
