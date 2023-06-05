@@ -257,7 +257,7 @@ export const IconSlot: Story = {
         code: iconSlotTemplate
       },
       description: {
-        story: 'To place an icon in a LuiAvatar the #icon slot can be used.'
+        story: 'The <b>icon</b> slot can be used to place an icon in a LuiAvatar.'
       }
     }
   }
@@ -276,7 +276,7 @@ export const Text: Story = {
         code: textTemplate
       },
       description: {
-        story: 'The <b>text</b> props is used to place a text in the LuiAvatar.'
+        story: 'The <b>text</b> props is used to add a text in the LuiAvatar.'
       }
     }
   }
