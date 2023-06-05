@@ -83,7 +83,48 @@ const defaultTemplate = `
 export const Default: Story = {
   render: () => ({
     components: { LuiModal, LuiButton },
-    args: { size },
+    setup() {
+      const showModal = ref(false)
+      return { showModal }
+    },
+    template: defaultTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate
+      },
+      description: {
+        story: 'When you click the button, a default LuiModal is shown.'
+      }
+    }
+  }
+}
+
+export const Show: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
+    setup() {
+      const showModal = ref(false)
+      return { showModal }
+    },
+    template: defaultTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate
+      },
+      description: {
+        story: 'The <b>show</b> props is used to control the visibility of the LuiModal.'
+      }
+    }
+  }
+}
+
+export const Close: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
     setup() {
       const showModal = ref(false)
       return { showModal }
@@ -97,11 +138,12 @@ export const Default: Story = {
       },
       description: {
         story:
-          'When you click on the button, a default LuiModal is shown. Its visibility is controlled by the <b>show</b> props.'
+          'The <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
       }
     }
   }
 }
+
 const roundedTemplate = `
 <lui-button @click="showModalOne=true" rounded>Rounded</lui-button>
 <lui-modal :rounded="true" :show="showModalOne" @close="showModalOne=false">
