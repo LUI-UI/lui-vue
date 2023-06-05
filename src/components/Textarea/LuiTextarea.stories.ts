@@ -177,8 +177,8 @@ export const Description: Story = {
 const stateTemplate = `
 <lui-textarea :state="null" description="This is a description" placeholder="Type something" />
 <lui-textarea :state="true" description="This is a description" placeholder="Type something" />
-<lui-textarea :state="false" description="This is a description" placeholder="Type something" />
 <lui-textarea state="warning" description="This is a description" placeholder="Type something" />
+<lui-textarea :state="false" description="This is a description" placeholder="Type something" />
 `
 export const State: Story = {
   render: () => ({
@@ -202,8 +202,8 @@ export const State: Story = {
 const stateIconTemplate = `
 <lui-textarea state-icon :state="null" placeholder="Type something" />
 <lui-textarea state-icon :state="true" placeholder="Type something" />
-<lui-textarea state-icon :state="false" placeholder="Type something" />
 <lui-textarea state-icon state="warning" placeholder="Type something" />
+<lui-textarea state-icon :state="false" placeholder="Type something" />
 `
 export const StateIcon: Story = {
   render: () => ({
