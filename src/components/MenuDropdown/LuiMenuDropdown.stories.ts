@@ -390,24 +390,24 @@ export const TriggerSlot: Story = {
   }
 }
 
-const triggerAppendTemplate = `
+const appendTemplate = `
 <lui-menu-dropdown text="Connect">
-  <template #triggerAppend>
+  <template #prepend>
     <i class="ri-wifi-line" />
-  </template>  
+  </template>
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
 </lui-menu-dropdown>
 `
-export const TriggerAppendSlot: Story = {
+export const AppendSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: triggerAppendTemplate
+    template: appendTemplate
   }),
   parameters: {
     docs: {
       source: {
-        code: triggerAppendTemplate
+        code: appendTemplate
       },
       description: {
         story:
