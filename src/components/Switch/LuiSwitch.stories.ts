@@ -155,10 +155,10 @@ export const Description: Story = {
 }
 
 const stateTemplate = `
-<lui-switch :state="true" description="This is a description" />
-<lui-switch :state="false" description="This is a description" />
-<lui-switch state="warning" description="This is a description" />
 <lui-switch :state="null" description="This is a description" />
+<lui-switch :state="true" description="This is a description" />
+<lui-switch state="warning" description="This is a description" />
+<lui-switch :state="false" description="This is a description" />
 `
 export const State: Story = {
   render: () => ({
