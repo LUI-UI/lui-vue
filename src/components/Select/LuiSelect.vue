@@ -205,7 +205,7 @@ function closeListBox() {
 }
 
 function toggleOptions() {
-  if (attrs.disabled !== undefined && attrs.disabled === true) return
+  if (attrs.disabled !== undefined || attrs.disabled === true) return
   // event.preventDefault();
   optionsActive.value = !optionsActive.value
   // if (attrs.disabled !== undefined && attrs.disabled === true) return;
