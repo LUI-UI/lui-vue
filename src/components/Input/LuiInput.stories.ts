@@ -181,8 +181,8 @@ export const Description: Story = {
 const stateTemplate = `
 <lui-input :state="null" placeholder="Type something" />
 <lui-input :state="true" description="This is a description" placeholder="Type something" />
-<lui-input :state="false" description="This is a description" placeholder="Type something" />
 <lui-input state="warning" description="This is a description" placeholder="Type something" />
+<lui-input :state="false" description="This is a description" placeholder="Type something" />
 `
 export const State: Story = {
   render: () => ({
@@ -206,8 +206,8 @@ export const State: Story = {
 const stateIconTemplate = `
 <lui-input state-icon :state="null" placeholder="Type something" />
 <lui-input state-icon :state="true" placeholder="Type something" />
-<lui-input state-icon :state="false" placeholder="Type something" />
 <lui-input state-icon state="warning" placeholder="Type something" />
+<lui-input state-icon :state="false" placeholder="Type something" />
 `
 export const StateIcon: Story = {
   render: () => ({
