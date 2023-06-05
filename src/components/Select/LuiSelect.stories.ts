@@ -244,9 +244,9 @@ export const Description: Story = {
 
 const stateTemplate = `
 <lui-select :state="null" description="This is a description" placeholder="null" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select state="success" description="This is a description" placeholder="success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state="true" description="This is a description" placeholder="success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 <lui-select state="warning" description="This is a description" placeholder="warning" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select state="danger" description="This is a description" placeholder="danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state="false" description="This is a description" placeholder="danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const State: Story = {
   render: () => ({
@@ -268,9 +268,9 @@ export const State: Story = {
 
 const stateIconTemplate = `
 <lui-select :state-icon="true" :state="null" description="This is a description" placeholder="Null" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select :state-icon="true" state="success" description="This is a description" placeholder="Success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state-icon="true" :state="true" description="This is a description" placeholder="Success" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 <lui-select :state-icon="true" state="warning" description="This is a description" placeholder="Warning" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
-<lui-select :state-icon="true" state="danger" description="This is a description" placeholder="Danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
+<lui-select :state-icon="true" :state="false" description="This is a description" placeholder="Danger" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />
 `
 export const StateIcon: Story = {
   render: () => ({
@@ -310,6 +310,73 @@ export const PrependSlot: Story = {
       description: {
         story:
           'The <b>prepend</b> slot can be used to place an icon to the left side of the component, before the text.'
+      }
+    }
+  }
+}
+
+const searchableTemplate = `<lui-select searchable :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
+export const Searchable: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    template: searchableTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: searchableTemplate
+      },
+      description: {
+        story:
+          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> props to the LuiOption components or use the <b>options</b> props as described below.'
+      }
+    }
+  }
+}
+
+const modelTemplate = `<lui-select v-model="selectedName" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
+export const Model: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    setup() {
+      const selectedName = ref('')
+      return { selectedName }
+    },
+    template: `<p class="pl-2 pb-2">selectedName: {{selectedName}}</p>${modelTemplate}`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: modelTemplate
+      },
+      description: {
+        story: 'v-model'
+      }
+    }
+  }
+}
+
+const changeTemplate = `<lui-select @change="consoleLog" :options="[{text:'Mary', value:'Mary'}, {text:'Jane', value:'Jane'}]" />`
+export const Change: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    setup() {
+      const selectedName = ref('')
+      function consoleLog() {
+        console.log(selectedName, ' is selected.')
+      }
+      return { selectedName, consoleLog }
+    },
+    template: `<p class="pl-2 pb-2">selectedName: {{selectedName}}</p>${changeTemplate}`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: changeTemplate
+      },
+      description: {
+        story:
+          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> props to the LuiOption components or use the <b>options</b> props as described below.'
       }
     }
   }
