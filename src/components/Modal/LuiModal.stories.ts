@@ -1,6 +1,6 @@
 import LuiModal from './LuiModal.vue'
 import { ref } from 'vue'
-import { size } from '../../../.storybook/global-story-argtypes'
+import { rounded, size } from '../../../.storybook/global-story-argtypes'
 import LuiButton from '../Button/LuiButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
@@ -11,6 +11,8 @@ const descriptions = {
   },
   argTypes: {
     default: 'Used as default to add a text in the component',
+    padding: "Used to customize the spacing around the LuiModal's content",
+    fullScreen: 'Used to render a full screen LuiModal',
     show: 'Controls the visibility of the modal',
     showIcon:
       'Controls the visibility of the cross icon in the modal that triggers the close event',
@@ -23,6 +25,19 @@ const meta: Meta<typeof LuiModal> = {
   component: LuiModal,
   argTypes: {
     size,
+    rounded,
+    fullScreen: {
+      control: 'boolean',
+      options: [true, false],
+      default: false,
+      description: descriptions.argTypes.fullScreen
+    },
+    padding: {
+      control: 'boolean',
+      options: [true, false],
+      default: true,
+      description: descriptions.argTypes.padding
+    },
     show: {
       control: 'boolean',
       options: [true, false],
@@ -49,25 +64,20 @@ const meta: Meta<typeof LuiModal> = {
 export default meta
 type Story = StoryObj<typeof LuiModal>
 
-const modalTemplate = `
-<div class="w-full">
+const modalTemplate = `<div class="w-full">
     <h2 class="text-xl font-bold mb-4">Information message</h2>
     <p class="mb-6">
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-      when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-      It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. 
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
     </p>
-  </div>
-`
+  </div>`
 const defaultTemplate = `
 <lui-button @click="showModal=true" rounded>Open Modal</lui-button>
 <lui-modal :show="showModal" @close="showModal=false">
   ${modalTemplate}
   <div class="flex space-x-3 ml-auto">
-  <lui-button rounded>Confirm</lui-button>
-  <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
-</div>
+    <lui-button rounded>Confirm</lui-button>
+    <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
+  </div>
 </lui-modal>
 `
 export const Default: Story = {
@@ -92,13 +102,100 @@ export const Default: Story = {
     }
   }
 }
-const showIconTemplate = `
-<lui-button @click="showModal=true" rounded>Open Modal</lui-button>
-<lui-modal :show-icon="false" :show="showModal" @close="showModal=false">
+const roundedTemplate = `
+<lui-button @click="showModalOne=true" rounded>Rounded</lui-button>
+<lui-modal :rounded="true" :show="showModalOne" @close="showModalOne=false">
   ${modalTemplate}
   <div class="flex space-x-3 ml-auto">
   <lui-button rounded>Confirm</lui-button>
-  <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
+  <lui-button @click="showModalOne=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="showModalTwo=true" rounded>Not Rounded</lui-button>
+<lui-modal :rounded="false" :show="showModalTwo" @close="showModalTwo=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModalTwo=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+`
+export const Rounded: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
+    args: { rounded },
+    setup() {
+      const showModalOne = ref(false)
+      const showModalTwo = ref(false)
+      return { showModalOne, showModalTwo }
+    },
+    template: roundedTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: roundedTemplate
+      },
+      description: {
+        story: 'The <b>rounded</b> props is used to round the corners of a LuiModal.'
+      }
+    }
+  }
+}
+const paddingTemplate = `
+<lui-button @click="showModalOne=true" rounded>Padding</lui-button>
+<lui-modal :padding="true" :show="showModalOne" @close="showModalOne=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+    <lui-button rounded>Confirm</lui-button>
+    <lui-button @click="showModalOne=false" rounded color="secondary">Cancel</lui-button>
+  </div>
+</lui-modal>
+<lui-button @click="showModalTwo=true" rounded>No Padding</lui-button>
+<lui-modal :padding="false" :show="showModalTwo" @close="showModalTwo=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+    <lui-button rounded>Confirm</lui-button>
+    <lui-button @click="showModalTwo=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>`
+export const Padding: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
+    setup() {
+      const showModalOne = ref(false)
+      const showModalTwo = ref(false)
+      return { showModalOne, showModalTwo }
+    },
+    template: paddingTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: paddingTemplate
+      },
+      description: {
+        story:
+          "The <b>padding</b> props is used to customize the spacing around the LuiModal's content."
+      }
+    }
+  }
+}
+const showIconTemplate = `
+<lui-button @click="showModalOne=true" rounded>Show Icon</lui-button>
+<lui-modal :show-icon="true" :show="showModalOne" @close="showModalOne=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModalOne=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+<lui-button @click="showModalTwo=true" rounded>No Icon</lui-button>
+<lui-modal :show-icon="false" :show="showModalTwo" @close="showModalTwo=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModalTwo=false" rounded color="secondary">Cancel</lui-button>
 </div>
 </lui-modal>
 `
@@ -106,8 +203,9 @@ export const ShowIcon: Story = {
   render: () => ({
     components: { LuiModal, LuiButton },
     setup() {
-      const showModal = ref(false)
-      return { showModal }
+      const showModalOne = ref(false)
+      const showModalTwo = ref(false)
+      return { showModalOne, showModalTwo }
     },
     template: showIconTemplate
   }),
@@ -118,7 +216,7 @@ export const ShowIcon: Story = {
       },
       description: {
         story:
-          "The <b>show-icon</b> props controls the visibility of the cross icon on the highest right part of the LuiModal. It's used to close the modal and shown by default but you can make it invisible."
+          "The <b>show-icon</b> props controls the visibility of the cross icon on the highest right part of the LuiModal. It's used to close the modal and shown by default but you can make disable it."
       }
     }
   }
@@ -186,6 +284,36 @@ export const Size: Story = {
       description: {
         story:
           'The <b>size</b> props is used to control the width of the LuiModal and note that the height changes responsively so that the modal content can fit.'
+      }
+    }
+  }
+}
+const fullScreenTemplate = `
+<lui-button @click="showModal=true" rounded>Full Screen</lui-button>
+<lui-modal :full-screen="true" :show="showModal" @close="showModal=false">
+  ${modalTemplate}
+  <div class="flex space-x-3 ml-auto">
+  <lui-button rounded>Confirm</lui-button>
+  <lui-button @click="showModal=false" rounded color="secondary">Cancel</lui-button>
+</div>
+</lui-modal>
+`
+export const FullScreen: Story = {
+  render: () => ({
+    components: { LuiModal, LuiButton },
+    setup() {
+      const showModal = ref(false)
+      return { showModal }
+    },
+    template: fullScreenTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: fullScreenTemplate
+      },
+      description: {
+        story: 'The <b>full-screen</b> props is used to render a full screen LuiModal.'
       }
     }
   }
