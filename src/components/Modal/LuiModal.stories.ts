@@ -95,7 +95,8 @@ export const Default: Story = {
         code: defaultTemplate
       },
       description: {
-        story: 'When you click the button, a default LuiModal is shown.'
+        story:
+          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> props is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
       }
     }
   }
@@ -116,7 +117,8 @@ export const Show: Story = {
         code: defaultTemplate
       },
       description: {
-        story: 'The <b>show</b> props is used to control the visibility of the LuiModal.'
+        story:
+          'The <b>show</b> props in the LuiModal is responsible for controlling the visibility of the modal. By binding it to a Boolean variable, such as "showModal," you can determine whether the modal should be displayed or hidden.'
       }
     }
   }
@@ -138,7 +140,7 @@ export const Close: Story = {
       },
       description: {
         story:
-          'The <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'The <b>close</b> event in the LuiModal is triggered when the user clicks on the cross icon, allowing you to control the action that should be performed when the modal is closed.'
       }
     }
   }
@@ -258,7 +260,7 @@ export const ShowIcon: Story = {
       },
       description: {
         story:
-          "The <b>show-icon</b> props controls the visibility of the cross icon on the highest right part of the LuiModal. It's used to close the modal and shown by default but you can make disable it."
+          "The <b>show-icon</b> props controls the visibility of the cross icon located at the top right corner of the LuiModal. By default, the cross icon is shown, allowing users to close the modal. However, you can set this props to 'false' to disable the cross icon and prevent users from closing the modal using this feature."
       }
     }
   }
@@ -355,7 +357,8 @@ export const FullScreen: Story = {
         code: fullScreenTemplate
       },
       description: {
-        story: 'The <b>full-screen</b> props is used to render a full screen LuiModal.'
+        story:
+          'The <b>full-screen</b> props in the LuiModal enables the rendering of a modal that occupies the entire screen. By setting it to "true", the modal will expand to fill the entire viewport, providing a fullscreen immersive experience for the user.'
       }
     }
   }
