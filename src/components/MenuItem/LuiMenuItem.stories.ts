@@ -78,7 +78,7 @@ export const Block: Story = {
       },
       description: {
         story:
-          'The <b>block</b> props is used to render a full width LuiMenuItem and is passed "true" as default. When it is "false", it takes space as much as the text.'
+          'The <b>block</b> prop is used to render a full width LuiMenuItem and is passed "true" as default. When it is "false", it takes space as much as the text.'
       }
     }
   }
@@ -100,7 +100,7 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> props is used to disable a LuiMenuItem.'
+        story: 'The <b>disabled</b> prop is used to disable a LuiMenuItem.'
       }
     }
   }
@@ -155,7 +155,7 @@ export const Size: Story = {
       },
       description: {
         story:
-          'There are 5 options to control the size of a LuiMenuItem. Note that the text size changes responsively.'
+          "The <b>size</b> prop in the LuiMenuItem provides five options to control the size of the menu item. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the menu item. Note that the text size changes responsively."
       }
     }
   }
@@ -182,7 +182,7 @@ export const Color: Story = {
       },
       description: {
         story:
-          'There are 6 options to customize the color of a LuiMenuItem. The <b>color</b> props changes the text color and the background color on hover.'
+          'There are 6 options to customize the color of a LuiMenuItem. The <b>color</b> prop changes the text color and the background color on hover.'
       }
     }
   }
@@ -268,7 +268,7 @@ export const Tag: Story = {
       },
       description: {
         story:
-          "The <b>tag</b> props is used to give the LuiMenuItem the functionality of the 'button' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
+          "The <b>tag</b> prop is used to give the LuiMenuItem the functionality of the 'button' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
       }
     }
   }
