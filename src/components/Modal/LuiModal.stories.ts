@@ -96,7 +96,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> props is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
       }
     }
   }
@@ -118,7 +118,7 @@ export const Show: Story = {
       },
       description: {
         story:
-          'The <b>show</b> props in the LuiModal is responsible for controlling the visibility of the modal. By binding it to a Boolean variable, such as "showModal," you can determine whether the modal should be displayed or hidden.'
+          'The <b>show</b> prop in the LuiModal is responsible for controlling the visibility of the modal. By binding it to a Boolean variable, such as "showModal," you can determine whether the modal should be displayed or hidden.'
       }
     }
   }
@@ -181,7 +181,7 @@ export const Rounded: Story = {
         code: roundedTemplate
       },
       description: {
-        story: 'The <b>rounded</b> props is used to round the corners of a LuiModal.'
+        story: 'The <b>rounded</b> prop is used to round the corners of a LuiModal.'
       }
     }
   }
@@ -220,7 +220,7 @@ export const Padding: Story = {
       },
       description: {
         story:
-          "The <b>padding</b> props is used to customize the spacing around the LuiModal's content."
+          "The <b>padding</b> prop is used to customize the spacing around the LuiModal's content."
       }
     }
   }
@@ -260,7 +260,7 @@ export const ShowIcon: Story = {
       },
       description: {
         story:
-          "The <b>show-icon</b> props controls the visibility of the cross icon located at the top right corner of the LuiModal. By default, the cross icon is shown, allowing users to close the modal. However, you can set this props to 'false' to disable the cross icon and prevent users from closing the modal using this feature."
+          "The <b>show-icon</b> prop controls the visibility of the cross icon located at the top right corner of the LuiModal. By default, the cross icon is shown, allowing users to close the modal. However, you can set this props to 'false' to disable the cross icon and prevent users from closing the modal using this feature."
       }
     }
   }
@@ -327,7 +327,7 @@ export const Size: Story = {
       },
       description: {
         story:
-          'The <b>size</b> props is used to control the width of the LuiModal and note that the height changes responsively so that the modal content can fit.'
+          "The <b>size</b> prop in the LuiModal allows you to control the width of the modal. The available options for the <b>size</b> prop are 'xs', 'sm', 'md', 'lg' and 'xl', each representing different predefined widths for the modal. As the width changes, the height of the modal adjusts responsively to accommodate the content, ensuring that the modal's content can fit comfortably within the specified width."
       }
     }
   }
@@ -358,7 +358,7 @@ export const FullScreen: Story = {
       },
       description: {
         story:
-          'The <b>full-screen</b> props in the LuiModal enables the rendering of a modal that occupies the entire screen. By setting it to "true", the modal will expand to fill the entire viewport, providing a fullscreen immersive experience for the user.'
+          'The <b>full-screen</b> prop in the LuiModal enables the rendering of a modal that occupies the entire screen. By setting it to "true", the modal will expand to fill the entire viewport, providing a fullscreen immersive experience for the user.'
       }
     }
   }
