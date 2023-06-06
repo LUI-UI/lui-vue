@@ -59,7 +59,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'This is how a default LuiTextarea looks. Note that the text area is resizable by default. You can just click and drag the yellow icon which appears at the lowest right part to resize the text area. This feature can be controlled by the <b>resize</b> props.'
+          'This is how a default LuiTextarea looks. Note that the text area is resizable by default. You can just click and drag the yellow icon which appears at the lowest right part to resize the text area. This feature can be controlled by the <b>resize</b> prop.'
       }
     }
   }
@@ -80,7 +80,7 @@ export const Rounded: Story = {
         code: roundedTemplate
       },
       description: {
-        story: 'The <b>rounded</b> props is used to round the corners of a LuiTextarea.'
+        story: 'The <b>rounded</b> prop is used to round the corners of a LuiTextarea.'
       }
     }
   }
@@ -99,7 +99,7 @@ export const Block: Story = {
         code: blockTemplate
       },
       description: {
-        story: 'The <b>block</b> props provides a full width text area look.'
+        story: 'The <b>block</b> prop provides a full width text area look.'
       }
     }
   }
@@ -124,7 +124,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiTextarea.'
+        story:
+          "The <b>size</b> prop in the LuiTextarea provides five options to control the size of the text area. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the text area."
       }
     }
   }
@@ -148,7 +149,7 @@ export const Resize: Story = {
       },
       description: {
         story:
-          'By default a LuiTextarea is resizable in both horizontal (x) and vertical (y) axis. However the <b>resize</b> props can be used to control the resizability.'
+          'By default a LuiTextarea is resizable in both horizontal (x) and vertical (y) axis. However the <b>resize</b> prop can be used to control the resizability.'
       }
     }
   }
@@ -168,7 +169,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props is used to add a description to a LuiTextarea, typically used for validation and error handling.'
+          'The <b>description</b> prop is used to add a description to a LuiTextarea, typically used for validation and error handling.'
       }
     }
   }
@@ -193,7 +194,7 @@ export const State: Story = {
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiTextarea. When used with the <b>description</b> props they also change the color of the description.'
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiTextarea. When used with the <b>description</b> prop they also change the color of the description.'
       }
     }
   }
@@ -218,7 +219,7 @@ export const StateIcon: Story = {
       },
       description: {
         story:
-          'The <b>state-icon</b> props is used with the <b>state</b> props for validation and error handling. It places an icon representing the valid state in the right side of the LuiTextarea.'
+          'The <b>state-icon</b> prop is used with the <b>state</b> prop for validation and error handling. It places an icon representing the valid state in the right side of the LuiTextarea.'
       }
     }
   }
