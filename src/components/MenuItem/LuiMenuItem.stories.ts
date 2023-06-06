@@ -100,7 +100,8 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable a LuiMenuItem.'
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiMenuItem, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
       }
     }
   }
@@ -191,13 +192,13 @@ export const Color: Story = {
 const prependTemplate = `
 <lui-menu-item>
   <template #prepend>
-    <i class="ri-edit-box-line" />
+    <i class="ri-edit-box-line"></i>
   </template>
   Edit
 </lui-menu-item>
 <lui-menu-item>
   <template #prepend>
-    <i class="ri-file-copy-line" />
+    <i class="ri-file-copy-line"></i>
   </template>
   Duplicate
 </lui-menu-item>
@@ -224,13 +225,13 @@ const appendTemplate = `
 <lui-menu-item>
   Edit
   <template #append>
-    <i class="ri-edit-box-line" />
+    <i class="ri-edit-box-line"></i>
   </template>
 </lui-menu-item>
 <lui-menu-item>
   Duplicate
   <template #append>
-    <i class="ri-file-copy-line" />
+    <i class="ri-file-copy-line"></i>
   </template>
 </lui-menu-item>
 `
