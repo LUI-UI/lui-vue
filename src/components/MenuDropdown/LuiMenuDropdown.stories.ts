@@ -113,7 +113,7 @@ export const Text: Story = {
       },
       description: {
         story:
-          'The <b>text</b> props is used to add a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
+          'The <b>text</b> prop is used to add a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
       }
     }
   }
@@ -137,7 +137,7 @@ export const Block: Story = {
         code: blockTemplate
       },
       description: {
-        story: 'The <b>block</b> props provides a full width menu look.'
+        story: 'The <b>block</b> prop provides a full width menu look.'
       }
     }
   }
@@ -245,7 +245,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiMenuDropdown.'
+        story:
+          "The <b>size</b> prop in the LuiMenuDropdown provides five options to control the size of the dropdown menu. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the dropdown menu."
       }
     }
   }
@@ -357,7 +358,7 @@ export const Filter: Story = {
         code: filterTemplate
       },
       description: {
-        story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
       }
     }
   }
@@ -392,7 +393,7 @@ export const TriggerSlot: Story = {
 
 const appendTemplate = `
 <lui-menu-dropdown text="Connect">
-  <template #prepend>
+  <template #append>
     <i class="ri-wifi-line" />
   </template>
   <lui-menu-item>Menu Item</lui-menu-item>
@@ -411,7 +412,34 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>triggerAppend</b> slot is used to replace the default down arrow icon in the right side of the LuiMenuDropdown, with another icon.'
+          'The <b>append</b> slot is used to place an icon in the left side of the LuiMenuDropdown, thus replacing the default down arrow icon.'
+      }
+    }
+  }
+}
+
+const prependTemplate = `
+<lui-menu-dropdown text="Connect">
+  <template #prepend>
+    <i class="ri-wifi-line" />
+  </template>
+  <lui-menu-item>Menu Item</lui-menu-item>
+  <lui-menu-item>Menu Item</lui-menu-item>
+</lui-menu-dropdown>
+`
+export const PrependSlot: Story = {
+  render: () => ({
+    components: { LuiMenuDropdown, LuiMenuItem },
+    template: prependTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: prependTemplate
+      },
+      description: {
+        story:
+          'The <b>prepend</b> slot is used to place an icon in the right side of the LuiMenuDropdown.'
       }
     }
   }
@@ -463,7 +491,7 @@ export const MenuPosition: Story = {
       },
       description: {
         story:
-          'The <b>menu-position</b> props is used to customize the position and alignment of where the dropdown menu opens.'
+          'The <b>menu-position</b> prop is used to customize the position and alignment of where the dropdown menu opens.'
       }
     }
   }
