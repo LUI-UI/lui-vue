@@ -412,7 +412,7 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>append</b> slot is used to place an icon in the left side of the LuiMenuDropdown, thus replacing the default down arrow icon.'
+          'The <b>append</b> slot is used to place an icon in the left side of the LuiMenuDropdown, after the text, thus replacing the default down arrow icon.'
       }
     }
   }
@@ -439,7 +439,7 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot is used to place an icon in the right side of the LuiMenuDropdown.'
+          'The <b>prepend</b> slot is used to place an icon in the right side of the LuiMenuDropdown, before the text.'
       }
     }
   }
