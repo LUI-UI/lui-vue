@@ -108,7 +108,7 @@ export const Block: Story = {
         code: blockTemplate
       },
       description: {
-        story: 'The <b>block</b> props provides a full width input look.'
+        story: 'The <b>block</b> prop provides a full width input look.'
       }
     }
   }
@@ -133,7 +133,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiInput.'
+        story:
+          "The <b>size</b> prop in the LuiInput provides five options to control the size of the input. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the input."
       }
     }
   }
@@ -152,7 +153,7 @@ export const Clear: Story = {
       },
       description: {
         story:
-          'The <b>clear</b> props inserts a cross icon in the right side of the LuiInput and used to clear the input automatically when clicked.'
+          'The <b>clear</b> prop inserts a cross icon in the right side of the LuiInput and used to clear the input automatically when clicked.'
       }
     }
   }
@@ -172,7 +173,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props is used to add a description to a LuiInput, typically used for validation and error handling.'
+          'The <b>description</b> prop is used to add a description to a LuiInput, typically used for validation and error handling.'
       }
     }
   }
@@ -197,7 +198,7 @@ export const State: Story = {
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiInput. When used with the <b>description</b> props they also change the color of the description.'
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiInput. When used with the <b>description</b> prop they also change the color of the description.'
       }
     }
   }
@@ -222,7 +223,7 @@ export const StateIcon: Story = {
       },
       description: {
         story:
-          'The <b>state-icon</b> props is used with the <b>state</b> props for validation and error handling. It places an icon representing the valid state in the right side of the LuiInput.'
+          'The <b>state-icon</b> prop is used with the <b>state</b> prop for validation and error handling. It places an icon representing the valid state in the right side of the LuiInput.'
       }
     }
   }
