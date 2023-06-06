@@ -216,7 +216,7 @@ const appendTemplate = `
 <lui-select placeholder="Append">
   <lui-option text="Mary" value="Mary" :selected="true">
     <template #append>
-      <i class="ri-home-line" />
+      <i class="ri-home-line"></i>
     </template>
   </lui-option>
 </lui-select>
@@ -246,7 +246,7 @@ const prependTemplate = `
 <lui-select placeholder="Prepend">
   <lui-option text="Mary" value="Mary" :selected="true">
     <template #prepend>
-      <i class="ri-home-line />
+      <i class="ri-home-line"></i>
     </template>
   </lui-option>
 </lui-select>
