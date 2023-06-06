@@ -59,7 +59,7 @@ export const Checked: Story = {
         code: checkedTemplate
       },
       description: {
-        story: 'The <b>checked</b> props determines if the LuiRadio is checked or not.'
+        story: 'The <b>checked</b> prop determines if the LuiRadio is checked or not.'
       }
     }
   }
@@ -80,7 +80,7 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> props is used to disable a LuiRadio.'
+        story: 'The <b>disabled</b> prop is used to disable a LuiRadio.'
       }
     }
   }
@@ -105,7 +105,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiRadio.'
+        story:
+          "The <b>size</b> prop in the LuiRadio provides five options to control the size of the radio. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the radio"
       }
     }
   }
@@ -127,7 +128,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props is used to add a description to a LuiRadio, typically used for validation and error handling.'
+          'The <b>description</b> prop is used to add a description to a LuiRadio, typically used for validation and error handling.'
       }
     }
   }
@@ -152,7 +153,7 @@ export const State: Story = {
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiRadio. When used with the <b>description</b> props they also change the color of the description.'
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiRadio. When used with the <b>description</b> prop they also change the color of the description.'
       }
     }
   }
