@@ -111,7 +111,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiBadge.'
+        story:
+          "The <b>size</b> prop in the LuiBadge provides five options to control the size of the badge. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the badge."
       }
     }
   }
@@ -169,7 +170,7 @@ export const Filter: Story = {
         code: filterTemplate
       },
       description: {
-        story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
       }
     }
   }
@@ -208,7 +209,7 @@ export const Border: Story = {
       },
       description: {
         story:
-          'The <b>border</b> props is used to place a thin border around the LuiBadge. The border color changes according to the badge color.'
+          'The <b>border</b> prop is used to place a thin border around the LuiBadge. The border color changes according to the badge color.'
       }
     }
   }
@@ -231,7 +232,7 @@ export const Text: Story = {
       },
       description: {
         story:
-          'The <b>text</b> props is used to add a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
+          'The <b>text</b> prop is used to add a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
       }
     }
   }
@@ -294,7 +295,7 @@ export const Position: Story = {
       },
       description: {
         story:
-          ' There are 4 options to customize the position of the LuiBadge. However to use the <b>position</b> props, you must provide a surrounding to the badge. You can do this by putting a container element inside the badge. Note that the container element here is a LuiAvatar.'
+          ' There are 4 options to customize the position of the LuiBadge. However to use the <b>position</b> prop, you must provide a surrounding to the badge. You can do this by putting a container element inside the badge. Note that the container element here is a LuiAvatar.'
       }
     }
   }
