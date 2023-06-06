@@ -113,7 +113,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiAvatar.'
+        story:
+          "The <b>size</b> prop in the LuiAvatar provides five options to control the size of the avatar. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the avatar."
       }
     }
   }
@@ -194,7 +195,7 @@ export const Filter: Story = {
         code: filterTemplate
       },
       description: {
-        story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
       }
     }
   }
@@ -233,7 +234,7 @@ export const Border: Story = {
       },
       description: {
         story:
-          'The <b>border</b> props is used to place a thin border around the LuiAvatar. The border color changes according to the avatar color.'
+          'The <b>border</b> prop is used to place a thin border around the LuiAvatar. The border color changes according to the avatar color.'
       }
     }
   }
@@ -276,7 +277,7 @@ export const Text: Story = {
         code: textTemplate
       },
       description: {
-        story: 'The <b>text</b> props is used to add a text in the LuiAvatar.'
+        story: 'The <b>text</b> prop is used to add a text in the LuiAvatar.'
       }
     }
   }
@@ -294,7 +295,7 @@ export const Src: Story = {
         code: srcTemplate
       },
       description: {
-        story: 'The <b>src</b> props is used to place an image in the LuiAvatar.'
+        story: 'The <b>src</b> prop is used to place an image in the LuiAvatar.'
       }
     }
   }
@@ -312,7 +313,7 @@ export const Alt: Story = {
         code: altTemplate
       },
       description: {
-        story: 'The <b>alt</b> props is used to give an alt text to the image in the LuiAvatar.'
+        story: 'The <b>alt</b> prop is used to give an alt text to the image in the LuiAvatar.'
       }
     }
   }
