@@ -241,7 +241,7 @@ export const Text: Story = {
 const iconSlotTemplate = `
 <lui-badge>
   <template #icon>
-    <i class="ri-wifi-line" />
+    <i class="ri-wifi-line"></i>
   </template>
 </lui-badge>
 `
@@ -265,7 +265,7 @@ export const IconSlot: Story = {
 
 const userTemplate = `<lui-avatar color="secondary" :rounded="true">
     <template #icon>
-      <i class="ri-user-fill" />
+      <i class="ri-user-fill"></i>
     </template>
   </lui-avatar>`
 const positionTemplate = `
