@@ -20,10 +20,6 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false
   },
-  active: {
-    type: Boolean as PropType<boolean>,
-    default: false
-  },
   stretch: {
     type: Boolean as PropType<boolean>,
     default: false
