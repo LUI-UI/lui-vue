@@ -92,7 +92,8 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable a LuiCheckbox.'
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiCheckbox, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
       }
     }
   }
