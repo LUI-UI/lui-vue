@@ -89,7 +89,7 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> props is used to disable a LuiButton.'
+        story: 'The <b>disabled</b> prop is used to disable a LuiButton.'
       }
     }
   }
@@ -172,7 +172,7 @@ export const Filter: Story = {
         code: filterTemplate
       },
       description: {
-        story: 'The <b>filter</b> props is used to lighten or darken the selected color.'
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
       }
     }
   }
@@ -198,7 +198,7 @@ export const Size: Story = {
       },
       description: {
         story:
-          'There are 5 options to control the size of a LuiButton. (The size property might change the padding and/or the font size.)'
+          "The <b>size</b> prop in the LuiButton provides five options to control the size of the button. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the button. Note that the <b>size</b> prop might change the padding and/or the font size."
       }
     }
   }
@@ -240,7 +240,7 @@ export const Block: Story = {
         code: blockTemplate
       },
       description: {
-        story: 'The <b>block</b> props provides a full width button look.'
+        story: 'The <b>block</b> prop provides a full width button look.'
       }
     }
   }
@@ -374,7 +374,7 @@ export const Tag: Story = {
       },
       description: {
         story:
-          "The <b>tag</b> props is used to give the LuiButton the functionality of the 'div' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
+          "The <b>tag</b> prop is used to give the LuiButton the functionality of the 'div' or 'a' element. When it's passed a tag props, it acts like that element and can have its attributes."
       }
     }
   }
