@@ -78,6 +78,7 @@ const computedDialogWrapperClasses = computed(() => {
 })
 const computedModalClasses = computed(() => {
   const classes: TwClassInterface = {
+    position: 'relative',
     boxShadow: 'shadow-lg',
     borderRadius: props.rounded && !props.fullScreen ? 'md:rounded-xl' : '',
     padding: props.padding ? 'p-6' : '',
