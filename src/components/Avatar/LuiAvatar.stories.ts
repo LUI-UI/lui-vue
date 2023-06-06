@@ -243,7 +243,7 @@ export const Border: Story = {
 const iconSlotTemplate = `
 <lui-avatar>
   <template #icon>
-    <i class="ri-home-line />
+    <i class="ri-home-line"></i>
   </template>
 </lui-avatar>
 `
