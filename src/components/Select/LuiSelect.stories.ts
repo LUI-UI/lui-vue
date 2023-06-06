@@ -85,7 +85,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> props to the LuiOption components or use the <b>options</b> props as described below.'
+          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> prop to the LuiOption components or use the <b>options</b> prop as described below.'
       }
     }
   }
@@ -108,7 +108,7 @@ export const Placeholder: Story = {
         code: placeholderTemplate
       },
       description: {
-        story: 'With the <b>placeholder</b> props you can give a placeholder text to the LuiSelect.'
+        story: 'With the <b>placeholder</b> prop you can give a placeholder text to the LuiSelect.'
       }
     }
   }
@@ -130,7 +130,7 @@ export const Options: Story = {
       },
       description: {
         story:
-          'Instead of using the LuiOption, you can simply pass the <b>options</b> props to the LuiSelect and provide the options in an object or a string array. In an object array, <b>text</b>, <b>value</b> and other props of a standard option element can be assigned as key-value pairs. However, in a string array, the values will be equal to the texts.'
+          'Instead of using the LuiOption, you can simply pass the <b>options</b> prop to the LuiSelect and provide the options in an object or a string array. In an object array, <b>text</b>, <b>value</b> and other props of a standard option element can be assigned as key-value pairs. However, in a string array, the values will be equal to the texts.'
       }
     }
   }
@@ -149,7 +149,7 @@ export const Block: Story = {
         code: blockTemplate
       },
       description: {
-        story: 'The <b>block</b> props provides a full width select menu look.'
+        story: 'The <b>block</b> prop provides a full width select menu look.'
       }
     }
   }
@@ -167,7 +167,7 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> props is used to disable the LuiSelect.'
+        story: 'The <b>disabled</b> prop is used to disable the LuiSelect.'
       }
     }
   }
@@ -190,7 +190,7 @@ export const Rounded: Story = {
         code: roundedTemplate
       },
       description: {
-        story: 'The <b>rounded</b> props is used to round the corners of a LuiSelect.'
+        story: 'The <b>rounded</b> prop is used to round the corners of a LuiSelect.'
       }
     }
   }
@@ -207,7 +207,7 @@ export const Size: Story = {
   render: () => ({
     components: { LuiSelect },
     args: { size },
-    template: `<div class="flex space-x-1 items-end">${sizeTemplate}</div>`
+    template: `<div class="flex space-x-1 items-center">${sizeTemplate}</div>`
   }),
   parameters: {
     docs: {
@@ -215,7 +215,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiSelect.'
+        story:
+          "The <b>size</b> prop in the LuiSelect provides five options to control the size of the select input. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the select input."
       }
     }
   }
@@ -235,7 +236,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props is used to add a description to a LuiSelect, typically used for validation and error handling.'
+          'The <b>description</b> prop is used to add a description to a LuiSelect, typically used for validation and error handling.'
       }
     }
   }
@@ -260,7 +261,7 @@ export const State: Story = {
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiSelect. When used with the <b>description</b> props they also change the color of the description.'
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiSelect. When used with the <b>description</b> prop they also change the color of the description.'
       }
     }
   }
@@ -285,7 +286,7 @@ export const StateIcon: Story = {
       },
       description: {
         story:
-          'The <b>state-icon</b> props is used with the <b>state</b> props for validation and error handling. It places an icon representing the valid state in the right side of the LuiSelect.'
+          'The <b>state-icon</b> prop is used with the <b>state</b> prop for validation and error handling. It places an icon representing the valid state in the right side of the LuiSelect.'
       }
     }
   }
@@ -316,30 +317,30 @@ export const PrependSlot: Story = {
   }
 }
 
-// const appendTemplate = `
-// <lui-select placeholder="Append" :options="['Mary', 'Jane']">
-//   <template #append>
-//     <i class="ri-home-line />
-//   </template>
-// </lui-select>
-// `
-// export const AppendSlot: Story = {
-//   render: () => ({
-//     components: { LuiSelect },
-//     template: appendTemplate
-//   }),
-//   parameters: {
-//     docs: {
-//       source: {
-//         code: appendTemplate
-//       },
-//       description: {
-//         story:
-//           'The <b>append</b> slot can be used to place an icon to the right side of the component, after the placeholder text.'
-//       }
-//     }
-//   }
-// }
+const appendTemplate = `
+<lui-select placeholder="Append" :options="['Mary', 'Jane']">
+  <template #append>
+    <i class="ri-home-line />
+  </template>
+</lui-select>
+`
+export const AppendSlot: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    template: appendTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: appendTemplate
+      },
+      description: {
+        story:
+          'The <b>append</b> slot can be used to place an icon to the right side of the component, after the placeholder text.'
+      }
+    }
+  }
+}
 
 const searchableTemplate = `<lui-select searchable placeholder="Searchable" :options="['Mary', 'Jane']" />`
 export const Searchable: Story = {
@@ -353,7 +354,7 @@ export const Searchable: Story = {
         code: searchableTemplate
       },
       description: {
-        story: 'The <b>searchable</b> props is used to search and filter the available options.'
+        story: 'The <b>searchable</b> prop is used to search and filter the available options.'
       }
     }
   }
@@ -375,7 +376,7 @@ export const Model: Story = {
         code: modelTemplate
       },
       description: {
-        story: "The <b>v-model</b> props is used to show the selected option's value."
+        story: "The <b>v-model</b> prop is used to show the selected option's value."
       }
     }
   }
