@@ -311,7 +311,7 @@ export const PrependSlot: Story = {
       },
       description: {
         story:
-          'The <b>prepend</b> slot can be used to place an icon to the left side of the component, before the placeholder text.'
+          'The <b>prepend</b> slot can be used to place an icon to the left side of the component, before the text.'
       }
     }
   }
@@ -336,7 +336,7 @@ export const AppendSlot: Story = {
       },
       description: {
         story:
-          'The <b>append</b> slot can be used to place an icon to the right side of the component, after the placeholder text.'
+          'The <b>append</b> slot can be used to place an icon to the right side of the component, after the text, thus replacing the default down arrow icon.'
       }
     }
   }
@@ -354,7 +354,8 @@ export const Searchable: Story = {
         code: searchableTemplate
       },
       description: {
-        story: 'The <b>searchable</b> prop is used to search and filter the available options.'
+        story:
+          'The <b>searchable</b> prop allows users to easily search and filter the available options within the LuiSelect. By enabling this feature, users can conveniently find specific options by typing keywords or phrases into the search bar.'
       }
     }
   }
@@ -376,7 +377,8 @@ export const Model: Story = {
         code: modelTemplate
       },
       description: {
-        story: "The <b>v-model</b> prop is used to show the selected option's value."
+        story:
+          "The <b>v-model</b> prop allows users to easily access the selected option's value by two-way data binding. In this example, it's used to bind the selected option's value to a data property called 'selectedName'. This means that when a user selects an option from the menu, the 'selectedName' property will be updated with the value of the selected option."
       }
     }
   }
@@ -388,9 +390,7 @@ export const Change: Story = {
     components: { LuiSelect },
     setup() {
       const selectedName = ref('')
-      function consoleLog() {
-        console.log(selectedName, ' is selected.')
-      }
+      const consoleLog = () => console.log('selectedName: ', selectedName)
       return { selectedName, consoleLog }
     },
     template: changeTemplate
@@ -401,7 +401,8 @@ export const Change: Story = {
         code: changeTemplate
       },
       description: {
-        story: 'The <b>change</b> event is used to control the action when an option is selected.'
+        story:
+          'The <b>change</b> event allows users to specify a custom action to be performed when an option is selected by the user. By attaching the @change event handler, users can define a function that will be executed when the user makes a selection. This feature enables users to trigger specific actions, perform calculations, update data, or execute any desired logic based on the selected option.'
       }
     }
   }
