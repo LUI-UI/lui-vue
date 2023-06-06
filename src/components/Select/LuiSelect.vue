@@ -543,8 +543,8 @@ function resetSelectedOption() {
       <template v-if="hasSlotContent(slots.prepend)" #prepend>
         <slot name="prepend" />
       </template>
-      <template #append>
-        <slot v-if="showAppend" name="append">
+      <template v-if="showAppend" #append>
+        <slot name="append">
           <svg
             viewBox="0 0 12 12"
             :width="arrowIconSize(size)"
