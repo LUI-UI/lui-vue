@@ -70,7 +70,7 @@ const attrs = useAttrs()
 const selectRef = ref<InstanceType<typeof LuiInput>>()
 const optionsRef = ref<HTMLUListElement>()
 // const optionRef = ref<CustomType[]>([])
-
+let isFirstUpdate = true
 const selectWrapperRef = ref<HTMLDivElement>()
 const optionsActive: Ref<boolean> = ref(false)
 const selectedOption: Ref<any> = ref(undefined)
@@ -195,7 +195,8 @@ function updateSelectedOption(option: ModelValue) {
     )
   }
   emit('update:modelValue', optionAsString)
-  emit('change', optionAsString)
+  if (!isFirstUpdate) emit('change', optionAsString)
+  if (isFirstUpdate) isFirstUpdate = false
 }
 
 function focusButton() {
@@ -542,8 +543,8 @@ function resetSelectedOption() {
       <template v-if="hasSlotContent(slots.prepend)" #prepend>
         <slot name="prepend" />
       </template>
-      <template #append>
-        <slot v-if="showAppend" name="append">
+      <template v-if="showAppend" #append>
+        <slot name="append">
           <svg
             viewBox="0 0 12 12"
             :width="arrowIconSize(size)"
