@@ -140,7 +140,7 @@ export const Close: Story = {
       },
       description: {
         story:
-          'The <b>close</b> event in the LuiModal is triggered when the user clicks on the cross icon, allowing you to control the action that should be performed when the modal is closed.'
+          "The <b>close</b> event in the LuiModal is triggered when the user clicks on the cross icon or performs any action that closes the modal window. By attaching the @close event handler, such as @close='showModal=false', users can define a function or action that should be performed when the modal is closed. This event provides a way to control and respond to the modal's closure, allowing users to handle any necessary cleanup, update data, or execute specific logic when the user dismisses the modal window."
       }
     }
   }
