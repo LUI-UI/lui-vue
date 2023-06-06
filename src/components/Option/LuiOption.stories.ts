@@ -118,7 +118,8 @@ export const Size: Story = {
         code: `<div>{{selectedName}}${sizeTemplate}</div>`
       },
       description: {
-        story: ''
+        story:
+          "The <b>size</b> prop in the LuiOption provides five options to control the size of the option. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the option."
       }
     }
   }
