@@ -55,6 +55,10 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false
   },
+  showAppend: {
+    type: Boolean as PropType<boolean>,
+    default: true
+  },
   modelValue: {
     type: [Object, String, undefined] as PropType<ModelValue>,
     default: undefined
@@ -539,18 +543,20 @@ function resetSelectedOption() {
         <slot name="prepend" />
       </template>
       <template #append>
-        <svg
-          viewBox="0 0 12 12"
-          :width="arrowIconSize(size)"
-          :height="arrowIconSize(size)"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
+        <slot v-if="showAppend" name="append">
+          <svg
+            viewBox="0 0 12 12"
+            :width="arrowIconSize(size)"
+            :height="arrowIconSize(size)"
             fill="currentColor"
-          />
-        </svg>
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
+              fill="currentColor"
+            />
+          </svg>
+        </slot>
       </template>
     </LuiInput>
     <ul
