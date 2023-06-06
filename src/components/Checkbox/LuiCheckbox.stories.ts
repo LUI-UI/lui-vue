@@ -71,7 +71,7 @@ export const Checked: Story = {
         code: checkedTemplate
       },
       description: {
-        story: 'The <b>checked</b> props determines if the LuiCheckbox is checked or not.'
+        story: 'The <b>checked</b> prop determines if the LuiCheckbox is checked or not.'
       }
     }
   }
@@ -92,7 +92,7 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> props is used to disable a LuiCheckbox.'
+        story: 'The <b>disabled</b> prop is used to disable a LuiCheckbox.'
       }
     }
   }
@@ -122,7 +122,8 @@ export const Size: Story = {
         code: sizeTemplate
       },
       description: {
-        story: 'There are 5 options to control the size of a LuiCheckbox.'
+        story:
+          "The <b>size</b> prop in the LuiCheckbox provides five options to control the size of the checkbox. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the checkbox."
       }
     }
   }
@@ -168,7 +169,7 @@ export const Description: Story = {
       },
       description: {
         story:
-          'The <b>description</b> props is used to add a description to a LuiCheckbox, typically used for validation and error handling.'
+          'The <b>description</b> prop is used to add a description to a LuiCheckbox, typically used for validation and error handling.'
       }
     }
   }
@@ -193,7 +194,7 @@ export const State: Story = {
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiCheckbox. When used with the <b>description</b> props they also change the color of the description.'
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiCheckbox. When used with the <b>description</b> prop they also change the color of the description.'
       }
     }
   }
@@ -212,7 +213,7 @@ export const Indeterminate: Story = {
       },
       description: {
         story:
-          'There is also the <b>indeterminate</b> props, often used to symbolize a “partially” checked checkbox.'
+          'There is also the <b>indeterminate</b> prop, often used to symbolize a “partially” checked checkbox.'
       }
     }
   }
