@@ -231,7 +231,7 @@ export const StateIcon: Story = {
 
 const appendTemplate = `<lui-input placeholder="Type something">
   <template #append>
-   <i class="ri-search-line" />
+   <i class="ri-search-line"></i>
   </template>
 </lui-input>`
 export const AppendSlot: Story = {
@@ -254,7 +254,7 @@ export const AppendSlot: Story = {
 
 const prependTemplate = `<lui-input placeholder="Type something">
   <template #prepend>
-   <i class="ri-search-line" />
+   <i class="ri-search-line"></i>
   </template>
 </lui-input>`
 export const PrependSlot: Story = {
