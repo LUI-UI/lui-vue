@@ -351,12 +351,12 @@ function triggerIconSize(size: string) {
           @keydown="handleButtonKeyEvents"
           v-bind="defaultButtonProps"
         >
-          <!-- <template #prepend>
-            <slot name="triggerPrepend" />
-          </template> -->
+          <template #prepend>
+            <slot name="prepend" />
+          </template>
           {{ text }}
           <template #append>
-            <slot name="triggerAppend">
+            <slot name="append">
               <svg
                 viewBox="0 0 12 12"
                 :width="triggerIconSize(size)"
