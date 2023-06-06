@@ -80,7 +80,8 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable a LuiRadio.'
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiRadio, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
       }
     }
   }
