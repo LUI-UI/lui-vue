@@ -28,7 +28,6 @@ const descriptions = {
 const meta: Meta<typeof LuiMenuDropdown> = {
   title: 'LUI/MenuDropdown',
   component: LuiMenuDropdown,
-  subcomponents: { LuiMenuItem }, //👈 Adds the ListItem component as a subcomponent
   argTypes: {
     color,
     size,
@@ -394,7 +393,7 @@ export const TriggerSlot: Story = {
 const appendTemplate = `
 <lui-menu-dropdown text="Connect">
   <template #append>
-    <i class="ri-wifi-line" />
+    <i class="ri-wifi-line"></i>
   </template>
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
@@ -421,7 +420,7 @@ export const AppendSlot: Story = {
 const prependTemplate = `
 <lui-menu-dropdown text="Connect">
   <template #prepend>
-    <i class="ri-wifi-line" />
+    <i class="ri-wifi-line"></i>
   </template>
   <lui-menu-item>Menu Item</lui-menu-item>
   <lui-menu-item>Menu Item</lui-menu-item>
