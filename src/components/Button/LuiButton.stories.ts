@@ -71,7 +71,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'This is how a default LuiButton looks. The default color is the <i>primary</i> color. <pre><code>The value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.</code></pre>'
+          'This is how a default LuiButton looks. The default color is the <i>primary</i> color. Note that the value for the primary color is defined in the Tailwind CSS configuration file and can be changed there.'
       }
     }
   }
@@ -89,7 +89,8 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable a LuiButton.'
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiButton, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
       }
     }
   }
@@ -104,9 +105,9 @@ const variantTemplate = `
 export const Variant: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { variant },
     template: `<div class="flex space-x-4 items-center">${variantTemplate}</div>`
   }),
-  args: { variant },
   parameters: {
     docs: {
       source: {
@@ -130,9 +131,9 @@ const colorTemplate = `
 export const Color: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { color },
     template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`
   }),
-  args: { color },
   parameters: {
     docs: {
       source: {
@@ -163,9 +164,9 @@ const filterTemplate = `
 export const Filter: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { color, filter },
     template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
   }),
-  args: { color, filter },
   parameters: {
     docs: {
       source: {
@@ -188,9 +189,9 @@ const sizeTemplate = `
 export const Size: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { size },
     template: sizeTemplate
   }),
-  args: { size },
   parameters: {
     docs: {
       source: {
@@ -212,9 +213,9 @@ const roundedTemplate = `
 export const Rounded: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { rounded },
     template: roundedTemplate
   }),
-  args: { rounded },
   parameters: {
     docs: {
       source: {
@@ -231,9 +232,9 @@ const blockTemplate = `<lui-button block>Block</lui-button>`
 export const Block: Story = {
   render: () => ({
     components: { LuiButton },
+    args: { block },
     template: blockTemplate
   }),
-  args: { block },
   parameters: {
     docs: {
       source: {
@@ -249,7 +250,7 @@ export const Block: Story = {
 const iconSlotTemplate = `
 <lui-button>
   <template #icon>
-    <i class="ri-home-line" />
+    <i class="ri-home-line"></i>
   </template>
 </lui-button>
 `
@@ -274,7 +275,7 @@ export const IconSlot: Story = {
 const prependSlotTemplate = `
 <lui-button>
   <template #prepend>
-    <i class="ri-home-line" />
+    <i class="ri-home-line"></i>
   </template>
   Prepend
 </lui-button>
@@ -301,7 +302,7 @@ const appendSlotTemplate = `
 <lui-button>
   Append
   <template #append>
-    <i class="ri-home-line" />
+    <i class="ri-home-line"></i>
   </template>
 </lui-button>
 `
@@ -324,11 +325,11 @@ export const AppendSlot: Story = {
 }
 
 const inheritedSizeTemplate = `
-<div><lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button></div>
-<div><lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button></div>
-<div><lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button></div>
-<div><lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button></div>
-<div><lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button></div>
+<div><lui-button size="xs"><template #icon><i class="ri-home-line"></i></template></lui-button></div>
+<div><lui-button size="sm"><template #icon><i class="ri-home-line"></i></template></lui-button></div>
+<div><lui-button size="md"><template #icon><i class="ri-home-line"></i></template></lui-button></div>
+<div><lui-button size="lg"><template #icon><i class="ri-home-line"></i></template></lui-button></div>
+<div><lui-button size="xl"><template #icon><i class="ri-home-line"></i></template></lui-button></div>
 `
 export const InheritedIconSizes: Story = {
   render: () => ({
@@ -339,11 +340,11 @@ export const InheritedIconSizes: Story = {
     docs: {
       source: {
         code: `
-<lui-button size="xs"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="sm"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="md"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="lg"><template #icon><i class="ri-home-line" /></template></lui-button>
-<lui-button size="xl"><template #icon><i class="ri-home-line" /></template></lui-button>
+<lui-button size="xs"><template #icon><i class="ri-home-line"></i></template></lui-button>
+<lui-button size="sm"><template #icon><i class="ri-home-line"></i></template></lui-button>
+<lui-button size="md"><template #icon><i class="ri-home-line"></i></template></lui-button>
+<lui-button size="lg"><template #icon><i class="ri-home-line"></i></template></lui-button>
+<lui-button size="xl"><template #icon><i class="ri-home-line"></i></template></lui-button>
         `
       },
       description: {
