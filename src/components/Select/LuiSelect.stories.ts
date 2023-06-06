@@ -17,7 +17,9 @@ const descriptions = {
       'LuiSelect presents a dropdown list of options, allowing users to choose a single value from the available options.'
   },
   argTypes: {
+    showAppend: 'Must be set to "false" to use <b>stateIcon</b>',
     prepend: 'Used to place an icon to the left side of the component',
+    append: 'Used to place an icon to the right side of the component',
     default: 'Used as default to add a text in the component',
     searchable: 'Provides a search feature to filter the options',
     placeholder: 'Used to add a placeholder text to the LuiSelect',
@@ -29,7 +31,6 @@ const descriptions = {
 const meta: Meta<typeof LuiSelect> = {
   title: 'LUI/Select',
   component: LuiSelect,
-  subcomponents: { LuiOption }, //👈 Adds the Option component as a subcomponent
   argTypes: {
     block,
     rounded,
@@ -37,24 +38,31 @@ const meta: Meta<typeof LuiSelect> = {
     description,
     state,
     stateIcon,
+    showAppend: {
+      control: 'boolean',
+      options: [true, false],
+      default: true,
+      description: descriptions.argTypes.showAppend
+    },
     searchable: {
       control: 'boolean',
-      default: false,
       options: [true, false],
+      default: false,
       description: descriptions.argTypes.searchable
-    },
-    change: {
-      description: descriptions.argTypes.change
     },
     options: {
       description: descriptions.argTypes.options
     },
-    prepend: { description: descriptions.argTypes.prepend },
     placeholder: {
       control: 'text',
       description: descriptions.argTypes.placeholder
     },
-    default: { description: descriptions.argTypes.default }
+    default: { description: descriptions.argTypes.default },
+    prepend: { description: descriptions.argTypes.prepend },
+    append: { description: descriptions.argTypes.append },
+    change: {
+      description: descriptions.argTypes.change
+    }
   },
   decorators: [() => ({ template: '<div class="py-40 space-x-2"><story/></div>' })],
   parameters: {
@@ -167,7 +175,8 @@ export const Disabled: Story = {
         code: disabledTemplate
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable the LuiSelect.'
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiSelect, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
       }
     }
   }
@@ -268,10 +277,10 @@ export const State: Story = {
 }
 
 const stateIconTemplate = `
-<lui-select :state-icon="true" :state="null" placeholder="Null" :options="['Mary', 'Jane']" />
-<lui-select :state-icon="true" :state="true" placeholder="Success" :options="['Mary', 'Jane']" />
-<lui-select :state-icon="true" state="warning" placeholder="Warning" :options="['Mary', 'Jane']" />
-<lui-select :state-icon="true" :state="false" placeholder="Danger" :options="['Mary', 'Jane']" />
+<lui-select :state-icon="true" :show-append="false" :state="null" placeholder="Null" :options="['Mary', 'Jane']" />
+<lui-select :state-icon="true" :show-append="false" :state="true" placeholder="Success" :options="['Mary', 'Jane']" />
+<lui-select :state-icon="true" :show-append="false" state="warning" placeholder="Warning" :options="['Mary', 'Jane']" />
+<lui-select :state-icon="true" :show-append="false" :state="false" placeholder="Danger" :options="['Mary', 'Jane']" />
 `
 export const StateIcon: Story = {
   render: () => ({
@@ -286,7 +295,7 @@ export const StateIcon: Story = {
       },
       description: {
         story:
-          'The <b>state-icon</b> prop is used with the <b>state</b> prop for validation and error handling. It places an icon representing the valid state in the right side of the LuiSelect.'
+          'The <b>state-icon</b> prop is used for validation and error handling. It places an icon representing the valid state in the right side of the LuiSelect. Note that it should always be used with the <b>state</b> prop and the <b>show-append</b> prop must be set to "false".'
       }
     }
   }
@@ -295,7 +304,7 @@ export const StateIcon: Story = {
 const prependTemplate = `
 <lui-select placeholder="Prepend" :options="['Mary', 'Jane']">
   <template #prepend>
-    <i class="ri-home-line />
+    <i class="ri-home-line"></i>
   </template>
 </lui-select>
 `
@@ -320,7 +329,7 @@ export const PrependSlot: Story = {
 const appendTemplate = `
 <lui-select placeholder="Append" :options="['Mary', 'Jane']">
   <template #append>
-    <i class="ri-home-line />
+    <i class="ri-home-line"></i>
   </template>
 </lui-select>
 `
