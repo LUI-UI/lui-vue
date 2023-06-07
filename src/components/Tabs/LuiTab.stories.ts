@@ -17,7 +17,6 @@ const descriptions = {
     alignContent: 'Used to control the alignment of the content within each tab panel',
     alignTabs: 'Used to control the alignment of the tab buttons within a LuiTabGroup',
     stretch: 'Used to control the stretching behavior of the tab buttons within a LuiTabGroup',
-    id: '',
     selectedIndex: 'Used to control the initially selected tab based on an index value',
     change: '',
     default: 'Used as default to add a text in the component'
@@ -35,7 +34,6 @@ const meta: Meta<typeof LuiTabGroup> = {
       default: 'left',
       description: descriptions.argTypes.alignContent
     },
-    id: { description: descriptions.argTypes.id },
     selectedIndex: { description: descriptions.argTypes.selectedIndex },
     default: { description: descriptions.argTypes.default },
     change: { description: descriptions.argTypes.change },
@@ -136,6 +134,47 @@ export const SelectedIndex: Story = {
       description: {
         story:
           'The <b>selected-index</b> prop in LuiTabGroup is used to control the initially selected tab based on an index value. By binding the <b>selected-index</b> prop to a data property, such as "activeTab" in this example, developers can dynamically determine which tab should be selected by setting the value of the `activeTab` property. In the provided code snippet, the `activeTab` property is defined using the `ref` function in the `setup()` method of the Vue component. By assigning an initial value of `1` to `activeTab`, the second tab (Tab-2) will be selected by default when the component is rendered.'
+      }
+    }
+  }
+}
+
+const changeTemplate = `
+<lui-tab-group @change="consoleLog">
+  <lui-tab-buttons>
+    <lui-tab-button>Tab-1</lui-tab-button>
+    <lui-tab-button>Tab-2</lui-tab-button>
+    <lui-tab-button>Tab-3</lui-tab-button>
+  </lui-tab-buttons>
+  <lui-tab-panels>
+    <lui-tab-panel>Panel-1</lui-tab-panel>
+    <lui-tab-panel>Panel-2</lui-tab-panel>
+    <lui-tab-panel>Panel-3</lui-tab-panel>
+  </lui-tab-panels>
+</lui-tab-group>`
+export const Change: Story = {
+  render: () => ({
+    components: {
+      LuiTabGroup,
+      LuiTabButtons,
+      LuiTabButton,
+      LuiTabPanels,
+      LuiTabPanel
+    },
+    setup() {
+      const consoleLog = () => console.log('Event executed')
+      return { consoleLog }
+    },
+    template: changeTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: changeTemplate
+      },
+      description: {
+        story:
+          'The <b>change</b> event in the LuiTabGroup component is triggered when the user selects a different tab, allowing you to control the action that should be performed when the active tab changes. This means that whenever the user selects a different tab within the LuiTabGroup, the method that the event is bound will be executed. You can customize the method to perform any desired action, such as updating data, making API calls, or triggering other functions based on the selected tab.'
       }
     }
   }
@@ -359,46 +398,6 @@ export const Stretch: Story = {
       description: {
         story:
           'The <b>stretch</b> prop in LuiTabButton is used to control the stretching behavior of the tab buttons within a LuiTabGroup component. When the <b>stretch</b> prop is set to "true", the tab buttons will expand horizontally to occupy the available space evenly. In the provided code snippet, the first tab button is set with the stretch prop value of true, expanding to fill the available space, while the remaining tab buttons retain their default width.'
-      }
-    }
-  }
-}
-
-const idTemplate = `
-<lui-tab-group>
-  <lui-tab-buttons>
-    <lui-tab-button id="lui-tab-button-1">Tab-1</lui-tab-button>
-    <lui-tab-button id="lui-tab-button-2">Tab-2</lui-tab-button>
-    <lui-tab-button id="lui-tab-button-3">Tab-3</lui-tab-button>
-  </lui-tab-buttons>
-  <lui-tab-panels>
-    <lui-tab-panel id="lui-tab-panel-1">Panel-1</lui-tab-panel>
-    <lui-tab-panel id="lui-tab-panel-2">Panel-2</lui-tab-panel>
-    <lui-tab-panel id="lui-tab-panel-3">Panel-3</lui-tab-panel>
-  </lui-tab-panels>
-</lui-tab-group>`
-export const Id: Story = {
-  render: () => ({
-    components: {
-      LuiTabGroup,
-      LuiTabButtons,
-      LuiTabButton,
-      LuiTabPanels,
-      LuiTabPanel
-    },
-    setup() {
-      const activeTab = ref(0)
-      return { activeTab }
-    },
-    template: idTemplate
-  }),
-  parameters: {
-    docs: {
-      source: {
-        code: idTemplate
-      },
-      description: {
-        story: 'The <b>id</b> prop is used to ...'
       }
     }
   }
