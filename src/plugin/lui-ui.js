@@ -15,6 +15,7 @@ module.exports = plugin(
     const rootColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info']
     // Leveller azaltılabilinir.. ??
     const levels = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900']
+    const opacityLevels = ['30', '40', '50', '60', '70']
 
     const luiSafeList = []
 
@@ -51,6 +52,12 @@ module.exports = plugin(
           luiSafeList.push(`${state}:hover:bg-${color}-400/20`)
         })
       }
+      // added for overlay component background opacity
+      rootColors.forEach((color) => {
+        opacityLevels.forEach((level) => {
+          luiSafeList.push(`bg-${color}-900/${level}`)
+        })
+      })
     })
     const allClassList = [...luiSafeList, config().safelist]
     config().safelist = [...new Set(allClassList.flat())]
