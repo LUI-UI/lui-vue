@@ -5,10 +5,11 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import type { Filter, Color, Size, Border, Rounded, Text, NarrowedVariant } from '@/globals/types'
+import { useTagClasses } from './composables'
+import type { Filter, Color, Size, Rounded, Text, NarrowedVariant } from '@/globals/types'
 import { computed, toRefs, useSlots } from 'vue'
 import type { PropType } from 'vue'
-import type { TwClassInterface, LayoutInterface } from '@/globals/interfaces'
+import type { TwClassInterface } from '@/globals/interfaces'
 import { useGlobalColorClasses } from '../../composables'
 
 const props = defineProps({
@@ -28,10 +29,6 @@ const props = defineProps({
     type: String as PropType<Size>,
     default: 'md'
   },
-  border: {
-    type: Boolean as PropType<Border>,
-    default: false
-  },
   text: {
     type: String as PropType<Text>,
     default: ''
@@ -45,17 +42,8 @@ const props = defineProps({
     default: true
   }
 })
-
-const { backgroundColorClasses, textColorClasses, borderColorClasses } = useGlobalColorClasses(
-  toRefs(props)
-)
-const computedContainerClasses = computed(() => {
-  const containerClasses: LayoutInterface = {
-    position: 'relative',
-    display: 'flex'
-  }
-  return Object.values(containerClasses)
-})
+const { tagClasses, computedIconSize } = useTagClasses(toRefs(props))
+const { backgroundColorClasses, textColorClasses } = useGlobalColorClasses(toRefs(props))
 const computedIconClasses = computed(() => {
   const iconClasses: TwClassInterface = {
     // display: 'flex',
@@ -104,19 +92,12 @@ const computedTagClasses = computed(() => {
       'text-base': props.size === 'lg' || props.size === 'xl'
     },
     backgroundColor: backgroundColorClasses.value,
-    textColor: textColorClasses.value,
-    borderColor: borderColorClasses.value
+    textColor: textColorClasses.value
+    // borderColor: borderColorClasses.value
   }
   return Object.values(tagClasses)
 })
 const slots = useSlots()
-const computedIconSize = computed(() =>
-  props.size === 'xs' || props.size === 'sm'
-    ? 'text-xs'
-    : props.size === 'md'
-    ? 'text-sm'
-    : 'text-base'
-)
 const computedPaddingClasses = computed(() =>
   !slots.prepend && props.showAppend
     ? props.size === 'xs'
@@ -176,30 +157,29 @@ const iconSize = computed(() =>
         indeterminate: { width: '22', stroke: '2', viewBox: '0 0 22 2' }
       }
 )
+console.log(tagClasses)
 </script>
 
 <template>
-  <button v-bind="$attrs" class="lui-tag" :class="computedContainerClasses">
-    <div :class="computedTagClasses">
-      <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
-        <slot name="prepend" />
-      </span>
-      <span :class="computedPaddingClasses" v-if="text.length > 0">{{ text }}</span>
-      <div v-if="showAppend" :class="computedIconClasses">
-        <slot name="append">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            :height="iconSize.tag"
-            :width="iconSize.tag"
-          >
-            <path
-              d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
-            ></path>
-          </svg>
-        </slot>
-      </div>
+  <button v-bind="$attrs" class="lui-tag" :class="[...computedTagClasses, tagClasses]">
+    <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
+      <slot name="prepend" />
+    </span>
+    <span :class="computedPaddingClasses" v-if="text.length > 0">{{ text }}</span>
+    <div v-if="showAppend" :class="computedIconClasses">
+      <slot name="append">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          :height="iconSize.tag"
+          :width="iconSize.tag"
+        >
+          <path
+            d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
+          ></path>
+        </svg>
+      </slot>
     </div>
   </button>
 </template>
