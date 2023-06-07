@@ -406,7 +406,7 @@ export const Id: Story = {
 
 const alignTabsTemplate = `
 <lui-tab-group>
-  <lui-tab-buttons :align-tabs="left">
+  <lui-tab-buttons align-tabs="left">
     <lui-tab-button>Tab-1</lui-tab-button>
     <lui-tab-button>Tab-2</lui-tab-button>
     <lui-tab-button>Tab-3</lui-tab-button>
@@ -418,7 +418,7 @@ const alignTabsTemplate = `
   </lui-tab-panels>
 </lui-tab-group>
 <lui-tab-group>
-  <lui-tab-buttons :align-tabs="center">
+  <lui-tab-buttons align-tabs="center">
     <lui-tab-button>Tab-1</lui-tab-button>
     <lui-tab-button>Tab-2</lui-tab-button>
     <lui-tab-button>Tab-3</lui-tab-button>
@@ -430,7 +430,7 @@ const alignTabsTemplate = `
   </lui-tab-panels>
 </lui-tab-group>
 <lui-tab-group>
-  <lui-tab-buttons :align-tabs="right">
+  <lui-tab-buttons align-tabs="right">
     <lui-tab-button>Tab-1</lui-tab-button>
     <lui-tab-button>Tab-2</lui-tab-button>
     <lui-tab-button>Tab-3</lui-tab-button>
@@ -477,9 +477,9 @@ const alignContentTemplate = `
     <lui-tab-button>Tab-3</lui-tab-button>
   </lui-tab-buttons>
   <lui-tab-panels>
-    <lui-tab-panel :align-content="left">Panel-1</lui-tab-panel>
-    <lui-tab-panel :align-content="left">Panel-2</lui-tab-panel>
-    <lui-tab-panel :align-content="left">Panel-3</lui-tab-panel>
+    <lui-tab-panel align-content="left">Panel-1</lui-tab-panel>
+    <lui-tab-panel align-content="left">Panel-2</lui-tab-panel>
+    <lui-tab-panel align-content="left">Panel-3</lui-tab-panel>
   </lui-tab-panels>
 </lui-tab-group>
 <lui-tab-group>
@@ -489,9 +489,9 @@ const alignContentTemplate = `
     <lui-tab-button>Tab-3</lui-tab-button>
   </lui-tab-buttons>
   <lui-tab-panels>
-    <lui-tab-panel :align-content="center">Panel-1</lui-tab-panel>
-    <lui-tab-panel :align-content="center">Panel-2</lui-tab-panel>
-    <lui-tab-panel :align-content="center">Panel-3</lui-tab-panel>
+    <lui-tab-panel align-content="center">Panel-1</lui-tab-panel>
+    <lui-tab-panel align-content="center">Panel-2</lui-tab-panel>
+    <lui-tab-panel align-content="center">Panel-3</lui-tab-panel>
   </lui-tab-panels>
 </lui-tab-group>
 <lui-tab-group>
@@ -501,9 +501,9 @@ const alignContentTemplate = `
     <lui-tab-button>Tab-3</lui-tab-button>
   </lui-tab-buttons>
   <lui-tab-panels>
-    <lui-tab-panel :align-content="right">Panel-1</lui-tab-panel>
-    <lui-tab-panel :align-content="right">Panel-2</lui-tab-panel>
-    <lui-tab-panel :align-content="right">Panel-3</lui-tab-panel>
+    <lui-tab-panel align-content="right">Panel-1</lui-tab-panel>
+    <lui-tab-panel align-content="right">Panel-2</lui-tab-panel>
+    <lui-tab-panel align-content="right">Panel-3</lui-tab-panel>
   </lui-tab-panels>
 </lui-tab-group>`
 export const AlignContent: Story = {
