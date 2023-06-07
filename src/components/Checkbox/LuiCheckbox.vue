@@ -38,22 +38,20 @@ const props = defineProps({
     type: Boolean as PropType<Indeterminate>,
     default: false
   },
-  value: {
-    type: [String, Boolean],
-    default: false
-  },
   modelValue: {
     type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
     default: undefined
   }
-  // indeterminate
 })
 const attrs = useAttrs()
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs)
 const emit = defineEmits(['update:modelValue'])
-
+// useCase:
+// 1- boolean with modalValue : updateValue with checked
+// 2- array with modelValue: check target checked status, update array
+// 2- true-value/false-falue with string-modelValue: check target checked status, updateModalValue
 function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
 }
@@ -92,7 +90,6 @@ const iconSize = computed(() =>
       <input
         type="checkbox"
         :checked="isInputChecked"
-        :value="value"
         @change="handleChange"
         :class="inputClasses"
         v-bind="$attrs"
