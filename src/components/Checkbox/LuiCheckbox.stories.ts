@@ -1,17 +1,6 @@
 import LuiCheckbox from './LuiCheckbox.vue'
 import { size, rounded, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { ref } from 'vue'
-
-const descriptions = {
-  docs: {
-    component:
-      'LuiCheckbox allows users to select or deselect a specific option from a set of choices by clicking or tapping on the checkbox, providing a binary selection state.'
-  },
-  argTypes: {
-    indeterminate: 'Used to symbolize a “partially” checked state.'
-  }
-}
 
 const meta: Meta<typeof LuiCheckbox> = {
   title: 'LUI/Checkbox',
@@ -128,6 +117,21 @@ export const Size: Story = {
       }
     }
   }
+}
+export const WithArray: Story = {
+  render: (args) => ({
+    components: { LuiCheckbox },
+    setup() {
+      const arr = ref([])
+      return { args, arr }
+    },
+    template: ` 
+      <div> {{arr}} </div>
+      <lui-checkbox v-model="arr" :value="{name:'ahmet'}" />
+      <lui-checkbox v-model="arr" :value="{name: 'mehmet'}" />
+      <lui-checkbox v-model="arr" :value="{name: 'hizmet'}" />
+    `
+  })
 }
 
 const roundedTemplate = `

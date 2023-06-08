@@ -5,10 +5,10 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { PropType } from 'vue'
+import type { PropType } from 'vue'
 import type { Color, Size } from '@/globals/types'
 import { computed } from 'vue'
-import { TwClassInterface } from '@/globals/interfaces'
+import type { TwClassInterface } from '@/globals/interfaces'
 type OverlayStyleType = 'blur' | 'opacity'
 const props = defineProps({
   show: {
