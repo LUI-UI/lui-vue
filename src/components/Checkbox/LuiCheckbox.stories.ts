@@ -1,7 +1,7 @@
 import LuiCheckbox from './LuiCheckbox.vue'
 import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
-
+import { ref } from 'vue'
 const meta: Meta<typeof LuiCheckbox> = {
   title: 'LUI/Checkbox',
   component: LuiCheckbox,
@@ -25,6 +25,21 @@ export const Default: Story = {
       return { args }
     },
     template: `<lui-checkbox v-bind="args" />`
+  })
+}
+export const WithArray: Story = {
+  render: (args) => ({
+    components: { LuiCheckbox },
+    setup() {
+      const arr = ref([])
+      return { args, arr }
+    },
+    template: ` 
+      <div> {{arr}} </div>
+      <lui-checkbox v-model="arr" :value="{name:'ahmet'}" />
+      <lui-checkbox v-model="arr" :value="{name: 'mehmet'}" />
+      <lui-checkbox v-model="arr" :value="{name: 'hizmet'}" />
+    `
   })
 }
 export const Rounded: Story = {
