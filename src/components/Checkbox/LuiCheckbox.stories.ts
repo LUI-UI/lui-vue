@@ -1,6 +1,17 @@
 import LuiCheckbox from './LuiCheckbox.vue'
 import { size, rounded, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { ref } from 'vue'
+
+const descriptions = {
+  docs: {
+    component:
+      'LuiCheckbox allows users to select or deselect a specific option from a set of choices by clicking or tapping on the checkbox, providing a binary selection state.'
+  },
+  argTypes: {
+    indeterminate: 'Used to symbolize a “partially” checked state.'
+  }
+}
 
 const meta: Meta<typeof LuiCheckbox> = {
   title: 'LUI/Checkbox',
@@ -118,21 +129,6 @@ export const Size: Story = {
     }
   }
 }
-export const WithArray: Story = {
-  render: (args) => ({
-    components: { LuiCheckbox },
-    setup() {
-      const arr = ref([])
-      return { args, arr }
-    },
-    template: ` 
-      <div> {{arr}} </div>
-      <lui-checkbox v-model="arr" :value="{name:'ahmet'}" />
-      <lui-checkbox v-model="arr" :value="{name: 'mehmet'}" />
-      <lui-checkbox v-model="arr" :value="{name: 'hizmet'}" />
-    `
-  })
-}
 
 const roundedTemplate = `
 <lui-checkbox :rounded="false"/>
@@ -224,30 +220,38 @@ export const Indeterminate: Story = {
   }
 }
 
-// The template for the component story
-const toggleCheckTemplate = `
-<lui-checkbox v-model="isChecked" checked />`
+const toggleCheckTemplate = `<lui-checkbox v-model="booleanCheck" />`
+const customValueTemplate = `<lui-checkbox v-model="customValue" true-value="yes" false-value="no" />`
 export const ToggleCheckbox: Story = {
   render: () => ({
     components: { LuiCheckbox },
     setup() {
-      const isChecked = ref(true)
-      return { isChecked }
+      const booleanCheck = ref(false)
+      const customValue = ref('no')
+      return { booleanCheck, customValue }
     },
     template: `
-    <div class="flex flex-col space-y-4">
-      <h1>isChecked: {{ isChecked }}</h1>
-      <div>${toggleCheckTemplate}</div>
+    <div class="flex flex-col">
+      <div class="flex space-x-4">
+        <div>${toggleCheckTemplate}</div>
+        <span>{{ booleanCheck }}</span>
+      </div>
+      <div class="flex space-x-4">
+        <div>${customValueTemplate}</div>
+        <span>{{ customValue }}</span>
+      </div>
     </div>`
   }),
   parameters: {
     docs: {
       source: {
-        code: `{{ isChecked }}${toggleCheckTemplate}`
+        code: `
+${toggleCheckTemplate}
+${customValueTemplate}`
       },
       description: {
         story:
-          'A simple checkbox component for a toggle check. Toggle the checkbox to see the result.'
+          "Here are two examples for a toggle checkbox. In the first one, the `booleanCheck` property's value will be true or false, according to the checked state of the LuiCheckbox. In the second example, the Vue-specific attributes <b>true-value</b> and <b>false-value</b> allow you to specify custom values for the `customValue` property based on the checked state.  When the checkbox is checked, the `customValue` property will be set to 'yes', and when it's unchecked, it will be set to 'no'."
       }
     }
   }
