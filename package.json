@@ -13,7 +13,7 @@
     "safelist": "npx tailwindcss build",
     "pub": "yarn build && yarn safelist && yarn publish",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "storybook build --docs",
     "prepare": "husky install",
     "cm": "cz"
   },
