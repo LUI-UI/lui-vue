@@ -1,14 +1,7 @@
 import LuiAvatar from './LuiAvatar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import {
-  color,
-  size,
-  filter,
-  border,
-  icon,
-  rounded
-} from '../../../.storybook/global-story-argtypes'
+import { color, size, filter, border, rounded } from '../../../.storybook/global-story-argtypes'
 
 const meta: Meta<typeof LuiAvatar> = {
   title: 'LUI/Avatar',
@@ -22,7 +15,6 @@ const meta: Meta<typeof LuiAvatar> = {
     color,
     size,
     filter,
-    icon,
     border,
     rounded,
     text: {

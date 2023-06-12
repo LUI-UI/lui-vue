@@ -5,7 +5,6 @@ import {
   block,
   rounded,
   size,
-  prepend,
   description,
   state,
   stateIcon
@@ -19,7 +18,6 @@ const meta: Meta<typeof LuiInput> = {
     block,
     rounded,
     size,
-    prepend,
     description,
     state,
     stateIcon,
