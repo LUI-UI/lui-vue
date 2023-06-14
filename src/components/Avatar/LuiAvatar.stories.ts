@@ -1,13 +1,14 @@
 import LuiAvatar from './LuiAvatar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
+
 import {
   variant,
   color,
   size,
-  rounded,
   filter,
-  text,
-  border
+  border,
+  rounded,
+  text
 } from '../../../.storybook/global-story-argtypes'
 
 const descriptions = {

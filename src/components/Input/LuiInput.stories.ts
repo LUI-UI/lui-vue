@@ -1,11 +1,11 @@
 import LuiInput from './LuiInput.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import {
-  size,
-  state,
   description,
   block,
   rounded,
+  size,
+  state,
   stateIcon
 } from '../../../.storybook/global-story-argtypes'
 
