@@ -229,7 +229,7 @@ export const WithObjectArrays: Story = {
     <div class="p-2">
       SelectedName: {{selectedName}}
     </div>
-    <lui-select :options="names" v-model="selectedName"/>
+    <lui-select v-bind="args" :options="names" v-model="selectedName"/>
   `
   })
 }
