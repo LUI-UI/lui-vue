@@ -35,6 +35,10 @@ const props = defineProps({
   closeIcon: {
     type: Boolean,
     default: true
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 const { computedTagClasses, computedIconSize, computedPrependSize } = useTagClasses(toRefs(props))
@@ -47,6 +51,7 @@ const slots = useSlots()
   <button
     v-bind="$attrs"
     class="lui-tag"
+    :disabled="disabled"
     :class="[computedTagClasses, backgroundColorClasses, textColorClasses]"
   >
     <span
