@@ -34,7 +34,7 @@ const props = defineProps({
     default: ''
   },
   text: {
-    type: String,
+    type: String as PropType<string>,
     default: ''
   }
 })
@@ -48,12 +48,18 @@ const optionRef = ref(null)
 const isHovered = computed(() => optionId === context?.currentId.value)
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
-  if (context?.selectedOption.value === undefined && props.selected && !props.disabled) {
-    context?.updateSelectedOption({
+  if (context && context.selectedOption.value === undefined && props.selected && !props.disabled) {
+    // context?.updateSelectedOption({
+    //   value: props.value,
+    //   text: props.text,
+    //   selected: props.selected
+    // })
+    const option = {
       value: props.value,
       text: props.text,
       selected: props.selected
-    })
+    }
+    context.updateSelectedOption(option, true)
   }
 })
 
@@ -80,7 +86,9 @@ function handleOptionClick(e: any) {
 
 const isSelected = computed(() => {
   if (context?.selectedOption.value === undefined) return props.selected
-  return typeof context?.selectedOption.value === 'string'
+  return Array.isArray(context?.selectedOption.value)
+    ? context?.selectedOption.value.includes(props.text)
+    : typeof context?.selectedOption.value === 'string'
     ? props.text === context?.selectedOption.value
     : props.text === context?.selectedOption.value.text
 })

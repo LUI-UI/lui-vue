@@ -13,7 +13,7 @@ type PropTypes = {
   state: Ref<State>
   stateIcon: Ref<StateIcon>
   block: Ref<Block>
-  clear: Ref<Clear>
+  clear?: Ref<Clear>
   description: Ref<Description>
 }
 
@@ -21,8 +21,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots()
   const iconStatus = computed(() => {
     return (props.stateIcon.value === true && props.state.value !== null) ||
-      props.clear.value === true ||
-      slots.append
+      (props.clear !== undefined && props.clear.value === true) ||
+      hasSlotContent(slots.append)
       ? hasSlotContent(slots.prepend)
         ? 'twoIcon'
         : 'rightIcon' // stateIcon-active

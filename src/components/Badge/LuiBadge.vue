@@ -186,7 +186,7 @@ const computedBadgeClasses = computed(() => {
 <template>
   <div class="lui-badge" :class="computedContainerClasses">
     <slot></slot>
-    <div ref="badgeWrapper" :class="computedBadgeClasses">
+    <div class="teest" ref="badgeWrapper" :class="computedBadgeClasses">
       <span :class="computedIconClasses" v-if="$slots.icon"><slot name="icon"></slot></span>
       <span v-if="text.length > 0" ref="badgeContent">{{ text }}</span>
     </div>
