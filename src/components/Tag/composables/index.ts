@@ -12,10 +12,35 @@ type PropTypes = {
   size: Ref<Size>
   rounded: Ref<Rounded>
 }
-
 export function useTagClasses(props: PropTypes) {
   const computedTagClasses = computed(() => {
     const tagClasses: TwClassInterface = {
+      display: 'flex',
+      borderWidth: 'border',
+      borderStyle: 'border-solid',
+      borderRadius:
+        props.rounded.value === 'full'
+          ? 'rounded-full'
+          : props.rounded.value === true
+          ? {
+              'rounded-sm': props.size.value === 'xs' || props.size.value === 'sm',
+              rounded: props.size.value === 'md',
+              'rounded-md': props.size.value === 'lg' || props.size.value === 'xl'
+            }
+          : '',
+      padding: {
+        'px-0.5': props.size.value === 'xs',
+        'px-1': props.size.value === 'sm',
+        'px-1.5': props.size.value === 'md',
+        'px-2': props.size.value === 'lg',
+        'px-2.5': props.size.value === 'xl'
+      },
+      alignItems: 'items-center',
+      fontSize: {
+        'text-xs': props.size.value === 'xs' || props.size.value === 'sm',
+        'text-sm': props.size.value === 'md',
+        'text-base': props.size.value === 'lg' || props.size.value === 'xl'
+      },
       // lineHeight: "leading-normal",
       outlineStyle: 'outline-none',
       ringWidth: 'focus-visible:ring-4',
@@ -59,32 +84,44 @@ export function useTagClasses(props: PropTypes) {
         [`border-${props.color.value}-800 hover:border-${props.color.value}-700 disabled:border-secondary-800`]:
           props.filter.value === 'darken' // filter darken
       },
-      borderWidth: 'border',
-      borderStyle: 'border-solid',
-      borderRadius:
-        props.rounded.value === 'full'
-          ? 'rounded-full'
-          : props.rounded.value === true
-          ? {
-              'rounded-sm': props.size.value === 'xs' || props.size.value === 'sm',
-              rounded: props.size.value === 'md',
-              'rounded-md': props.size.value === 'lg' || props.size.value === 'xl'
-            }
-          : '',
-      ringColor: `focus-visible:ring-${props.color.value}-500/40`
+      ringColor: `focus-visible:ring-${props.color.value}-500/40`,
+      space: {
+        'space-x-1': props.size.value === 'xs' || props.size.value === 'sm',
+        'space-x-1.5': props.size.value === 'md',
+        'space-x-2': props.size.value === 'lg' || props.size.value === 'xl'
+      }
     }
     return Object.values({ ...tagClasses })
   })
-  const computedIconSize = computed(
+  // const iconClasses: TwClassInterface = {
+  //   lineHeight: 'leading-3'
+  // }
+  const computedIconSize = computed(() =>
+    props.size.value === 'xs'
+      ? '12'
+      : props.size.value === 'sm'
+      ? '12'
+      : props.size.value === 'md'
+      ? '16'
+      : props.size.value === 'lg'
+      ? '20'
+      : '20'
+  )
+  const computedPrependSize = computed(
     () =>
-      // 12 - 16- 20 - 20 - 24
       props.size.value === 'xs' || props.size.value === 'sm'
         ? 'text-xs'
         : props.size.value === 'md'
-        ? 'text-sm'
-        : 'text-base'
+        ? 'text-base'
+        : props.size.value === 'lg'
+        ? 'text-xl'
+        : 'text-xl'
     // props.size.value === "sm" ? "md" : props.size.value === "md" ? "xl" : "2xl"
   )
-
-  return { tagClasses: computedTagClasses, computedIconSize }
+  return {
+    computedTagClasses,
+    computedIconSize,
+    computedPrependSize
+    // iconClasses
+  }
 }
