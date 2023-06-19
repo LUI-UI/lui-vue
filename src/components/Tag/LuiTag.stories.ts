@@ -32,7 +32,7 @@ export const Default: Story = {
       const activeColor = ref('secondary')
       return { args, activeColor }
     },
-    template: `<lui-tag v-bind="args" :disabled="true">Tag</lui-tag>`
+    template: `<lui-tag id="deneme-tag-id" v-bind="args" disabled>Tag</lui-tag>`
   })
 }
 export const VariantTemplate: Story = {
