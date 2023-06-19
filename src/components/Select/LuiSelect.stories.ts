@@ -250,6 +250,64 @@ export const WithSlots: Story = {
   `
   })
 }
+export const TestDifferentValue: Story = {
+  render: (args) => ({
+    components: { LuiSelect, LuiOption },
+    setup() {
+      const cities = [
+        {
+          text: 'Adana',
+          value: '01'
+        },
+        {
+          text: 'Adıyaman',
+          value: '02'
+        },
+        {
+          text: 'Afyon',
+          value: '03'
+        },
+        {
+          text: 'Ağrı',
+          value: '04'
+        },
+        {
+          text: 'Amasya',
+          value: '05'
+        },
+        {
+          text: 'Ankara',
+          value: '06'
+        },
+        {
+          text: 'Antalya',
+          value: '07'
+        },
+        {
+          text: 'Artvin',
+          value: '08'
+        }
+      ]
+      const selectedCity = ref(cities[1])
+      const citiesString = ['Adana', 'Adiyaman', 'Afyon', 'Agri']
+      const stringSelected = ref(citiesString[0])
+      return { args, cities, selectedCity, stringSelected, citiesString }
+    },
+    template: `
+    {{selectedCity}}
+    <div class="w-[800px]">
+      <lui-select v-model="selectedCity" :options="cities" />
+    </div>
+  `
+  })
+}
+// <lui-select :options="['a','b','c']" />
+// <lui-select>
+//   <lui-option v-for="city in cities" :key="city.text" :text="city.text"></lui-option>
+// </lui-select>
+// <lui-select>
+//   <lui-option v-for="i in ['a','b','c']" :key="i" :text="i"></lui-option>
+// </lui-select>
 export const MaxHeight: Story = {
   render: (args) => ({
     components: { LuiSelect, LuiOption },

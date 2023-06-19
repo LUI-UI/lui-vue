@@ -5,11 +5,23 @@ export default {
 }
 </script>
 <script setup lang="ts">
-import { ref, nextTick, provide, useSlots, useAttrs, watch, reactive, computed, toRef } from 'vue'
+import {
+  ref,
+  nextTick,
+  provide,
+  useSlots,
+  useAttrs,
+  watch,
+  reactive,
+  computed,
+  toRef,
+  Fragment
+} from 'vue'
 import type { PropType, Ref } from 'vue'
-import type { OptionsType, ModelValue, ModelValueObject, ListboxStateType } from './select-types'
+import type { OptionsType, ModelValue, ListboxStateType } from './select-types'
 import { ContextKey } from './symbols'
 import { useId } from '../../utils/useId'
+import { isSlotIncludesComponent } from '../../utils/hasSlotContent'
 // import { useOutsideClick, useFindProperPosition } from "./composables/index";
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
@@ -86,7 +98,7 @@ const listboxState: ListboxStateType = reactive({
 
 const selectId = `lui-listbox-button-${useId()}`
 const optionsId = `lui-listbox-wrapper-${useId()}`
-const validSlotTypes = ['LuiOption']
+// const validSlotTypes = ['LuiOption']
 const errorMessages = {
   type: {
     modelValue: 'Wrong type for modelValue, typeof of modelValue should be string'
@@ -106,8 +118,12 @@ const { properPosition } = useProperPosition({
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
 nextTick(() => {
-  setInitialSelectedOption()
-  setState()
+  if (isOptionsValid()) {
+    setState()
+    setInitialSelectedOption()
+  } else {
+    throw new Error(errorMessages.missing.options)
+  }
 })
 
 provide(ContextKey, {
@@ -120,11 +136,13 @@ provide(ContextKey, {
 watch(
   () => props.modelValue,
   (value) => {
-    const rawValue = typeof value !== 'string' ? value?.text : value
-    if (rawValue !== selectedOption.value?.text) {
-      updateSelectedOption(value)
+    const item = listboxState.items.find((i) =>
+      typeof i === 'string' ? i === value : i.value === value
+    )
+    const itemAsText = typeof item === 'string' ? item : item.text
+    if (selectedOption.value !== itemAsText) {
+      updateSelectedOption(item)
     }
-    // updateSelectedOption(value);
   }
 )
 const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
@@ -185,17 +203,23 @@ function focusAvailableElement(
   })
 }
 function updateSelectedOption(option: ModelValue) {
-  const optionAsString = option && typeof option !== 'string' ? option.text : option
-  selectedOption.value = optionAsString
+  const optionAsText = option && typeof option !== 'string' ? option.text : option
+  const optionAsValue =
+    option && typeof option !== 'string'
+      ? option.value === ''
+        ? option.text
+        : option.value
+      : option
+  selectedOption.value = optionAsText
   if (props.searchable) {
-    selectedOptionBackup.value = optionAsString as string
+    selectedOptionBackup.value = optionAsText as string
     searchQuery.value = ''
     listboxState.currentIndex = targetItems.value.findIndex((i) =>
-      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString
+      typeof i !== 'string' ? i.text === optionAsText : i === optionAsText
     )
   }
-  emit('update:modelValue', optionAsString)
-  if (!isFirstUpdate) emit('change', optionAsString)
+  emit('update:modelValue', optionAsValue)
+  if (!isFirstUpdate) emit('change', optionAsValue)
   if (isFirstUpdate) isFirstUpdate = false
 }
 
@@ -215,19 +239,25 @@ function toggleOptions() {
   optionsActive.value = !optionsActive.value
   // if (attrs.disabled !== undefined && attrs.disabled === true) return;
 }
-
-function setState() {
-  const slotsOptions =
+function getOptionSlotsOptions() {
+  const isLuiOption = (slot: any) => slot?.type.name !== undefined && slot.type.name === 'LuiOption'
+  const options =
     slots.default &&
     slots
       .default()
       .map((slot: any) =>
-        slot.type.toString() === 'Symbol(Fragment)'
-          ? slot.children.map((child: any) => child.props)
-          : slot.props
+        isLuiOption(slot)
+          ? slot.props
+          : slot.type === Fragment
+          ? slot.children.map((child: any) => (isLuiOption(child) ? child.props : null))
+          : null
       )
       .flat()
-  // validSlotTypes.includes(child.type.name)
+      .filter((o) => o !== null)
+  return options
+}
+function setState() {
+  const slotsOptions = getOptionSlotsOptions()
   let allOptions = [...props.options].concat(slotsOptions || [])
   if (props.placeholder !== '') {
     allOptions = [
@@ -235,89 +265,125 @@ function setState() {
       ...allOptions
     ]
   }
-
   listboxState.items = allOptions
 }
+// function setState() {
+//   const slotsOptions =
+//     slots.default &&
+//     slots
+//       .default()
+//       .map((slot: any) =>
+//         slot.type.toString() === 'Symbol(Fragment)'
+//           ? slot.children.map((child: any) => child.props)
+//           : slot.props
+//       )
+//       .flat()
+//   // validSlotTypes.includes(child.type.name)
+//   let allOptions = [...props.options].concat(slotsOptions || [])
+//   if (props.placeholder !== '') {
+//     allOptions = [
+//       { text: props.placeholder, value: props.placeholder, disabled: true, selected: false },
+//       ...allOptions
+//     ]
+//   }
 
-function setInitialSelectedOption() {
-  // when options not provided also there is no slot we need the throw an error like you should use options prop or option component as slot.
-  // const isModelValueInvalid =
-  //   props.modelValue !== undefined &&
-  //   typeof props.modelValue !== "string" &&
-  //   (props.modelValue?.text === undefined ||
-  //     props.modelValue?.value === undefined);
-  const isModelValueInvalid =
-    props.modelValue !== undefined &&
-    typeof props.modelValue !== 'string' &&
-    typeof props.modelValue !== 'number'
-
-  const optionsExist = props.options.length > 0
-
-  const anyOptionSelected = () =>
-    props.options.some((o: ModelValueObject | string) => typeof o !== 'string' && o.selected)
-
-  function setPlaceholderOrValue(value: any) {
-    if (props.placeholder === '') {
-      updateSelectedOption(value)
-    } else {
-      // updateSelectedOption(props.placeholder);
-    }
-  }
-  const anySlotSelected = () =>
-    slots.default &&
-    slots
-      .default()
-      .some((slot: any) =>
-        slot.type.toString() == 'Symbol(Fragment)'
-          ? slot.children.some(
-              (child: any) => child.props.selected !== undefined && child.props.selected === true
-            )
-          : slot.props && slot.props.selected && slot.props.selected === true
-      )
-
-  const isDefaultSlotValid = () =>
-    slots.default &&
-    slots
-      .default()
-      .some((slot: any) =>
-        slot.type.toString() == 'Symbol(Fragment)'
-          ? slot.children.some(
-              (child: any) =>
-                child.type.name !== undefined && validSlotTypes.includes(child.type.name)
-            )
-          : slot.type.name !== undefined && validSlotTypes.includes(slot.type.name)
-      )
-
-  if (isModelValueInvalid) {
-    throw new Error(errorMessages.type.modelValue)
-  }
-  if (props.modelValue !== undefined) {
-    // should we handle the case if modelValue does not match any option then if placeholder exist set placeholder than throw error?
-    updateSelectedOption(props.modelValue)
-    return
-  }
-  // after this line modelValue is undefined
-  if (optionsExist && !anyOptionSelected()) {
-    setPlaceholderOrValue(props.options[0])
-    return
-  }
-
-  if (!optionsExist && !isDefaultSlotValid()) {
-    throw new Error(
-      `Options missing: should use options prop or one of the valid slots: ${validSlotTypes}`
-    )
-  }
-  if (!optionsExist && !anySlotSelected()) {
-    const firstSlot: any = slots.default && slots.default()[0]
-    let propsOfFirstSlot
-    if (slots.default && firstSlot?.type.toString() === 'Symbol(Fragment)') {
-      propsOfFirstSlot = firstSlot?.children[0]?.props
-    } else {
-      propsOfFirstSlot = firstSlot?.props
-    }
-    setPlaceholderOrValue(propsOfFirstSlot)
-  }
+//   listboxState.items = allOptions
+// }
+function isOptionsValid() {
+  return props.options.length > 0 || isSlotIncludesComponent(slots.default, 'LuiOption')
 }
+function setInitialSelectedOption() {
+  const isModelValueUsing = props.modelValue !== undefined
+  const isPlaceholderUsing = props.placeholder !== ''
+  const isItemDisabled = (item: any) => item.disabled !== undefined && item.disabled !== false
+  const isItemSelected = (item: any) => item.selected !== undefined && item.selected !== false
+  const selectedItem = listboxState.items.find((i) => isItemSelected(i) && !isItemDisabled(i))
+  let initialOption
+  if (isModelValueUsing) {
+    initialOption = props.modelValue
+  } else if (selectedItem) {
+    initialOption = selectedItem
+  } else if (isPlaceholderUsing) {
+    initialOption = props.placeholder
+  } else {
+    initialOption = listboxState.items[0]
+  }
+  const initialAsText = typeof initialOption === 'string' ? initialOption : initialOption.text
+  const initialAsValue = typeof initialOption === 'string' ? initialOption : initialOption.value
+  selectedOption.value = initialAsText
+  emit('update:modelValue', initialAsValue)
+}
+// function setInitialSelectedOption() {
+//   const isModelValueInvalid =
+//     props.modelValue !== undefined &&
+//     typeof props.modelValue !== 'string' &&
+//     typeof props.modelValue !== 'number'
+
+//   const optionsExist = props.options.length > 0
+
+//   const anyOptionSelected = () =>
+//     props.options.some((o: ModelValueObject | string) => typeof o !== 'string' && o.selected)
+
+//   function setPlaceholderOrValue(value: any) {
+//     if (props.placeholder === '') {
+//       updateSelectedOption(value)
+//     } else {
+//       // updateSelectedOption(props.placeholder);
+//     }
+//   }
+//   const anySlotSelected = () =>
+//     slots.default &&
+//     slots
+//       .default()
+//       .some((slot: any) =>
+//         slot.type.toString() == 'Symbol(Fragment)'
+//           ? slot.children.some(
+//               (child: any) => child.props.selected !== undefined && child.props.selected === true
+//             )
+//           : slot.props && slot.props.selected && slot.props.selected === true
+//       )
+
+//   const isDefaultSlotValid = () =>
+//     slots.default &&
+//     slots
+//       .default()
+//       .some((slot: any) =>
+//         slot.type.toString() == 'Symbol(Fragment)'
+//           ? slot.children.some(
+//               (child: any) =>
+//                 child.type.name !== undefined && validSlotTypes.includes(child.type.name)
+//             )
+//           : slot.type.name !== undefined && validSlotTypes.includes(slot.type.name)
+//       )
+
+//   if (isModelValueInvalid) {
+//     throw new Error(errorMessages.type.modelValue)
+//   }
+//   if (props.modelValue !== undefined) {
+//     updateSelectedOption(props.modelValue)
+//     return
+//   }
+//   if (optionsExist && !anyOptionSelected()) {
+//     setPlaceholderOrValue(props.options[0])
+//     return
+//   }
+
+//   if (!optionsExist && !isDefaultSlotValid()) {
+//     throw new Error(
+//       `Options missing: should use options prop or one of the valid slots: ${validSlotTypes}`
+//     )
+//   }
+//   if (!optionsExist && !anySlotSelected()) {
+//     const firstSlot: any = slots.default && slots.default()[0]
+//     let propsOfFirstSlot
+//     if (slots.default && firstSlot?.type.toString() === 'Symbol(Fragment)') {
+//       propsOfFirstSlot = firstSlot?.children[0]?.props
+//     } else {
+//       propsOfFirstSlot = firstSlot?.props
+//     }
+//     setPlaceholderOrValue(propsOfFirstSlot)
+//   }
+// }
 function handleKeydownEvents(event: KeyboardEvent) {
   switch (event.code) {
     case 'ArrowDown':
