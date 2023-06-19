@@ -59,7 +59,7 @@ function dynamicSlotClasses() {
   const hasAnyIcon = slots.prepend || slots.append || slots.icon
   const classes: TwClassInterface = {
     display: {
-      flex: hasAnyIcon,
+      'inline-flex': hasAnyIcon,
       'inline-block': !hasAnyIcon && props.tag !== 'button'
     },
     alignItems: {

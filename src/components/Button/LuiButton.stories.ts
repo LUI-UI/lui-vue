@@ -45,6 +45,57 @@ export const Default: Story = {
     </lui-button>`
   })
 }
+// export const TagTypes: Story = {
+//   render: (args) => ({
+//     components: { LuiButton },
+//     setup() {
+//       const show = ref(false)
+//       return { args, show }
+//     },
+//     template: `
+//     <div class="flex flex-col">
+//      <div>
+//       <lui-button v-bind="args" tag="a">
+//       <template #prepend>
+//       <i class="ri-admin-line" /></template>
+//       My Button
+//         <template #append>
+//         <i class="ri-admin-line" /></template>
+//       </lui-button>
+//      </div>
+//      <div>
+//       <lui-button v-bind="args" tag="span">
+//       <template #prepend>
+//       <i class="ri-admin-line" /></template>
+//       My Button
+//         <template #append>
+//         <i class="ri-admin-line" /></template>
+//       </lui-button>
+//      </div>
+//      <div>
+//       <lui-button v-bind="args" tag="div">
+//       <template #prepend>
+//       <i class="ri-admin-line" /></template>
+//       My Button
+//         <template #append>
+//         <i class="ri-admin-line" /></template>
+//       </lui-button>
+//      </div>
+//      <div>
+//       <lui-button v-bind="args" tag="button">
+//       <template #prepend>
+//         <i class="ri-admin-line" />
+//       </template>
+//       My Button
+//       <template #append>
+//         <i class="ri-admin-fill" />
+//       </template>
+//       </lui-button>
+//      </div>
+//     </div>
+//       `
+//   })
+// }
 
 export const Rounded: Story = {
   render: (args) => ({
