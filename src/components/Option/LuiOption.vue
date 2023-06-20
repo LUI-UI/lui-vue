@@ -96,11 +96,18 @@ const optionClasses = computed(() => {
       ? 'bg-primary-500/20'
       : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20',
     padding: {
-      'px-1.5 py-1': props.size === 'xs',
-      'px-2 py-1.5': props.size === 'sm',
-      'px-2 py-2.5': props.size === 'md',
-      'p-2.5': props.size === 'lg',
-      'px-3 py-3.5': props.size === 'xl'
+      'py-1 px-1.5': props.size === 'xs',
+      'py-1.5 px-2': props.size === 'sm',
+      'py-2 px-2.5': props.size === 'md',
+      'py-2.5 px-2.5': props.size === 'lg',
+      'py-3.5 px-3': props.size === 'xl'
+    },
+    fontSize: {
+      'text-xs': props.size === 'xs',
+      'text-sm': props.size === 'sm',
+      'text-base': props.size === 'md',
+      'text-lg': props.size === 'lg',
+      'text-xl': props.size === 'xl'
     },
     textColor: props.disabled
       ? 'text-secondary-300 dark:text-secondary-700'

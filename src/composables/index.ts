@@ -13,7 +13,7 @@ type PropTypes = {
   color: Ref<Color>
   filter: Ref<Filter>
   variant: Ref<Variant>
-  border: Ref<Border>
+  border?: Ref<Border>
 }
 type DescriptionPropTypes = {
   state: Ref<State>
@@ -58,7 +58,7 @@ export function useGlobalColorClasses(props: PropTypes) {
               [`border-${props.color.value}-100`]: props.filter.value === 'lighten', // filter lighten
               [`border-${props.color.value}-800`]: props.filter.value === 'darken' // filter darken
             }
-          : props.border.value
+          : props.border !== undefined && props.border.value
           ? {
               [`border-white`]: props.filter.value === 'none', // filter none
               [`border-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
