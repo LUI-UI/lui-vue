@@ -20,8 +20,8 @@ const descriptions = {
   argTypes: {
     menuPosition: 'Used to control the position of the menu items',
     trigger: 'Used to insert a template in the component',
-    default: 'Used as default to add a text in the component',
-    triggerAppend: 'Used to place an icon in the component'
+    default: 'Used as default to add a text in the component'
+    //triggerAppend: 'Used to place an icon in the component'
   }
 }
 
@@ -36,7 +36,7 @@ const meta: Meta<typeof LuiMenuDropdown> = {
     block,
     filter,
     text,
-    triggerAppend: { description: descriptions.argTypes.triggerAppend },
+    //triggerAppend: { description: descriptions.argTypes.triggerAppend },
     menuPosition: {
       control: 'select',
       default: 'bottomLeft',
