@@ -14,9 +14,8 @@ const descriptions = {
     padding: "Used to customize the spacing around the LuiModal's content",
     fullScreen: 'Used to render a full screen LuiModal',
     show: 'Controls the visibility of the modal',
-    showIcon:
-      'Controls the visibility of the cross icon in the modal that triggers the close event',
-    close: 'Event used to control the action when the cross icon in the modal is clicked'
+    showIcon: 'Controls the visibility of the cross icon in the modal that triggers the close event'
+    //close: 'Event used to control the action when the cross icon in the modal is clicked'
   }
 }
 
@@ -50,7 +49,7 @@ const meta: Meta<typeof LuiModal> = {
       description: descriptions.argTypes.showIcon,
       default: true
     },
-    close: { description: descriptions.argTypes.close },
+    //close: { description: descriptions.argTypes.close },
     default: { description: descriptions.argTypes.default }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
