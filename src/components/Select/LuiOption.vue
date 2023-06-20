@@ -76,6 +76,8 @@ watch(
 
 function handleOptionClick(e: any) {
   e.preventDefault()
+  const isSelectMultiple = Array.isArray(context?.selectedOption.value)
+  if (isSelectMultiple) e.stopPropagation()
   context?.updateSelectedOption({
     value: props.value,
     text: props.text,
