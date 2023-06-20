@@ -23,8 +23,8 @@ const descriptions = {
     default: 'Used as default to add a text in the component',
     searchable: 'Provides a search feature to filter the options',
     placeholder: 'Used to add a placeholder text to the LuiSelect',
-    options: 'Provides the available options to the LuiSelect',
-    change: 'Used to control the action when an option is selected'
+    options: 'Provides the available options to the LuiSelect'
+    //change: 'Used to control the action when an option is selected'
   }
 }
 
@@ -59,10 +59,8 @@ const meta: Meta<typeof LuiSelect> = {
     },
     default: { description: descriptions.argTypes.default },
     prepend: { description: descriptions.argTypes.prepend },
-    append: { description: descriptions.argTypes.append },
-    change: {
-      description: descriptions.argTypes.change
-    }
+    append: { description: descriptions.argTypes.append }
+    //change: { description: descriptions.argTypes.change }
   },
   decorators: [() => ({ template: '<div class="py-40 space-x-2"><story/></div>' })],
   parameters: {
