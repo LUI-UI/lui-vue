@@ -16,9 +16,9 @@ const descriptions = {
       'LuiBadge is a small, typically circular, element containing text or icons, used to signify notifications, statuses, or labels.'
   },
   argTypes: {
-    position: 'Used to control the position of the LuiBadge',
-    icon: 'Used to place an icon in the component',
-    default: 'Used as default to add a text in the component'
+    position: 'Used to control the position of the LuiBadge'
+    //icon: 'Used to place an icon in the component',
+    //default: 'Used as default to add a text in the component'
   }
 }
 
@@ -32,8 +32,8 @@ const meta: Meta<typeof LuiBadge> = {
     color,
     size,
     filter,
-    icon: { description: descriptions.argTypes.icon },
-    default: { description: descriptions.argTypes.default },
+    //icon: { description: descriptions.argTypes.icon },
+    //default: { description: descriptions.argTypes.default },
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
@@ -247,7 +247,7 @@ const iconSlotTemplate = `
 `
 export const IconSlot: Story = {
   render: () => ({
-    components: { LuiBadge, LuiAvatar },
+    components: { LuiBadge },
     template: iconSlotTemplate
   }),
   parameters: {
