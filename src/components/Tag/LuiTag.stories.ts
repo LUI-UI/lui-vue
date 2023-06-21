@@ -1,5 +1,5 @@
 import LuiTag from './LuiTag.vue'
-import { variant, color, size, filter, rounded } from '../../../.storybook/global-story-argtypes'
+import { variant, color, size, filter } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 // const sizeList = size.options
@@ -48,7 +48,7 @@ const variantTemplate = `
   <lui-tag variant="outline">Tag</lui-tag>
 </div>
 `
-export const VariantTemplate: Story = {
+export const Variant: Story = {
   render: () => ({
     components: { LuiTag },
     args: { variant },
@@ -73,7 +73,7 @@ const sizeTemplate = `
   <lui-tag size="lg">Tag</lui-tag>
   <lui-tag size="xl">Tag</lui-tag>
 `
-export const SizeTemplate: Story = {
+export const Size: Story = {
   render: () => ({
     components: { LuiTag },
     args: { size },
@@ -132,7 +132,7 @@ const filterTemplate = `
 <lui-tag color="warning" filter="lighten">Tag</lui-tag>
 <lui-tag color="danger" filter="lighten">Tag</lui-tag>
 `
-export const FilterTemplate: Story = {
+export const Filter: Story = {
   render: () => ({
     components: { LuiTag },
     args: { color, filter },
@@ -156,7 +156,7 @@ const roundedTemplate = `
   <lui-tag :rounded="false">Tag</lui-tag>
 </div>
 `
-export const RoundedTemplate: Story = {
+export const Rounded: Story = {
   render: () => ({
     components: { LuiTag },
     args: { variant },
@@ -180,7 +180,7 @@ const closeIcon = `
   <lui-tag :close-icon="false">Tag</lui-tag>
 </div>
 `
-export const CloseIconTemplate: Story = {
+export const CloseIcon: Story = {
   render: () => ({
     components: { LuiTag },
     args: { variant },
@@ -210,7 +210,7 @@ const prependIcon = `
   <lui-tag>Tag</lui-tag>
 </div>
 `
-export const PrependIconTemplate: Story = {
+export const PrependIcon: Story = {
   render: () => ({
     components: { LuiTag },
     args: { variant },
