@@ -2,11 +2,87 @@ import LuiOverlay from './LuiOverlay.vue'
 import LuiSelect from '../Select/LuiSelect.vue'
 import LuiInput from '../Input/LuiInput.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { color } from '../../../.storybook/global-story-argtypes'
 import { ref } from 'vue'
+
+const descriptions = {
+  docs: {
+    component:
+      'LuiOverlay allows users to create overlays with various customizable properties such as visibility, positioning, color, opacity, blur, and rounded corners.'
+  },
+  argTypes: {
+    rounded: 'Used to control the rounding of the corners of the component',
+    show: 'Controls the visibility of the overlay',
+    fixed: 'Determines if the overlay has a fixed position or relative to its parent',
+    opacity: 'Used to control the opacity of the overlay',
+    blur: 'Determines the level of backdrop blur applied to the overlay',
+    disableBlur: 'Used to disable the blurring effect',
+    noCenter: 'Used to control the centering of the LuiOverlay',
+    overlay: 'Provides custom content that will be displayed within the LuiOverlay component.',
+    default: 'Used as default to add a text in the component'
+  }
+}
 
 const meta: Meta<typeof LuiOverlay> = {
   title: 'LUI/Overlay',
-  component: LuiOverlay
+  component: LuiOverlay,
+  argTypes: {
+    rounded: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl', 'none'],
+      default: 'none',
+      description: descriptions.argTypes.rounded
+    },
+    noCenter: {
+      control: 'boolean',
+      options: [true, false],
+      default: false,
+      description: descriptions.argTypes.noCenter
+    },
+    show: {
+      control: 'boolean',
+      options: [true, false],
+      default: false,
+      description: descriptions.argTypes.show
+    },
+    overlay: {
+      description: descriptions.argTypes.overlay
+    },
+    default: {
+      description: descriptions.argTypes.default
+    },
+    fixed: {
+      control: 'boolean',
+      options: [true, false],
+      default: false,
+      description: descriptions.argTypes.fixed
+    },
+    color,
+    opacity: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      default: 'md',
+      description: descriptions.argTypes.opacity
+    },
+    blur: {
+      control: 'select',
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
+      default: 'xs',
+      description: descriptions.argTypes.blur
+    },
+    disableBlur: {
+      control: 'boolean',
+      options: [true, false],
+      default: false,
+      description: descriptions.argTypes.disableBlur
+    }
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component }
+    }
+  }
 }
 export default meta
 type Story = StoryObj<typeof LuiOverlay>
@@ -47,7 +123,7 @@ export const Default: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'When you click the button, a default LuiOverlay is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiOverlay. By binding it to a Boolean variable, such as "showOverlay," you can determine whether the overlay should be displayed or hidden. The component emits a <b>close</b> event when the overlay is clicked or the `Esc` key is pressed.'
       }
     }
   }
@@ -87,7 +163,7 @@ export const Fixed: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          "The <b>fixed</b> prop is used to display the overlay in a fixed position on the screen, meaning it will stay in place even if the user scrolls the page. This can be useful when you want the overlay to remain visible regardless of the user's scroll position."
       }
     }
   }
@@ -222,7 +298,7 @@ export const Color: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          "The <b>color</b> prop is used to to define the color scheme for the LuiOverlay. It's applied to various elements within the component, such as the background color, border color, and button color. It helps create visual contrast and differentiation between different overlays."
       }
     }
   }
@@ -339,7 +415,7 @@ export const Opacity: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'The <b>opacity</b> prop is used to control the transparency level of the LuiOverlay, allowing underlying content or background to show through.'
       }
     }
   }
@@ -420,7 +496,7 @@ export const Blur: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'The <b>blur</b> prop is used to apply a blur effect to the LuiOverlay and it adds depth and dimension to the overlay, allowing the underlying content to be visible but with a blurred appearance.'
       }
     }
   }
@@ -446,7 +522,7 @@ const disableBlurTemplate = `
     </button>
   </template>
 </lui-overlay>
-<lui-overlay :show="showOverlay" overlay-style="opacity" rounded="sm" @close="showOverlay = false" :disable-blur="true"">
+<lui-overlay :show="showOverlay" overlay-style="opacity" rounded="sm" @close="showOverlay = false" :disable-blur="true">
   <div class="relative z-10 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     <a href="#">
         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
@@ -483,7 +559,7 @@ export const DisableBlur: Story = {
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
+          'The <b>disableBlur</b> prop is used to disable the blurring effect applied to the background content when an overlay is displayed.'
       }
     }
   }
