@@ -1,23 +1,46 @@
 import LuiTag from './LuiTag.vue'
-import { variant, color, size, filter } from '../../../.storybook/global-story-argtypes'
+import { variant, color, size, filter, rounded } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 // const sizeList = size.options
 // const colorList = color.options
 // const filterList = filter.options
 
+const descriptions = {
+  docs: {
+    component:
+      'The LuiTag allows users to navigate between different sections or views within a container. It provides a visually appealing and intuitive interface for organizing and accessing content, supporting both horizontal and vertical layouts with customizable styling and event handling.'
+  },
+  argTypes: {
+    prepend: 'Used to place an icon to the left side of the component',
+    default: 'Used as default to add a text in the component',
+    closeIcon: 'Specifies whether the tag should display a close icon.'
+  }
+}
+
 const meta: Meta<typeof LuiTag> = {
   title: 'LUI/Tag',
   component: LuiTag,
   argTypes: {
-    variant: {
-      control: 'select',
-      options: ['solid', 'outline'],
-      description: 'My tag variant'
-    },
+    variant,
     color,
     size,
-    filter
+    filter,
+    rounded,
+    closeIcon: {
+      control: 'boolean',
+      options: [true, false],
+      default: true,
+      description: descriptions.argTypes.closeIcon
+    },
+    prepend: { description: descriptions.argTypes.prepend },
+    default: { description: descriptions.argTypes.default }
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component }
+    }
   }
 }
 export default meta
@@ -192,7 +215,8 @@ export const CloseIcon: Story = {
         code: closeIcon
       },
       description: {
-        story: ''
+        story:
+          'The <b>close-icon</b> prop is used to determine whether a close icon should be displayed within the LuiTag component. By enabling this prop (true), a small close icon will be shown at the end of the tag. This allows users to interact with the tag and perform actions like removing or dismissing it. If the closeIcon prop is set to false, the close icon will be hidden.'
       }
     }
   }
@@ -222,7 +246,8 @@ export const PrependIcon: Story = {
         code: prependIcon
       },
       description: {
-        story: ''
+        story:
+          'The <b>prepend</b> slot is used to place an icon to the left side of the component, before the text.'
       }
     }
   }
