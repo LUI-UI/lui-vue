@@ -1,6 +1,5 @@
 import LuiTag from './LuiTag.vue'
-import { color, size, filter } from '../../../.storybook/global-story-argtypes'
-import { ref } from 'vue'
+import { variant, color, size, filter, rounded } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 // const sizeList = size.options
@@ -25,50 +24,206 @@ export default meta
 
 type Story = StoryObj<typeof LuiTag>
 
+const defaultTemplate = `<lui-tag>Tag</lui-tag>`
 export const Default: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { LuiTag },
-    setup() {
-      const activeColor = ref('secondary')
-      return { args, activeColor }
-    },
-    template: `<lui-tag v-bind="args">Tag</lui-tag>`
-  })
+    template: defaultTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate
+      },
+      description: {
+        story: 'This is how a default LuiTag looks.'
+      }
+    }
+  }
 }
+
+const variantTemplate = `
+<div class="flex flex-row space-x-4">
+  <lui-tag variant="solid">Tag</lui-tag>
+  <lui-tag variant="outline">Tag</lui-tag>
+</div>
+`
 export const VariantTemplate: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { LuiTag },
-    setup() {
-      const variants = ['solid', 'outline']
-      return { args, variants }
-    },
-    template: `
-    <div class="flex items-center space-x-4 mb-4">
-    <lui-tag v-bind="args">Tag</lui-tag>
-    <lui-tag v-bind="args" :close-icon="false">Tag</lui-tag>
-    <lui-tag v-bind="args">
+    args: { variant },
+    template: variantTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: variantTemplate
+      },
+      description: {
+        story: 'There are 2 variant options to customize the LuiTag.'
+      }
+    }
+  }
+}
+
+const sizeTemplate = `
+  <lui-tag size="xs">Tag</lui-tag>
+  <lui-tag size="sm">Tag</lui-tag>
+  <lui-tag size="md">Tag</lui-tag>
+  <lui-tag size="lg">Tag</lui-tag>
+  <lui-tag size="xl">Tag</lui-tag>
+`
+export const SizeTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { size },
+    template: `<div class="flex items-center space-x-2">${sizeTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: sizeTemplate
+      },
+      description: {
+        story:
+          "The <b>size</b> prop in the LuiTag provides five options to control the size of the tag. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the tag."
+      }
+    }
+  }
+}
+
+const colorTemplate = `
+<lui-tag color="primary">Tag</lui-tag>
+<lui-tag color="secondary">Tag</lui-tag>
+<lui-tag color="info">Tag</lui-tag>
+<lui-tag color="success">Tag</lui-tag>
+<lui-tag color="warning">Tag</lui-tag>
+<lui-tag color="danger">Tag</lui-tag>
+`
+export const ColorTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { color },
+    template: `<div class="flex flex-row space-x-4">${colorTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: colorTemplate
+      },
+      description: {
+        story: 'There are 6 options to customize the color of a LuiTag.'
+      }
+    }
+  }
+}
+
+const filterTemplate = `
+<lui-tag color="primary" filter="darken">Tag</lui-tag>
+<lui-tag color="secondary" filter="darken">Tag</lui-tag>
+<lui-tag color="info" filter="darken">Tag</lui-tag>
+<lui-tag color="success" filter="darken">Tag</lui-tag>
+<lui-tag color="warning" filter="darken">Tag</lui-tag>
+<lui-tag color="danger" filter="darken">Tag</lui-tag>
+<lui-tag color="primary" filter="lighten">Tag</lui-tag>
+<lui-tag color="secondary" filter="lighten">Tag</lui-tag>
+<lui-tag color="info" filter="lighten">Tag</lui-tag>
+<lui-tag color="success" filter="lighten">Tag</lui-tag>
+<lui-tag color="warning" filter="lighten">Tag</lui-tag>
+<lui-tag color="danger" filter="lighten">Tag</lui-tag>
+`
+export const FilterTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { color, filter },
+    template: `<div class="grid grid-cols-6 gap-4">${filterTemplate}</div>`
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: filterTemplate
+      },
+      description: {
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
+      }
+    }
+  }
+}
+
+const roundedTemplate = `
+<div class="flex flex-row space-x-4">
+  <lui-tag>Tag</lui-tag>
+  <lui-tag :rounded="false">Tag</lui-tag>
+</div>
+`
+export const RoundedTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { variant },
+    template: roundedTemplate
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: roundedTemplate
+      },
+      description: {
+        story: 'There are 2 rounded options to customize the LuiTag.'
+      }
+    }
+  }
+}
+
+const closeIcon = `
+<div class="flex flex-row space-x-4">
+  <lui-tag>Tag</lui-tag>
+  <lui-tag :close-icon="false">Tag</lui-tag>
+</div>
+`
+export const CloseIconTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { variant },
+    template: closeIcon
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: closeIcon
+      },
+      description: {
+        story: ''
+      }
+    }
+  }
+}
+
+const prependIcon = `
+<div class="flex flex-row space-x-4">
+  <lui-tag>
     <template #prepend>
-      <i class="ri-close-line" />
+      <i class="ri-admin-line"/>
     </template>
-      Tag
-    </lui-tag>
-    <lui-tag v-bind="args" :close-icon="false">
-      <template #prepend>
-        <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        height="12px"
-        width="12px"
-        >
-          <path
-            d="M12.0007 10.5865L16.9504 5.63672L18.3646 7.05093L13.4149 12.0007L18.3646 16.9504L16.9504 18.3646L12.0007 13.4149L7.05093 18.3646L5.63672 16.9504L10.5865 12.0007L5.63672 7.05093L7.05093 5.63672L12.0007 10.5865Z"
-          ></path>
-        </svg>
-      </template>
-      Tag
-    </lui-tag>
-    </div>
-    `
-  })
+    Tag
+  </lui-tag>
+  <lui-tag :close-icon="false">Tag</lui-tag>
+  <lui-tag>Tag</lui-tag>
+</div>
+`
+export const PrependIconTemplate: Story = {
+  render: () => ({
+    components: { LuiTag },
+    args: { variant },
+    template: prependIcon
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: prependIcon
+      },
+      description: {
+        story: ''
+      }
+    }
+  }
 }
