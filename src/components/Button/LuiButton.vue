@@ -9,13 +9,13 @@ export default {
 import { toRefs, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import { useButtonClasses } from './composables'
-import type { Tag } from './button-types'
+import type { ButtonTag } from './button-types'
 import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   tag: {
-    type: String as PropType<Tag>,
+    type: String as PropType<ButtonTag>,
     default: 'button',
   },
   variant: {
