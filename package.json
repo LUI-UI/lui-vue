@@ -54,6 +54,7 @@
     "build-storybook": "storybook build",
     "prepare": "husky install",
     "cm": "cz",
+    "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
     "release": "pnpm build && bumpp --commit --push --tag && pnpm publish"
   },
   "peerDependencies": {
@@ -83,6 +84,7 @@
     "autoprefixer": "^10.4.13",
     "babel-loader": "^8.2.5",
     "bumpp": "^9.1.1",
+    "chromatic": "^6.19.9",
     "classnames": "^2.3.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
@@ -111,6 +113,7 @@
     "vue-tsc": "^1.0.11"
   },
   "typings": "./dist/index.d.ts",
+
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
@@ -127,6 +130,8 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "readme": "ERROR: No README data found!",
+  "_id": "@lui-ui/lui-vue@0.64.3",
   "publishConfig": {
     "access": "public"
   }

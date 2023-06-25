@@ -67,6 +67,9 @@ devDependencies:
   bumpp:
     specifier: ^9.1.1
     version: 9.1.1
+  chromatic:
+    specifier: ^6.19.9
+    version: 6.19.9
   classnames:
     specifier: ^2.3.2
     version: 2.3.2
@@ -5955,6 +5958,11 @@ packages:
   /chownr@2.0.0:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
+    dev: true
+
+  /chromatic@6.19.9:
+    resolution: {integrity: sha512-UHrPbPoLnJwd063cRSO0U865VhcATykpMiHsAnNFz5EFRsBvM9wefqyS2Z6W8Ti9J7Fjrf4MV4PA+Q5k2lhFfQ==}
+    hasBin: true
     dev: true
 
   /chrome-trace-event@1.0.3:
