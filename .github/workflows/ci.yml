@@ -1,4 +1,4 @@
-name: ClientCI
+name: CI
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

@@ -8,7 +8,8 @@
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
     "format": "prettier --write src/",
     "safelist": "npx tailwindcss build",
     "pub": "pnpm build && pnpm safelist && pnpm publish",
@@ -28,6 +29,7 @@
     "pnpm": ">=8 <8.6.0"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.39.5",
     "@babel/core": "^7.19.6",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
