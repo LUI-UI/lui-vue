@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.65.1](https://github.com/LUI-UI/lui-vue/compare/v0.65.0...v0.65.1) (2023-06-25)
+
+
+### Bug Fixes
+
+* **luibutton:** fix LuiButton Tag types ([#148](https://github.com/LUI-UI/lui-vue/issues/148)) ([cb11cf6](https://github.com/LUI-UI/lui-vue/commit/cb11cf6ce412d962e91f3717bd20fa65c839a050))
+
 ## [0.65.0](https://github.com/LUI-UI/lui-vue/compare/v0.64.3...v0.65.0) (2023-06-25)
 
 
