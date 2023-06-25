@@ -7,6 +7,47 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.65.0](https://github.com/LUI-UI/lui-vue/compare/v0.64.3...v0.65.0) (2023-06-25)
+
+
+### Features
+
+* **modal:** add a prop to make removeable border-radius ([c355a79](https://github.com/LUI-UI/lui-vue/commit/c355a794a055ea5df1f45d622de6cfb967049dd4))
+* **modal:** add fullScreen prop ([84249fe](https://github.com/LUI-UI/lui-vue/commit/84249fe5c9bef35672d50632969cb476a2aa674b))
+* **modal:** add padding prop to make padding removeable ([6dff519](https://github.com/LUI-UI/lui-vue/commit/6dff519be34cc6826da0c1034780fa8846362a79))
+* **modal:** change lui-modal size ([342aa80](https://github.com/LUI-UI/lui-vue/commit/342aa80969866359b6f478e03d33e0091d1bc1e0))
+* **overlay:** create overlay component ([1fac52a](https://github.com/LUI-UI/lui-vue/commit/1fac52a99e4151f8a4ec6a3ec5f54a04393152bb))
+* **properposition/composable:** improve properPosition composable to more accurate positions ([96131c6](https://github.com/LUI-UI/lui-vue/commit/96131c685e5ff07cd08842baf07ea1acbba0c09f))
+* **storybook:** add Chromatic for storybook and docs deployment ([#147](https://github.com/LUI-UI/lui-vue/issues/147)) ([79150cb](https://github.com/LUI-UI/lui-vue/commit/79150cbce1466f107070b4c5b5ada96cd9b388cc))
+* **tag:** added tag component and tag components story ([1c0a8fe](https://github.com/LUI-UI/lui-vue/commit/1c0a8fed504c64a892cc1a654fb03a9e724feaf5))
+* **tag:** added tag composable and removed border prop ([0db6d9f](https://github.com/LUI-UI/lui-vue/commit/0db6d9f853d4d416ed466db15960b2815480f848))
+
+
+### Bug Fixes
+
+* **button:** add a and span in button tag types ([#141](https://github.com/LUI-UI/lui-vue/issues/141)) ([6d4ca77](https://github.com/LUI-UI/lui-vue/commit/6d4ca77d4698c86b121c806af54ed2f1142c298a))
+* **checkbox:** fix chcekbox error ([eb84357](https://github.com/LUI-UI/lui-vue/commit/eb8435777c2aeca289b63edcb3e5e71a90a9b7af))
+* **checkbox:** fix value type error, add custom value support ([cf7b8a6](https://github.com/LUI-UI/lui-vue/commit/cf7b8a679a3fe144c15409f529a04c2767bf883b))
+* exports and yarn to pnpm ([2f04253](https://github.com/LUI-UI/lui-vue/commit/2f042530f9314c534546ef6bc0770f23cf5b66bb))
+* **menudropdown:** fix menudropdown block prop issue ([c125571](https://github.com/LUI-UI/lui-vue/commit/c12557157f9f6b7d447c6726ce46fd562d03e6eb))
+* **menudropdown:** fix prepend, append slots ([0c5fb5a](https://github.com/LUI-UI/lui-vue/commit/0c5fb5a7f69ce1edad0d02d74f0681c2f8d416cb))
+* **modal:** made available to add custom close button ([fa4e498](https://github.com/LUI-UI/lui-vue/commit/fa4e4989c290cd36e6e1522bb5fb33588821e1e5))
+* **option:** fixed options font size changes while selects size changed ([3664aaa](https://github.com/LUI-UI/lui-vue/commit/3664aaaae1404d05ba3da4540b21d16f393d0c8c))
+* **overlay:** add new props to complete component ([382dad0](https://github.com/LUI-UI/lui-vue/commit/382dad03309400cae1ede5f9e6fe56dc85752054))
+* **overlay:** change overlay component to compatible modals ([1ec2858](https://github.com/LUI-UI/lui-vue/commit/1ec2858bdd6eebff0616e0c575456563e21be566))
+* **overlay:** fix overlay type importing ([2edcb30](https://github.com/LUI-UI/lui-vue/commit/2edcb30e58e61449e884a77d80e17d0e6b2feeaa))
+* pnpm version ([#146](https://github.com/LUI-UI/lui-vue/issues/146)) ([48a6a9d](https://github.com/LUI-UI/lui-vue/commit/48a6a9da7f21792833b7367d247ac7857a42e22b))
+* release yarn to pnpm ([df2f6e7](https://github.com/LUI-UI/lui-vue/commit/df2f6e7263ff2d4a90a801fdd481d1bb61bd0163))
+* **select:** add prepend slot and make prepend slot closable ([82ea1ef](https://github.com/LUI-UI/lui-vue/commit/82ea1ef6cd78f69b22ad39724da6a1219f2f2dac))
+* **select:** fix change event initial trigger issue ([43d3d0f](https://github.com/LUI-UI/lui-vue/commit/43d3d0f90520992094aed2c8a98e690852faf337))
+* **select:** fix nothing found text always shown issue ([81a39ff](https://github.com/LUI-UI/lui-vue/commit/81a39ffa9e7894e83e1ebc36d84f7a9539dde3f7))
+* **select:** fix select disable state ([231df6b](https://github.com/LUI-UI/lui-vue/commit/231df6bbcaf6e27c2b8f0f267d2f90f632331713))
+* **select:** fix state-icon bug ([ccadcd4](https://github.com/LUI-UI/lui-vue/commit/ccadcd424303abd9e6272556b4895b93206110b0))
+* **storybook:** change build storuybook script ([#136](https://github.com/LUI-UI/lui-vue/issues/136)) ([9f4c309](https://github.com/LUI-UI/lui-vue/commit/9f4c30964e2bca1447fbbe8dca4c0c6ba7c42c46))
+* **storybook:** change storybook deploy script in package.json ([f0a71c9](https://github.com/LUI-UI/lui-vue/commit/f0a71c9e9d10b6bd3c6af3fc48c1e04f9b1b13eb))
+* **storybook:** clear unused argtypes ([4a15bd6](https://github.com/LUI-UI/lui-vue/commit/4a15bd63d32446788bf7733991d0cd66e622aa39))
+* **tag:** fix tags padding issues and transfer classes in composables ([bc4cdb5](https://github.com/LUI-UI/lui-vue/commit/bc4cdb55abea328cf36778a99ae5d7aa1f2c8ab3))
+
 ## [0.64.3](https://github.com/LUI-UI/lui-vue/compare/v0.64.2...v0.64.3) (2023-05-31)
 
 
