@@ -1,7 +1,14 @@
-import LuiRadio from './LuiRadio.vue'
-import { ref } from 'vue'
-import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { ref } from 'vue'
+import { description, size, state } from '../../../.storybook/global-story-argtypes'
+import LuiRadio from './LuiRadio.vue'
+
+const descriptions = {
+  docs: {
+    component:
+      'LuiRadio allows users to select a single option from a set of mutually exclusive choices, with only one radio button within the same group being selectable at a time.',
+  },
+}
 
 const meta: Meta<typeof LuiRadio> = {
   title: 'LUI/Radio',
@@ -9,113 +16,177 @@ const meta: Meta<typeof LuiRadio> = {
   argTypes: {
     size,
     description,
-    state
-  }
+    state,
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 
 type Story = StoryObj<typeof LuiRadio>
-export const Template: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
+
+const defaultTemplate = '<lui-radio />'
+export const Default: Story = {
+  render: () => ({
     components: { LuiRadio },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup() {
-      const checkedName = ref('Jack')
-      return { args, checkedName }
+    template: defaultTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate,
+      },
+      description: {
+        story: 'This is how a default LuiRadio looks.',
+      },
     },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    // <lui-checkbox v-bind="args" v-model="test" />
-    template: `
-  <div class="p-3">{{checkedName}}</div>
-    <div class="p-2 space-x-4">
-      <lui-radio v-bind="args" id="jack" name="cnames" value="Jack" v-model="checkedName" />
-      <lui-radio v-bind="args" id="john" name="cnames" value="John" v-model="checkedName" />
-      <lui-radio v-bind="args" id="mike" name="cnames" value="Mike" v-model="checkedName" />
-    </div>`
-  })
-}
-export const Medium: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
-    components: { LuiRadio },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup() {
-      const checkedName = ref('Jack')
-      return { args, checkedName }
-    },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    // <lui-checkbox v-bind="args" v-model="test" />
-    template: `
-  <div class="p-3">{{checkedName}}</div>
-    <div class="p-2 space-x-4">
-      <lui-radio v-bind="args" id="jack" name="cnames" value="Jack" v-model="checkedName" />
-      <lui-radio v-bind="args" id="john" name="cnames" value="John" v-model="checkedName" />
-      <lui-radio v-bind="args" id="mike" name="cnames" value="Mike" v-model="checkedName" />
-    </div>`,
-    args: {
-      size: 'md'
-    }
-  })
-}
-export const Disabled: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
-    components: { LuiRadio },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup() {
-      const checkedName = ref('Jack')
-      return { args, checkedName }
-    },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    // <lui-checkbox v-bind="args" v-model="test" />
-    template: `
-  <div class="p-3">{{checkedName}}</div>
-    <div class="p-2 space-x-4">
-      <lui-radio v-bind="args" id="jack" name="cnames" value="Jack" v-model="checkedName" />
-      <lui-radio v-bind="args" id="john" name="cnames" value="John" v-model="checkedName" />
-      <lui-radio v-bind="args" id="mike" name="cnames" value="Mike" v-model="checkedName" />
-    </div>`,
-    args: {
-      disabled: true
-    }
-  })
-}
-export const Description: Story = {
-  render: (args) => ({
-    // Components used in your story `template` are defined in the `components` object
-    components: { LuiRadio },
-    // The story's `args` need to be mapped into the template through the `setup()` method
-    setup() {
-      const checkedName = ref('Jack')
-      return { args, checkedName }
-    },
-    // And then the `args` are bound to your component with `v-bind="args"`
-    // <lui-checkbox v-bind="args" v-model="test" />
-    template: `
-  <div class="p-3">{{checkedName}}</div>
-    <div class="p-2 space-x-4">
-      <lui-radio v-bind="args" id="jack" name="cnames" value="Jack" v-model="checkedName" />
-      <lui-radio v-bind="args" id="john" name="cnames" value="John" v-model="checkedName" />
-      <lui-radio v-bind="args" id="mike" name="cnames" value="Mike" v-model="checkedName" />
-    </div>`,
-    args: {
-      description: 'Radio description'
-    }
-  })
+  },
 }
 
-export const Sizes: Story = {
-  render: (args) => ({
+const checkedTemplate = '<lui-radio checked />'
+export const Checked: Story = {
+  render: () => ({
+    components: { LuiRadio },
+    template: `<div class="space-x-4">${checkedTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: checkedTemplate,
+      },
+      description: {
+        story: 'The <b>checked</b> prop determines if the LuiRadio is checked or not.',
+      },
+    },
+  },
+}
+
+const disabledTemplate = `
+<lui-radio disabled />
+<lui-radio disabled checked />
+`
+export const Disabled: Story = {
+  render: () => ({
+    components: { LuiRadio },
+    template: `<div class="space-x-4">${disabledTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: disabledTemplate,
+      },
+      description: {
+        story:
+          'The <b>disabled</b> prop is used to disable a specific LuiRadio, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.',
+      },
+    },
+  },
+}
+
+const sizeTemplate = `
+<lui-radio size="xs" checked />
+<lui-radio size="sm" checked />
+<lui-radio size="md" checked />
+<lui-radio size="lg" checked />
+<lui-radio size="xl" checked />
+`
+export const Size: Story = {
+  render: () => ({
+    components: { LuiRadio },
+    args: { size },
+    template: `<div class="flex items-center space-x-4">${sizeTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: sizeTemplate,
+      },
+      description: {
+        story:
+          'The <b>size</b> prop in the LuiRadio provides five options to control the size of the radio. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the radio',
+      },
+    },
+  },
+}
+
+const descriptionTemplate = `
+<lui-radio description="Radio description" checked />
+`
+export const Description: Story = {
+  render: () => ({
+    components: { LuiRadio },
+    args: { description },
+    template: `<div class="w-1/2 grid grid-cols-2">${descriptionTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: descriptionTemplate,
+      },
+      description: {
+        story:
+          'The <b>description</b> prop is used to add a description to a LuiRadio, typically used for validation and error handling.',
+      },
+    },
+  },
+}
+
+const stateTemplate = `
+<lui-radio :state="null" description="This is a description" checked />
+<lui-radio :state="true" description="This is a description" checked />
+<lui-radio state="warning" description="This is a description" checked />
+<lui-radio :state="false" description="This is a description" checked />
+`
+export const State: Story = {
+  render: () => ({
+    components: { LuiRadio },
+    args: { state },
+    template: `<div class="w-2/3 grid grid-cols-4">${stateTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: stateTemplate,
+      },
+      description: {
+        story:
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiRadio. When used with the <b>description</b> prop they also change the color of the description.',
+      },
+    },
+  },
+}
+
+const radioTemplate = `
+<lui-radio v-model="picked" name="picked" value="Winter" description="Winter" />
+<lui-radio v-model="picked" name="picked" value="Spring" description="Spring" />
+<lui-radio v-model="picked" name="picked" value="Summer" description="Summer" />
+<lui-radio v-model="picked" name="picked" value="Autumn" description="Autumn" />
+`
+export const PickedRadio: Story = {
+  render: () => ({
     components: { LuiRadio },
     setup() {
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
-      return { args, sizes }
+      const picked = ref('')
+      return { picked }
     },
     template: `
-    <div class="flex items-center space-x-4">
-      <lui-radio v-bind="args" v-for="size in sizes" :key="size" :size="size" :checked="true" />
-    </div>
-  `
-  })
+    <div class="flex flex-col space-y-4">
+      <h1>Pick one: {{ picked }}</h1>
+      <div class="flex space-x-4">${radioTemplate}</div>
+    </div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: `{{ picked }}${radioTemplate}`,
+      },
+      description: {
+        story: 'A simple radio example to select a value. You can only select one.',
+      },
+    },
+  },
 }

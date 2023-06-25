@@ -1,46 +1,47 @@
 <script lang="ts">
 export default {
   name: 'LuiButton',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
+
 <script setup lang="ts">
 import { toRefs, useSlots } from 'vue'
-import { useButtonClasses } from './composables'
 import type { PropType } from 'vue'
-import type { ButtonTag } from './button-types'
-import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
+import { useButtonClasses } from './composables'
+import type { Tag } from './button-types'
+import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   tag: {
-    type: String as PropType<ButtonTag>,
-    default: 'button'
+    type: String as PropType<Tag>,
+    default: 'button',
   },
   variant: {
     type: String as PropType<Variant>,
-    default: 'solid'
+    default: 'solid',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'primary'
+    default: 'primary',
   },
   filter: {
     type: String as PropType<Filter>,
-    default: 'none'
+    default: 'none',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
+    default: false,
   },
   block: {
     type: Boolean as PropType<Block>,
-    default: false
-  }
+    default: false,
+  },
   // loading: {
   //   type: Boolean as PropType<Loading>,
   //   default: false,
@@ -59,23 +60,24 @@ function dynamicSlotClasses() {
   const hasAnyIcon = slots.prepend || slots.append || slots.icon
   const classes: TwClassInterface = {
     display: {
+      'flex': hasAnyIcon,
+      'inline-block': !hasAnyIcon && props.tag !== 'button',
       'inline-flex': hasAnyIcon,
-      'inline-block': !hasAnyIcon && props.tag !== 'button'
     },
     alignItems: {
-      'items-center': hasAnyIcon
+      'items-center': hasAnyIcon,
     },
     justifyContent: {
-      'justify-center': hasAnyIcon
+      'justify-center': hasAnyIcon,
     },
     space:
       !!slots.prepend || !!slots.append
         ? {
             'space-x-1': props.size === 'xs' || props.size === 'sm',
             'space-x-1.5': props.size === 'md',
-            'space-x-2': props.size === 'lg' || props.size === 'xl'
+            'space-x-2': props.size === 'lg' || props.size === 'xl',
           }
-        : ''
+        : '',
   }
   return Object.values({ ...classes })
 }
@@ -95,7 +97,7 @@ function dynamicSlotClasses() {
       <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="prepend" />
       </span>
-      <span><slot></slot></span>
+      <span><slot /></span>
       <span v-if="!!slots.append" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="append" />
       </span>

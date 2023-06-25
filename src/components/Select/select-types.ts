@@ -12,7 +12,7 @@ export type ModelValue = ModelValueObject | string | undefined
 //   currentIndex: number;
 //   currentId: string | undefined;
 // };
-export type ListboxStateType = {
+export interface ListboxStateType {
   items: any[]
   currentIndex: number
   currentId: string | undefined

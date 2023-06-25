@@ -1,47 +1,26 @@
-name: Prepare for release
+name: Release
+
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
+
+permissions:
+  pull-requests: write
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0 # 👈 Required to retrieve git history (https://www.chromatic.com/docs/github-actions)
-
-
-      - uses: pnpm/action-setup@v2
-      - run: corepack enable
+          fetch-depth: 0
 
       - uses: actions/setup-node@v3
         with:
-          node-version: "16"
-          cache: pnpm
+          node-version: 20.x
 
-      - name: Install dependencies
-        run: pnpm install
-        
-      # Configure Git
-      - name: Git configuration
-        run: |
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "GitHub Actions"
-
-      # Update changelog unreleased section with new version
-      - name: release-please
-        uses: google-github-actions/release-please-action@v3
-        id: release
-        with:
-          release-type: node
-          package-name: lui-ui/lui-vue
-      # The logic below handles the npm publication:
-      - name: Publish npm
-        if: ${{ steps.release.outputs.release_created }}
-        run: yarn publish --access public
+      - run: npx changelogithub
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
-        
-      
-      
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
