@@ -5,30 +5,30 @@ type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export const badgeTypes = {
   variant: {
     type: String as PropType<NarrowedVariant>,
-    default: 'solid'
+    default: 'solid',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'primary'
+    default: 'primary',
   },
   filter: {
     type: String as PropType<Filter>,
-    default: 'none'
+    default: 'none',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   border: {
     type: Boolean as PropType<Border>,
-    default: false
+    default: false,
   },
   text: {
     type: String as PropType<Text>,
-    default: ''
+    default: '',
   },
   position: {
     type: String as PropType<Position>,
-    default: 'bottom-right'
-  }
+    default: 'bottom-right',
+  },
 }

@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: 'LuiTabPanel'
+  name: 'LuiTabPanel',
 }
 </script>
 
@@ -15,12 +15,12 @@ import type { TwClassInterface } from '@/globals/interfaces'
 const props = defineProps({
   alignContent: {
     type: String as PropType<AlignmentTypes>,
-    default: 'left'
+    default: 'left',
   },
   id: {
     type: String as PropType<string>,
-    default: () => `lui-tab-panel-${useId()}`
-  }
+    default: () => `lui-tab-panel-${useId()}`,
+  },
 })
 // const panelId = `lui-tab-panel-${useId()}`;
 const panelRef = ref(null)
@@ -45,8 +45,8 @@ const tabPanelClasses = computed(() => {
     justifyItems: {
       'justify-start': props.alignContent === 'left',
       'justify-center': props.alignContent === 'center',
-      'justify-end': props.alignContent === 'right'
-    }
+      'justify-end': props.alignContent === 'right',
+    },
   }
   return Object.values(classes)
 })

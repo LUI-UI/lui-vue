@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiTag',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -15,28 +15,28 @@ import type { Color, Filter, NarrowedVariant, Rounded, Size } from '@/globals/ty
 const props = defineProps({
   variant: {
     type: String as PropType<NarrowedVariant>,
-    default: 'solid'
+    default: 'solid',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'primary'
+    default: 'primary',
   },
   filter: {
     type: String as PropType<Filter>,
-    default: 'none'
+    default: 'none',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: true
+    default: true,
   },
   closeIcon: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 })
 const { computedTagClasses, computedIconSize, computedPrependSize } = useTagClasses(toRefs(props))
 const { backgroundColorClasses, textColorClasses } = useGlobalColorClasses(toRefs(props))

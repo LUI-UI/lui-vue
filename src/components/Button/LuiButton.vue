@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiButton',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -16,32 +16,32 @@ import type { TwClassInterface } from '@/globals/interfaces'
 const props = defineProps({
   tag: {
     type: String as PropType<Tag>,
-    default: 'button'
+    default: 'button',
   },
   variant: {
     type: String as PropType<Variant>,
-    default: 'solid'
+    default: 'solid',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'primary'
+    default: 'primary',
   },
   filter: {
     type: String as PropType<Filter>,
-    default: 'none'
+    default: 'none',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
+    default: false,
   },
   block: {
     type: Boolean as PropType<Block>,
-    default: false
-  }
+    default: false,
+  },
   // loading: {
   //   type: Boolean as PropType<Loading>,
   //   default: false,
@@ -60,23 +60,23 @@ function dynamicSlotClasses() {
   const hasAnyIcon = slots.prepend || slots.append || slots.icon
   const classes: TwClassInterface = {
     display: {
-      flex: hasAnyIcon,
-      'inline-block': !hasAnyIcon && props.tag !== 'button'
+      'flex': hasAnyIcon,
+      'inline-block': !hasAnyIcon && props.tag !== 'button',
     },
     alignItems: {
-      'items-center': hasAnyIcon
+      'items-center': hasAnyIcon,
     },
     justifyContent: {
-      'justify-center': hasAnyIcon
+      'justify-center': hasAnyIcon,
     },
     space:
       !!slots.prepend || !!slots.append
         ? {
             'space-x-1': props.size === 'xs' || props.size === 'sm',
             'space-x-1.5': props.size === 'md',
-            'space-x-2': props.size === 'lg' || props.size === 'xl'
+            'space-x-2': props.size === 'lg' || props.size === 'xl',
           }
-        : ''
+        : '',
   }
   return Object.values({ ...classes })
 }

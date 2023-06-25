@@ -32,8 +32,8 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
       'text-xs': props.size.value === 'xs',
       'text-base': props.size.value === 'sm',
       'text-xl': props.size.value === 'md' || props.size.value === 'lg',
-      'text-2xl': props.size.value === 'xl'
-    }
+      'text-2xl': props.size.value === 'xl',
+    },
   }
   const textareaClasses = computed(() => {
     const classes: TwClassInterface = {
@@ -54,22 +54,22 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
           props.state.value === null,
         'disabled:border-secondary-200 border-warning-500': props.state.value === 'warning',
         'disabled:border-secondary-200 border-danger-500': props.state.value === false,
-        'disabled:border-secondary-200 border-success-500': props.state.value === true
+        'disabled:border-secondary-200 border-success-500': props.state.value === true,
       },
       ringWidth:
         attrs.disabled !== undefined && attrs.disabled === true
           ? 'ring-0'
           : props.state.value === null
-          ? 'focus:ring-4'
-          : 'ring-4',
+            ? 'focus:ring-4'
+            : 'ring-4',
       ringColor: {
         'focus:ring-primary-500/40': props.state.value === null,
         'ring-warning-500/40': props.state.value === 'warning',
         'ring-danger-500/40': props.state.value === false,
-        'ring-success-500/40': props.state.value === true
+        'ring-success-500/40': props.state.value === true,
       },
       borderRadius: {
-        'rounded-md': props.rounded.value === true
+        'rounded-md': props.rounded.value === true,
         // "rounded-full": props.rounded.value === "full",
       },
       // 12 14 16 18 20
@@ -78,7 +78,7 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
         'text-sm': props.size.value === 'sm',
         'text-base': props.size.value === 'md',
         'text-lg': props.size.value === 'lg',
-        'text-xl': props.size.value === 'xl'
+        'text-xl': props.size.value === 'xl',
       },
       padding: iconStatus.value
         ? {
@@ -86,21 +86,21 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
             'py-1.5 pl-2 pr-8': props.size.value === 'sm',
             'py-2 pl-2.5 pr-10': props.size.value === 'md',
             'py-2.5 pl-2.5 pr-10': props.size.value === 'lg',
-            'py-3.5 pl-3 pr-12': props.size.value === 'xl'
+            'py-3.5 pl-3 pr-12': props.size.value === 'xl',
           }
         : {
             'py-1 px-1.5': props.size.value === 'xs',
             'py-1.5 px-2': props.size.value === 'sm',
             'py-2 px-2.5': props.size.value === 'md',
             'p-2.5': props.size.value === 'lg',
-            'py-3.5 px-3': props.size.value === 'xl'
+            'py-3.5 px-3': props.size.value === 'xl',
           },
       resize: {
-        resize: props.resize.value === true,
+        'resize': props.resize.value === true,
         'resize-none': props.resize.value === false,
         'resize-x': props.resize.value === 'x',
-        'resize-y': props.resize.value === 'y'
-      }
+        'resize-y': props.resize.value === 'y',
+      },
       // padding:
       //   iconStatus.value === "noIcon"
       //     ? // 6 - 8 - 10 - 10 - 12
@@ -186,7 +186,7 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
         'right-2': props.size.value === 'xs',
         'right-2.5': props.size.value === 'sm',
         'right-3': props.size.value === 'md' || props.size.value === 'lg',
-        'right-4': props.size.value === 'xl'
+        'right-4': props.size.value === 'xl',
       },
       textColor:
         attrs.disabled !== undefined && attrs.disabled === true
@@ -194,8 +194,8 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
           : {
               'text-warning-500': props.state.value === 'warning',
               'text-danger-500': props.state.value === false,
-              'text-success-500': props.state.value === true
-            }
+              'text-success-500': props.state.value === true,
+            },
     }
     return Object.values({ ...classes })
   })
@@ -221,7 +221,7 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
 
   return {
     textareaClasses,
-    stateIconClasses
+    stateIconClasses,
   }
   // return {
   //   inputClasses,

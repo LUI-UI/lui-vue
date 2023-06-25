@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiSelect',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -24,48 +24,48 @@ import type { TwClassInterface } from '@/globals/interfaces'
 const props = defineProps({
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
+    default: false,
   },
   block: {
     type: Boolean as PropType<Block>,
-    default: false
+    default: false,
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null
+    default: null,
   },
   stateIcon: {
     type: [Boolean] as PropType<StateIcon>,
-    default: false
+    default: false,
   },
   options: {
     type: Array as PropType<OptionsType>,
-    default: () => []
+    default: () => [],
   },
   placeholder: {
     type: String as PropType<string>,
-    default: ''
+    default: '',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null
+    default: null,
   },
   searchable: {
     type: Boolean as PropType<boolean>,
-    default: false
+    default: false,
   },
   showAppend: {
     type: Boolean as PropType<boolean>,
-    default: true
+    default: true,
   },
   modelValue: {
     type: [Object, String, undefined] as PropType<ModelValue>,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
 const emit = defineEmits(['update:modelValue', 'change'])
 const slots = useSlots()
@@ -85,7 +85,7 @@ const searchQuery = ref<string>('')
 const listboxState: ListboxStateType = reactive({
   items: [],
   currentIndex: 0,
-  currentId: ''
+  currentId: '',
 })
 
 const selectId = `lui-listbox-button-${useId()}`
@@ -93,17 +93,17 @@ const optionsId = `lui-listbox-wrapper-${useId()}`
 const validSlotTypes = ['LuiOption']
 const errorMessages = {
   type: {
-    modelValue: 'Wrong type for modelValue, typeof of modelValue should be string'
+    modelValue: 'Wrong type for modelValue, typeof of modelValue should be string',
   },
   missing: {
-    options: 'Options missing: should use options prop or LuiOption component as slot'
-  }
+    options: 'Options missing: should use options prop or LuiOption component as slot',
+  },
 }
 
 const { properPosition } = useProperPosition({
   triggerEl: selectWrapperRef,
   MenuEl: optionsRef,
-  targetPosition: 'bottom'
+  targetPosition: 'bottom',
 })
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
@@ -116,17 +116,18 @@ provide(ContextKey, {
   selectedOption,
   updateSelectedOption,
   focusButton,
-  currentId: toRef(listboxState, 'currentId')
+  currentId: toRef(listboxState, 'currentId'),
 })
 
 watch(
   () => props.modelValue,
   (value) => {
     const rawValue = typeof value !== 'string' ? value?.text : value
-    if (rawValue !== selectedOption.value?.text) updateSelectedOption(value)
+    if (rawValue !== selectedOption.value?.text)
+      updateSelectedOption(value)
 
     // updateSelectedOption(value);
-  }
+  },
 )
 const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
 // const computedOptions = computed(() => props.options.length > 0)
@@ -142,14 +143,15 @@ function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLEl
   const isAbove = offsetTop < scrollTop
   const isBelow = offsetTop + offsetHeight > scrollTop + parentOffsetHeight
 
-  if (isAbove) scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
+  if (isAbove)
+    scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
   else if (isBelow)
     scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight + marginBetweenOptions)
 }
 function focusAvailableElement(
   el: HTMLElement | undefined,
   oparation: (i: number) => number,
-  initial: number | null = null
+  initial: number | null = null,
 ) {
   const isTargetExist = (index: number) => index >= 0 && index <= targetItems.value.length - 1
   const isTargetFocusable = (targetIndex: number) => {
@@ -158,24 +160,28 @@ function focusAvailableElement(
   }
   let targetIndex = listboxState.currentIndex
   // set target
-  if (initial !== null) targetIndex = initial
+  if (initial !== null)
+    targetIndex = initial
   else targetIndex = oparation(targetIndex)
 
-  if (!isTargetExist(targetIndex)) return
+  if (!isTargetExist(targetIndex))
+    return
   while (!isTargetFocusable(targetIndex)) {
     targetIndex = oparation(targetIndex)
-    if (!isTargetExist(targetIndex)) return
+    if (!isTargetExist(targetIndex))
+      return
   }
   listboxState.currentIndex = targetIndex
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id
-  if (!props.searchable) nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
+  if (!props.searchable)
+    nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
 
   nextTick(() => {
     if (isScrollable(optionsRef.value as HTMLElement)) {
       handleScrollVisibility(
         optionsRef.value?.children[listboxState.currentIndex] as HTMLElement,
-        optionsRef.value as HTMLElement
+        optionsRef.value as HTMLElement,
       )
     }
   })
@@ -186,13 +192,15 @@ function updateSelectedOption(option: ModelValue) {
   if (props.searchable) {
     selectedOptionBackup.value = optionAsString as string
     searchQuery.value = ''
-    listboxState.currentIndex = targetItems.value.findIndex((i) =>
-      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString
+    listboxState.currentIndex = targetItems.value.findIndex(i =>
+      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString,
     )
   }
   emit('update:modelValue', optionAsString)
-  if (!isFirstUpdate) emit('change', optionAsString)
-  if (isFirstUpdate) isFirstUpdate = false
+  if (!isFirstUpdate)
+    emit('change', optionAsString)
+  if (isFirstUpdate)
+    isFirstUpdate = false
 }
 
 function focusButton() {
@@ -206,21 +214,22 @@ function closeListBox() {
 }
 
 function toggleOptions() {
-  if (attrs.disabled !== undefined || attrs.disabled === true) return
+  if (attrs.disabled !== undefined || attrs.disabled === true)
+    return
   // event.preventDefault();
   optionsActive.value = !optionsActive.value
   // if (attrs.disabled !== undefined && attrs.disabled === true) return;
 }
 
 function setState() {
-  const slotsOptions =
-    slots.default &&
-    slots
+  const slotsOptions
+    = slots.default
+    && slots
       .default()
       .map((slot: any) =>
         slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.map((child: any) => child.props)
-          : slot.props
+          : slot.props,
       )
       .flat()
   // validSlotTypes.includes(child.type.name)
@@ -228,7 +237,7 @@ function setState() {
   if (props.placeholder !== '') {
     allOptions = [
       { text: props.placeholder, value: props.placeholder, disabled: true, selected: false },
-      ...allOptions
+      ...allOptions,
     ]
   }
 
@@ -242,10 +251,10 @@ function setInitialSelectedOption() {
   //   typeof props.modelValue !== "string" &&
   //   (props.modelValue?.text === undefined ||
   //     props.modelValue?.value === undefined);
-  const isModelValueInvalid =
-    props.modelValue !== undefined &&
-    typeof props.modelValue !== 'string' &&
-    typeof props.modelValue !== 'number'
+  const isModelValueInvalid
+    = props.modelValue !== undefined
+    && typeof props.modelValue !== 'string'
+    && typeof props.modelValue !== 'number'
 
   const optionsExist = props.options.length > 0
 
@@ -255,36 +264,38 @@ function setInitialSelectedOption() {
   function setPlaceholderOrValue(value: any) {
     if (props.placeholder === '') {
       updateSelectedOption(value)
-    } else {
+    }
+    else {
       // updateSelectedOption(props.placeholder);
     }
   }
   const anySlotSelected = () =>
-    slots.default &&
-    slots
+    slots.default
+    && slots
       .default()
       .some((slot: any) =>
         slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.some(
-              (child: any) => child.props.selected !== undefined && child.props.selected === true
-            )
-          : slot.props && slot.props.selected && slot.props.selected === true
+            (child: any) => child.props.selected !== undefined && child.props.selected === true,
+          )
+          : slot.props && slot.props.selected && slot.props.selected === true,
       )
 
   const isDefaultSlotValid = () =>
-    slots.default &&
-    slots
+    slots.default
+    && slots
       .default()
       .some((slot: any) =>
         slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.some(
-              (child: any) =>
-                child.type.name !== undefined && validSlotTypes.includes(child.type.name)
-            )
-          : slot.type.name !== undefined && validSlotTypes.includes(slot.type.name)
+            (child: any) =>
+              child.type.name !== undefined && validSlotTypes.includes(child.type.name),
+          )
+          : slot.type.name !== undefined && validSlotTypes.includes(slot.type.name),
       )
 
-  if (isModelValueInvalid) throw new Error(errorMessages.type.modelValue)
+  if (isModelValueInvalid)
+    throw new Error(errorMessages.type.modelValue)
 
   if (props.modelValue !== undefined) {
     // should we handle the case if modelValue does not match any option then if placeholder exist set placeholder than throw error?
@@ -299,7 +310,7 @@ function setInitialSelectedOption() {
 
   if (!optionsExist && !isDefaultSlotValid()) {
     throw new Error(
-      `Options missing: should use options prop or one of the valid slots: ${validSlotTypes}`
+      `Options missing: should use options prop or one of the valid slots: ${validSlotTypes}`,
     )
   }
   if (!optionsExist && !anySlotSelected()) {
@@ -316,11 +327,11 @@ function handleKeydownEvents(event: KeyboardEvent) {
   switch (event.code) {
     case 'ArrowDown':
       event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i + 1)
+      focusAvailableElement(optionsRef.value, i => i + 1)
       break
     case 'ArrowUp':
       event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i - 1)
+      focusAvailableElement(optionsRef.value, i => i - 1)
       break
     case 'Enter':
       event.preventDefault()
@@ -331,13 +342,13 @@ function handleKeydownEvents(event: KeyboardEvent) {
       break
     case 'Home':
       event.preventDefault()
-      focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+      focusAvailableElement(optionsRef.value, i => i + 1, 0)
       break
     case 'End':
       event.preventDefault()
       {
         const last = targetItems.value.length - 1
-        focusAvailableElement(optionsRef.value, (i) => i - 1, last)
+        focusAvailableElement(optionsRef.value, i => i - 1, last)
       }
 
       break
@@ -361,18 +372,21 @@ function buttonKeydown(event: KeyboardEvent) {
     case 'Enter':
     case 'Space':
       event.preventDefault()
-      if (!optionsActive.value) toggleOptions()
+      if (!optionsActive.value)
+        toggleOptions()
 
       if (props.searchable && !isFirstPress) {
         handleKeydownEvents(event)
-      } else {
+      }
+      else {
         const selectedIndex = listboxState.items.findIndex((item: any) =>
           typeof item === 'string'
             ? item === selectedOption.value
-            : item?.text === selectedOption.value?.text
+            : item?.text === selectedOption.value?.text,
         )
-        if (selectedIndex === -1) focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
-        else focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
+        if (selectedIndex === -1)
+          focusAvailableElement(optionsRef.value, i => i + 1, 0)
+        else focusAvailableElement(optionsRef.value, i => i + 1, selectedIndex)
       }
 
       break
@@ -406,18 +420,18 @@ const optionsClasses = computed(() => {
     borderColor: 'border-secondary-200 dark:border-secondary-700',
     borderRadius: {
       'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full'
+      'rounded-2xl': props.rounded === 'full',
     },
     padding: {
       'p-1.5': props.size === 'xs' || props.size === 'sm',
       'p-2': props.size === 'md',
-      'p-2.5': props.size === 'lg' || props.size === 'xl'
+      'p-2.5': props.size === 'lg' || props.size === 'xl',
     },
     boxShadow: 'shadow-lg',
     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
     top: properPosition.value === 'bottom' ? 'top-full' : '',
     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2'
+    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
   }
   return Object.values({ ...optionsWrapper })
 })
@@ -425,7 +439,7 @@ const optionsClasses = computed(() => {
 const selectWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
-    width: props.block ? 'w-full' : 'max-w-max'
+    width: props.block ? 'w-full' : 'max-w-max',
     // pointerEvents:
     //   attrs?.disabled !== undefined && attrs.disabled === true
     //     ? "pointer-events-none"
@@ -447,13 +461,13 @@ const inputProps = computed(() => ({
   placeholder: props.placeholder,
   size: props.size,
   description: props.description,
-  ...attrs
+  ...attrs,
 }))
 
 function optionProps(option: string | object) {
   const commonProps = {
     size: props.size,
-    rounded: props.rounded
+    rounded: props.rounded,
   }
   return typeof option === 'string'
     ? { text: option, ...commonProps }
@@ -478,21 +492,23 @@ const searchedOptions = computed(() => {
     return searchQuery.value
       .toLocaleLowerCase()
       .split(' ')
-      .every((q) => optionAsString.toLocaleLowerCase().includes(q))
+      .every(q => optionAsString.toLocaleLowerCase().includes(q))
   })
 })
 
 function setSearchQuery(event: Event) {
-  if (!optionsActive.value) optionsActive.value = true
+  if (!optionsActive.value)
+    optionsActive.value = true
 
   const inputValue = (event.target as HTMLInputElement).value
   searchQuery.value = inputValue
   if (searchedOptions.value.length > 0) {
     const currentEl = optionsRef.value?.children[0]
-    focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+    focusAvailableElement(optionsRef.value, i => i + 1, 0)
     listboxState.currentIndex = 0
     listboxState.currentId = currentEl?.id
-  } else {
+  }
+  else {
     listboxState.currentIndex = 0
     listboxState.currentId = ''
   }
@@ -500,7 +516,8 @@ function setSearchQuery(event: Event) {
 function resetSelectedOption() {
   if (props.searchable && searchedOptions.value.length === 0) {
     updateSelectedOption(selectedOptionBackup.value)
-    if (optionsActive.value) toggleOptions()
+    if (optionsActive.value)
+      toggleOptions()
   }
 }
 </script>

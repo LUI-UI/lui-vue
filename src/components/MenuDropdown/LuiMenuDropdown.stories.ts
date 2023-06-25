@@ -8,21 +8,21 @@ import {
   rounded,
   size,
   text,
-  variant
+  variant,
 } from '../../../.storybook/global-story-argtypes'
 import LuiMenuDropdown from './LuiMenuDropdown.vue'
 
 const descriptions = {
   docs: {
     component:
-      'LuiMenuDropdown, when used with LuiMenuItem, provides a vertical list of selectable options, typically displayed in a dropdown fashion when triggered, allowing users to choose from available menu items.'
+      'LuiMenuDropdown, when used with LuiMenuItem, provides a vertical list of selectable options, typically displayed in a dropdown fashion when triggered, allowing users to choose from available menu items.',
   },
   argTypes: {
     menuPosition: 'Used to control the position of the menu items',
     trigger: 'Used to insert a template in the component',
-    default: 'Used as default to add a text in the component'
+    default: 'Used as default to add a text in the component',
     // triggerAppend: 'Used to place an icon in the component'
-  }
+  },
 }
 
 const meta: Meta<typeof LuiMenuDropdown> = {
@@ -48,23 +48,23 @@ const meta: Meta<typeof LuiMenuDropdown> = {
         'leftTop',
         'leftBottom',
         'rightTop',
-        'rightBottom'
+        'rightBottom',
       ],
-      description: descriptions.argTypes.menuPosition
+      description: descriptions.argTypes.menuPosition,
     },
     trigger: {
-      description: descriptions.argTypes.trigger
+      description: descriptions.argTypes.trigger,
     },
     default: {
-      description: descriptions.argTypes.default
-    }
+      description: descriptions.argTypes.default,
+    },
   },
   decorators: [() => ({ template: '<div class="py-28 space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 type Story = StoryObj<typeof LuiMenuDropdown>
@@ -78,19 +78,19 @@ const defaultTemplate = `
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="">${defaultTemplate}</div>`
+    template: `<div class="">${defaultTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'This is how a default LuiMenuDropdown looks with two LuiMenuItem components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space.'
-      }
-    }
-  }
+          'This is how a default LuiMenuDropdown looks with two LuiMenuItem components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space.',
+      },
+    },
+  },
 }
 
 const textTemplate = `
@@ -103,19 +103,19 @@ export const Text: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { text },
-    template: `<div class="">${textTemplate}</div>`
+    template: `<div class="">${textTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: textTemplate
+        code: textTemplate,
       },
       description: {
         story:
-          'The <b>text</b> prop is used to add a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.'
-      }
-    }
-  }
+          'The <b>text</b> prop is used to add a text in the LuiMenuDropdown. Note that the size of the menu changes according to the text length.',
+      },
+    },
+  },
 }
 
 const blockTemplate = `
@@ -128,18 +128,18 @@ export const Block: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { text },
-    template: blockTemplate
+    template: blockTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: blockTemplate
+        code: blockTemplate,
       },
       description: {
-        story: 'The <b>block</b> prop provides a full width menu look.'
-      }
-    }
-  }
+        story: 'The <b>block</b> prop provides a full width menu look.',
+      },
+    },
+  },
 }
 
 const variantTemplate = `
@@ -164,18 +164,18 @@ export const Variant: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { variant },
-    template: `<div class="flex space-x-4 items-center">${variantTemplate}</div>`
+    template: `<div class="flex space-x-4 items-center">${variantTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: variantTemplate
+        code: variantTemplate,
       },
       description: {
-        story: 'There are 4 variant options to customize the LuiMenuDropdown.'
-      }
-    }
-  }
+        story: 'There are 4 variant options to customize the LuiMenuDropdown.',
+      },
+    },
+  },
 }
 
 const roundedTemplate = `
@@ -196,18 +196,18 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { rounded },
-    template: `<div class="flex space-x-4 ">${roundedTemplate}</div>`
+    template: `<div class="flex space-x-4 ">${roundedTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: roundedTemplate
+        code: roundedTemplate,
       },
       description: {
-        story: 'There are 3 options to round the corners of a LuiMenuDropdown.'
-      }
-    }
-  }
+        story: 'There are 3 options to round the corners of a LuiMenuDropdown.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -236,19 +236,19 @@ export const Size: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { size },
-    template: `<div class="flex items-center space-x-4 ">${sizeTemplate}</div>`
+    template: `<div class="flex items-center space-x-4 ">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiMenuDropdown provides five options to control the size of the dropdown menu. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the dropdown menu."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiMenuDropdown provides five options to control the size of the dropdown menu. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the dropdown menu.',
+      },
+    },
+  },
 }
 
 const colorTemplate = `
@@ -281,18 +281,18 @@ export const Color: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color },
-    template: `<div class="flex space-x-8 ">${colorTemplate}</div>`
+    template: `<div class="flex space-x-8 ">${colorTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: colorTemplate
+        code: colorTemplate,
       },
       description: {
-        story: 'There are 6 options to customize the color of a LuiMenuDropdown.'
-      }
-    }
-  }
+        story: 'There are 6 options to customize the color of a LuiMenuDropdown.',
+      },
+    },
+  },
 }
 
 const filterTemplate = `
@@ -349,18 +349,18 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
     args: { color, filter },
-    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 ">${filterTemplate}</div>`
+    template: `<div class="grid grid-cols-6 gap-x-2 gap-y-4 ">${filterTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: filterTemplate
+        code: filterTemplate,
       },
       description: {
-        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
-      }
-    }
-  }
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.',
+      },
+    },
+  },
 }
 
 const triggerTemplate = `
@@ -375,19 +375,19 @@ const triggerTemplate = `
 export const TriggerSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem, LuiBadge },
-    template: triggerTemplate
+    template: triggerTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: triggerTemplate
+        code: triggerTemplate,
       },
       description: {
         story:
-          'With the <b>trigger</b> slot you can insert any template or other LUI components and replace the default LuiMenuDropdown lookLui. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.'
-      }
-    }
-  }
+          'With the <b>trigger</b> slot you can insert any template or other LUI components and replace the default LuiMenuDropdown lookLui. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.',
+      },
+    },
+  },
 }
 
 const appendTemplate = `
@@ -402,19 +402,19 @@ const appendTemplate = `
 export const AppendSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: appendTemplate
+    template: appendTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: appendTemplate
+        code: appendTemplate,
       },
       description: {
         story:
-          'The <b>append</b> slot is used to place an icon in the left side of the LuiMenuDropdown, after the text, thus replacing the default down arrow icon.'
-      }
-    }
-  }
+          'The <b>append</b> slot is used to place an icon in the left side of the LuiMenuDropdown, after the text, thus replacing the default down arrow icon.',
+      },
+    },
+  },
 }
 
 const prependTemplate = `
@@ -429,19 +429,19 @@ const prependTemplate = `
 export const PrependSlot: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: prependTemplate
+    template: prependTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: prependTemplate
+        code: prependTemplate,
       },
       description: {
         story:
-          'The <b>prepend</b> slot is used to place an icon in the right side of the LuiMenuDropdown, before the text.'
-      }
-    }
-  }
+          'The <b>prepend</b> slot is used to place an icon in the right side of the LuiMenuDropdown, before the text.',
+      },
+    },
+  },
 }
 
 const menuPositionTemplate = `
@@ -481,17 +481,17 @@ const menuPositionTemplate = `
 export const MenuPosition: Story = {
   render: () => ({
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`
+    template: `<div class="px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: menuPositionTemplate
+        code: menuPositionTemplate,
       },
       description: {
         story:
-          'The <b>menu-position</b> prop is used to customize the position and alignment of where the dropdown menu opens.'
-      }
-    }
-  }
+          'The <b>menu-position</b> prop is used to customize the position and alignment of where the dropdown menu opens.',
+      },
+    },
+  },
 }

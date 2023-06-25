@@ -11,7 +11,7 @@ import LuiTabPanel from './LuiTabPanel.vue'
 const descriptions = {
   docs: {
     component:
-      'The tab components in LUI provide developers an organized way to interact with the tab buttons to switch between different tab panels, allowing them to view and access different sets of content within a single view. The <b>LuiTabButtons</b> component represents the container for tab buttons, allowing users to switch between different sections of content. Each individual tab button is defined using the <b>LuiTabButton</b> component, which provides a visually clickable element for selecting a specific tab. The content for each tab is defined using the <b>LuiTabPanel</b> component, which serves as a container for the content associated with a particular tab. Multiple <b>LuiTabPanel</b> components are wrapped within the <b>LuiTabPanels</b> component, allowing for seamless management of the tabbed content. Lastly, the <b>LuiTabGroup</b> component is used to bring together the different tab-related components, providing an interactive tabbed interface.'
+      'The tab components in LUI provide developers an organized way to interact with the tab buttons to switch between different tab panels, allowing them to view and access different sets of content within a single view. The <b>LuiTabButtons</b> component represents the container for tab buttons, allowing users to switch between different sections of content. Each individual tab button is defined using the <b>LuiTabButton</b> component, which provides a visually clickable element for selecting a specific tab. The content for each tab is defined using the <b>LuiTabPanel</b> component, which serves as a container for the content associated with a particular tab. Multiple <b>LuiTabPanel</b> components are wrapped within the <b>LuiTabPanels</b> component, allowing for seamless management of the tabbed content. Lastly, the <b>LuiTabGroup</b> component is used to bring together the different tab-related components, providing an interactive tabbed interface.',
   },
   argTypes: {
     // alignContent: 'Used to control the alignment of the content within each tab panel',
@@ -19,8 +19,8 @@ const descriptions = {
     // stretch: 'Used to control the stretching behavior of the tab buttons within a LuiTabGroup',
     selectedIndex: 'Used to control the initially selected tab based on an index value',
     // change: '',
-    default: 'Used as default to add a text in the component'
-  }
+    default: 'Used as default to add a text in the component',
+  },
 }
 
 const meta: Meta<typeof LuiTabGroup> = {
@@ -34,7 +34,7 @@ const meta: Meta<typeof LuiTabGroup> = {
     //   description: descriptions.argTypes.alignContent
     // },
     selectedIndex: { description: descriptions.argTypes.selectedIndex },
-    default: { description: descriptions.argTypes.default }
+    default: { description: descriptions.argTypes.default },
     // change: { description: descriptions.argTypes.change },
     // alignTabs: {
     //   control: 'select',
@@ -52,9 +52,9 @@ const meta: Meta<typeof LuiTabGroup> = {
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 
 export default meta
@@ -80,21 +80,21 @@ export const Default: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'Here you can see a basic tabbed interface with three tab buttons and three corresponding content panels. Within the LuiTabGroup, the LuiTabButtons component contains the individual tab buttons. In this example, there are three tab buttons defined as LuiTabButton components with the labels "Tab-1", "Tab-2", and "Tab-3". These buttons represent the selectable options for navigating between different sections of content. The LuiTabPanels component holds the content associated with each tab. Here, we have three LuiTabPanel components defined as "Panel-1", "Panel-2", and "Panel-3". These panels contain the respective content that will be displayed when their corresponding tab button is selected.'
-      }
-    }
-  }
+          'Here you can see a basic tabbed interface with three tab buttons and three corresponding content panels. Within the LuiTabGroup, the LuiTabButtons component contains the individual tab buttons. In this example, there are three tab buttons defined as LuiTabButton components with the labels "Tab-1", "Tab-2", and "Tab-3". These buttons represent the selectable options for navigating between different sections of content. The LuiTabPanels component holds the content associated with each tab. Here, we have three LuiTabPanel components defined as "Panel-1", "Panel-2", and "Panel-3". These panels contain the respective content that will be displayed when their corresponding tab button is selected.',
+      },
+    },
+  },
 }
 
 const selectedIndexTemplate = `
@@ -117,25 +117,25 @@ export const SelectedIndex: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const activeTab = ref(1)
       return { activeTab }
     },
-    template: `<div><span>selectedIndex: {{ activeTab }}</span>${selectedIndexTemplate}</div>`
+    template: `<div><span>selectedIndex: {{ activeTab }}</span>${selectedIndexTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: selectedIndexTemplate
+        code: selectedIndexTemplate,
       },
       description: {
         story:
-          'The <b>selected-index</b> prop in LuiTabGroup is used to control the initially selected tab based on an index value. By binding the <b>selected-index</b> prop to a data property, such as "activeTab" in this example, developers can dynamically determine which tab should be selected by setting the value of the `activeTab` property. In the provided code snippet, the `activeTab` property is defined using the `ref` function in the `setup()` method of the Vue component. By assigning an initial value of `1` to `activeTab`, the second tab (Tab-2) will be selected by default when the component is rendered.'
-      }
-    }
-  }
+          'The <b>selected-index</b> prop in LuiTabGroup is used to control the initially selected tab based on an index value. By binding the <b>selected-index</b> prop to a data property, such as "activeTab" in this example, developers can dynamically determine which tab should be selected by setting the value of the `activeTab` property. In the provided code snippet, the `activeTab` property is defined using the `ref` function in the `setup()` method of the Vue component. By assigning an initial value of `1` to `activeTab`, the second tab (Tab-2) will be selected by default when the component is rendered.',
+      },
+    },
+  },
 }
 
 const changeTemplate = `
@@ -158,25 +158,25 @@ export const Change: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const consoleLog = () => console.log('Event executed')
       return { consoleLog }
     },
-    template: changeTemplate
+    template: changeTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: changeTemplate
+        code: changeTemplate,
       },
       description: {
         story:
-          'The <b>change</b> event in the LuiTabGroup component is triggered when the user selects a different tab, allowing you to control the action that should be performed when the active tab changes. This means that whenever the user selects a different tab within the LuiTabGroup, the method that the event is bound will be executed. You can customize the method to perform any desired action, such as updating data, making API calls, or triggering other functions based on the selected tab.'
-      }
-    }
-  }
+          'The <b>change</b> event in the LuiTabGroup component is triggered when the user selects a different tab, allowing you to control the action that should be performed when the active tab changes. This means that whenever the user selects a different tab within the LuiTabGroup, the method that the event is bound will be executed. You can customize the method to perform any desired action, such as updating data, making API calls, or triggering other functions based on the selected tab.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -248,14 +248,14 @@ export const Size: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     args: { size },
     setup() {
       const activeTab = ref(0)
       return { activeTab }
     },
-    template: `<div class="flex items-baseline justify-between">${sizeTemplate}</div>`
+    template: `<div class="flex items-baseline justify-between">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
@@ -310,14 +310,14 @@ export const Size: Story = {
     <lui-tab-panel>xLarge</lui-tab-panel>
     <lui-tab-panel>xLarge</lui-tab-panel>
   </lui-tab-panels>
-</lui-tab-group>`
+</lui-tab-group>`,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiTabButton provides five options to control the size of the tab button. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the tab button."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiTabButton provides five options to control the size of the tab button. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the tab button.',
+      },
+    },
+  },
 }
 
 const disabledTemplate = `
@@ -340,25 +340,25 @@ export const Disabled: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const activeTab = ref(0)
       return { activeTab }
     },
-    template: disabledTemplate
+    template: disabledTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: disabledTemplate
+        code: disabledTemplate,
       },
       description: {
         story:
-          'The <b>disabled</b> prop is used to disable a specific LuiTabButton, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
-      }
-    }
-  }
+          'The <b>disabled</b> prop is used to disable a specific LuiTabButton, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.',
+      },
+    },
+  },
 }
 
 const stretchTemplate = `
@@ -381,25 +381,25 @@ export const Stretch: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const activeTab = ref(0)
       return { activeTab }
     },
-    template: stretchTemplate
+    template: stretchTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: stretchTemplate
+        code: stretchTemplate,
       },
       description: {
         story:
-          'The <b>stretch</b> prop in LuiTabButton is used to control the stretching behavior of the tab buttons within a LuiTabGroup component. When the <b>stretch</b> prop is set to "true", the tab buttons will expand horizontally to occupy the available space evenly. In the provided code snippet, the first tab button is set with the stretch prop value of true, expanding to fill the available space, while the remaining tab buttons retain their default width.'
-      }
-    }
-  }
+          'The <b>stretch</b> prop in LuiTabButton is used to control the stretching behavior of the tab buttons within a LuiTabGroup component. When the <b>stretch</b> prop is set to "true", the tab buttons will expand horizontally to occupy the available space evenly. In the provided code snippet, the first tab button is set with the stretch prop value of true, expanding to fill the available space, while the remaining tab buttons retain their default width.',
+      },
+    },
+  },
 }
 
 const alignTabsTemplate = `
@@ -446,25 +446,25 @@ export const AlignTabs: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const activeTab = ref(0)
       return { activeTab }
     },
-    template: alignTabsTemplate
+    template: alignTabsTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: alignTabsTemplate
+        code: alignTabsTemplate,
       },
       description: {
         story:
-          'The <b>align-tabs</b> prop in the LuiTabButtons component is used to control the alignment of the tab buttons within a LuiTabGroup. This prop offers three options: "left", "center", and "right".'
-      }
-    }
-  }
+          'The <b>align-tabs</b> prop in the LuiTabButtons component is used to control the alignment of the tab buttons within a LuiTabGroup. This prop offers three options: "left", "center", and "right".',
+      },
+    },
+  },
 }
 
 const alignContentTemplate = `
@@ -511,23 +511,23 @@ export const AlignContent: Story = {
       LuiTabButtons,
       LuiTabButton,
       LuiTabPanels,
-      LuiTabPanel
+      LuiTabPanel,
     },
     setup() {
       const activeTab = ref(0)
       return { activeTab }
     },
-    template: alignContentTemplate
+    template: alignContentTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: alignContentTemplate
+        code: alignContentTemplate,
       },
       description: {
         story:
-          'The <b>align-content</b> prop in the LuiTabPanel component is used to control the alignment of the content within each tab panel. This prop offers three options: "left", "center", and "right".'
-      }
-    }
-  }
+          'The <b>align-content</b> prop in the LuiTabPanel component is used to control the alignment of the content within each tab panel. This prop offers three options: "left", "center", and "right".',
+      },
+    },
+  },
 }

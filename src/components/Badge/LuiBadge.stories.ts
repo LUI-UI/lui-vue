@@ -6,20 +6,20 @@ import {
   filter,
   size,
   text,
-  variant
+  variant,
 } from '../../../.storybook/global-story-argtypes'
 import LuiBadge from './LuiBadge.vue'
 
 const descriptions = {
   docs: {
     component:
-      'LuiBadge is a small, typically circular, element containing text or icons, used to signify notifications, statuses, or labels.'
+      'LuiBadge is a small, typically circular, element containing text or icons, used to signify notifications, statuses, or labels.',
   },
   argTypes: {
-    position: 'Used to control the position of the LuiBadge'
+    position: 'Used to control the position of the LuiBadge',
     // icon: 'Used to place an icon in the component',
     // default: 'Used as default to add a text in the component'
-  }
+  },
 }
 
 const meta: Meta<typeof LuiBadge> = {
@@ -38,15 +38,15 @@ const meta: Meta<typeof LuiBadge> = {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
       default: 'bottom-right',
-      description: descriptions.argTypes.position
-    }
+      description: descriptions.argTypes.position,
+    },
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 
@@ -56,18 +56,18 @@ const defaultTemplate = '<lui-badge />'
 export const Default: Story = {
   render: () => ({
     components: { LuiBadge },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
-        story: 'This is how a default LuiBadge looks.'
-      }
-    }
-  }
+        story: 'This is how a default LuiBadge looks.',
+      },
+    },
+  },
 }
 
 const variantTemplate = `
@@ -78,18 +78,18 @@ export const Variant: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { variant },
-    template: variantTemplate
+    template: variantTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: variantTemplate
+        code: variantTemplate,
       },
       description: {
-        story: 'There are 2 variant options to customize the LuiBadge.'
-      }
-    }
-  }
+        story: 'There are 2 variant options to customize the LuiBadge.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -103,19 +103,19 @@ export const Size: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { size },
-    template: `<div class="flex items-center space-x-2">${sizeTemplate}</div>`
+    template: `<div class="flex items-center space-x-2">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiBadge provides five options to control the size of the badge. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the badge."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiBadge provides five options to control the size of the badge. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the badge.',
+      },
+    },
+  },
 }
 
 const colorTemplate = `
@@ -130,18 +130,18 @@ export const Color: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { color },
-    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${colorTemplate}</div>`
+    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${colorTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: colorTemplate
+        code: colorTemplate,
       },
       description: {
-        story: 'There are 6 options to customize the color of a LuiBadge.'
-      }
-    }
-  }
+        story: 'There are 6 options to customize the color of a LuiBadge.',
+      },
+    },
+  },
 }
 
 const filterTemplate = `
@@ -162,18 +162,18 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { color, filter },
-    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${filterTemplate}</div>`
+    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${filterTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: filterTemplate
+        code: filterTemplate,
       },
       description: {
-        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
-      }
-    }
-  }
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.',
+      },
+    },
+  },
 }
 
 const borderTemplate = `
@@ -200,19 +200,19 @@ export const Border: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { border },
-    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${borderTemplate}</div>`
+    template: `<div class="w-1/6 grid grid-cols-6 gap-x-0 gap-y-4">${borderTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: borderTemplate
+        code: borderTemplate,
       },
       description: {
         story:
-          'The <b>border</b> prop is used to place a thin border around the LuiBadge. The border color changes according to the badge color.'
-      }
-    }
-  }
+          'The <b>border</b> prop is used to place a thin border around the LuiBadge. The border color changes according to the badge color.',
+      },
+    },
+  },
 }
 
 const textTemplate = `
@@ -223,19 +223,19 @@ export const Text: Story = {
   render: () => ({
     components: { LuiBadge },
     args: { text },
-    template: textTemplate
+    template: textTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: textTemplate
+        code: textTemplate,
       },
       description: {
         story:
-          'The <b>text</b> prop is used to add a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.'
-      }
-    }
-  }
+          'The <b>text</b> prop is used to add a text in the LuiBadge. Note that the size of the badge changes so that the text can fit.',
+      },
+    },
+  },
 }
 
 const iconSlotTemplate = `
@@ -248,19 +248,19 @@ const iconSlotTemplate = `
 export const IconSlot: Story = {
   render: () => ({
     components: { LuiBadge },
-    template: iconSlotTemplate
+    template: iconSlotTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: iconSlotTemplate
+        code: iconSlotTemplate,
       },
       description: {
         story:
-          'The <b>icon</b> slot can be used to place an icon in a LuiBadge. Note that the size of the badge changes so that the icon can fit.'
-      }
-    }
-  }
+          'The <b>icon</b> slot can be used to place an icon in a LuiBadge. Note that the size of the badge changes so that the icon can fit.',
+      },
+    },
+  },
 }
 
 const userTemplate = `<lui-avatar color="secondary" :rounded="true">
@@ -286,17 +286,17 @@ export const Position: Story = {
   render: () => ({
     components: { LuiBadge, LuiAvatar },
     args: { color },
-    template: positionTemplate
+    template: positionTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: positionTemplate
+        code: positionTemplate,
       },
       description: {
         story:
-          ' There are 4 options to customize the position of the LuiBadge. However to use the <b>position</b> prop, you must provide a surrounding to the badge. You can do this by putting a container element inside the badge. Note that the container element here is a LuiAvatar.'
-      }
-    }
-  }
+          ' There are 4 options to customize the position of the LuiBadge. However to use the <b>position</b> prop, you must provide a surrounding to the badge. You can do this by putting a container element inside the badge. Note that the container element here is a LuiAvatar.',
+      },
+    },
+  },
 }

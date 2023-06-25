@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: 'LuiTabGroup'
+  name: 'LuiTabGroup',
 }
 </script>
 
@@ -12,8 +12,8 @@ import type { TabContext } from './types'
 const props = defineProps({
   selectedIndex: {
     type: Number,
-    default: -1 // left,center,right
-  }
+    default: -1, // left,center,right
+  },
 })
 
 const emit = defineEmits(['change'])
@@ -21,7 +21,7 @@ const emit = defineEmits(['change'])
 const context: TabContext = reactive({
   selectedIndex: 0,
   tabs: [],
-  panels: []
+  panels: [],
 })
 watch(
   () => props.selectedIndex,
@@ -33,21 +33,21 @@ watch(
     }
     // check item disable
     if (
-      context.tabs[newValue]?.disabled !== undefined &&
-      context.tabs[newValue].disabled === true
+      context.tabs[newValue]?.disabled !== undefined
+      && context.tabs[newValue].disabled === true
     ) {
       // console.log("the provided selectedIndex is disabled");
       return
     }
     setSelectedIndex(newValue)
-  }
+  },
 )
 
 function registerTab(tab: any) {
   context.tabs.push(tab.value?.el)
 }
 function unRegisterTab(tab: any) {
-  const tabIndex = context.tabs.findIndex((t) => t.id === tab.id)
+  const tabIndex = context.tabs.findIndex(t => t.id === tab.id)
   context.tabs.splice(tabIndex, 1)
 }
 function registerPanel(panel: any) {
@@ -55,7 +55,7 @@ function registerPanel(panel: any) {
 }
 
 function unRegisterPanel(panel: any) {
-  const panelIndex = context.panels.findIndex((p) => p.id === panel.id)
+  const panelIndex = context.panels.findIndex(p => p.id === panel.id)
   context.panels.splice(panelIndex, 1)
 }
 function setSelectedIndex(index: number) {
@@ -73,7 +73,7 @@ provide(ContextKey, {
   unRegisterTab,
   registerPanel,
   unRegisterPanel,
-  setSelectedIndex
+  setSelectedIndex,
 })
 </script>
 

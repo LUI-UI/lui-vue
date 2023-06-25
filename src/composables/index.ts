@@ -4,7 +4,7 @@ import type {
   BackgroundsInterface,
   BordersInterface,
   SpacingInterface,
-  TypographyInterface
+  TypographyInterface,
 } from '@/globals/interfaces'
 import type { Border, Color, Filter, State, Variant } from '@/globals/types'
 
@@ -25,9 +25,9 @@ export function useGlobalColorClasses(props: PropTypes) {
           ? {
               [`bg-${props.color.value}-500`]: props.filter.value === 'none', // filter none
               [`bg-${props.color.value}-100`]: props.filter.value === 'lighten', // filter lighten
-              [`bg-${props.color.value}-800`]: props.filter.value === 'darken' // filter darken
+              [`bg-${props.color.value}-800`]: props.filter.value === 'darken', // filter darken
             }
-          : null
+          : null,
     }
     return Object.values({ ...classes })
   })
@@ -38,13 +38,13 @@ export function useGlobalColorClasses(props: PropTypes) {
           ? {
               'text-white': props.filter.value === 'none', // filter none
               [`text-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
-              [`text-${props.color.value}-100`]: props.filter.value === 'darken' // filter darken
+              [`text-${props.color.value}-100`]: props.filter.value === 'darken', // filter darken
             }
           : {
               [`text-${props.color.value}-500`]: props.filter.value === 'none', // filter none
               [`text-${props.color.value}-100`]: props.filter.value === 'lighten', // filter lighten
-              [`text-${props.color.value}-800`]: props.filter.value === 'darken' // filter darken
-            }
+              [`text-${props.color.value}-800`]: props.filter.value === 'darken', // filter darken
+            },
     }
     return Object.values({ ...classes })
   })
@@ -55,22 +55,22 @@ export function useGlobalColorClasses(props: PropTypes) {
           ? {
               [`border-${props.color.value}-500`]: props.filter.value === 'none', // filter none
               [`border-${props.color.value}-100`]: props.filter.value === 'lighten', // filter lighten
-              [`border-${props.color.value}-800`]: props.filter.value === 'darken' // filter darken
+              [`border-${props.color.value}-800`]: props.filter.value === 'darken', // filter darken
             }
           : props.border !== undefined && props.border.value
-          ? {
-              'border-white': props.filter.value === 'none', // filter none
-              [`border-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
-              [`border-${props.color.value}-100`]: props.filter.value === 'darken' // filter darken
-            }
-          : 'border-transparent'
+            ? {
+                'border-white': props.filter.value === 'none', // filter none
+                [`border-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
+                [`border-${props.color.value}-100`]: props.filter.value === 'darken', // filter darken
+              }
+            : 'border-transparent',
     }
     return Object.values({ ...classes })
   })
   return {
     backgroundColorClasses: computedBackgroundColorClasses,
     textColorClasses: computedTextColorClasses,
-    borderColorClasses: computedBorderColorClasses
+    borderColorClasses: computedBorderColorClasses,
   }
 }
 
@@ -83,7 +83,7 @@ export function useGlobalHiddenInputClasses() {
     borderWidth: 'border-0',
     opacity: 'opacity-0',
     zIndex: 'z-10',
-    peer: 'peer'
+    peer: 'peer',
   }
   // return { classes }
 }
@@ -101,8 +101,8 @@ export function useGlobalDescriptionClasses(props: DescriptionPropTypes, attrs: 
               'text-secondary-600 dark:text-secondary-400': props.state.value === null,
               'text-warning-500': props.state.value === 'warning',
               'text-danger-500': props.state.value === false,
-              'text-success-500': props.state.value === true
-            }
+              'text-success-500': props.state.value === true,
+            },
     }
     return Object.values({ ...classes })
   })
@@ -116,7 +116,8 @@ export function useGlobalCheckbox(props: any, attrs: any) {
       return e.target.checked
     if (e.target.checked) {
       modelValueAsArray.value.push(e.target.value)
-    } else {
+    }
+    else {
       const index = modelValueAsArray.value.indexOf(e.target.value)
       modelValueAsArray.value.splice(index, 1)
     }
@@ -129,8 +130,8 @@ export function useGlobalCheckbox(props: any, attrs: any) {
         ? attrs.checked
         : false
       : typeof props.modelValue === 'boolean'
-      ? props.modelValue
-      : modelValueAsArray.value.includes(props.value)
+        ? props.modelValue
+        : modelValueAsArray.value.includes(props.value)
   })
   return { handleVModel, isInputChecked }
 }

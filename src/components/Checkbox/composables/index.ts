@@ -31,15 +31,15 @@ export function useCheckboxClasses(props: PropTypes) {
         'w-5': props.size.value === 'sm',
         'w-6': props.size.value === 'md',
         'w-7': props.size.value === 'lg',
-        'w-8': props.size.value === 'xl'
+        'w-8': props.size.value === 'xl',
       },
       height: {
         'h-4': props.size.value === 'xs',
         'h-5': props.size.value === 'sm',
         'h-6': props.size.value === 'md',
         'h-7': props.size.value === 'lg',
-        'h-8': props.size.value === 'xl'
-      }
+        'h-8': props.size.value === 'xl',
+      },
     }
     return Object.values({ ...classes })
   })
@@ -54,18 +54,18 @@ export function useCheckboxClasses(props: PropTypes) {
         'w-5': props.size.value === 'sm',
         'w-6': props.size.value === 'md',
         'w-7': props.size.value === 'lg',
-        'w-8': props.size.value === 'xl'
+        'w-8': props.size.value === 'xl',
       },
       height: {
         'h-4': props.size.value === 'xs',
         'h-5': props.size.value === 'sm',
         'h-6': props.size.value === 'md',
         'h-7': props.size.value === 'lg',
-        'h-8': props.size.value === 'xl'
+        'h-8': props.size.value === 'xl',
       },
       borderRadius: {
-        rounded: props.rounded.value === true,
-        'rounded-full': props.rounded.value === 'full'
+        'rounded': props.rounded.value === true,
+        'rounded-full': props.rounded.value === 'full',
       },
       backgroundColor:
         'bg-secondary-50 dark:bg-secondary-900 peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200',
@@ -76,9 +76,9 @@ export function useCheckboxClasses(props: PropTypes) {
         'peer-focus-visible:ring-primary-500/40': props.state.value === null,
         'peer-focus-visible:ring-warning-500/40': props.state.value === 'warning',
         'peer-focus-visible:ring-danger-500/40': props.state.value === false,
-        'peer-focus-visible:ring-success-500/40': props.state.value === true
+        'peer-focus-visible:ring-success-500/40': props.state.value === true,
       },
-      transitionProperty: 'transition-colors'
+      transitionProperty: 'transition-colors',
     }
     return Object.values({ ...classes })
   })
@@ -92,7 +92,7 @@ export function useCheckboxClasses(props: PropTypes) {
       bottom: 'bottom-0',
       margin: 'm-auto',
       display: 'hidden peer-checked:block',
-      textColor: 'text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600'
+      textColor: 'text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600',
     }
     return Object.values({ ...classes })
   })

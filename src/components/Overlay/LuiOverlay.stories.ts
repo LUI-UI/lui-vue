@@ -8,7 +8,7 @@ import LuiOverlay from './LuiOverlay.vue'
 const descriptions = {
   docs: {
     component:
-      'LuiOverlay allows users to create overlays with various customizable properties such as visibility, positioning, color, opacity, blur, and rounded corners.'
+      'LuiOverlay allows users to create overlays with various customizable properties such as visibility, positioning, color, opacity, blur, and rounded corners.',
   },
   argTypes: {
     rounded: 'Used to control the rounding of the corners of the component',
@@ -19,8 +19,8 @@ const descriptions = {
     disableBlur: 'Used to disable the blurring effect',
     noCenter: 'Used to control the centering of the LuiOverlay',
     overlay: 'Provides custom content that will be displayed within the LuiOverlay component.',
-    default: 'Used as default to add a text in the component'
-  }
+    default: 'Used as default to add a text in the component',
+  },
 }
 
 const meta: Meta<typeof LuiOverlay> = {
@@ -31,58 +31,58 @@ const meta: Meta<typeof LuiOverlay> = {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl', 'none'],
       default: 'none',
-      description: descriptions.argTypes.rounded
+      description: descriptions.argTypes.rounded,
     },
     noCenter: {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.noCenter
+      description: descriptions.argTypes.noCenter,
     },
     show: {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.show
+      description: descriptions.argTypes.show,
     },
     overlay: {
-      description: descriptions.argTypes.overlay
+      description: descriptions.argTypes.overlay,
     },
     default: {
-      description: descriptions.argTypes.default
+      description: descriptions.argTypes.default,
     },
     fixed: {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.fixed
+      description: descriptions.argTypes.fixed,
     },
     color,
     opacity: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       default: 'md',
-      description: descriptions.argTypes.opacity
+      description: descriptions.argTypes.opacity,
     },
     blur: {
       control: 'select',
       options: ['xs', 'sm', 'md', 'lg', 'xl'],
       default: 'xs',
-      description: descriptions.argTypes.blur
+      description: descriptions.argTypes.blur,
     },
     disableBlur: {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.disableBlur
-    }
+      description: descriptions.argTypes.disableBlur,
+    },
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 type Story = StoryObj<typeof LuiOverlay>
@@ -107,26 +107,26 @@ const defaultTemplate = `
   </template>
 </lui-overlay>`
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       const buttonOverlay = ref(false)
       return { args, buttonOverlay, showOverlay }
     },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'When you click the button, a default LuiOverlay is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiOverlay. By binding it to a Boolean variable, such as "showOverlay," you can determine whether the overlay should be displayed or hidden. The component emits a <b>close</b> event when the overlay is clicked or the `Esc` key is pressed.'
-      }
-    }
-  }
+          'When you click the button, a default LuiOverlay is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiOverlay. By binding it to a Boolean variable, such as "showOverlay," you can determine whether the overlay should be displayed or hidden. The component emits a <b>close</b> event when the overlay is clicked or the `Esc` key is pressed.',
+      },
+    },
+  },
 }
 
 const fixedTemplate = `
@@ -148,25 +148,25 @@ const fixedTemplate = `
 </lui-overlay>
 `
 export const Fixed: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       return { args, showOverlay }
     },
-    template: fixedTemplate
+    template: fixedTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: fixedTemplate
+        code: fixedTemplate,
       },
       description: {
         story:
-          "The <b>fixed</b> prop is used to display the overlay in a fixed position on the screen, meaning it will stay in place even if the user scrolls the page. This can be useful when you want the overlay to remain visible regardless of the user's scroll position."
-      }
-    }
-  }
+          'The <b>fixed</b> prop is used to display the overlay in a fixed position on the screen, meaning it will stay in place even if the user scrolls the page. This can be useful when you want the overlay to remain visible regardless of the user\'s scroll position.',
+      },
+    },
+  },
 }
 
 const colorTemplate = `
@@ -282,26 +282,26 @@ const colorTemplate = `
 </div>
 `
 export const Color: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       const buttonOverlay = ref(false)
       return { args, buttonOverlay, showOverlay }
     },
-    template: colorTemplate
+    template: colorTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: colorTemplate
+        code: colorTemplate,
       },
       description: {
         story:
-          "The <b>color</b> prop is used to to define the color scheme for the LuiOverlay. It's applied to various elements within the component, such as the background color, border color, and button color. It helps create visual contrast and differentiation between different overlays."
-      }
-    }
-  }
+          'The <b>color</b> prop is used to to define the color scheme for the LuiOverlay. It\'s applied to various elements within the component, such as the background color, border color, and button color. It helps create visual contrast and differentiation between different overlays.',
+      },
+    },
+  },
 }
 
 const opacityTemplate = `
@@ -399,26 +399,26 @@ const opacityTemplate = `
 </div>
 `
 export const Opacity: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       const buttonOverlay = ref(false)
       return { args, buttonOverlay, showOverlay }
     },
-    template: opacityTemplate
+    template: opacityTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: opacityTemplate
+        code: opacityTemplate,
       },
       description: {
         story:
-          'The <b>opacity</b> prop is used to control the transparency level of the LuiOverlay, allowing underlying content or background to show through.'
-      }
-    }
-  }
+          'The <b>opacity</b> prop is used to control the transparency level of the LuiOverlay, allowing underlying content or background to show through.',
+      },
+    },
+  },
 }
 
 const blurTemplate = `
@@ -480,26 +480,26 @@ const blurTemplate = `
 </div>
 `
 export const Blur: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       const buttonOverlay = ref(false)
       return { args, buttonOverlay, showOverlay }
     },
-    template: blurTemplate
+    template: blurTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: blurTemplate
+        code: blurTemplate,
       },
       description: {
         story:
-          'The <b>blur</b> prop is used to apply a blur effect to the LuiOverlay and it adds depth and dimension to the overlay, allowing the underlying content to be visible but with a blurred appearance.'
-      }
-    }
-  }
+          'The <b>blur</b> prop is used to apply a blur effect to the LuiOverlay and it adds depth and dimension to the overlay, allowing the underlying content to be visible but with a blurred appearance.',
+      },
+    },
+  },
 }
 
 const disableBlurTemplate = `
@@ -543,24 +543,24 @@ const disableBlurTemplate = `
 </div>
 `
 export const DisableBlur: Story = {
-  render: (args) => ({
+  render: args => ({
     components: { LuiOverlay, LuiSelect, LuiInput },
     setup() {
       const showOverlay = ref(false)
       const buttonOverlay = ref(false)
       return { args, buttonOverlay, showOverlay }
     },
-    template: disableBlurTemplate
+    template: disableBlurTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: disableBlurTemplate
+        code: disableBlurTemplate,
       },
       description: {
         story:
-          'The <b>disableBlur</b> prop is used to disable the blurring effect applied to the background content when an overlay is displayed.'
-      }
-    }
-  }
+          'The <b>disableBlur</b> prop is used to disable the blurring effect applied to the background content when an overlay is displayed.',
+      },
+    },
+  },
 }

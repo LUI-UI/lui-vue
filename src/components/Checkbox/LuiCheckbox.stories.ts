@@ -6,11 +6,11 @@ import LuiCheckbox from './LuiCheckbox.vue'
 const descriptions = {
   docs: {
     component:
-      'LuiCheckbox allows users to select or deselect a specific option from a set of choices by clicking or tapping on the checkbox, providing a binary selection state.'
+      'LuiCheckbox allows users to select or deselect a specific option from a set of choices by clicking or tapping on the checkbox, providing a binary selection state.',
   },
   argTypes: {
-    indeterminate: 'Used to symbolize a “partially” checked state.'
-  }
+    indeterminate: 'Used to symbolize a “partially” checked state.',
+  },
 }
 
 const meta: Meta<typeof LuiCheckbox> = {
@@ -25,15 +25,15 @@ const meta: Meta<typeof LuiCheckbox> = {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.indeterminate
-    }
+      description: descriptions.argTypes.indeterminate,
+    },
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 type Story = StoryObj<typeof LuiCheckbox>
@@ -42,18 +42,18 @@ const defaultTemplate = '<lui-checkbox />'
 export const Default: Story = {
   render: () => ({
     components: { LuiCheckbox },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
-        story: 'This is how a default LuiCheckbox looks.'
-      }
-    }
-  }
+        story: 'This is how a default LuiCheckbox looks.',
+      },
+    },
+  },
 }
 
 const checkedTemplate = `
@@ -63,18 +63,18 @@ const checkedTemplate = `
 export const Checked: Story = {
   render: () => ({
     components: { LuiCheckbox },
-    template: `<div class="space-x-4">${checkedTemplate}</div>`
+    template: `<div class="space-x-4">${checkedTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: checkedTemplate
+        code: checkedTemplate,
       },
       description: {
-        story: 'The <b>checked</b> prop determines if the LuiCheckbox is checked or not.'
-      }
-    }
-  }
+        story: 'The <b>checked</b> prop determines if the LuiCheckbox is checked or not.',
+      },
+    },
+  },
 }
 
 const disabledTemplate = `
@@ -84,19 +84,19 @@ const disabledTemplate = `
 export const Disabled: Story = {
   render: () => ({
     components: { LuiCheckbox },
-    template: `<div class="space-x-4">${disabledTemplate}</div>`
+    template: `<div class="space-x-4">${disabledTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: disabledTemplate
+        code: disabledTemplate,
       },
       description: {
         story:
-          'The <b>disabled</b> prop is used to disable a specific LuiCheckbox, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.'
-      }
-    }
-  }
+          'The <b>disabled</b> prop is used to disable a specific LuiCheckbox, making it non-interactable and visually indicating that it is currently inactive or unavailable for selection.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -115,19 +115,19 @@ export const Size: Story = {
   render: () => ({
     components: { LuiCheckbox },
     args: { size },
-    template: `<div class="w-1/2 grid grid-cols-5 gap-x-2 gap-y-4 items-end justify-start">${sizeTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-5 gap-x-2 gap-y-4 items-end justify-start">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiCheckbox provides five options to control the size of the checkbox. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the checkbox."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiCheckbox provides five options to control the size of the checkbox. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the checkbox.',
+      },
+    },
+  },
 }
 
 const roundedTemplate = `
@@ -142,18 +142,18 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiCheckbox },
     args: { rounded },
-    template: `<div class="w-1/3 grid grid-cols-3 gap-y-4">${roundedTemplate}</div>`
+    template: `<div class="w-1/3 grid grid-cols-3 gap-y-4">${roundedTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: roundedTemplate
+        code: roundedTemplate,
       },
       description: {
-        story: 'There are 3 options to round the corners of a LuiCheckbox.'
-      }
-    }
-  }
+        story: 'There are 3 options to round the corners of a LuiCheckbox.',
+      },
+    },
+  },
 }
 
 const descriptionTemplate = '<lui-checkbox description="This is a description." checked />'
@@ -161,19 +161,19 @@ export const Description: Story = {
   render: () => ({
     components: { LuiCheckbox },
     args: { description },
-    template: descriptionTemplate
+    template: descriptionTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: descriptionTemplate
+        code: descriptionTemplate,
       },
       description: {
         story:
-          'The <b>description</b> prop is used to add a description to a LuiCheckbox, typically used for validation and error handling.'
-      }
-    }
-  }
+          'The <b>description</b> prop is used to add a description to a LuiCheckbox, typically used for validation and error handling.',
+      },
+    },
+  },
 }
 
 const stateTemplate = `
@@ -186,43 +186,43 @@ export const State: Story = {
   render: () => ({
     components: { LuiCheckbox },
     args: { state },
-    template: `<div class="grid grid-cols-4">${stateTemplate}</div>`
+    template: `<div class="grid grid-cols-4">${stateTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: stateTemplate
+        code: stateTemplate,
       },
       description: {
         story:
-          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiCheckbox. When used with the <b>description</b> prop they also change the color of the description.'
-      }
-    }
-  }
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiCheckbox. When used with the <b>description</b> prop they also change the color of the description.',
+      },
+    },
+  },
 }
 
 const indeterminateTemplate = '<lui-checkbox indeterminate checked />'
 export const Indeterminate: Story = {
   render: () => ({
     components: { LuiCheckbox },
-    template: indeterminateTemplate
+    template: indeterminateTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: indeterminateTemplate
+        code: indeterminateTemplate,
       },
       description: {
         story:
-          'There is also the <b>indeterminate</b> prop, often used to symbolize a “partially” checked checkbox.'
-      }
-    }
-  }
+          'There is also the <b>indeterminate</b> prop, often used to symbolize a “partially” checked checkbox.',
+      },
+    },
+  },
 }
 
 const toggleCheckTemplate = '<lui-checkbox v-model="booleanCheck" />'
-const customValueTemplate =
-  '<lui-checkbox v-model="customValue" true-value="yes" false-value="no" />'
+const customValueTemplate
+  = '<lui-checkbox v-model="customValue" true-value="yes" false-value="no" />'
 export const ToggleCheckbox: Story = {
   render: () => ({
     components: { LuiCheckbox },
@@ -241,21 +241,21 @@ export const ToggleCheckbox: Story = {
         <div>${customValueTemplate}</div>
         <span>{{ customValue }}</span>
       </div>
-    </div>`
+    </div>`,
   }),
   parameters: {
     docs: {
       source: {
         code: `
 ${toggleCheckTemplate}
-${customValueTemplate}`
+${customValueTemplate}`,
       },
       description: {
         story:
-          "Here are two examples for a toggle checkbox. In the first one, the `booleanCheck` property's value will be true or false, according to the checked state of the LuiCheckbox. In the second example, the Vue-specific attributes <b>true-value</b> and <b>false-value</b> allow you to specify custom values for the `customValue` property based on the checked state.  When the checkbox is checked, the `customValue` property will be set to 'yes', and when it's unchecked, it will be set to 'no'."
-      }
-    }
-  }
+          'Here are two examples for a toggle checkbox. In the first one, the `booleanCheck` property\'s value will be true or false, according to the checked state of the LuiCheckbox. In the second example, the Vue-specific attributes <b>true-value</b> and <b>false-value</b> allow you to specify custom values for the `customValue` property based on the checked state.  When the checkbox is checked, the `customValue` property will be set to \'yes\', and when it\'s unchecked, it will be set to \'no\'.',
+      },
+    },
+  },
 }
 
 const multipleCheckTemplate = `
@@ -274,16 +274,16 @@ export const MultipleCheckboxes: Story = {
   <div class="flex flex-col space-y-4">
     <h1>checkedNames: {{ checkedNames }}</h1>
     <div class="flex space-x-4">${multipleCheckTemplate}</div>
-  </div>`
+  </div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: `{{ checkedNames }}${multipleCheckTemplate}`
+        code: `{{ checkedNames }}${multipleCheckTemplate}`,
       },
       description: {
-        story: 'Multiple checkboxes for selecting names. You can select as many names as you want.'
-      }
-    }
-  }
+        story: 'Multiple checkboxes for selecting names. You can select as many names as you want.',
+      },
+    },
+  },
 }

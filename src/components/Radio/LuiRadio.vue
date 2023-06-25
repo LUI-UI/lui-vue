@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiRadio',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -17,7 +17,7 @@ import type { Description, Size, State } from '@/globals/types'
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   // rounded: {
   //   type: [Boolean, String] as PropType<Rounded>,
@@ -25,20 +25,20 @@ const props = defineProps({
   // },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null
+    default: null,
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null
+    default: null,
   },
   value: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
     type: String as PropType<String>,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 // const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
@@ -63,7 +63,7 @@ function handleChange(e: any) {
         :value="value"
         v-bind="$attrs"
         @change="handleChange"
-      />
+      >
       <span :class="spanClasses" />
     </div>
     <p v-if="description" :class="descriptionClasses">

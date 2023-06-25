@@ -7,7 +7,7 @@ import LuiOption from './LuiOption.vue'
 const descriptions = {
   docs: {
     component:
-      'LuiOption represents an individual choice within the LuiSelect, providing a selectable item with a text and value.'
+      'LuiOption represents an individual choice within the LuiSelect, providing a selectable item with a text and value.',
   },
   argTypes: {
     selected: 'Used to control the initial option selection',
@@ -15,8 +15,8 @@ const descriptions = {
     value: 'Used to give a value to the LuiOption',
     text: 'Used to give a text to the LuiOption',
     prepend: 'Used to place an icon to the left side of the component',
-    append: 'Used to place an icon to the right side of the component'
-  }
+    append: 'Used to place an icon to the right side of the component',
+  },
 }
 
 const meta: Meta<typeof LuiOption> = {
@@ -27,11 +27,11 @@ const meta: Meta<typeof LuiOption> = {
     size,
     value: {
       control: 'text',
-      description: descriptions.argTypes.value
+      description: descriptions.argTypes.value,
     },
     text: {
       control: 'text',
-      description: descriptions.argTypes.text
+      description: descriptions.argTypes.text,
     },
     append: { description: descriptions.argTypes.append },
     prepend: { description: descriptions.argTypes.prepend },
@@ -39,21 +39,21 @@ const meta: Meta<typeof LuiOption> = {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.selected
+      description: descriptions.argTypes.selected,
     },
     disabled: {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.disabled
-    }
+      description: descriptions.argTypes.disabled,
+    },
   },
   decorators: [() => ({ template: '<div class="pb-36 space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 
@@ -68,19 +68,19 @@ const defaultTemplate = `
 export const Default: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'Here there are two LuiOption components within the LuiSelect component. Note that to provide the options, you must pass the <b>text</b> and <b>value</b> props to the LuiOption as in the code snippet below.'
-      }
-    }
-  }
+          'Here there are two LuiOption components within the LuiSelect component. Note that to provide the options, you must pass the <b>text</b> and <b>value</b> props to the LuiOption as in the code snippet below.',
+      },
+    },
+  },
 }
 
 const roundedTemplate = `
@@ -101,19 +101,19 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
     args: { rounded },
-    template: `<div class="flex space-x-8">${roundedTemplate}</div>`
+    template: `<div class="flex space-x-8">${roundedTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: roundedTemplate
+        code: roundedTemplate,
       },
       description: {
         story:
-          'The <b>rounded</b> prop is used to round the corners of a LuiOption on mouse-over state.'
-      }
-    }
-  }
+          'The <b>rounded</b> prop is used to round the corners of a LuiOption on mouse-over state.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -142,19 +142,19 @@ export const Size: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
     args: { size },
-    template: `<div class="flex justify-between space-x-1">${sizeTemplate}</div>`
+    template: `<div class="flex justify-between space-x-1">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiOption provides five options to control the padding of the option on mouse-over state. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired padding for the option."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiOption provides five options to control the padding of the option on mouse-over state. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired padding for the option.',
+      },
+    },
+  },
 }
 
 const disabledTemplate = `
@@ -166,18 +166,18 @@ const disabledTemplate = `
 export const Disabled: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    template: disabledTemplate
+    template: disabledTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: disabledTemplate
+        code: disabledTemplate,
       },
       description: {
-        story: 'The <b>disabled</b> prop is used to disable a LuiOption.'
-      }
-    }
-  }
+        story: 'The <b>disabled</b> prop is used to disable a LuiOption.',
+      },
+    },
+  },
 }
 
 const selectedTemplate = `
@@ -189,19 +189,19 @@ const selectedTemplate = `
 export const Selected: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    template: selectedTemplate
+    template: selectedTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: selectedTemplate
+        code: selectedTemplate,
       },
       description: {
         story:
-          'The <b>selected</b> prop is used to set a LuiOption as selected initially. Note that if this prop is not passed, the LuiSelect placeholder or the first option will be shown as default.'
-      }
-    }
-  }
+          'The <b>selected</b> prop is used to set a LuiOption as selected initially. Note that if this prop is not passed, the LuiSelect placeholder or the first option will be shown as default.',
+      },
+    },
+  },
 }
 
 const prependTemplate = `
@@ -221,19 +221,19 @@ const prependTemplate = `
 export const PrependSlot: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    template: prependTemplate
+    template: prependTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: prependTemplate
+        code: prependTemplate,
       },
       description: {
         story:
-          'The <b>prepend</b> slot is used to place an icon to the left side of the LuiOption, before the text.'
-      }
-    }
-  }
+          'The <b>prepend</b> slot is used to place an icon to the left side of the LuiOption, before the text.',
+      },
+    },
+  },
 }
 
 const appendTemplate = `
@@ -253,19 +253,19 @@ const appendTemplate = `
 export const AppendSlot: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
-    template: appendTemplate
+    template: appendTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: appendTemplate
+        code: appendTemplate,
       },
       description: {
         story:
-          'The <b>append</b> slot is used to place an icon to the right side of the LuiOption, after the text.'
-      }
-    }
-  }
+          'The <b>append</b> slot is used to place an icon to the right side of the LuiOption, after the text.',
+      },
+    },
+  },
 }
 
 const modelTemplate = `
@@ -281,17 +281,17 @@ export const Model: Story = {
       const selectedName = ref('')
       return { selectedName }
     },
-    template: `<div class="flex-col space-y-4"><span>selectedName: {{ selectedName }}</span>${modelTemplate}</div>`
+    template: `<div class="flex-col space-y-4"><span>selectedName: {{ selectedName }}</span>${modelTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: `{{ selectedName }}${modelTemplate}`
+        code: `{{ selectedName }}${modelTemplate}`,
       },
       description: {
         story:
-          "The <b>v-model</b> prop in the LuiSelect allows users to easily access the selected option's value by two-way data binding. In this example, it's used to bind the selected option's value to a data property called 'selectedName'. This means that when a user selects an option from the menu, the 'selectedName' property will be updated with the value of the selected option."
-      }
-    }
-  }
+          'The <b>v-model</b> prop in the LuiSelect allows users to easily access the selected option\'s value by two-way data binding. In this example, it\'s used to bind the selected option\'s value to a data property called \'selectedName\'. This means that when a user selects an option from the menu, the \'selectedName\' property will be updated with the value of the selected option.',
+      },
+    },
+  },
 }

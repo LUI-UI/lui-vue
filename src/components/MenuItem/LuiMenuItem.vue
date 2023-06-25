@@ -8,7 +8,7 @@ import type {
   FlexGridInterface,
   LayoutInterface,
   TwClassInterface,
-  TypographyInterface
+  TypographyInterface,
 } from '@/globals/interfaces'
 
 const props = defineProps({
@@ -18,24 +18,24 @@ const props = defineProps({
   // },
   block: {
     type: Boolean as PropType<Block>,
-    default: true
+    default: true,
   },
   tag: {
     type: String as PropType<MenuItemTag>,
-    default: 'button'
+    default: 'button',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'secondary'
+    default: 'secondary',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
-  }
+    default: false,
+  },
 })
 const slots = useSlots()
 const menuItemRef = ref<HTMLElement>()
@@ -54,18 +54,18 @@ const computedMenuItemClasses = computed(() => {
       'text-sm': props.size === 'sm',
       'text-base': props.size === 'md',
       'text-lg': props.size === 'lg',
-      'text-xl': props.size === 'xl'
+      'text-xl': props.size === 'xl',
     },
     padding: {
       'py-1 px-1.5': props.size === 'xs',
       'py-1.5 px-2': props.size === 'sm',
       'py-2 px-2.5': props.size === 'md',
       'py-2.5 px-2.5': props.size === 'lg',
-      'py-3.5 px-3': props.size === 'xl'
+      'py-3.5 px-3': props.size === 'xl',
     },
     borderRadius: {
       'rounded-md': props.rounded === true,
-      'rounded-full': props.rounded === 'full'
+      'rounded-full': props.rounded === 'full',
     },
     space:
       !!slots.prepend || !!slots.append
@@ -73,15 +73,15 @@ const computedMenuItemClasses = computed(() => {
             'space-x-1.5': props.size === 'xs',
             'space-x-2': props.size === 'sm',
             'space-x-2.5': props.size === 'md' || props.size === 'lg',
-            'space-x-3': props.size === 'xl'
+            'space-x-3': props.size === 'xl',
           }
         : '',
 
     cursor: {
-      'cursor-pointer disabled:cursor-not-allowed': props.tag === 'button'
+      'cursor-pointer disabled:cursor-not-allowed': props.tag === 'button',
     },
     // pointerEvents: props.disabled ? "pointer-events-none" : "",
-    pointerEvents: 'disabled:pointer-events-none'
+    pointerEvents: 'disabled:pointer-events-none',
   }
   return Object.values(menuItemClasses)
 })
@@ -89,7 +89,7 @@ const computedAppendAndPrependClasses = computed(() => {
   const appendAndPrependClasses: FlexGridInterface | LayoutInterface = {
     display: 'flex',
     alignItems: 'items-center',
-    justifyContent: 'justify-center'
+    justifyContent: 'justify-center',
   }
   return Object.values(appendAndPrependClasses)
 })
@@ -97,20 +97,20 @@ const computedDefaultSlotClasses = computed(() => {
   const defaultSlotClasses: FlexGridInterface | LayoutInterface | TypographyInterface = {
     display: 'flex flex-1',
     alignItems: 'items-center',
-    textColor: 'text-inherit'
+    textColor: 'text-inherit',
   }
   return Object.values(defaultSlotClasses)
 })
 const focus = () => menuItemRef.value?.focus()
 defineExpose({
   focus,
-  el: menuItemRef
+  el: menuItemRef,
 })
 </script>
 
 <script lang="ts">
 export default {
-  name: 'LuiDropdownItem'
+  name: 'LuiDropdownItem',
 }
 </script>
 

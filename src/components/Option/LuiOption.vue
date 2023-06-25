@@ -8,7 +8,7 @@ import type { TwClassInterface } from '@/globals/interfaces'
 
 export default {
   name: 'LuiOption',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -16,28 +16,28 @@ export default {
 const props = defineProps({
   selected: {
     type: Boolean,
-    default: false
+    default: false,
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
+    default: false,
   },
   value: {
     type: [String, Number],
-    default: ''
+    default: '',
   },
   text: {
     type: String,
-    default: ''
-  }
+    default: '',
+  },
 })
 
 // const { selectedOption, updateSelectedOption, focusButton } =
@@ -53,7 +53,7 @@ nextTick(() => {
     context?.updateSelectedOption({
       value: props.value,
       text: props.text,
-      selected: props.selected
+      selected: props.selected,
     })
   }
 })
@@ -64,9 +64,9 @@ watch(
     context?.updateSelectedOption({
       value: props.value,
       text: props.text,
-      selected: value
+      selected: value,
     })
-  }
+  },
 )
 
 function handleOptionClick(e: any) {
@@ -74,13 +74,14 @@ function handleOptionClick(e: any) {
   context?.updateSelectedOption({
     value: props.value,
     text: props.text,
-    selected: props.selected
+    selected: props.selected,
   })
   nextTick(() => context?.focusButton())
 }
 
 const isSelected = computed(() => {
-  if (context?.selectedOption.value === undefined) return props.selected
+  if (context?.selectedOption.value === undefined)
+    return props.selected
   return typeof context?.selectedOption.value === 'string'
     ? props.text === context?.selectedOption.value
     : props.text === context?.selectedOption.value.text
@@ -92,45 +93,45 @@ const optionClasses = computed(() => {
     backgroundColor: props.disabled
       ? ''
       : isSelected.value === true
-      ? 'bg-primary-500 hover:text-primary-600 focus-visible:text-primary-600'
-      : isHovered.value
-      ? 'bg-primary-500/20'
-      : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20',
+        ? 'bg-primary-500 hover:text-primary-600 focus-visible:text-primary-600'
+        : isHovered.value
+          ? 'bg-primary-500/20'
+          : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20',
     padding: {
       'py-1 px-1.5': props.size === 'xs',
       'py-1.5 px-2': props.size === 'sm',
       'py-2 px-2.5': props.size === 'md',
       'py-2.5 px-2.5': props.size === 'lg',
-      'py-3.5 px-3': props.size === 'xl'
+      'py-3.5 px-3': props.size === 'xl',
     },
     fontSize: {
       'text-xs': props.size === 'xs',
       'text-sm': props.size === 'sm',
       'text-base': props.size === 'md',
       'text-lg': props.size === 'lg',
-      'text-xl': props.size === 'xl'
+      'text-xl': props.size === 'xl',
     },
     textColor: props.disabled
       ? 'text-secondary-300 dark:text-secondary-700'
       : isSelected.value === true
-      ? 'text-white'
-      : isHovered.value
-      ? 'text-primary-500'
-      : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus-visible:text-primary-500',
+        ? 'text-white'
+        : isHovered.value
+          ? 'text-primary-500'
+          : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus-visible:text-primary-500',
     outlineWidth: 'outline-none',
     borderRadius: {
       'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full'
+      'rounded-2xl': props.rounded === 'full',
     },
     display: slots.prepend || slots.append ? 'flex' : '',
     alignItems: slots.prepend || slots.append ? 'items-center' : '',
     cursor: props.disabled ? 'cursor-not-allowed' : 'cursor-pointer',
-    pointerEvents: props.disabled ? 'pointer-events-none' : ''
+    pointerEvents: props.disabled ? 'pointer-events-none' : '',
   }
   return Object.values({ ...classes })
 })
 defineExpose({
-  el: optionRef
+  el: optionRef,
 })
 </script>
 

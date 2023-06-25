@@ -19,7 +19,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, './src/components/main.ts'),
       name: 'LuiVue',
       formats: ['es', 'cjs', 'umd'],
-      fileName: (format) => `lui-vue.${format}.js`
+      fileName: format => `lui-vue.${format}.js`,
     },
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
@@ -29,9 +29,9 @@ export default defineConfig({
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          vue: 'Vue'
-        }
-      }
-    }
-  }
+          vue: 'Vue',
+        },
+      },
+    },
+  },
 })

@@ -4,7 +4,7 @@ function asArray(arg: any) {
   return Array.isArray(arg) ? arg : arg != null ? [arg] : []
 }
 function isVNodeEmpty(vnode: any) {
-  return !vnode || asArray(vnode).every((vnode) => vnode.type === Comment)
+  return !vnode || asArray(vnode).every(vnode => vnode.type === Comment)
 }
 function isSlotEmpty(slot: any, props = {}) {
   return isVNodeEmpty(slot?.(props))

@@ -1,6 +1,6 @@
 <script lang="ts">
 export default {
-  name: 'LuiTabButton'
+  name: 'LuiTabButton',
 }
 </script>
 
@@ -15,20 +15,20 @@ import type { Size } from '@/globals/types'
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   disabled: {
     type: Boolean as PropType<boolean>,
-    default: false
+    default: false,
   },
   stretch: {
     type: Boolean as PropType<boolean>,
-    default: false
+    default: false,
   },
   id: {
     type: String as PropType<string>,
-    default: () => `lui-tab-button-${useId()}`
-  }
+    default: () => `lui-tab-button-${useId()}`,
+  },
 })
 // const tabButtonId = `lui-tab-button-${useId()}`;
 // const modal = ref<InstanceType<typeof LuiMenuItem> | null>(null)
@@ -49,21 +49,23 @@ const isSelected = computed(() => {
 function handleMouseUp() {
   // we do not use click because click event comes after focus,
   // we want to focus tab when click event finish
-  const myIndex = injection?.context.tabs.findIndex((t) => t.id === props.id)
+  const myIndex = injection?.context.tabs.findIndex(t => t.id === props.id)
   injection?.setSelectedIndex(myIndex as number)
 }
 
 function handleKeyEvents(event: KeyboardEvent) {
   const focusableTabs: HTMLButtonElement[] | undefined = injection?.context.tabs.filter(
-    (t) => t.disabled === undefined || t?.disabled === false
+    t => t.disabled === undefined || t?.disabled === false,
   )
   let targetIndex: number = focusableTabs?.findIndex(
-    (f) => f.id === injection?.context.tabs[injection?.context.selectedIndex].id
+    f => f.id === injection?.context.tabs[injection?.context.selectedIndex].id,
   ) as number
   const setTargetIndex = (i: number) => {
     const length = focusableTabs?.length as number
-    if (i === -1) targetIndex = length - 1
-    else if (i > length - 1) targetIndex = 0
+    if (i === -1)
+      targetIndex = length - 1
+    else if (i > length - 1)
+      targetIndex = 0
     else targetIndex = i
   }
   switch (event?.code) {
@@ -89,7 +91,7 @@ function handleKeyEvents(event: KeyboardEvent) {
   if (focusableTabs !== undefined) {
     focusableTabs[targetIndex].focus()
     const targetIndexInTabs = injection?.context.tabs.findIndex(
-      (t) => t.id === focusableTabs[targetIndex].id
+      t => t.id === focusableTabs[targetIndex].id,
     )
     injection?.setSelectedIndex(targetIndexInTabs as number)
   }

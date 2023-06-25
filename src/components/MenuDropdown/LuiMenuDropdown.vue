@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiDropdown',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -43,36 +43,36 @@ type Position =
 const props = defineProps({
   text: {
     type: String as PropType<string>,
-    default: ''
+    default: '',
   },
   menuPosition: {
     type: String as PropType<Position>,
-    default: 'bottomLeft'
+    default: 'bottomLeft',
   },
   variant: {
     type: String as PropType<Variant>,
-    default: 'solid'
+    default: 'solid',
   },
   color: {
     type: String as PropType<Color>,
-    default: 'primary'
+    default: 'primary',
   },
   filter: {
     type: String as PropType<Filter>,
-    default: 'none'
+    default: 'none',
   },
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: false
+    default: false,
   },
   block: {
     type: Boolean as PropType<Block>,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const emit = defineEmits(['onTrigger'])
@@ -88,49 +88,49 @@ const menuId = `lui-dropdown-menu-${useId()}`
 const menuState: MenuStateType = reactive({
   items: [],
   currentIndex: 0,
-  currentId: ''
+  currentId: '',
 })
 const positionClasses = {
   bottomLeft: {
     classes: 'top-full mt-1',
     oppositeClasses: 'bottom-full mb-1 left-0', // bottomRight
-    direction: 'bottom'
+    direction: 'bottom',
   },
   topLeft: {
     classes: 'bottom-full mb-1 left-0',
     oppositeClasses: 'top-full mt-1', // bottomLEft
-    direction: 'top'
+    direction: 'top',
   },
   bottomRight: {
     classes: 'top-full mt-1 right-0',
     oppositeClasses: 'bottom-full mb-1 right-0', // topRight
-    direction: 'bottom'
+    direction: 'bottom',
   },
   topRight: {
     classes: 'bottom-full mb-1 right-0',
     oppositeClasses: 'top-full mt-1 right-0', // bottomRight
-    direction: 'top'
+    direction: 'top',
   },
   leftTop: {
     classes: 'top-0 mr-1 right-full',
     oppositeClasses: 'bottom-0 mr-1 right-full', // leftBottom
-    direction: 'bottom'
+    direction: 'bottom',
   },
   leftBottom: {
     classes: 'bottom-0 mr-1 right-full',
     oppositeClasses: 'top-0 mr-1 right-full', // leftTop
-    direction: 'top'
+    direction: 'top',
   },
   rightTop: {
     classes: 'top-0 ml-1 left-full',
     oppositeClasses: 'bottom-0 ml-1 left-full', // rightBottom
-    direction: 'bottom'
+    direction: 'bottom',
   },
   rightBottom: {
     classes: 'bottom-0 ml-1 left-full',
     oppositeClasses: 'top-0 ml-1 left-full', // rightTop
-    direction: 'top'
-  }
+    direction: 'top',
+  },
 }
 type TargetPositionType = 'bottom' | 'top'
 function setTargetPosition(): TargetPositionType {
@@ -140,7 +140,7 @@ function setTargetPosition(): TargetPositionType {
 const { properPosition } = useProperPosition({
   triggerEl: luiDropdownWrapper,
   MenuEl: luiDropdownMenu,
-  targetPosition: setTargetPosition()
+  targetPosition: setTargetPosition(),
 })
 
 // COMPUTEDS
@@ -163,18 +163,18 @@ const dropdownMenuClasses = computed(() => {
     borderColor: 'border-secondary-200 dark:border-secondary-700',
     borderRadius: {
       'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full'
+      'rounded-2xl': props.rounded === 'full',
     },
     padding: {
       'p-1.5': props.size === 'xs' || props.size === 'sm',
       'p-2': props.size === 'md',
-      'p-2.5': props.size === 'lg' || props.size === 'xl'
+      'p-2.5': props.size === 'lg' || props.size === 'xl',
     },
     boxShadow: 'shadow-lg',
     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
     top: properPosition.value === 'bottom' ? 'top-full' : '',
     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2'
+    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
   }
   return Object.values({ ...optionsWrapper })
 })
@@ -182,7 +182,7 @@ const dropdownWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
     letterSpacing: 'leading-3',
-    width: props.block ? 'w-full' : 'w-fit'
+    width: props.block ? 'w-full' : 'w-fit',
   }
   return Object.values({ ...classes })
 })
@@ -193,7 +193,7 @@ const defaultButtonProps = computed(() => ({
   rounded: props.rounded,
   size: props.size,
   variant: props.variant,
-  filter: props.filter
+  filter: props.filter,
 }))
 
 // METHODS
@@ -213,29 +213,30 @@ function toogleMenu() {
   emit('onTrigger', menuActive.value)
 }
 
-;(function setInitialState() {
-  const slotProps =
-    slots.default &&
-    slots
+(function setInitialState() {
+  const slotProps
+    = slots.default
+    && slots
       .default()
       .map((slot: any) =>
         slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.map((child: any) => child.props)
-          : slot.props
+          : slot.props,
       )
       .flat()
-  if (slotProps && slotProps.length) menuState.items = slotProps
+  if (slotProps && slotProps.length)
+    menuState.items = slotProps
 })()
 
 function handleMenuKeyEvents(event: KeyboardEvent) {
   switch (event.code) {
     case 'ArrowDown':
       event.preventDefault()
-      focusAvailableElement(luiDropdownMenu.value, (i) => i + 1)
+      focusAvailableElement(luiDropdownMenu.value, i => i + 1)
       break
     case 'ArrowUp':
       event.preventDefault()
-      focusAvailableElement(luiDropdownMenu.value, (i) => i - 1)
+      focusAvailableElement(luiDropdownMenu.value, i => i - 1)
       break
     case 'Enter':
       {
@@ -251,13 +252,13 @@ function handleMenuKeyEvents(event: KeyboardEvent) {
       break
     case 'Home':
       event.preventDefault()
-      focusAvailableElement(luiDropdownMenu.value, (i) => i + 1, 0)
+      focusAvailableElement(luiDropdownMenu.value, i => i + 1, 0)
       break
     case 'End':
       event.preventDefault()
       {
         const last = menuState.items.length - 1
-        focusAvailableElement(luiDropdownMenu.value, (i) => i - 1, last)
+        focusAvailableElement(luiDropdownMenu.value, i => i - 1, last)
       }
 
       break
@@ -282,7 +283,7 @@ function handleButtonKeyEvents(event: KeyboardEvent) {
     case 'Space':
       event.preventDefault()
       openMenu()
-      focusAvailableElement(luiDropdownMenu.value, (i) => i + 1, 0)
+      focusAvailableElement(luiDropdownMenu.value, i => i + 1, 0)
       break
     case 'Control':
       // code block
@@ -295,22 +296,25 @@ function handleButtonKeyEvents(event: KeyboardEvent) {
 function focusAvailableElement(
   el: any,
   oparation: (i: number) => number,
-  initial: number | null = null
+  initial: number | null = null,
 ) {
   const isTargetExist = (index: number) => index >= 0 && index <= menuState.items.length - 1
   const isTargetFocusable = (targetIndex: number) =>
-    menuState.items[targetIndex]?.disabled === undefined ||
-    menuState.items[targetIndex]?.disabled === false
+    menuState.items[targetIndex]?.disabled === undefined
+    || menuState.items[targetIndex]?.disabled === false
 
   let targetIndex = menuState.currentIndex
-  if (initial !== null) targetIndex = initial
+  if (initial !== null)
+    targetIndex = initial
   else targetIndex = oparation(targetIndex)
 
-  if (!isTargetExist(targetIndex)) return
+  if (!isTargetExist(targetIndex))
+    return
 
   while (!isTargetFocusable(targetIndex)) {
     targetIndex = oparation(targetIndex)
-    if (!isTargetExist(targetIndex)) return
+    if (!isTargetExist(targetIndex))
+      return
   }
 
   menuState.currentIndex = targetIndex

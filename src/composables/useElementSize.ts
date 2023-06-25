@@ -35,6 +35,6 @@ export function useElementSize(element: Ref<HTMLElement | null>) {
 
   return {
     width,
-    height
+    height,
   }
 }

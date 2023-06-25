@@ -6,7 +6,8 @@ import { onMounted, onUnmounted } from 'vue'
 // }
 export function useOutsideClick(ref: Ref<HTMLElement | undefined>, callback: any) {
   function handleClick(event: Event) {
-    if (event.target instanceof Node && !ref.value?.contains(event?.target)) callback()
+    if (event.target instanceof Node && !ref.value?.contains(event?.target))
+      callback()
   }
 
   onMounted(() => document.addEventListener('click', handleClick))

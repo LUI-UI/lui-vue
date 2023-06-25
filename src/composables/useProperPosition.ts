@@ -24,11 +24,13 @@ export function useProperPosition(params: ProperPosition) {
     const spaceBelow = window.innerHeight - elRect.bottom
     // +30 for relax space
     if (params.targetPosition === 'bottom') {
-      if (spaceBelow > menuHeight.value + 30) properPosition.value = 'bottom'
+      if (spaceBelow > menuHeight.value + 30)
+        properPosition.value = 'bottom'
       else properPosition.value = 'top'
     }
     if (params.targetPosition === 'top') {
-      if (spaceAbove > menuHeight.value + 30) properPosition.value = 'top'
+      if (spaceAbove > menuHeight.value + 30)
+        properPosition.value = 'top'
       else properPosition.value = 'bottom'
     }
   }

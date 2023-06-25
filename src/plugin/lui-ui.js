@@ -9,7 +9,7 @@ module.exports = plugin(
       'focus',
       // "active",
       // "disabled",
-      'focus-visible'
+      'focus-visible',
     ]
     const properties = ['bg', 'text', 'border']
     const rootColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info']
@@ -65,8 +65,8 @@ module.exports = plugin(
       '.remove-search-icon::-webkit-search-cancel-button, .remove-search-icon::-webkit-search-decoration':
         {
           '-webkit-appearance': 'none',
-          appearance: 'none'
-        }
+          'appearance': 'none',
+        },
     }
     addUtilities(utilities)
   },
@@ -85,9 +85,9 @@ module.exports = plugin(
           white: '#ffffff',
           black: '#000000',
           light: colors.gray[50],
-          dark: colors.gray[900]
-        }
-      }
-    }
-  }
+          dark: colors.gray[900],
+        },
+      },
+    },
+  },
 )

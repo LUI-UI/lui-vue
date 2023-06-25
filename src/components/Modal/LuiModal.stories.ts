@@ -7,16 +7,16 @@ import LuiModal from './LuiModal.vue'
 const descriptions = {
   docs: {
     component:
-      'LuiModal presents content on top of the main application or webpage, typically in a separate overlay. It is used to capture user attention, display additional information, or prompt for user interaction while temporarily blocking interaction with the underlying content.'
+      'LuiModal presents content on top of the main application or webpage, typically in a separate overlay. It is used to capture user attention, display additional information, or prompt for user interaction while temporarily blocking interaction with the underlying content.',
   },
   argTypes: {
     default: 'Used as default to add a text in the component',
-    padding: "Used to customize the spacing around the LuiModal's content",
+    padding: 'Used to customize the spacing around the LuiModal\'s content',
     fullScreen: 'Used to render a full screen LuiModal',
     show: 'Controls the visibility of the modal',
-    showIcon: 'Controls the visibility of the cross icon in the modal that triggers the close event'
+    showIcon: 'Controls the visibility of the cross icon in the modal that triggers the close event',
     // close: 'Event used to control the action when the cross icon in the modal is clicked'
-  }
+  },
 }
 
 const meta: Meta<typeof LuiModal> = {
@@ -29,35 +29,35 @@ const meta: Meta<typeof LuiModal> = {
       control: 'boolean',
       options: [true, false],
       default: false,
-      description: descriptions.argTypes.fullScreen
+      description: descriptions.argTypes.fullScreen,
     },
     padding: {
       control: 'boolean',
       options: [true, false],
       default: true,
-      description: descriptions.argTypes.padding
+      description: descriptions.argTypes.padding,
     },
     show: {
       control: 'boolean',
       options: [true, false],
       description: descriptions.argTypes.show,
-      default: false
+      default: false,
     },
     showIcon: {
       control: 'boolean',
       options: [true, false],
       description: descriptions.argTypes.showIcon,
-      default: true
+      default: true,
     },
     // close: { description: descriptions.argTypes.close },
-    default: { description: descriptions.argTypes.default }
+    default: { description: descriptions.argTypes.default },
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 
 export default meta
@@ -86,19 +86,19 @@ export const Default: Story = {
       const showModal = ref(false)
       return { showModal }
     },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.'
-      }
-    }
-  }
+          'When you click the button, a default LuiModal is shown. Note that the <b>show</b> prop is used to control the visibility of the LuiModal and the <b>close</b> event is used to control the action when the cross icon in the LuiModal is clicked.',
+      },
+    },
+  },
 }
 
 export const Show: Story = {
@@ -108,19 +108,19 @@ export const Show: Story = {
       const showModal = ref(false)
       return { showModal }
     },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          'The <b>show</b> prop in the LuiModal is responsible for controlling the visibility of the modal. By binding it to a Boolean variable, such as "showModal," you can determine whether the modal should be displayed or hidden.'
-      }
-    }
-  }
+          'The <b>show</b> prop in the LuiModal is responsible for controlling the visibility of the modal. By binding it to a Boolean variable, such as "showModal," you can determine whether the modal should be displayed or hidden.',
+      },
+    },
+  },
 }
 
 export const Close: Story = {
@@ -130,19 +130,19 @@ export const Close: Story = {
       const showModal = ref(false)
       return { showModal }
     },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
         story:
-          "The <b>close</b> event in the LuiModal is triggered when the user clicks on the cross icon or performs any action that closes the modal window. By attaching the @close event handler, such as @close='showModal=false', users can define a function or action that should be performed when the modal is closed. This event provides a way to control and respond to the modal's closure, allowing users to handle any necessary cleanup, update data, or execute specific logic when the user dismisses the modal window."
-      }
-    }
-  }
+          'The <b>close</b> event in the LuiModal is triggered when the user clicks on the cross icon or performs any action that closes the modal window. By attaching the @close event handler, such as @close=\'showModal=false\', users can define a function or action that should be performed when the modal is closed. This event provides a way to control and respond to the modal\'s closure, allowing users to handle any necessary cleanup, update data, or execute specific logic when the user dismisses the modal window.',
+      },
+    },
+  },
 }
 
 const roundedTemplate = `
@@ -172,18 +172,18 @@ export const Rounded: Story = {
       const showModalTwo = ref(false)
       return { showModalOne, showModalTwo }
     },
-    template: roundedTemplate
+    template: roundedTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: roundedTemplate
+        code: roundedTemplate,
       },
       description: {
-        story: 'The <b>rounded</b> prop is used to round the corners of a LuiModal.'
-      }
-    }
-  }
+        story: 'The <b>rounded</b> prop is used to round the corners of a LuiModal.',
+      },
+    },
+  },
 }
 const paddingTemplate = `
 <lui-button @click="showModalOne=true" rounded>Padding</lui-button>
@@ -210,19 +210,19 @@ export const Padding: Story = {
       const showModalTwo = ref(false)
       return { showModalOne, showModalTwo }
     },
-    template: paddingTemplate
+    template: paddingTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: paddingTemplate
+        code: paddingTemplate,
       },
       description: {
         story:
-          "The <b>padding</b> prop is used to customize the spacing around the LuiModal's content."
-      }
-    }
-  }
+          'The <b>padding</b> prop is used to customize the spacing around the LuiModal\'s content.',
+      },
+    },
+  },
 }
 const showIconTemplate = `
 <lui-button @click="showModalOne=true" rounded>Show Icon</lui-button>
@@ -250,19 +250,19 @@ export const ShowIcon: Story = {
       const showModalTwo = ref(false)
       return { showModalOne, showModalTwo }
     },
-    template: showIconTemplate
+    template: showIconTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: showIconTemplate
+        code: showIconTemplate,
       },
       description: {
         story:
-          "The <b>show-icon</b> prop controls the visibility of the cross icon located at the top right corner of the LuiModal. By default, the cross icon is shown, allowing users to close the modal. However, you can set this props to 'false' to disable the cross icon and prevent users from closing the modal using this feature."
-      }
-    }
-  }
+          'The <b>show-icon</b> prop controls the visibility of the cross icon located at the top right corner of the LuiModal. By default, the cross icon is shown, allowing users to close the modal. However, you can set this props to \'false\' to disable the cross icon and prevent users from closing the modal using this feature.',
+      },
+    },
+  },
 }
 const sizeTemplate = `
 <lui-button @click="xsModal=true" rounded>xSmall Modal</lui-button>
@@ -317,19 +317,19 @@ export const Size: Story = {
       const xlModal = ref(false)
       return { xsModal, smModal, mdModal, lgModal, xlModal }
     },
-    template: sizeTemplate
+    template: sizeTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiModal allows you to control the width of the modal. The available options for the <b>size</b> prop are 'xs', 'sm', 'md', 'lg' and 'xl', each representing different predefined widths for the modal. As the width changes, the height of the modal adjusts responsively to accommodate the content, ensuring that the modal's content can fit comfortably within the specified width."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiModal allows you to control the width of the modal. The available options for the <b>size</b> prop are \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', each representing different predefined widths for the modal. As the width changes, the height of the modal adjusts responsively to accommodate the content, ensuring that the modal\'s content can fit comfortably within the specified width.',
+      },
+    },
+  },
 }
 const fullScreenTemplate = `
 <lui-button @click="showModal=true" rounded>Full Screen</lui-button>
@@ -348,17 +348,17 @@ export const FullScreen: Story = {
       const showModal = ref(false)
       return { showModal }
     },
-    template: fullScreenTemplate
+    template: fullScreenTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: fullScreenTemplate
+        code: fullScreenTemplate,
       },
       description: {
         story:
-          'The <b>full-screen</b> prop in the LuiModal enables the rendering of a modal that occupies the entire screen. By setting it to "true", the modal will expand to fill the entire viewport, providing a fullscreen immersive experience for the user.'
-      }
-    }
-  }
+          'The <b>full-screen</b> prop in the LuiModal enables the rendering of a modal that occupies the entire screen. By setting it to "true", the modal will expand to fill the entire viewport, providing a fullscreen immersive experience for the user.',
+      },
+    },
+  },
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
   name: 'LuiOverlay',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
 
@@ -14,36 +14,36 @@ import type { TwClassInterface } from '@/globals/interfaces'
 const props = defineProps({
   show: {
     type: Boolean as PropType<Boolean>,
-    default: false
+    default: false,
   },
   fixed: {
     type: Boolean as PropType<Boolean>,
-    default: false
+    default: false,
   },
   color: {
     type: String as PropType<Color>,
-    default: 'secondary'
+    default: 'secondary',
   },
   opacity: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   blur: {
     type: String as PropType<Size>,
-    default: 'xs'
+    default: 'xs',
   },
   rounded: {
     type: String as PropType<Size | 'none'>,
-    default: 'none'
+    default: 'none',
   },
   disableBlur: {
     type: Boolean as PropType<Boolean>,
-    default: false
+    default: false,
   },
   noCenter: {
     type: Boolean as PropType<Boolean>,
-    default: false
-  }
+    default: false,
+  },
 })
 const emit = defineEmits(['close'])
 
@@ -57,7 +57,7 @@ const computedWrapperClasses = computed(() => {
     zIndex: props.fixed ? 'z-50' : '',
     overflow: props.fixed ? 'overflow-hidden' : '',
     width: props.fixed ? 'w-full' : 'w-max',
-    height: props.fixed ? 'h-full' : 'h-max'
+    height: props.fixed ? 'h-full' : 'h-max',
   }
   return Object.values({ ...classes })
 })
@@ -78,7 +78,7 @@ const computedOverlayClasses = computed(() => {
       'rounded-xl': props.rounded === 'md',
       'rounded-2xl': props.rounded === 'lg',
       'rounded-3xl': props.rounded === 'xl',
-      '': props.rounded === 'none'
+      '': props.rounded === 'none',
     },
     backgroundColor: props.disableBlur
       ? {
@@ -86,7 +86,7 @@ const computedOverlayClasses = computed(() => {
           [`bg-${props.color}-900/40`]: props.opacity === 'sm',
           [`bg-${props.color}-900/50`]: props.opacity === 'md',
           [`bg-${props.color}-900/60`]: props.opacity === 'lg',
-          [`bg-${props.color}-900/70`]: props.opacity === 'xl'
+          [`bg-${props.color}-900/70`]: props.opacity === 'xl',
         }
       : '',
     backdropBlur: !props.disableBlur
@@ -95,9 +95,9 @@ const computedOverlayClasses = computed(() => {
           'backdrop-blur': props.blur === 'sm',
           'backdrop-blur-md': props.blur === 'md',
           'backdrop-blur-lg': props.blur === 'lg',
-          'backdrop-blur-xl': props.blur === 'xl'
+          'backdrop-blur-xl': props.blur === 'xl',
         }
-      : ''
+      : '',
   }
   return Object.values({ ...classes })
 })

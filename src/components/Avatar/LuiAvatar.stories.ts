@@ -7,20 +7,20 @@ import {
   rounded,
   size,
   text,
-  variant
+  variant,
 } from '../../../.storybook/global-story-argtypes'
 import LuiAvatar from './LuiAvatar.vue'
 
 const descriptions = {
   docs: {
     component:
-      'LuiAvatar shows a small icon, image or text to identify a user or entity, used in profiles, comments, or messaging, adding a personalized touch to the interface.'
+      'LuiAvatar shows a small icon, image or text to identify a user or entity, used in profiles, comments, or messaging, adding a personalized touch to the interface.',
   },
   argTypes: {
     src: 'Used to place an image in the component',
     alt: 'Used to give an alt text to the image',
-    icon: 'Used to place an icon in the component'
-  }
+    icon: 'Used to place an icon in the component',
+  },
 }
 
 const meta: Meta<typeof LuiAvatar> = {
@@ -37,19 +37,19 @@ const meta: Meta<typeof LuiAvatar> = {
     icon: { description: descriptions.argTypes.icon },
     src: {
       control: 'text',
-      description: descriptions.argTypes.src
+      description: descriptions.argTypes.src,
     },
     alt: {
       control: 'text',
-      description: descriptions.argTypes.alt
-    }
+      description: descriptions.argTypes.alt,
+    },
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
   parameters: {
     docs: {
-      description: { component: descriptions.docs.component }
-    }
-  }
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 
@@ -59,18 +59,18 @@ const defaultTemplate = '<lui-avatar />'
 export const Default: Story = {
   render: () => ({
     components: { LuiAvatar },
-    template: defaultTemplate
+    template: defaultTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: defaultTemplate
+        code: defaultTemplate,
       },
       description: {
-        story: 'This is how a default LuiAvatar looks.'
-      }
-    }
-  }
+        story: 'This is how a default LuiAvatar looks.',
+      },
+    },
+  },
 }
 
 const variantTemplate = `
@@ -81,18 +81,18 @@ export const Variant: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { variant },
-    template: `<div class="flex space-x-4">${variantTemplate}</div>`
+    template: `<div class="flex space-x-4">${variantTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: variantTemplate
+        code: variantTemplate,
       },
       description: {
-        story: 'There are 2 variant options to customize the LuiAvatar.'
-      }
-    }
-  }
+        story: 'There are 2 variant options to customize the LuiAvatar.',
+      },
+    },
+  },
 }
 
 const sizeTemplate = `
@@ -106,19 +106,19 @@ export const Size: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { size },
-    template: `<div class="flex w-1/3 items-center justify-between">${sizeTemplate}</div>`
+    template: `<div class="flex w-1/3 items-center justify-between">${sizeTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: sizeTemplate
+        code: sizeTemplate,
       },
       description: {
         story:
-          "The <b>size</b> prop in the LuiAvatar provides five options to control the size of the avatar. These options include 'xs', 'sm', 'md', 'lg' and 'xl', allowing you to choose the desired size for the avatar."
-      }
-    }
-  }
+          'The <b>size</b> prop in the LuiAvatar provides five options to control the size of the avatar. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the avatar.',
+      },
+    },
+  },
 }
 
 const roundedTemplate = `
@@ -130,18 +130,18 @@ export const Rounded: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { rounded },
-    template: `<div class="flex space-x-8">${roundedTemplate}</div>`
+    template: `<div class="flex space-x-8">${roundedTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: roundedTemplate
+        code: roundedTemplate,
       },
       description: {
-        story: 'There are 3 options to round the corners of a LuiAvatar.'
-      }
-    }
-  }
+        story: 'There are 3 options to round the corners of a LuiAvatar.',
+      },
+    },
+  },
 }
 
 const colorTemplate = `
@@ -156,18 +156,18 @@ export const Color: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { color },
-    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${colorTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: colorTemplate
+        code: colorTemplate,
       },
       description: {
-        story: 'There are 6 options to customize the color of a LuiAvatar.'
-      }
-    }
-  }
+        story: 'There are 6 options to customize the color of a LuiAvatar.',
+      },
+    },
+  },
 }
 
 const filterTemplate = `
@@ -188,18 +188,18 @@ export const Filter: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { color, filter },
-    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${filterTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: filterTemplate
+        code: filterTemplate,
       },
       description: {
-        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.'
-      }
-    }
-  }
+        story: 'The <b>filter</b> prop is used to lighten or darken the selected color.',
+      },
+    },
+  },
 }
 
 const borderTemplate = `
@@ -226,19 +226,19 @@ export const Border: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { border },
-    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${borderTemplate}</div>`
+    template: `<div class="w-1/2 grid grid-cols-6 gap-x-2 gap-y-4">${borderTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
-        code: borderTemplate
+        code: borderTemplate,
       },
       description: {
         story:
-          'The <b>border</b> prop is used to place a thin border around the LuiAvatar. The border color changes according to the avatar color.'
-      }
-    }
-  }
+          'The <b>border</b> prop is used to place a thin border around the LuiAvatar. The border color changes according to the avatar color.',
+      },
+    },
+  },
 }
 
 const iconSlotTemplate = `
@@ -251,18 +251,18 @@ const iconSlotTemplate = `
 export const IconSlot: Story = {
   render: () => ({
     components: { LuiAvatar },
-    template: iconSlotTemplate
+    template: iconSlotTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: iconSlotTemplate
+        code: iconSlotTemplate,
       },
       description: {
-        story: 'The <b>icon</b> slot can be used to place an icon in a LuiAvatar.'
-      }
-    }
-  }
+        story: 'The <b>icon</b> slot can be used to place an icon in a LuiAvatar.',
+      },
+    },
+  },
 }
 
 const textTemplate = '<lui-avatar text="T" />'
@@ -270,53 +270,53 @@ export const Text: Story = {
   render: () => ({
     components: { LuiAvatar },
     args: { text },
-    template: textTemplate
+    template: textTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: textTemplate
+        code: textTemplate,
       },
       description: {
-        story: 'The <b>text</b> prop is used to add a text in the LuiAvatar.'
-      }
-    }
-  }
+        story: 'The <b>text</b> prop is used to add a text in the LuiAvatar.',
+      },
+    },
+  },
 }
 
 const srcTemplate = '<lui-avatar src="https://www.w3schools.com/howto/img_avatar.png" />'
 export const Src: Story = {
   render: () => ({
     components: { LuiAvatar },
-    template: srcTemplate
+    template: srcTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: srcTemplate
+        code: srcTemplate,
       },
       description: {
-        story: 'The <b>src</b> prop is used to place an image in the LuiAvatar.'
-      }
-    }
-  }
+        story: 'The <b>src</b> prop is used to place an image in the LuiAvatar.',
+      },
+    },
+  },
 }
 
-const altTemplate =
-  '<lui-avatar src="https://www.w3schools.com/howto/img_avatar2.png" alt="User Avatar" />'
+const altTemplate
+  = '<lui-avatar src="https://www.w3schools.com/howto/img_avatar2.png" alt="User Avatar" />'
 export const Alt: Story = {
   render: () => ({
     components: { LuiAvatar },
-    template: altTemplate
+    template: altTemplate,
   }),
   parameters: {
     docs: {
       source: {
-        code: altTemplate
+        code: altTemplate,
       },
       description: {
-        story: 'The <b>alt</b> prop is used to give an alt text to the image in the LuiAvatar.'
-      }
-    }
-  }
+        story: 'The <b>alt</b> prop is used to give an alt text to the image in the LuiAvatar.',
+      },
+    },
+  },
 }
