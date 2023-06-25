@@ -1,42 +1,44 @@
 <script lang="ts">
 export default {
   name: 'LuiModal',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
+
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import type { PropType } from 'vue'
 import { useId } from '../../utils/useId'
 import useFocusTrap from '../../composables/useFocusTrap'
+import LuiButton from '../Button/LuiButton.vue'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Size } from '@/globals/types'
-import LuiButton from '../Button/LuiButton.vue'
+
 const props = defineProps({
   show: {
     type: Boolean as PropType<Boolean>,
-    default: false
+    default: false,
   },
   showIcon: {
     type: Boolean as PropType<Boolean>,
-    default: true
+    default: true,
   },
   padding: {
     type: Boolean as PropType<Boolean>,
-    default: true
+    default: true,
   },
   rounded: {
     type: Boolean as PropType<Boolean>,
-    default: true
+    default: true,
   },
   fullScreen: {
     type: Boolean as PropType<Boolean>,
-    default: false
+    default: false,
   },
   size: {
     type: String as PropType<Size>,
-    default: 'sm'
-  }
+    default: 'sm',
+  },
 })
 const emit = defineEmits(['close'])
 const teleportId = `lui-modal-teleport-${useId()}`
@@ -49,20 +51,19 @@ function createTeleportElement() {
   teleportWrapper.setAttribute('id', teleportId)
   body[0].appendChild(teleportWrapper)
 }
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined')
   createTeleportElement()
-}
+
 watch(
   () => props.show,
   (val) => {
     if (typeof window !== 'undefined') {
       const body = document.querySelector('body')
       const overflowValue = val ? 'hidden' : 'auto'
-      if (body !== null) {
+      if (body !== null)
         body.style.overflow = overflowValue
-      }
     }
-  }
+  },
 )
 const computedDialogWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
@@ -72,7 +73,7 @@ const computedDialogWrapperClasses = computed(() => {
     display: 'flex',
     justifyItems: 'justify-center',
     padding: props.fullScreen ? '' : 'pt-56 md:p-4',
-    overflow: 'overflow-auto'
+    overflow: 'overflow-auto',
   }
   return Object.values(classes)
 })
@@ -90,10 +91,10 @@ const computedModalClasses = computed(() => {
           'md:max-w-xl': props.size === 'sm',
           'md:max-w-2xl': props.size === 'md',
           'md:max-w-4xl': props.size === 'lg',
-          'md:max-w-6xl': props.size === 'xl'
+          'md:max-w-6xl': props.size === 'xl',
         },
     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-    margin: 'mt-auto md:my-auto md:mx-auto'
+    margin: 'mt-auto md:my-auto md:mx-auto',
   }
   return Object.values(classes)
 })
@@ -128,13 +129,14 @@ const computedModalClasses = computed(() => {
 //   return Object.values(classes)
 // })
 </script>
+
 <template>
   <Teleport :to="`#${teleportId}`">
     <div v-if="show" ref="trapRef" class="fixed inset-0 z-50 overflow-hidden">
       <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
         <div
-          role="dialog"
           :id="modalId"
+          role="dialog"
           aria-labelledby="lui-modal"
           aria-modal="true"
           :class="computedModalClasses"

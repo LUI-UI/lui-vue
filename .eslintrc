@@ -1,0 +1,9 @@
+{
+    "extends": "@antfu",
+    "rules": {
+        "no-console": "warn",
+        "unicorn/error-message": "off",
+        "import/first": "off",
+        "unicorn/prefer-string-starts-ends-with": "off"
+    }
+}

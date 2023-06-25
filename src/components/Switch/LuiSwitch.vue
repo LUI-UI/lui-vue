@@ -1,43 +1,45 @@
 <script lang="ts">
 export default {
   name: 'LuiSwitch',
-  inheritAttrs: false
+  inheritAttrs: false,
 }
 </script>
+
 <script setup lang="ts">
 import { toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import type { Rounded, Size, State, Description, CheckableModelValue } from '@/globals/types'
-
+import { useGlobalCheckbox, useGlobalDescriptionClasses } from '../../composables/index'
 import { useSwitchClasses } from './composables/index'
-import { useGlobalDescriptionClasses, useGlobalCheckbox } from '../../composables/index'
+import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
 
 const props = defineProps({
   size: {
     type: String as PropType<Size>,
-    default: 'md'
+    default: 'md',
   },
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
-    default: 'full'
+    default: 'full',
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
-    default: null
+    default: null,
   },
   description: {
     type: [String, null] as PropType<Description>,
-    default: null
+    default: null,
   },
   value: {
     type: String,
-    default: ''
+    default: '',
   },
   modelValue: {
     type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
-    default: undefined
-  }
+    default: undefined,
+  },
 })
+
+const emit = defineEmits(['update:modelValue'])
 
 const attrs = useAttrs()
 
@@ -45,8 +47,6 @@ const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs)
-const emit = defineEmits(['update:modelValue'])
-
 function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
 }
@@ -60,11 +60,13 @@ function handleChange(e: any) {
         :class="inputClasses"
         :checked="isInputChecked"
         :value="value"
-        @change="handleChange"
         v-bind="$attrs"
-      />
+        @change="handleChange"
+      >
       <span :class="spanClasses" />
     </div>
-    <p v-if="description" :class="descriptionClasses">{{ description }}</p>
+    <p v-if="description" :class="descriptionClasses">
+      {{ description }}
+    </p>
   </div>
 </template>

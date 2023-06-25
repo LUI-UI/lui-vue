@@ -3,6 +3,7 @@ import 'remixicon/fonts/remixicon.css'
 import colors from 'tailwindcss/colors'
 import { addons } from '@storybook/preview-api'
 import type { Preview } from '@storybook/vue3'
+import DocumentationTemplate from './documentationTemplate.mdx'
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -51,6 +52,9 @@ const preview: Preview = {
           value: colors.gray[500]
         }
       ]
+    },
+    docs: {
+      page: DocumentationTemplate
     }
   }
 }

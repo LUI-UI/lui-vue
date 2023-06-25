@@ -1,9 +1,9 @@
 import { customRef } from 'vue'
 
-const focusableElementsSelector =
-  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+const focusableElementsSelector
+  = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
-const useFocusTrap = () => {
+function useFocusTrap() {
   let focusableElements: HTMLElement[] = []
   let firstFocusable: HTMLElement
   let lastFocusable: HTMLElement
@@ -18,21 +18,23 @@ const useFocusTrap = () => {
         trapEl = value
         value ? initFocusTrap() : clearFocusTrap()
         trigger()
-      }
+      },
     }
   })
 
   function keyHandler(e: KeyboardEvent) {
     const isTabPressed = e.key === 'Tab'
 
-    if (!isTabPressed) return
+    if (!isTabPressed)
+      return
 
     if (e.shiftKey) {
       if (document.activeElement === firstFocusable) {
         lastFocusable.focus()
         e.preventDefault()
       }
-    } else {
+    }
+    else {
       if (document.activeElement === lastFocusable) {
         firstFocusable.focus()
         e.preventDefault()
@@ -42,7 +44,8 @@ const useFocusTrap = () => {
 
   function initFocusTrap() {
     // Bail out if there is no value
-    if (!trapRef.value) return
+    if (!trapRef.value)
+      return
     focusableElements = Array.from(trapRef.value.querySelectorAll(focusableElementsSelector))
     firstFocusable = focusableElements[0]
     lastFocusable = focusableElements[focusableElements.length - 1]
@@ -57,7 +60,7 @@ const useFocusTrap = () => {
   return {
     trapRef,
     initFocusTrap,
-    clearFocusTrap
+    clearFocusTrap,
   }
 }
 

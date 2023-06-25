@@ -1,6 +1,44 @@
 {
   "name": "@lui-ui/lui-vue",
   "version": "0.64.3",
+  "packageManager": "pnpm@8.5.1",
+  "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
+  "author": "lui-ui",
+  "license": "MIT",
+  "homepage": "https://LUI-UI.github.io/lui-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUI-UI/lui-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LUI-UI/lui-vue/issues"
+  },
+  "keywords": [
+    "ui",
+    "tailwind",
+    "lui",
+    "vue",
+    "components"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/lui-vue.umd.js",
+      "import": "./dist/lui-vue.es.js"
+    },
+    "./globals/interfaces": "./dist/globals/interfaces.d.ts",
+    "./globals/types": "./dist/globals/types.d.ts"
+  },
+  "main": "./dist/lui-vue.umd.js",
+  "module": "./dist/lui-vue.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8 <8.6.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",
@@ -8,26 +46,23 @@
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/",
+    "lint": "eslint .",
+    "fix": "eslint --fix .",
     "safelist": "npx tailwindcss build",
     "pub": "pnpm build && pnpm safelist && pnpm publish",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build --docs",
+    "build-storybook": "storybook build",
     "prepare": "husky install",
     "cm": "cz",
-    "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77"
+    "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
+    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish"
   },
   "peerDependencies": {
     "tailwindcss": "^3.2.7",
     "vue": "^3.2.26"
   },
-  "packageManager": "pnpm@8.5.1",
-  "engines": {
-    "node": ">=16",
-    "pnpm": ">=8 <8.6.0"
-  },
   "devDependencies": {
+    "@antfu/eslint-config": "^0.39.5",
     "@babel/core": "^7.19.6",
     "@commitlint/cli": "^17.6.3",
     "@commitlint/config-conventional": "^17.6.3",
@@ -44,25 +79,23 @@
     "@types/jsdom": "^20.0.0",
     "@types/node": "^16.11.68",
     "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "@vue/eslint-config-typescript": "^11.0.2",
     "@vue/test-utils": "^2.1.0",
     "@vue/tsconfig": "^0.1.3",
     "autoprefixer": "^10.4.13",
     "babel-loader": "^8.2.5",
+    "bumpp": "^9.1.1",
+    "chromatic": "^6.19.9",
     "classnames": "^2.3.2",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^8.22.0",
+    "eslint": "8.19.0",
     "eslint-plugin-storybook": "^0.6.12",
-    "eslint-plugin-vue": "^9.3.0",
     "gh-pages": "^4.0.0",
     "husky": "^8.0.3",
     "jsdom": "^20.0.1",
     "lint-staged": "^13.2.2",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.18",
-    "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remixicon": "^2.5.0",
@@ -79,61 +112,27 @@
     "vue-loader": "^16.8.3",
     "vue-tsc": "^1.0.11"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lui-vue.umd.js",
-  "module": "./dist/lui-vue.es.js",
-  "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/lui-vue.es.js",
-      "require": "./dist/lui-vue.umd.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./globals/interfaces": "./dist/globals/interfaces.d.ts",
-    "./globals/types": "./dist/globals/types.d.ts"
-  },
-  "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LUI-UI/lui-vue.git"
-  },
-  "keywords": [
-    "ui",
-    "tailwind",
-    "lui",
-    "vue",
-    "components"
-  ],
-  "author": {
-    "name": "lui-ui"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LUI-UI/lui-vue/issues"
-  },
-  "homepage": "https://LUI-UI.github.io/lui-vue",
-  "lint-staged": {
-    "*.{js,ts,vue}": [
-      "npm run lint",
-      "npm run format"
-    ]
-  },
+
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
     }
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": [
+      "npm run lint",
+      "npm run fix"
+    ]
   },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {
-    "chromatic": "^6.19.9"
-  },
   "readme": "ERROR: No README data found!",
-  "_id": "@lui-ui/lui-vue@0.64.3"
+  "_id": "@lui-ui/lui-vue@0.64.3",
+  "publishConfig": {
+    "access": "public"
+  }
 }

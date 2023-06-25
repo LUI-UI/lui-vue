@@ -1,15 +1,15 @@
-/* eslint-disable no-undef */
 const plugin = require('tailwindcss/plugin')
 const colors = require('tailwindcss/colors')
+
 module.exports = plugin(
-  function ({ config, addUtilities }) {
+  ({ config, addUtilities }) => {
     const states = [
       '',
       'hover',
       'focus',
       // "active",
       // "disabled",
-      'focus-visible'
+      'focus-visible',
     ]
     const properties = ['bg', 'text', 'border']
     const rootColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info']
@@ -20,7 +20,7 @@ module.exports = plugin(
     const luiSafeList = []
 
     states.forEach((state) => {
-      if (state != 'focus-visible' && state != '') {
+      if (state !== 'focus-visible' && state !== '') {
         properties.forEach((property) => {
           rootColors.forEach((color) => {
             levels.forEach((level) => {
@@ -65,8 +65,8 @@ module.exports = plugin(
       '.remove-search-icon::-webkit-search-cancel-button, .remove-search-icon::-webkit-search-decoration':
         {
           '-webkit-appearance': 'none',
-          appearance: 'none'
-        }
+          'appearance': 'none',
+        },
     }
     addUtilities(utilities)
   },
@@ -85,9 +85,9 @@ module.exports = plugin(
           white: '#ffffff',
           black: '#000000',
           light: colors.gray[50],
-          dark: colors.gray[900]
-        }
-      }
-    }
-  }
+          dark: colors.gray[900],
+        },
+      },
+    },
+  },
 )

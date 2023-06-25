@@ -1,6 +1,6 @@
-import { onMounted, onUnmounted, ref, nextTick, watch } from 'vue'
-import { useElementSize } from './useElementSize'
+import { nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import type { Ref } from 'vue'
+import { useElementSize } from './useElementSize'
 
 interface ProperPosition {
   triggerEl: Ref<any>
@@ -16,7 +16,7 @@ export function useProperPosition(params: ProperPosition) {
 
   function updatePosition() {
     const elRect: DOMRect = params.triggerEl.value.getBoundingClientRect()
-    if (elRect == undefined || typeof window === 'undefined') {
+    if (elRect === undefined || typeof window === 'undefined') {
       properPosition.value = params.targetPosition
       return
     }
@@ -24,18 +24,14 @@ export function useProperPosition(params: ProperPosition) {
     const spaceBelow = window.innerHeight - elRect.bottom
     // +30 for relax space
     if (params.targetPosition === 'bottom') {
-      if (spaceBelow > menuHeight.value + 30) {
+      if (spaceBelow > menuHeight.value + 30)
         properPosition.value = 'bottom'
-      } else {
-        properPosition.value = 'top'
-      }
+      else properPosition.value = 'top'
     }
     if (params.targetPosition === 'top') {
-      if (spaceAbove > menuHeight.value + 30) {
+      if (spaceAbove > menuHeight.value + 30)
         properPosition.value = 'top'
-      } else {
-        properPosition.value = 'bottom'
-      }
+      else properPosition.value = 'bottom'
     }
   }
   nextTick(() => {

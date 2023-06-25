@@ -1,15 +1,25 @@
-import LuiInput from './LuiInput.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
-
 import {
   block,
+  description,
   rounded,
   size,
-  description,
   state,
-  stateIcon
+  stateIcon,
 } from '../../../.storybook/global-story-argtypes'
-import type { IconSize } from './input-types'
+import LuiInput from './LuiInput.vue'
+
+const descriptions = {
+  docs: {
+    component:
+      'LuiInput allows users to input and interact with data, such as text, numbers, or selections, including features for validation and error handling.',
+  },
+  argTypes: {
+    clear: 'Provides a cross icon to clear the input automatically when clicked',
+    prepend: 'Used to place an icon to the left side of the component',
+    append: 'Used to place an icon to the right side of the component',
+  },
+}
 
 const meta: Meta<typeof LuiInput> = {
   title: 'LUI/Input',
@@ -22,126 +32,246 @@ const meta: Meta<typeof LuiInput> = {
     state,
     stateIcon,
     clear: {
-      control: 'boolean'
-    }
-  }
+      control: 'boolean',
+      options: [true, false],
+      description: descriptions.argTypes.clear,
+    },
+    prepend: {
+      description: descriptions.argTypes.prepend,
+    },
+    append: {
+      description: descriptions.argTypes.append,
+    },
+  },
+  decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],
+  parameters: {
+    docs: {
+      description: { component: descriptions.docs.component },
+    },
+  },
 }
 export default meta
 
 type Story = StoryObj<typeof LuiInput>
 
+const defaultTemplate = '<lui-input placeholder="Type something" />'
 export const Default: Story = {
-  render: (args) => ({
+  render: () => ({
     components: { LuiInput },
-    setup() {
-      return { args }
+    template: defaultTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: defaultTemplate,
+      },
+      description: {
+        story: 'This is how a default LuiInput looks.',
+      },
     },
-    template: '<lui-input v-bind="args" placeholder="type something" />'
-  })
-}
-export const Medium: Story = {
-  render: (args) => ({
-    components: { LuiInput },
-    setup() {
-      return { args }
-    },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
-    args: {
-      rounded: true,
-      size: 'md'
-    }
-  })
-}
-export const Description: Story = {
-  render: (args) => ({
-    components: { LuiInput },
-    setup() {
-      return { args }
-    },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
-    args: {
-      description: 'Input description text'
-    }
-  })
-}
-export const StateIcon: Story = {
-  render: (args) => ({
-    components: { LuiInput },
-    setup() {
-      return { args }
-    },
-    template: '<lui-input v-bind="args" placeholder="type something" />',
-    args: {
-      stateIcon: true
-    }
-  })
-}
-export const Clear: Story = {
-  render: (args) => ({
-    components: { LuiInput },
-    setup() {
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
-      return { args, sizes }
-    },
-    template: `
-    <div class="flex items-center space-x-8">
-      <lui-input v-bind="args"
-        v-for="size in sizes"
-        :key="size"   
-        :size="size" 
-        placeholder="Type something"
-        clear 
-      />
-    </div>
-  `
-  })
-}
-export const States: Story = {
-  render: (args) => ({
-    components: { LuiInput },
-    setup() {
-      const states = ['warning', true, false]
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
-      return { args, states, sizes }
-    },
-    template: `
-    <div class="flex space-x-8 mb-8" v-for="size in sizes" :key="size">
-      <lui-input v-bind="args"
-        v-for="state in states"
-        :key="state"   
-        :size="size" 
-        :state="state" 
-        placeholder="Type something" 
-        state-icon 
-      />
-    </div>
-  `
-  })
+  },
 }
 
-export const PrependIcon: Story = {
-  render: (args) => ({
+const roundedTemplate = `
+<lui-input :rounded="false" placeholder="Type something" />
+<lui-input :rounded="true" placeholder="Type something" />
+<lui-input rounded="full" placeholder="Type something" />
+`
+export const Rounded: Story = {
+  render: () => ({
     components: { LuiInput },
-    setup() {
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
-      function iconSizes(size: IconSize) {
-        return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
-      }
-      return { args, sizes, iconSizes }
+    args: { rounded },
+    template: `<div class="flex space-x-4">${roundedTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: roundedTemplate,
+      },
+      description: {
+        story: 'There are 3 options to round the corners of a LuiInput.',
+      },
     },
-    template: `
-    <div class="flex items-center space-x-8">
-      <lui-input 
-        v-for="size in sizes" :key="size"
-        v-bind="args"
-        :size="size" 
-        placeholder="Type something" 
-      >
-        <template #prepend>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :width="iconSizes(size)" :height="iconSizes(size)" fill="currentColor"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z"/></svg>
-        </template>
-      </lui-input>
-    </div>
-  `
-  })
+  },
+}
+
+const blockTemplate = '<lui-input block placeholder="Type something" />'
+export const Block: Story = {
+  render: () => ({
+    components: { LuiInput },
+    args: { block },
+    template: blockTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: blockTemplate,
+      },
+      description: {
+        story: 'The <b>block</b> prop provides a full width input look.',
+      },
+    },
+  },
+}
+
+const sizeTemplate = `
+<lui-input size="xs" placeholder="Type something" />
+<lui-input size="sm" placeholder="Type something" />
+<lui-input size="md" placeholder="Type something" />
+<lui-input size="lg" placeholder="Type something" />
+<lui-input size="xl" placeholder="Type something" />
+`
+export const Size: Story = {
+  render: () => ({
+    components: { LuiInput },
+    args: { size },
+    template: `<div class="flex flex-col space-y-2">${sizeTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: sizeTemplate,
+      },
+      description: {
+        story:
+          'The <b>size</b> prop in the LuiInput provides five options to control the size of the input. These options include \'xs\', \'sm\', \'md\', \'lg\' and \'xl\', allowing you to choose the desired size for the input.',
+      },
+    },
+  },
+}
+
+const clearTemplate = '<lui-input clear placeholder="Type something" />'
+export const Clear: Story = {
+  render: () => ({
+    components: { LuiInput },
+    template: clearTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: clearTemplate,
+      },
+      description: {
+        story:
+          'The <b>clear</b> prop inserts a cross icon in the right side of the LuiInput and used to clear the input automatically when clicked.',
+      },
+    },
+  },
+}
+
+const descriptionTemplate
+  = '<lui-input description="This is a description" placeholder="Type something" />'
+export const Description: Story = {
+  render: () => ({
+    components: { LuiInput },
+    args: { description },
+    template: descriptionTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: descriptionTemplate,
+      },
+      description: {
+        story:
+          'The <b>description</b> prop is used to add a description to a LuiInput, typically used for validation and error handling.',
+      },
+    },
+  },
+}
+
+const stateTemplate = `
+<lui-input :state="null" placeholder="Type something" />
+<lui-input :state="true" description="This is a description" placeholder="Type something" />
+<lui-input state="warning" description="This is a description" placeholder="Type something" />
+<lui-input :state="false" description="This is a description" placeholder="Type something" />
+`
+export const State: Story = {
+  render: () => ({
+    components: { LuiInput },
+    args: { state },
+    template: `<div class="flex gap-x-4">${stateTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: stateTemplate,
+      },
+      description: {
+        story:
+          'There are 4 states used for validation and error handling and they give a border of the state color to the LuiInput. When used with the <b>description</b> prop they also change the color of the description.',
+      },
+    },
+  },
+}
+
+const stateIconTemplate = `
+<lui-input state-icon :state="null" placeholder="Type something" />
+<lui-input state-icon :state="true" placeholder="Type something" />
+<lui-input state-icon state="warning" placeholder="Type something" />
+<lui-input state-icon :state="false" placeholder="Type something" />
+`
+export const StateIcon: Story = {
+  render: () => ({
+    components: { LuiInput },
+    args: { stateIcon },
+    template: `<div class="flex gap-x-4">${stateIconTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: stateIconTemplate,
+      },
+      description: {
+        story:
+          'The <b>state-icon</b> prop is used with the <b>state</b> prop for validation and error handling. It places an icon representing the valid state in the right side of the LuiInput.',
+      },
+    },
+  },
+}
+
+const appendTemplate = `<lui-input placeholder="Type something">
+  <template #append>
+   <i class="ri-search-line"></i>
+  </template>
+</lui-input>`
+export const AppendSlot: Story = {
+  render: () => ({
+    components: { LuiInput },
+    template: appendTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: appendTemplate,
+      },
+      description: {
+        story:
+          'The <b>append</b> slot can be used to place an icon in the right side of the LuiInput.',
+      },
+    },
+  },
+}
+
+const prependTemplate = `<lui-input placeholder="Type something">
+  <template #prepend>
+   <i class="ri-search-line"></i>
+  </template>
+</lui-input>`
+export const PrependSlot: Story = {
+  render: () => ({
+    components: { LuiInput },
+    template: prependTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: prependTemplate,
+      },
+      description: {
+        story:
+          'The <b>prepend</b> slot can be used to place an icon to the left side of the LuiInput.',
+      },
+    },
+  },
 }

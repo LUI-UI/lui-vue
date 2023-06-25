@@ -1,5 +1,5 @@
 export type AlignmentTypes = 'left' | 'center' | 'right'
-export type TabTypes = {
+export interface TabTypes {
   title: string
   tabId: string
   panelId: string
