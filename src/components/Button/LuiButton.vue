@@ -62,6 +62,7 @@ function dynamicSlotClasses() {
     display: {
       'flex': hasAnyIcon,
       'inline-block': !hasAnyIcon && props.tag !== 'button',
+      'inline-flex': hasAnyIcon,
     },
     alignItems: {
       'items-center': hasAnyIcon,
