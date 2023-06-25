@@ -1,0 +1,44 @@
+name: ClientCI
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: write
+  contents: read
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+
+
+jobs:
+  client-ci:
+    name: 📚 Main
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - run: corepack enable
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: pnpm
+
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: 📝 Lint
+        run: pnpm lint
+
+      - name: 📦 build
+        run: pnpm build
