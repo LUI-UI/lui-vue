@@ -15,7 +15,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",
     "prepare": "husky install",
-    "cm": "cz"
+    "cm": "cz",
+    "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77"
   },
   "peerDependencies": {
     "tailwindcss": "^3.2.7",
@@ -106,7 +107,9 @@
     "vue",
     "components"
   ],
-  "author": "lui-ui",
+  "author": {
+    "name": "lui-ui"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/LUI-UI/lui-vue/issues"
@@ -127,5 +130,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "dependencies": {
+    "chromatic": "^6.19.9"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "@lui-ui/lui-vue@0.64.3"
 }
