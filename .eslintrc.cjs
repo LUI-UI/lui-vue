@@ -12,5 +12,6 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  }
+  },
+  ignorePatterns: ['node_modules', 'dist', 'storybook-static']
 }
