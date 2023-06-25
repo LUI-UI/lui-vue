@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiRadio',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
@@ -47,11 +41,16 @@ const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 // const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 
 const emit = defineEmits(['update:modelValue'])
-function handleChange(e: any) {
+function handleChange() {
   emit('update:modelValue', props.value)
 }
 </script>
-
+<script lang="ts">
+export default {
+  name: 'LuiRadio',
+  inheritAttrs: false
+}
+</script>
 <template>
   <div class="inline-block leading-3">
     <div class="relative">

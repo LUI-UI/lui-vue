@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTabButtons'
-}
-</script>
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PropType } from 'vue'
@@ -28,6 +23,11 @@ const tabListClasses = computed(() => {
   }
   return Object.values(classes)
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiTabButtons'
+}
 </script>
 <template>
   <div

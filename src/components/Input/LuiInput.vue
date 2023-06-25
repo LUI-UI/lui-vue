@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiInput',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { computed, ref, useAttrs, toRefs, useSlots, h } from 'vue'
 import type { PropType } from 'vue'
@@ -143,6 +137,12 @@ const computedAttrs = computed(() => {
   }
   return attrs
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiInput',
+  inheritAttrs: false
+}
 </script>
 <template>
   <div class="lui-input" :class="wrapperClasses">

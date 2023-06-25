@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTabPanel'
-}
-</script>
 <script setup lang="ts">
 import { inject, computed, onMounted, onUnmounted, ref } from 'vue'
 import { ContextKey } from './symbols'
@@ -49,6 +44,11 @@ const tabPanelClasses = computed(() => {
   }
   return Object.values(classes)
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiTabPanel'
+}
 </script>
 <template>
   <div

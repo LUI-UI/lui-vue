@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiButton',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { toRefs, useSlots } from 'vue'
 import { useButtonClasses } from './composables'
@@ -80,7 +74,12 @@ function dynamicSlotClasses() {
   return Object.values({ ...classes })
 }
 </script>
-
+<script lang="ts">
+export default {
+  name: 'LuiButton',
+  inheritAttrs: false
+}
+</script>
 <template>
   <component
     :is="tag"

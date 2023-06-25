@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiModal',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import type { PropType } from 'vue'
@@ -127,6 +121,12 @@ const computedModalClasses = computed(() => {
 //   }
 //   return Object.values(classes)
 // })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiModal',
+  inheritAttrs: false
+}
 </script>
 <template>
   <Teleport :to="`#${teleportId}`">

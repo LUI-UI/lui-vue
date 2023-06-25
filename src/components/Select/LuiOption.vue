@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 import { inject, computed, watch, nextTick, useSlots, ref } from 'vue'
 import type { PropType } from 'vue'
 import { ContextKey } from './symbols'
@@ -6,12 +6,6 @@ import { useId } from '../../utils/useId'
 import type { Rounded, Size } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
-export default {
-  name: 'LuiOption',
-  inheritAttrs: false
-}
-</script>
-<script setup lang="ts">
 const props = defineProps({
   selected: {
     type: Boolean,
@@ -131,6 +125,12 @@ const optionClasses = computed(() => {
 defineExpose({
   el: optionRef
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiOption',
+  inheritAttrs: false
+}
 </script>
 <template>
   <li

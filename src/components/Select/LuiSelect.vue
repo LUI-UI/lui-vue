@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiSelect',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { ref, nextTick, provide, useSlots, useAttrs, watch, reactive, computed, toRef } from 'vue'
 import type { PropType, Ref } from 'vue'
@@ -516,6 +510,12 @@ function resetSelectedOption() {
       toggleOptions()
     }
   }
+}
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiSelect',
+  inheritAttrs: false
 }
 </script>
 <template>

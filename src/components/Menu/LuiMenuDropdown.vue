@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiDropdown',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { ref, nextTick, useSlots, reactive, computed } from 'vue'
 import type { PropType } from 'vue'
@@ -325,6 +319,12 @@ function focusAvailableElement(
 
 function triggerIconSize(size: string) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
+}
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiDropdown',
+  inheritAttrs: false
 }
 </script>
 <template>

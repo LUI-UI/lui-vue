@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiCheckbox',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { Rounded, Size, State, Description, CheckableModelValue } from '@/globals/types'
@@ -111,6 +105,12 @@ const iconSize = computed(() =>
         indeterminate: { width: '22', stroke: '2', viewBox: '0 0 22 2' }
       }
 )
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiCheckbox',
+  inheritAttrs: false
+}
 </script>
 <template>
   <div class="inline-block leading-3">

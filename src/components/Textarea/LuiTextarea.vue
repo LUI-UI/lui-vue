@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTextarea',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { toRefs, useAttrs, computed } from 'vue'
 import type { PropType } from 'vue'
@@ -67,7 +61,12 @@ const isDisabled = computed(() => attrs.disabled !== undefined && attrs.disabled
 //   emit("update:modelValue", handleVModel(e));
 // }
 </script>
-
+<script lang="ts">
+export default {
+  name: 'LuiTextarea',
+  inheritAttrs: false
+}
+</script>
 <template>
   <div class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
     <div class="relative">

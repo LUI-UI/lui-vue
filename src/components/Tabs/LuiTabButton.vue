@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTabButton'
-}
-</script>
 <script setup lang="ts">
 import LuiMenuItem from '../Menu/LuiMenuItem.vue'
 import type { Size } from '@/globals/types'
@@ -100,6 +95,11 @@ function handleKeyEvents(event: KeyboardEvent) {
     )
     injection?.setSelectedIndex(targetIndexInTabs as number)
   }
+}
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiTabButton'
 }
 </script>
 <template>

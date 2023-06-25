@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiOverlay',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { Color, Size } from '@/globals/types'
@@ -99,6 +93,12 @@ const computedOverlayClasses = computed(() => {
   }
   return Object.values({ ...classes })
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiOverlay',
+  inheritAttrs: false
+}
 </script>
 <template>
   <div

@@ -106,6 +106,11 @@ defineExpose({
   el: menuItemRef
 })
 </script>
+<script lang="ts">
+export default {
+  name: 'LuiDropdownItem'
+}
+</script>
 <template>
   <component
     role="menuitem"
@@ -127,9 +132,3 @@ defineExpose({
     </span>
   </component>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'LuiDropdownItem'
-}
-</script>

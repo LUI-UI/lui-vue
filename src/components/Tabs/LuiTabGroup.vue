@@ -1,8 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTabGroup'
-}
-</script>
 <script setup lang="ts">
 import { onMounted, provide, reactive, watch } from 'vue'
 import { ContextKey } from './symbols'
@@ -71,6 +66,11 @@ provide(ContextKey, {
   unRegisterPanel,
   setSelectedIndex
 })
+</script>
+<script lang="ts">
+export default {
+  name: 'LuiTabGroup'
+}
 </script>
 <template>
   <slot />

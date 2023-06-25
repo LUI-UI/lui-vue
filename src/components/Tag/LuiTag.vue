@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiTag',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { useTagClasses } from './composables'
 import type { Filter, Color, Size, Rounded, NarrowedVariant } from '@/globals/types'
@@ -42,7 +36,12 @@ const { backgroundColorClasses, textColorClasses } = useGlobalColorClasses(toRef
 
 const slots = useSlots()
 </script>
-
+<script lang="ts">
+export default {
+  name: 'LuiTag',
+  inheritAttrs: false
+}
+</script>
 <template>
   <button
     v-bind="$attrs"

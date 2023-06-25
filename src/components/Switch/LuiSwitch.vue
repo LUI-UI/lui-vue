@@ -1,9 +1,3 @@
-<script lang="ts">
-export default {
-  name: 'LuiSwitch',
-  inheritAttrs: false
-}
-</script>
 <script setup lang="ts">
 import { toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
@@ -51,7 +45,12 @@ function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
 }
 </script>
-
+<script lang="ts">
+export default {
+  name: 'LuiSwitch',
+  inheritAttrs: false
+}
+</script>
 <template>
   <div class="inline-block leading-3">
     <div class="relative">
