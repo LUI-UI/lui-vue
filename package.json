@@ -3,7 +3,7 @@
   "version": "0.64.3",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check build-only",
+    "build": "pnpm type-check && pnpm build-only",
     "preview": "vite preview",
     "test:unit": "vitest --environment jsdom --root src/",
     "build-only": "vite build",
@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "safelist": "npx tailwindcss build",
-    "pub": "yarn build && yarn safelist && yarn publish",
+    "pub": "pnpm build && pnpm safelist && pnpm publish",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --docs",
     "prepare": "husky install",
@@ -78,13 +78,16 @@
   ],
   "main": "./dist/lui-vue.umd.js",
   "module": "./dist/lui-vue.es.js",
+  "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/lui-vue.es.js",
       "require": "./dist/lui-vue.umd.js",
       "types": "./dist/index.d.ts"
-    }
+    },
+    "./globals/interfaces": "./dist/globals/interfaces.d.ts",
+    "./globals/types": "./dist/globals/types.d.ts"
   },
   "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
   "repository": {
