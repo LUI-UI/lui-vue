@@ -1,6 +1,44 @@
 {
   "name": "@lui-ui/lui-vue",
   "version": "0.64.3",
+  "packageManager": "pnpm@8.5.1",
+  "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
+  "author": "lui-ui",
+  "license": "MIT",
+  "homepage": "https://LUI-UI.github.io/lui-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUI-UI/lui-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LUI-UI/lui-vue/issues"
+  },
+  "keywords": [
+    "ui",
+    "tailwind",
+    "lui",
+    "vue",
+    "components"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/lui-vue.umd.js",
+      "import": "./dist/lui-vue.es.js"
+    },
+    "./globals/interfaces": "./dist/globals/interfaces.d.ts",
+    "./globals/types": "./dist/globals/types.d.ts"
+  },
+  "main": "./dist/lui-vue.umd.js",
+  "module": "./dist/lui-vue.es.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8 <8.6.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "pnpm type-check && pnpm build-only",
@@ -22,11 +60,6 @@
   "peerDependencies": {
     "tailwindcss": "^3.2.7",
     "vue": "^3.2.26"
-  },
-  "packageManager": "pnpm@8.5.1",
-  "engines": {
-    "node": ">=16",
-    "pnpm": ">=8 <8.6.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.39.5",
@@ -79,50 +112,17 @@
     "vue-loader": "^16.8.3",
     "vue-tsc": "^1.0.11"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "./dist/lui-vue.umd.js",
-  "module": "./dist/lui-vue.es.js",
-  "types": "./dist/index.d.ts",
   "typings": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/lui-vue.es.js",
-      "require": "./dist/lui-vue.umd.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./globals/interfaces": "./dist/globals/interfaces.d.ts",
-    "./globals/types": "./dist/globals/types.d.ts"
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
+    }
   },
-  "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LUI-UI/lui-vue.git"
-  },
-  "keywords": [
-    "ui",
-    "tailwind",
-    "lui",
-    "vue",
-    "components"
-  ],
-  "author": "lui-ui",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/LUI-UI/lui-vue/issues"
-  },
-  "homepage": "https://LUI-UI.github.io/lui-vue",
   "lint-staged": {
     "*.{js,ts,vue}": [
       "npm run lint",
       "npm run format"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
-    }
   },
   "config": {
     "commitizen": {

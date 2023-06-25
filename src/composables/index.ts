@@ -1,21 +1,20 @@
+import type { Ref } from 'vue'
+import { computed, toRef } from 'vue'
 import type {
   BackgroundsInterface,
   BordersInterface,
   SpacingInterface,
   TypographyInterface
 } from '@/globals/interfaces'
-import type { Border, Color, Filter, Variant } from '@/globals/types'
-import type { State } from '@/globals/types'
-import type { Ref } from 'vue'
-import { computed, toRef } from 'vue'
+import type { Border, Color, Filter, State, Variant } from '@/globals/types'
 
-type PropTypes = {
+interface PropTypes {
   color: Ref<Color>
   filter: Ref<Filter>
   variant: Ref<Variant>
   border?: Ref<Border>
 }
-type DescriptionPropTypes = {
+interface DescriptionPropTypes {
   state: Ref<State>
 }
 export function useGlobalColorClasses(props: PropTypes) {
@@ -37,7 +36,7 @@ export function useGlobalColorClasses(props: PropTypes) {
       textColor:
         props.variant.value === 'solid'
           ? {
-              [`text-white`]: props.filter.value === 'none', // filter none
+              'text-white': props.filter.value === 'none', // filter none
               [`text-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
               [`text-${props.color.value}-100`]: props.filter.value === 'darken' // filter darken
             }
@@ -60,7 +59,7 @@ export function useGlobalColorClasses(props: PropTypes) {
             }
           : props.border !== undefined && props.border.value
           ? {
-              [`border-white`]: props.filter.value === 'none', // filter none
+              'border-white': props.filter.value === 'none', // filter none
               [`border-${props.color.value}-500`]: props.filter.value === 'lighten', // filter lighten
               [`border-${props.color.value}-100`]: props.filter.value === 'darken' // filter darken
             }

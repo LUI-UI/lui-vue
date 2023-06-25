@@ -1,16 +1,16 @@
+import type { Meta, StoryObj } from '@storybook/vue3'
 import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
-import LuiMenuDropdown from './LuiMenuDropdown.vue'
 import LuiBadge from '../Badge/LuiBadge.vue'
 import {
+  block,
   color,
-  size,
-  rounded,
-  text,
   filter,
-  variant,
-  block
+  rounded,
+  size,
+  text,
+  variant
 } from '../../../.storybook/global-story-argtypes'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiMenuDropdown from './LuiMenuDropdown.vue'
 
 const descriptions = {
   docs: {
@@ -21,7 +21,7 @@ const descriptions = {
     menuPosition: 'Used to control the position of the menu items',
     trigger: 'Used to insert a template in the component',
     default: 'Used as default to add a text in the component'
-    //triggerAppend: 'Used to place an icon in the component'
+    // triggerAppend: 'Used to place an icon in the component'
   }
 }
 
@@ -36,7 +36,7 @@ const meta: Meta<typeof LuiMenuDropdown> = {
     block,
     filter,
     text,
-    //triggerAppend: { description: descriptions.argTypes.triggerAppend },
+    // triggerAppend: { description: descriptions.argTypes.triggerAppend },
     menuPosition: {
       control: 'select',
       default: 'bottomLeft',

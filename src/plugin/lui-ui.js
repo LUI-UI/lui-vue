@@ -1,8 +1,8 @@
-/* eslint-disable no-undef */
 const plugin = require('tailwindcss/plugin')
 const colors = require('tailwindcss/colors')
+
 module.exports = plugin(
-  function ({ config, addUtilities }) {
+  ({ config, addUtilities }) => {
     const states = [
       '',
       'hover',
@@ -20,7 +20,7 @@ module.exports = plugin(
     const luiSafeList = []
 
     states.forEach((state) => {
-      if (state != 'focus-visible' && state != '') {
+      if (state !== 'focus-visible' && state !== '') {
         properties.forEach((property) => {
           rootColors.forEach((color) => {
             levels.forEach((level) => {

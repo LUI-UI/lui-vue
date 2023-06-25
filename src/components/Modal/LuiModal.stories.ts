@@ -1,8 +1,8 @@
-import LuiModal from './LuiModal.vue'
 import { ref } from 'vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
 import { rounded, size } from '../../../.storybook/global-story-argtypes'
 import LuiButton from '../Button/LuiButton.vue'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiModal from './LuiModal.vue'
 
 const descriptions = {
   docs: {
@@ -15,7 +15,7 @@ const descriptions = {
     fullScreen: 'Used to render a full screen LuiModal',
     show: 'Controls the visibility of the modal',
     showIcon: 'Controls the visibility of the cross icon in the modal that triggers the close event'
-    //close: 'Event used to control the action when the cross icon in the modal is clicked'
+    // close: 'Event used to control the action when the cross icon in the modal is clicked'
   }
 }
 
@@ -49,7 +49,7 @@ const meta: Meta<typeof LuiModal> = {
       description: descriptions.argTypes.showIcon,
       default: true
     },
-    //close: { description: descriptions.argTypes.close },
+    // close: { description: descriptions.argTypes.close },
     default: { description: descriptions.argTypes.default }
   },
   decorators: [() => ({ template: '<div class="space-x-2"><story/></div>' })],

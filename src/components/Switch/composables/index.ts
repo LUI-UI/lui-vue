@@ -1,11 +1,12 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
-import type { Rounded, Size, State, Description } from '@/globals/types'
-import type { TwClassInterface } from '@/globals/interfaces'
 import { useGlobalHiddenInputClasses } from '../../../composables/index'
+import type { Description, Rounded, Size, State } from '@/globals/types'
+import type { TwClassInterface } from '@/globals/interfaces'
+
 // import classNames from "classnames";
 
-type PropTypes = {
+interface PropTypes {
   size: Ref<Size>
   rounded: Ref<Rounded>
   state: Ref<State>

@@ -1,6 +1,6 @@
-import LuiMenuItem from './LuiMenuItem.vue'
-import { color, size, rounded, block } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { block, color, rounded, size } from '../../../.storybook/global-story-argtypes'
+import LuiMenuItem from './LuiMenuItem.vue'
 
 const descriptions = {
   docs: {
@@ -42,7 +42,7 @@ const meta: Meta<typeof LuiMenuItem> = {
 export default meta
 type Story = StoryObj<typeof LuiMenuItem>
 
-const defaultTemplate = `<lui-menu-item>Menu Item 1</lui-menu-item>`
+const defaultTemplate = '<lui-menu-item>Menu Item 1</lui-menu-item>'
 export const Default: Story = {
   render: () => ({
     components: { LuiMenuItem },

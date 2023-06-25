@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import type { Filter, Color, Size, Border, Text, NarrowedVariant, Rounded } from '@/globals/types'
-
-import type {
-  TwClassInterface,
-  LayoutInterface,
-  FlexGridInterface,
-  SizingInterface,
-  BordersInterface
-} from '@/globals/interfaces'
-
-import { computed, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
 
 import { useGlobalColorClasses } from '../../composables'
+import type {
+  BordersInterface,
+  FlexGridInterface,
+  LayoutInterface,
+  SizingInterface,
+  TwClassInterface
+} from '@/globals/interfaces'
+import type { Border, Color, Filter, NarrowedVariant, Rounded, Size, Text } from '@/globals/types'
 
 const props = defineProps({
   variant: {
@@ -130,17 +128,20 @@ const computedAvatarClasses = computed(() => {
   }
   return Object.values(avatarClasses)
 })
+// TODO: check avatarContent
+const avatarContent = ref<HTMLElement | null>(null)
 </script>
-<template>
-  <div class="lui-avatar" :class="computedAvatarClasses">
-    <img :src="src" :alt="alt" :class="computedImageClasses" v-if="src.length > 0" />
-    <span :class="computedIconClasses" v-if="$slots.icon"><slot name="icon"></slot></span>
-    <span v-if="text.length > 0" ref="avatarContent">{{ text }}</span>
-  </div>
-</template>
 
 <script lang="ts">
 export default {
   name: 'LuiAvatar'
 }
 </script>
+
+<template>
+  <div class="lui-avatar" :class="computedAvatarClasses">
+    <img v-if="src.length > 0" :src="src" :alt="alt" :class="computedImageClasses" />
+    <span v-if="$slots.icon" :class="computedIconClasses"><slot name="icon" /></span>
+    <span v-if="text.length > 0" ref="avatarContent">{{ text }}</span>
+  </div>
+</template>

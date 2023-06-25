@@ -1,7 +1,7 @@
-import LuiRadio from './LuiRadio.vue'
-import { size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
+import { description, size, state } from '../../../.storybook/global-story-argtypes'
+import LuiRadio from './LuiRadio.vue'
 
 const descriptions = {
   docs: {
@@ -29,7 +29,7 @@ export default meta
 
 type Story = StoryObj<typeof LuiRadio>
 
-const defaultTemplate = `<lui-radio />`
+const defaultTemplate = '<lui-radio />'
 export const Default: Story = {
   render: () => ({
     components: { LuiRadio },
@@ -47,7 +47,7 @@ export const Default: Story = {
   }
 }
 
-const checkedTemplate = `<lui-radio checked />`
+const checkedTemplate = '<lui-radio checked />'
 export const Checked: Story = {
   render: () => ({
     components: { LuiRadio },

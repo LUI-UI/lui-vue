@@ -1,6 +1,6 @@
-import LuiSwitch from './LuiSwitch.vue'
-import { rounded, size, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { description, rounded, size, state } from '../../../.storybook/global-story-argtypes'
+import LuiSwitch from './LuiSwitch.vue'
 
 const descriptions = {
   docs: {
@@ -28,7 +28,7 @@ const meta: Meta<typeof LuiSwitch> = {
 export default meta
 type Story = StoryObj<typeof LuiSwitch>
 
-const defaultTemplate = `<lui-switch />`
+const defaultTemplate = '<lui-switch />'
 export const Default: Story = {
   render: () => ({
     components: { LuiSwitch },
@@ -46,7 +46,7 @@ export const Default: Story = {
   }
 }
 
-const checkedTemplate = `<lui-switch checked />`
+const checkedTemplate = '<lui-switch checked />'
 export const Checked: Story = {
   render: () => ({
     components: { LuiSwitch },

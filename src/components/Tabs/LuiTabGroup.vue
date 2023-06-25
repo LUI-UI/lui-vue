@@ -3,17 +3,21 @@ export default {
   name: 'LuiTabGroup'
 }
 </script>
+
 <script setup lang="ts">
 import { onMounted, provide, reactive, watch } from 'vue'
 import { ContextKey } from './symbols'
 import type { TabContext } from './types'
+
 const props = defineProps({
   selectedIndex: {
     type: Number,
     default: -1 // left,center,right
   }
 })
+
 const emit = defineEmits(['change'])
+
 const context: TabContext = reactive({
   selectedIndex: 0,
   tabs: [],
@@ -72,6 +76,7 @@ provide(ContextKey, {
   setSelectedIndex
 })
 </script>
+
 <template>
   <slot />
 </template>

@@ -4,14 +4,15 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 import { toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import type { Size, State, Description } from '@/globals/types'
-
-import { useRadioClasses } from './composables/index'
-// import { useGlobalCheckbox } from "../../composables/index";
 import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useRadioClasses } from './composables/index'
+import type { Description, Size, State } from '@/globals/types'
+
+// import { useGlobalCheckbox } from "../../composables/index";
 
 const props = defineProps({
   size: {
@@ -40,13 +41,14 @@ const props = defineProps({
   }
 })
 
+// const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
+
+const emit = defineEmits(['update:modelValue'])
+
 const attrs = useAttrs()
 
 const { inputClasses, spanClasses } = useRadioClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-// const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
-
-const emit = defineEmits(['update:modelValue'])
 function handleChange(e: any) {
   emit('update:modelValue', props.value)
 }
@@ -59,11 +61,13 @@ function handleChange(e: any) {
         type="radio"
         :class="inputClasses"
         :value="value"
-        @change="handleChange"
         v-bind="$attrs"
+        @change="handleChange"
       />
       <span :class="spanClasses" />
     </div>
-    <p v-if="description" :class="descriptionClasses">{{ description }}</p>
+    <p v-if="description" :class="descriptionClasses">
+      {{ description }}
+    </p>
   </div>
 </template>

@@ -3,11 +3,12 @@ export default {
   name: 'LuiTabPanel'
 }
 </script>
+
 <script setup lang="ts">
-import { inject, computed, onMounted, onUnmounted, ref } from 'vue'
-import { ContextKey } from './symbols'
-import { useId } from '../../utils/useId'
+import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 import type { PropType } from 'vue'
+import { useId } from '../../utils/useId'
+import { ContextKey } from './symbols'
 import type { AlignmentTypes } from './types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
@@ -50,6 +51,7 @@ const tabPanelClasses = computed(() => {
   return Object.values(classes)
 })
 </script>
+
 <template>
   <div
     v-show="isSelected"

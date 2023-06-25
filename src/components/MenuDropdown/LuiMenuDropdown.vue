@@ -4,19 +4,21 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
-import { ref, nextTick, useSlots, reactive, computed } from 'vue'
+import { computed, nextTick, reactive, ref, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
 import { useId } from '../../utils/useId'
-import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
+import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
-type MenuItems = {
+
+interface MenuItems {
   disabled?: boolean
 }
-type MenuStateType = {
+interface MenuStateType {
   items: MenuItems[]
   currentIndex: number
   currentId: string
@@ -121,7 +123,7 @@ const positionClasses = {
   },
   rightTop: {
     classes: 'top-0 ml-1 left-full',
-    oppositeClasses: 'bottom-0 ml-1 left-full', //rightBottom
+    oppositeClasses: 'bottom-0 ml-1 left-full', // rightBottom
     direction: 'bottom'
   },
   rightBottom: {
@@ -169,9 +171,9 @@ const dropdownMenuClasses = computed(() => {
       'p-2.5': props.size === 'lg' || props.size === 'xl'
     },
     boxShadow: 'shadow-lg',
-    bottom: properPosition.value == 'top' ? 'bottom-full' : '',
-    top: properPosition.value == 'bottom' ? 'top-full' : '',
-    margin: properPosition.value == 'bottom' ? 'mt-2' : 'mb-2',
+    bottom: properPosition.value === 'top' ? 'bottom-full' : '',
+    top: properPosition.value === 'bottom' ? 'top-full' : '',
+    margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2'
   }
   return Object.values({ ...optionsWrapper })
@@ -222,9 +224,7 @@ function toogleMenu() {
           : slot.props
       )
       .flat()
-  if (slotProps && slotProps.length) {
-    menuState.items = slotProps
-  }
+  if (slotProps && slotProps.length) menuState.items = slotProps
 })()
 
 function handleMenuKeyEvents(event: KeyboardEvent) {
@@ -303,11 +303,9 @@ function focusAvailableElement(
     menuState.items[targetIndex]?.disabled === false
 
   let targetIndex = menuState.currentIndex
-  if (initial !== null) {
-    targetIndex = initial
-  } else {
-    targetIndex = oparation(targetIndex)
-  }
+  if (initial !== null) targetIndex = initial
+  else targetIndex = oparation(targetIndex)
+
   if (!isTargetExist(targetIndex)) return
 
   while (!isTargetFocusable(targetIndex)) {
@@ -327,29 +325,30 @@ function triggerIconSize(size: string) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
 }
 </script>
+
 <template>
   <div ref="luiDropdownWrapper" :class="dropdownWrapperClasses">
     <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
-        name="trigger"
         :id="buttonId"
+        name="trigger"
         type="button"
         aria-haspopup="true"
         :aria-expanded="menuActive"
         :aria-controls="menuId"
+        tabindex="0"
         @click="toogleMenu"
         @keydown="handleButtonKeyEvents"
-        tabindex="0"
       >
-        <lui-button
+        <LuiButton
           :id="buttonId"
           type="button"
           aria-haspopup="true"
           :aria-expanded="menuActive"
           :aria-controls="menuId"
+          v-bind="defaultButtonProps"
           @click="toogleMenu"
           @keydown="handleButtonKeyEvents"
-          v-bind="defaultButtonProps"
         >
           <template #prepend>
             <slot name="prepend" />
@@ -371,7 +370,7 @@ function triggerIconSize(size: string) {
               </svg>
             </slot>
           </template>
-        </lui-button>
+        </LuiButton>
       </slot>
     </div>
 
@@ -398,13 +397,13 @@ function triggerIconSize(size: string) {
       leave-to-class="transform scale-95 opacity-0"
     >
       <ul
+        v-show="menuActive"
         :id="menuId"
-        role="menu"
         ref="luiDropdownMenu"
+        role="menu"
         :aria-labelledby="buttonId"
         :aria-activedescendant="String(menuState.currentIndex)"
         tabindex="0"
-        v-show="menuActive"
         :class="[computedMenuPosition, dropdownMenuClasses]"
         @keydown="handleMenuKeyEvents"
       >

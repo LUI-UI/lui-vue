@@ -3,13 +3,14 @@ export default {
   name: 'LuiTabButton'
 }
 </script>
+
 <script setup lang="ts">
-import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
-import type { Size } from '@/globals/types'
 import type { PropType } from 'vue'
-import { ContextKey } from './symbols'
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
+import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
 import { useId } from '../../utils/useId'
+import { ContextKey } from './symbols'
+import type { Size } from '@/globals/types'
 
 const props = defineProps({
   size: {
@@ -61,13 +62,9 @@ function handleKeyEvents(event: KeyboardEvent) {
   ) as number
   const setTargetIndex = (i: number) => {
     const length = focusableTabs?.length as number
-    if (i === -1) {
-      targetIndex = length - 1
-    } else if (i > length - 1) {
-      targetIndex = 0
-    } else {
-      targetIndex = i
-    }
+    if (i === -1) targetIndex = length - 1
+    else if (i > length - 1) targetIndex = 0
+    else targetIndex = i
   }
   switch (event?.code) {
     case 'ArrowRight': {
@@ -98,10 +95,11 @@ function handleKeyEvents(event: KeyboardEvent) {
   }
 }
 </script>
+
 <template>
   <LuiMenuItem
-    ref="tabRef"
     :id="id"
+    ref="tabRef"
     role="tab"
     type="button"
     :block="stretch"

@@ -4,12 +4,13 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Rounded, Size, State, Description, CheckableModelValue } from '@/globals/types'
-import { toRefs, computed, useAttrs, toRef } from 'vue'
-import { useCheckboxClasses } from './composables/index'
+import { computed, toRef, toRefs, useAttrs } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useCheckboxClasses } from './composables/index'
+import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
 
 type Indeterminate = false | true
 
@@ -42,10 +43,10 @@ const props = defineProps({
     default: undefined
   }
 })
+const emit = defineEmits(['update:modelValue'])
 const attrs = useAttrs()
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-const emit = defineEmits(['update:modelValue'])
 const modelValueAsArray = toRef(props, 'modelValue')
 function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
@@ -59,9 +60,9 @@ const usageMethod = computed(() => {
 
 function handleVModel(event: Event) {
   const target = event.target as HTMLInputElement
-  if (usageMethod.value === 'customValue') {
+  if (usageMethod.value === 'customValue')
     return target.checked ? attrs['true-value'] : attrs['false-value']
-  }
+
   if (usageMethod.value === 'boolean') return target.checked
   if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value)) {
     if (target.checked) {
@@ -74,12 +75,11 @@ function handleVModel(event: Event) {
   return modelValueAsArray.value
 }
 function isInputChecked(): boolean {
-  if (usageMethod.value === 'customValue') {
-    return props.modelValue === attrs['true-value']
-  }
-  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value)) {
+  if (usageMethod.value === 'customValue') return props.modelValue === attrs['true-value']
+
+  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value))
     return attrs && attrs.value ? modelValueAsArray.value.includes(attrs.value as string) : false
-  }
+
   if (usageMethod.value === 'boolean') return props.modelValue as boolean
   return attrs && attrs.checked ? (attrs.checked as boolean) : false
 }
@@ -112,17 +112,18 @@ const iconSize = computed(() =>
       }
 )
 </script>
+
 <template>
   <div class="inline-block leading-3">
     <div class="relative inline-flex">
       <input
         type="checkbox"
         :checked="isInputChecked()"
-        @change="handleChange"
         :class="inputClasses"
         v-bind="$attrs"
+        @change="handleChange"
       />
-      <span :class="spanClasses"> </span>
+      <span :class="spanClasses" />
       <svg
         v-if="!indeterminate"
         :class="iconClasses"

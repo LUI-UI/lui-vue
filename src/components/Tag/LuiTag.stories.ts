@@ -1,6 +1,6 @@
-import LuiTag from './LuiTag.vue'
-import { variant, color, size, filter, rounded } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { color, filter, rounded, size, variant } from '../../../.storybook/global-story-argtypes'
+import LuiTag from './LuiTag.vue'
 
 // const sizeList = size.options
 // const colorList = color.options
@@ -47,7 +47,7 @@ export default meta
 
 type Story = StoryObj<typeof LuiTag>
 
-const defaultTemplate = `<lui-tag>Tag</lui-tag>`
+const defaultTemplate = '<lui-tag>Tag</lui-tag>'
 export const Default: Story = {
   render: () => ({
     components: { LuiTag },

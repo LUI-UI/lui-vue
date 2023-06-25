@@ -4,20 +4,23 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
-import { ref, nextTick, provide, useSlots, useAttrs, watch, reactive, computed, toRef } from 'vue'
+import { computed, nextTick, provide, reactive, ref, toRef, useAttrs, useSlots, watch } from 'vue'
 import type { PropType, Ref } from 'vue'
-import type { OptionsType, ModelValue, ModelValueObject, ListboxStateType } from './select-types'
-import { ContextKey } from './symbols'
 import { useId } from '../../utils/useId'
+
 // import { useOutsideClick, useFindProperPosition } from "./composables/index";
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
+import { ContextKey } from './symbols'
+import type { ListboxStateType, ModelValue, ModelValueObject, OptionsType } from './select-types'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+import type { TwClassInterface } from '@/globals/interfaces'
+
 const props = defineProps({
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
@@ -64,6 +67,7 @@ const props = defineProps({
     default: undefined
   }
 })
+const emit = defineEmits(['update:modelValue', 'change'])
 const slots = useSlots()
 const attrs = useAttrs()
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
@@ -92,11 +96,9 @@ const errorMessages = {
     modelValue: 'Wrong type for modelValue, typeof of modelValue should be string'
   },
   missing: {
-    options: `Options missing: should use options prop or LuiOption component as slot`
+    options: 'Options missing: should use options prop or LuiOption component as slot'
   }
 }
-
-const emit = defineEmits(['update:modelValue', 'change'])
 
 const { properPosition } = useProperPosition({
   triggerEl: selectWrapperRef,
@@ -121,9 +123,8 @@ watch(
   () => props.modelValue,
   (value) => {
     const rawValue = typeof value !== 'string' ? value?.text : value
-    if (rawValue !== selectedOption.value?.text) {
-      updateSelectedOption(value)
-    }
+    if (rawValue !== selectedOption.value?.text) updateSelectedOption(value)
+
     // updateSelectedOption(value);
   }
 )
@@ -141,11 +142,9 @@ function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLEl
   const isAbove = offsetTop < scrollTop
   const isBelow = offsetTop + offsetHeight > scrollTop + parentOffsetHeight
 
-  if (isAbove) {
-    scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
-  } else if (isBelow) {
+  if (isAbove) scrollParent.scrollTo(0, offsetTop - marginBetweenOptions)
+  else if (isBelow)
     scrollParent.scrollTo(0, offsetTop - parentOffsetHeight + offsetHeight + marginBetweenOptions)
-  }
 }
 function focusAvailableElement(
   el: HTMLElement | undefined,
@@ -159,11 +158,9 @@ function focusAvailableElement(
   }
   let targetIndex = listboxState.currentIndex
   // set target
-  if (initial !== null) {
-    targetIndex = initial
-  } else {
-    targetIndex = oparation(targetIndex)
-  }
+  if (initial !== null) targetIndex = initial
+  else targetIndex = oparation(targetIndex)
+
   if (!isTargetExist(targetIndex)) return
   while (!isTargetFocusable(targetIndex)) {
     targetIndex = oparation(targetIndex)
@@ -172,9 +169,8 @@ function focusAvailableElement(
   listboxState.currentIndex = targetIndex
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id
-  if (!props.searchable) {
-    nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
-  }
+  if (!props.searchable) nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
+
   nextTick(() => {
     if (isScrollable(optionsRef.value as HTMLElement)) {
       handleScrollVisibility(
@@ -268,7 +264,7 @@ function setInitialSelectedOption() {
     slots
       .default()
       .some((slot: any) =>
-        slot.type.toString() == 'Symbol(Fragment)'
+        slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.some(
               (child: any) => child.props.selected !== undefined && child.props.selected === true
             )
@@ -280,7 +276,7 @@ function setInitialSelectedOption() {
     slots
       .default()
       .some((slot: any) =>
-        slot.type.toString() == 'Symbol(Fragment)'
+        slot.type.toString() === 'Symbol(Fragment)'
           ? slot.children.some(
               (child: any) =>
                 child.type.name !== undefined && validSlotTypes.includes(child.type.name)
@@ -288,9 +284,8 @@ function setInitialSelectedOption() {
           : slot.type.name !== undefined && validSlotTypes.includes(slot.type.name)
       )
 
-  if (isModelValueInvalid) {
-    throw new Error(errorMessages.type.modelValue)
-  }
+  if (isModelValueInvalid) throw new Error(errorMessages.type.modelValue)
+
   if (props.modelValue !== undefined) {
     // should we handle the case if modelValue does not match any option then if placeholder exist set placeholder than throw error?
     updateSelectedOption(props.modelValue)
@@ -310,11 +305,10 @@ function setInitialSelectedOption() {
   if (!optionsExist && !anySlotSelected()) {
     const firstSlot: any = slots.default && slots.default()[0]
     let propsOfFirstSlot
-    if (slots.default && firstSlot?.type.toString() === 'Symbol(Fragment)') {
+    if (slots.default && firstSlot?.type.toString() === 'Symbol(Fragment)')
       propsOfFirstSlot = firstSlot?.children[0]?.props
-    } else {
-      propsOfFirstSlot = firstSlot?.props
-    }
+    else propsOfFirstSlot = firstSlot?.props
+
     setPlaceholderOrValue(propsOfFirstSlot)
   }
 }
@@ -366,26 +360,21 @@ function buttonKeydown(event: KeyboardEvent) {
     case 'ArrowUp':
     case 'Enter':
     case 'Space':
-      {
-        event.preventDefault()
-        if (!optionsActive.value) {
-          toggleOptions()
-        }
-        if (props.searchable && !isFirstPress) {
-          handleKeydownEvents(event)
-        } else {
-          const selectedIndex = listboxState.items.findIndex((item: any) =>
-            typeof item === 'string'
-              ? item === selectedOption.value
-              : item?.text === selectedOption.value?.text
-          )
-          if (selectedIndex === -1) {
-            focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
-          } else {
-            focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
-          }
-        }
+      event.preventDefault()
+      if (!optionsActive.value) toggleOptions()
+
+      if (props.searchable && !isFirstPress) {
+        handleKeydownEvents(event)
+      } else {
+        const selectedIndex = listboxState.items.findIndex((item: any) =>
+          typeof item === 'string'
+            ? item === selectedOption.value
+            : item?.text === selectedOption.value?.text
+        )
+        if (selectedIndex === -1) focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
+        else focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
       }
+
       break
     default:
     // code block
@@ -425,9 +414,9 @@ const optionsClasses = computed(() => {
       'p-2.5': props.size === 'lg' || props.size === 'xl'
     },
     boxShadow: 'shadow-lg',
-    bottom: properPosition.value == 'top' ? 'bottom-full' : '',
-    top: properPosition.value == 'bottom' ? 'top-full' : '',
-    margin: properPosition.value == 'bottom' ? 'mt-2' : 'mb-2',
+    bottom: properPosition.value === 'top' ? 'bottom-full' : '',
+    top: properPosition.value === 'bottom' ? 'top-full' : '',
+    margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2'
   }
   return Object.values({ ...optionsWrapper })
@@ -461,7 +450,7 @@ const inputProps = computed(() => ({
   ...attrs
 }))
 
-const optionProps = (option: string | object) => {
+function optionProps(option: string | object) {
   const commonProps = {
     size: props.size,
     rounded: props.rounded
@@ -494,9 +483,8 @@ const searchedOptions = computed(() => {
 })
 
 function setSearchQuery(event: Event) {
-  if (!optionsActive.value) {
-    optionsActive.value = true
-  }
+  if (!optionsActive.value) optionsActive.value = true
+
   const inputValue = (event.target as HTMLInputElement).value
   searchQuery.value = inputValue
   if (searchedOptions.value.length > 0) {
@@ -512,16 +500,15 @@ function setSearchQuery(event: Event) {
 function resetSelectedOption() {
   if (props.searchable && searchedOptions.value.length === 0) {
     updateSelectedOption(selectedOptionBackup.value)
-    if (optionsActive.value) {
-      toggleOptions()
-    }
+    if (optionsActive.value) toggleOptions()
   }
 }
 </script>
+
 <template>
   <div
-    role="combobox"
     ref="selectWrapperRef"
+    role="combobox"
     aria-haspopup="listbox"
     :class="selectWrapperClasses"
     :aria-expanded="optionsActive"
@@ -530,13 +517,13 @@ function resetSelectedOption() {
     @click="toggleOptions"
   >
     <LuiInput
-      ref="selectRef"
       :id="selectId"
+      ref="selectRef"
       v-bind="inputProps"
+      v-model="selectedOption"
       :readonly="!searchable"
       autocomplete="off"
       @keydown="buttonKeydown"
-      v-model="selectedOption"
       @input="setSearchQuery"
       @blur="resetSelectedOption"
     >
@@ -562,8 +549,8 @@ function resetSelectedOption() {
     </LuiInput>
     <ul
       v-show="optionsActive"
-      ref="optionsRef"
       :id="optionsId"
+      ref="optionsRef"
       aria-orientation="vertical"
       :aria-labelledby="selectId"
       role="listbox"
@@ -579,8 +566,7 @@ function resetSelectedOption() {
             v-for="(option, index) in searchedOptions"
             :key="index"
             v-bind="optionProps(option)"
-          >
-          </LuiOption>
+          />
         </template>
         <template v-else>
           <LuiOption text="Nothing found on this search" disabled />

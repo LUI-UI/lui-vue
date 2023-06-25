@@ -4,13 +4,15 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
-import { toRefs, useAttrs, computed } from 'vue'
+import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import type { Rounded, Size, State, Description, StateIcon, Block } from '@/globals/types'
 
 import { useGlobalDescriptionClasses } from '../../composables/index'
 import { useTextareaClasses } from './composables'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+
 type Resize = true | false | 'y' | 'x'
 const props = defineProps({
   size: {
@@ -47,9 +49,8 @@ const props = defineProps({
   }
 })
 
-const attrs = useAttrs()
 const emit = defineEmits(['update:modelValue'])
-
+const attrs = useAttrs()
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 const { textareaClasses, stateIconClasses } = useTextareaClasses(toRefs(props), attrs)
 function handleInputEvents(val: any) {
@@ -74,8 +75,8 @@ const isDisabled = computed(() => attrs.disabled !== undefined && attrs.disabled
       <textarea
         :class="textareaClasses"
         :value="modelValue"
-        @input="handleInputEvents($event)"
         v-bind="$attrs"
+        @input="handleInputEvents($event)"
       />
       <span v-if="stateIcon && state !== null && !isDisabled" :class="stateIconClasses">
         <!-- feedback -->

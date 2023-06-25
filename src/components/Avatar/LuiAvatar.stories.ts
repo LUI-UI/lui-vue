@@ -1,15 +1,15 @@
-import LuiAvatar from './LuiAvatar.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 import {
-  variant,
-  color,
-  size,
-  filter,
   border,
+  color,
+  filter,
   rounded,
-  text
+  size,
+  text,
+  variant
 } from '../../../.storybook/global-story-argtypes'
+import LuiAvatar from './LuiAvatar.vue'
 
 const descriptions = {
   docs: {
@@ -55,7 +55,7 @@ export default meta
 
 type Story = StoryObj<typeof LuiAvatar>
 
-const defaultTemplate = `<lui-avatar />`
+const defaultTemplate = '<lui-avatar />'
 export const Default: Story = {
   render: () => ({
     components: { LuiAvatar },
@@ -265,7 +265,7 @@ export const IconSlot: Story = {
   }
 }
 
-const textTemplate = `<lui-avatar text="T" />`
+const textTemplate = '<lui-avatar text="T" />'
 export const Text: Story = {
   render: () => ({
     components: { LuiAvatar },
@@ -284,7 +284,7 @@ export const Text: Story = {
   }
 }
 
-const srcTemplate = `<lui-avatar src="https://www.w3schools.com/howto/img_avatar.png" />`
+const srcTemplate = '<lui-avatar src="https://www.w3schools.com/howto/img_avatar.png" />'
 export const Src: Story = {
   render: () => ({
     components: { LuiAvatar },
@@ -302,7 +302,8 @@ export const Src: Story = {
   }
 }
 
-const altTemplate = `<lui-avatar src="https://www.w3schools.com/howto/img_avatar2.png" alt="User Avatar" />`
+const altTemplate =
+  '<lui-avatar src="https://www.w3schools.com/howto/img_avatar2.png" alt="User Avatar" />'
 export const Alt: Story = {
   render: () => ({
     components: { LuiAvatar },

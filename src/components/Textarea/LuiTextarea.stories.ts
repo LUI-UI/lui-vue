@@ -1,13 +1,13 @@
-import LuiTextarea from './LuiTextarea.vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
 import {
+  block,
+  description,
   rounded,
   size,
   state,
-  description,
-  stateIcon,
-  block
+  stateIcon
 } from '../../../.storybook/global-story-argtypes'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiTextarea from './LuiTextarea.vue'
 
 const descriptions = {
   docs: {
@@ -46,7 +46,7 @@ const meta: Meta<typeof LuiTextarea> = {
 export default meta
 type Story = StoryObj<typeof LuiTextarea>
 
-const defaultTemplate = `<lui-textarea placeholder="Type something" />`
+const defaultTemplate = '<lui-textarea placeholder="Type something" />'
 export const Default: Story = {
   render: () => ({
     components: { LuiTextarea },
@@ -155,7 +155,8 @@ export const Resize: Story = {
   }
 }
 
-const descriptionTemplate = `<lui-textarea description="This is a description" placeholder="Type something" />`
+const descriptionTemplate =
+  '<lui-textarea description="This is a description" placeholder="Type something" />'
 export const Description: Story = {
   render: () => ({
     components: { LuiTextarea },

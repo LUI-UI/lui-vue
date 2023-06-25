@@ -183,23 +183,13 @@ const computedBadgeClasses = computed(() => {
   return Object.values(badgeClasses);
 });
 </script> -->
-<template>
-  <div class="lui-badge" :class="computedContainerClasses">
-    <slot></slot>
-    <div ref="badgeWrapper" :class="computedBadgeClasses">
-      <span :class="computedIconClasses" v-if="$slots.icon"><slot name="icon"></slot></span>
-      <span v-if="text.length > 0" ref="badgeContent">{{ text }}</span>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
-import type { Filter, Color, Size, Border, Text, NarrowedVariant } from '@/globals/types'
-import { ref, computed, toRefs } from 'vue'
+import { computed, defineComponent, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
-import type { TwClassInterface, LayoutInterface, FlexGridInterface } from '@/globals/interfaces'
 import { useGlobalColorClasses } from '../../composables'
+import type { Border, Color, Filter, NarrowedVariant, Size, Text } from '@/globals/types'
+import type { FlexGridInterface, LayoutInterface, TwClassInterface } from '@/globals/interfaces'
+
 type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
 export default defineComponent({
@@ -305,8 +295,8 @@ export default defineComponent({
         borderRadius: 'rounded-full',
         borderWidth: 'border',
         borderStyle: 'border-solid',
-        justifyContent: { ['justify-center']: !overflow.value },
-        alignItems: { ['items-center']: !overflow.value },
+        justifyContent: { 'justify-center': !overflow.value },
+        alignItems: { 'items-center': !overflow.value },
         padding:
           props.text.length > 0 || !!slots.icon
             ? {
@@ -378,3 +368,13 @@ export default defineComponent({
   }
 })
 </script>
+
+<template>
+  <div class="lui-badge" :class="computedContainerClasses">
+    <slot />
+    <div ref="badgeWrapper" :class="computedBadgeClasses">
+      <span v-if="$slots.icon" :class="computedIconClasses"><slot name="icon" /></span>
+      <span v-if="text.length > 0" ref="badgeContent">{{ text }}</span>
+    </div>
+  </div>
+</template>

@@ -1,7 +1,7 @@
-import LuiCheckbox from './LuiCheckbox.vue'
-import { size, rounded, state, description } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
+import { description, rounded, size, state } from '../../../.storybook/global-story-argtypes'
+import LuiCheckbox from './LuiCheckbox.vue'
 
 const descriptions = {
   docs: {
@@ -38,7 +38,7 @@ const meta: Meta<typeof LuiCheckbox> = {
 export default meta
 type Story = StoryObj<typeof LuiCheckbox>
 
-const defaultTemplate = `<lui-checkbox />`
+const defaultTemplate = '<lui-checkbox />'
 export const Default: Story = {
   render: () => ({
     components: { LuiCheckbox },
@@ -156,7 +156,7 @@ export const Rounded: Story = {
   }
 }
 
-const descriptionTemplate = `<lui-checkbox description="This is a description." checked />`
+const descriptionTemplate = '<lui-checkbox description="This is a description." checked />'
 export const Description: Story = {
   render: () => ({
     components: { LuiCheckbox },
@@ -201,7 +201,7 @@ export const State: Story = {
   }
 }
 
-const indeterminateTemplate = `<lui-checkbox indeterminate checked />`
+const indeterminateTemplate = '<lui-checkbox indeterminate checked />'
 export const Indeterminate: Story = {
   render: () => ({
     components: { LuiCheckbox },
@@ -220,8 +220,9 @@ export const Indeterminate: Story = {
   }
 }
 
-const toggleCheckTemplate = `<lui-checkbox v-model="booleanCheck" />`
-const customValueTemplate = `<lui-checkbox v-model="customValue" true-value="yes" false-value="no" />`
+const toggleCheckTemplate = '<lui-checkbox v-model="booleanCheck" />'
+const customValueTemplate =
+  '<lui-checkbox v-model="customValue" true-value="yes" false-value="no" />'
 export const ToggleCheckbox: Story = {
   render: () => ({
     components: { LuiCheckbox },

@@ -1,8 +1,8 @@
-import LuiSelect from '../Select/LuiSelect.vue'
-import LuiOption from './LuiOption.vue'
 import { ref } from 'vue'
-import { rounded, size } from '../../../.storybook/global-story-argtypes'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiSelect from '../Select/LuiSelect.vue'
+import { rounded, size } from '../../../.storybook/global-story-argtypes'
+import LuiOption from './LuiOption.vue'
 
 const descriptions = {
   docs: {

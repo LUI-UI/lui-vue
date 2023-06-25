@@ -3,7 +3,7 @@ import { customRef } from 'vue'
 const focusableElementsSelector =
   'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
-const useFocusTrap = () => {
+function useFocusTrap() {
   let focusableElements: HTMLElement[] = []
   let firstFocusable: HTMLElement
   let lastFocusable: HTMLElement

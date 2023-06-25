@@ -1,13 +1,13 @@
-import LuiButton from './LuiButton.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import {
-  variant,
-  color,
   block,
+  color,
+  filter,
   rounded,
   size,
-  filter
+  variant
 } from '../../../.storybook/global-story-argtypes'
+import LuiButton from './LuiButton.vue'
 
 const descriptions = {
   docs: {
@@ -58,7 +58,7 @@ const meta: Meta<typeof LuiButton> = {
 export default meta
 type Story = StoryObj<typeof LuiButton>
 
-const defaultTemplate = `<lui-button>Default Button</lui-button>`
+const defaultTemplate = '<lui-button>Default Button</lui-button>'
 export const Default: Story = {
   render: () => ({
     components: { LuiButton },
@@ -77,7 +77,7 @@ export const Default: Story = {
   }
 }
 
-const disabledTemplate = `<lui-button disabled>Disabled Button</lui-button>`
+const disabledTemplate = '<lui-button disabled>Disabled Button</lui-button>'
 export const Disabled: Story = {
   render: () => ({
     components: { LuiButton },
@@ -228,7 +228,7 @@ export const Rounded: Story = {
   }
 }
 
-const blockTemplate = `<lui-button block>Block</lui-button>`
+const blockTemplate = '<lui-button block>Block</lui-button>'
 export const Block: Story = {
   render: () => ({
     components: { LuiButton },

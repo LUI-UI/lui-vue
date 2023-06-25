@@ -4,14 +4,16 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 import { computed, watch } from 'vue'
 import type { PropType } from 'vue'
 import { useId } from '../../utils/useId'
 import useFocusTrap from '../../composables/useFocusTrap'
+import LuiButton from '../Button/LuiButton.vue'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Size } from '@/globals/types'
-import LuiButton from '../Button/LuiButton.vue'
+
 const props = defineProps({
   show: {
     type: Boolean as PropType<Boolean>,
@@ -49,18 +51,15 @@ function createTeleportElement() {
   teleportWrapper.setAttribute('id', teleportId)
   body[0].appendChild(teleportWrapper)
 }
-if (typeof window !== 'undefined') {
-  createTeleportElement()
-}
+if (typeof window !== 'undefined') createTeleportElement()
+
 watch(
   () => props.show,
   (val) => {
     if (typeof window !== 'undefined') {
       const body = document.querySelector('body')
       const overflowValue = val ? 'hidden' : 'auto'
-      if (body !== null) {
-        body.style.overflow = overflowValue
-      }
+      if (body !== null) body.style.overflow = overflowValue
     }
   }
 )
@@ -128,13 +127,14 @@ const computedModalClasses = computed(() => {
 //   return Object.values(classes)
 // })
 </script>
+
 <template>
   <Teleport :to="`#${teleportId}`">
     <div v-if="show" ref="trapRef" class="fixed inset-0 z-50 overflow-hidden">
       <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
         <div
-          role="dialog"
           :id="modalId"
+          role="dialog"
           aria-labelledby="lui-modal"
           aria-modal="true"
           :class="computedModalClasses"

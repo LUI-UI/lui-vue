@@ -1,14 +1,14 @@
-import LuiBadge from './LuiBadge.vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
 import LuiAvatar from '../Avatar/LuiAvatar.vue'
 import {
-  variant,
+  border,
   color,
-  size,
   filter,
+  size,
   text,
-  border
+  variant
 } from '../../../.storybook/global-story-argtypes'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiBadge from './LuiBadge.vue'
 
 const descriptions = {
   docs: {
@@ -17,8 +17,8 @@ const descriptions = {
   },
   argTypes: {
     position: 'Used to control the position of the LuiBadge'
-    //icon: 'Used to place an icon in the component',
-    //default: 'Used as default to add a text in the component'
+    // icon: 'Used to place an icon in the component',
+    // default: 'Used as default to add a text in the component'
   }
 }
 
@@ -32,8 +32,8 @@ const meta: Meta<typeof LuiBadge> = {
     color,
     size,
     filter,
-    //icon: { description: descriptions.argTypes.icon },
-    //default: { description: descriptions.argTypes.default },
+    // icon: { description: descriptions.argTypes.icon },
+    // default: { description: descriptions.argTypes.default },
     position: {
       control: 'select',
       options: ['top-left', 'top-right', 'bottom-left', 'bottom-right'],
@@ -52,7 +52,7 @@ export default meta
 
 type Story = StoryObj<typeof LuiBadge>
 
-const defaultTemplate = `<lui-badge />`
+const defaultTemplate = '<lui-badge />'
 export const Default: Story = {
   render: () => ({
     components: { LuiBadge },

@@ -4,12 +4,13 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 import { toRefs, useSlots } from 'vue'
-import { useButtonClasses } from './composables'
 import type { PropType } from 'vue'
+import { useButtonClasses } from './composables'
 import type { Tag } from './button-types'
-import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
+import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
@@ -95,7 +96,7 @@ function dynamicSlotClasses() {
       <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="prepend" />
       </span>
-      <span><slot></slot></span>
+      <span><slot /></span>
       <span v-if="!!slots.append" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="append" />
       </span>

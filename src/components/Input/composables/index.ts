@@ -1,13 +1,15 @@
 import { computed, useSlots } from 'vue'
+
 // import classNames from "classnames";
-//Types
+// Types
 import type { Ref } from 'vue'
-import type { TwClassInterface } from '@/globals/interfaces'
 import type { Clear } from '../input-types'
-import type { State, Rounded, Block, Size, Description, StateIcon } from '@/globals/types'
 import { hasSlotContent } from '../../../utils/hasSlotContent'
-//Define Prop Types
-type PropTypes = {
+import type { TwClassInterface } from '@/globals/interfaces'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+
+// Define Prop Types
+interface PropTypes {
   size: Ref<Size>
   rounded: Ref<Rounded>
   state: Ref<State>
@@ -76,11 +78,11 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       borderWidth: 'border',
       borderStyle: 'border-solid',
       borderColor: {
-        ['border-secondary-200 focus:border-primary-500 disabled:border-secondary-200']:
+        'border-secondary-200 focus:border-primary-500 disabled:border-secondary-200':
           props.state.value === null,
-        ['disabled:border-secondary-200 border-warning-500']: props.state.value === 'warning',
-        ['disabled:border-secondary-200 border-danger-500']: props.state.value === false,
-        ['disabled:border-secondary-200 border-success-500']: props.state.value === true
+        'disabled:border-secondary-200 border-warning-500': props.state.value === 'warning',
+        'disabled:border-secondary-200 border-danger-500': props.state.value === false,
+        'disabled:border-secondary-200 border-success-500': props.state.value === true
       },
       ringWidth:
         attrs.disabled !== undefined && attrs.disabled === true
@@ -100,9 +102,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       },
       cursor: 'disabled:cursor-not-allowed',
       padding:
-        iconStatus.value === 'noIcon'
-          ? // 6 - 8 - 10 - 10 - 12
-            // 24 - 32 - 40 - 40 - 48
+        iconStatus.value === 'noIcon' // 6 - 8 - 10 - 10 - 12
+          ? // 24 - 32 - 40 - 40 - 48
             {
               'py-1 px-1.5': props.size.value === 'xs',
               'py-1.5 px-2': props.size.value === 'sm',
@@ -110,9 +111,8 @@ export function useInputClasses(props: PropTypes, attrs: any) {
               'py-2.5 px-2.5': props.size.value === 'lg',
               'py-3.5 px-3': props.size.value === 'xl'
             }
-          : iconStatus.value === 'rightIcon'
-          ? // 26 - 32 - 40 - 40 - 48
-            {
+          : iconStatus.value === 'rightIcon' // 26 - 32 - 40 - 40 - 48
+          ? {
               'py-1 pl-1.5 pr-6': props.size.value === 'xs',
               'py-1.5 pl-2 pr-8': props.size.value === 'sm',
               'py-2 pl-2.5 pr-10': props.size.value === 'md',
@@ -128,7 +128,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
               'py-3.5 px-12': props.size.value === 'xl'
             }
           : {
-              //leftIcon
+              // leftIcon
               'py-1 pr-1.5 pl-6': props.size.value === 'xs',
               'py-1.5 pr-2 pl-8': props.size.value === 'sm',
               'py-2 pr-2.5 pl-10': props.size.value === 'md',
@@ -166,7 +166,6 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   })
 
   const stateIconClasses = computed(() => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { textColor, ...rest } = iconClasses
     const classes: TwClassInterface = {
       ...rest,

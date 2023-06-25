@@ -1,9 +1,9 @@
-import LuiOverlay from './LuiOverlay.vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
+import { ref } from 'vue'
 import LuiSelect from '../Select/LuiSelect.vue'
 import LuiInput from '../Input/LuiInput.vue'
-import type { Meta, StoryObj } from '@storybook/vue3'
 import { color } from '../../../.storybook/global-story-argtypes'
-import { ref } from 'vue'
+import LuiOverlay from './LuiOverlay.vue'
 
 const descriptions = {
   docs: {

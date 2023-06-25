@@ -1,11 +1,12 @@
 import { computed } from 'vue'
-//Types
+
+// Types
 import type { Ref } from 'vue'
 import type { TwClassInterface } from '@/globals/interfaces'
-import type { Variant, Filter, Rounded, Color, Size } from '@/globals/types'
+import type { Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 
-//Define Prop Types
-type PropTypes = {
+// Define Prop Types
+interface PropTypes {
   variant: Ref<Variant>
   color: Ref<Color>
   filter: Ref<Filter>
@@ -62,7 +63,7 @@ export function useTagClasses(props: PropTypes) {
       textColor:
         props.variant.value === 'solid'
           ? {
-              [`text-white disabled:text-secondary-300`]: props.filter.value === 'none', // filter none
+              'text-white disabled:text-secondary-300': props.filter.value === 'none', // filter none
               [`text-${props.color.value}-500 disabled:text-secondary-300`]:
                 props.filter.value === 'lighten', // filter lighten
               [`text-${props.color.value}-100 disabled:text-secondary-300`]:

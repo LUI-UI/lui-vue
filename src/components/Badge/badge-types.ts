@@ -1,5 +1,6 @@
-import type { Filter, Color, Size, Border, Text, NarrowedVariant } from '@/globals/types'
 import type { PropType } from 'vue'
+import type { Border, Color, Filter, NarrowedVariant, Size, Text } from '@/globals/types'
+
 type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export const badgeTypes = {
   variant: {

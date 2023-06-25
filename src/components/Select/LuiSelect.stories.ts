@@ -1,15 +1,15 @@
-import LuiSelect from './LuiSelect.vue'
-import LuiOption from '../Option/LuiOption.vue'
 import { ref } from 'vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiOption from '../Option/LuiOption.vue'
 import {
   block,
+  description,
   rounded,
   size,
-  description,
   state,
   stateIcon
 } from '../../../.storybook/global-story-argtypes'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import LuiSelect from './LuiSelect.vue'
 
 const descriptions = {
   docs: {
@@ -24,7 +24,7 @@ const descriptions = {
     searchable: 'Provides a search feature to filter the options',
     placeholder: 'Used to add a placeholder text to the LuiSelect',
     options: 'Provides the available options to the LuiSelect'
-    //change: 'Used to control the action when an option is selected'
+    // change: 'Used to control the action when an option is selected'
   }
 }
 
@@ -60,7 +60,7 @@ const meta: Meta<typeof LuiSelect> = {
     default: { description: descriptions.argTypes.default },
     prepend: { description: descriptions.argTypes.prepend },
     append: { description: descriptions.argTypes.append }
-    //change: { description: descriptions.argTypes.change }
+    // change: { description: descriptions.argTypes.change }
   },
   decorators: [() => ({ template: '<div class="py-40 space-x-2"><story/></div>' })],
   parameters: {
@@ -142,7 +142,7 @@ export const Options: Story = {
   }
 }
 
-const blockTemplate = `<lui-select block placeholder="Block" :options="['Mary', 'Jane']" />`
+const blockTemplate = '<lui-select block placeholder="Block" :options="[\'Mary\', \'Jane\']" />'
 export const Block: Story = {
   render: () => ({
     components: { LuiSelect },
@@ -161,7 +161,8 @@ export const Block: Story = {
   }
 }
 
-const disabledTemplate = `<lui-select disabled placeholder="Disabled" :options="['Mary', 'Jane']" />`
+const disabledTemplate =
+  '<lui-select disabled placeholder="Disabled" :options="[\'Mary\', \'Jane\']" />'
 export const Disabled: Story = {
   render: () => ({
     components: { LuiSelect, LuiOption },
@@ -229,7 +230,8 @@ export const Size: Story = {
   }
 }
 
-const descriptionTemplate = `<lui-select description="This is a description" placeholder="Description" :options="['Mary', 'Jane']" />`
+const descriptionTemplate =
+  '<lui-select description="This is a description" placeholder="Description" :options="[\'Mary\', \'Jane\']" />'
 export const Description: Story = {
   render: () => ({
     components: { LuiSelect },
@@ -349,7 +351,8 @@ export const AppendSlot: Story = {
   }
 }
 
-const searchableTemplate = `<lui-select searchable placeholder="Searchable" :options="['Mary', 'Jane']" />`
+const searchableTemplate =
+  '<lui-select searchable placeholder="Searchable" :options="[\'Mary\', \'Jane\']" />'
 export const Searchable: Story = {
   render: () => ({
     components: { LuiSelect },
@@ -368,7 +371,8 @@ export const Searchable: Story = {
   }
 }
 
-const modelTemplate = `<lui-select v-model="selectedName" placeholder="Names" :options="['Mary', 'Jane']" />`
+const modelTemplate =
+  '<lui-select v-model="selectedName" placeholder="Names" :options="[\'Mary\', \'Jane\']" />'
 export const Model: Story = {
   render: () => ({
     components: { LuiSelect },
@@ -391,7 +395,7 @@ export const Model: Story = {
   }
 }
 
-const changeTemplate = `<lui-select @change="consoleLog" :options="['Mary', 'Jane']" />`
+const changeTemplate = '<lui-select @change="consoleLog" :options="[\'Mary\', \'Jane\']" />'
 export const Change: Story = {
   render: () => ({
     components: { LuiSelect },

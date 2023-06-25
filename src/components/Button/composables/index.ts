@@ -1,12 +1,13 @@
 import { computed, useSlots } from 'vue'
-//Types
+
+// Types
 import type { Ref } from 'vue'
 import type { Tag } from '../button-types'
 import type { TwClassInterface } from '@/globals/interfaces'
-import type { Variant, Filter, Rounded, Block, Color, Size } from '@/globals/types'
+import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
 
-//Define Prop Types
-type PropTypes = {
+// Define Prop Types
+interface PropTypes {
   tag: Ref<Tag>
   variant: Ref<Variant>
   color: Ref<Color>
@@ -30,7 +31,7 @@ export function useButtonClasses(props: PropTypes) {
       translate: 'active:translate-y-0.5 disabled:translate-y-0',
       // pointerEvents : { 'pointer-events-none': props.loading }),
       cursor: {
-        ['cursor-pointer disabled:cursor-not-allowed']: props.tag.value === 'button'
+        'cursor-pointer disabled:cursor-not-allowed': props.tag.value === 'button'
       },
       fontSize: {
         'text-xs': props.size.value === 'xs',
@@ -53,7 +54,7 @@ export function useButtonClasses(props: PropTypes) {
       textColor:
         props.variant.value === 'solid'
           ? {
-              [`text-white disabled:text-secondary-300`]: props.filter.value === 'none', // filter none
+              'text-white disabled:text-secondary-300': props.filter.value === 'none', // filter none
               [`text-${props.color.value}-500 disabled:text-secondary-300`]:
                 props.filter.value === 'lighten', // filter lighten
               [`text-${props.color.value}-100 disabled:text-secondary-300`]:
@@ -80,9 +81,9 @@ export function useButtonClasses(props: PropTypes) {
                 props.filter.value === 'darken' // filter darken
             }
           : null,
-      borderWidth: { border: props.variant.value != 'link' },
+      borderWidth: { border: props.variant.value !== 'link' },
       borderStyle: {
-        'border-solid': props.variant.value != 'link'
+        'border-solid': props.variant.value !== 'link'
       },
       width: {
         'w-full': props.block.value && props.variant.value !== 'link'

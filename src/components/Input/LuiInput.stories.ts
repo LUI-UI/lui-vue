@@ -1,13 +1,13 @@
-import LuiInput from './LuiInput.vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import {
-  description,
   block,
+  description,
   rounded,
   size,
   state,
   stateIcon
 } from '../../../.storybook/global-story-argtypes'
+import LuiInput from './LuiInput.vue'
 
 const descriptions = {
   docs: {
@@ -140,7 +140,7 @@ export const Size: Story = {
   }
 }
 
-const clearTemplate = `<lui-input clear placeholder="Type something" />`
+const clearTemplate = '<lui-input clear placeholder="Type something" />'
 export const Clear: Story = {
   render: () => ({
     components: { LuiInput },
@@ -159,7 +159,8 @@ export const Clear: Story = {
   }
 }
 
-const descriptionTemplate = `<lui-input description="This is a description" placeholder="Type something" />`
+const descriptionTemplate =
+  '<lui-input description="This is a description" placeholder="Type something" />'
 export const Description: Story = {
   render: () => ({
     components: { LuiInput },

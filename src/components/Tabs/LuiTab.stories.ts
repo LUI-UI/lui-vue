@@ -1,12 +1,12 @@
 // import LuiTabs from "./LuiTabs.vue";
+import { ref } from 'vue'
+import type { Meta, StoryObj } from '@storybook/vue3'
+import { size } from '../../../.storybook/global-story-argtypes'
 import LuiTabGroup from './LuiTabGroup.vue'
 import LuiTabButtons from './LuiTabButtons.vue'
 import LuiTabButton from './LuiTabButton.vue'
 import LuiTabPanels from './LuiTabPanels.vue'
 import LuiTabPanel from './LuiTabPanel.vue'
-import { ref } from 'vue'
-import { size } from '../../../.storybook/global-story-argtypes'
-import type { Meta, StoryObj } from '@storybook/vue3'
 
 const descriptions = {
   docs: {
@@ -14,11 +14,11 @@ const descriptions = {
       'The tab components in LUI provide developers an organized way to interact with the tab buttons to switch between different tab panels, allowing them to view and access different sets of content within a single view. The <b>LuiTabButtons</b> component represents the container for tab buttons, allowing users to switch between different sections of content. Each individual tab button is defined using the <b>LuiTabButton</b> component, which provides a visually clickable element for selecting a specific tab. The content for each tab is defined using the <b>LuiTabPanel</b> component, which serves as a container for the content associated with a particular tab. Multiple <b>LuiTabPanel</b> components are wrapped within the <b>LuiTabPanels</b> component, allowing for seamless management of the tabbed content. Lastly, the <b>LuiTabGroup</b> component is used to bring together the different tab-related components, providing an interactive tabbed interface.'
   },
   argTypes: {
-    //alignContent: 'Used to control the alignment of the content within each tab panel',
-    //alignTabs: 'Used to control the alignment of the tab buttons within a LuiTabGroup',
-    //stretch: 'Used to control the stretching behavior of the tab buttons within a LuiTabGroup',
+    // alignContent: 'Used to control the alignment of the content within each tab panel',
+    // alignTabs: 'Used to control the alignment of the tab buttons within a LuiTabGroup',
+    // stretch: 'Used to control the stretching behavior of the tab buttons within a LuiTabGroup',
     selectedIndex: 'Used to control the initially selected tab based on an index value',
-    //change: '',
+    // change: '',
     default: 'Used as default to add a text in the component'
   }
 }
@@ -35,7 +35,7 @@ const meta: Meta<typeof LuiTabGroup> = {
     // },
     selectedIndex: { description: descriptions.argTypes.selectedIndex },
     default: { description: descriptions.argTypes.default }
-    //change: { description: descriptions.argTypes.change },
+    // change: { description: descriptions.argTypes.change },
     // alignTabs: {
     //   control: 'select',
     //   options: ['left', 'center', 'right'],

@@ -1,15 +1,16 @@
 <script setup lang="ts">
+import { computed, ref, useSlots } from 'vue'
+import type { PropType } from 'vue'
+import { useId } from '../../utils/useId'
+import type { MenuItemTag } from './menu-item-types'
+import type { Block, Color, Rounded, Size } from '@/globals/types'
 import type {
   FlexGridInterface,
   LayoutInterface,
   TwClassInterface,
   TypographyInterface
 } from '@/globals/interfaces'
-import type { Color, Rounded, Size, Block } from '@/globals/types'
-import { computed, useSlots, ref } from 'vue'
-import type { PropType } from 'vue'
-import type { MenuItemTag } from './menu-item-types'
-import { useId } from '../../utils/useId'
+
 const props = defineProps({
   // disabled: {
   //   type: Boolean as PropType<boolean>,
@@ -77,7 +78,7 @@ const computedMenuItemClasses = computed(() => {
         : '',
 
     cursor: {
-      ['cursor-pointer disabled:cursor-not-allowed']: props.tag === 'button'
+      'cursor-pointer disabled:cursor-not-allowed': props.tag === 'button'
     },
     // pointerEvents: props.disabled ? "pointer-events-none" : "",
     pointerEvents: 'disabled:pointer-events-none'
@@ -106,13 +107,20 @@ defineExpose({
   el: menuItemRef
 })
 </script>
+
+<script lang="ts">
+export default {
+  name: 'LuiDropdownItem'
+}
+</script>
+
 <template>
   <component
-    role="menuitem"
-    class="lui-menu-item"
-    ref="menuItemRef"
     :is="tag"
     :id="menuItemId"
+    ref="menuItemRef"
+    role="menuitem"
+    class="lui-menu-item"
     :class="computedMenuItemClasses"
     v-bind="$attrs"
   >
@@ -120,16 +128,10 @@ defineExpose({
       <slot name="prepend" />
     </span>
     <div :class="computedDefaultSlotClasses">
-      <slot></slot>
+      <slot />
     </div>
     <span v-if="$slots.append" :class="computedAppendAndPrependClasses">
       <slot name="append" />
     </span>
   </component>
 </template>
-
-<script lang="ts">
-export default {
-  name: 'LuiDropdownItem'
-}
-</script>

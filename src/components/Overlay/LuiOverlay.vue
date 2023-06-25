@@ -4,11 +4,13 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import type { Color, Size } from '@/globals/types'
 import { computed } from 'vue'
+import type { Color, Size } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
+
 const props = defineProps({
   show: {
     type: Boolean as PropType<Boolean>,
@@ -100,12 +102,13 @@ const computedOverlayClasses = computed(() => {
   return Object.values({ ...classes })
 })
 </script>
+
 <template>
   <div
     v-if="fixed ? show : true"
+    :class="computedWrapperClasses"
     @click="triggerClose"
     @keydown.esc="triggerClose"
-    :class="computedWrapperClasses"
   >
     <div v-if="!fixed && show" :class="computedOverlayClasses">
       <slot name="overlay" />

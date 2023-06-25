@@ -4,14 +4,15 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
-import { computed, ref, useAttrs, toRefs, useSlots, h } from 'vue'
+import { computed, h, ref, toRefs, useAttrs, useSlots } from 'vue'
 import type { PropType } from 'vue'
-import type { Rounded, Block, Size, State, StateIcon, Description } from '@/globals/types'
-import type { Clear, ModelValue } from './input-types'
-import { useInputClasses } from './composables'
 import { useGlobalDescriptionClasses } from '../../composables/index'
 import { hasSlotContent } from '../../utils/hasSlotContent'
+import type { Clear, ModelValue } from './input-types'
+import { useInputClasses } from './composables'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
 
 const props = defineProps({
   size: {
@@ -65,9 +66,8 @@ const {
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 
 function clearInput() {
-  if (LuiInputRef.value?.value != undefined) {
-    LuiInputRef.value.value = ''
-  }
+  if (LuiInputRef.value?.value !== undefined) LuiInputRef.value.value = ''
+
   LuiInputRef.value?.focus()
 }
 
@@ -86,7 +86,7 @@ const iconSizes = computed(() =>
 // const isDisabled = computed(
 //   () => attrs.disabled !== undefined && attrs.disabled === true
 // );
-type StateIconPathType = {
+interface StateIconPathType {
   warning: string
   feedback: string
   success: string
@@ -106,8 +106,8 @@ const stateIconPaths: StateIconPathType = {
     'M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm4.891-11.477l-8.368 8.368a6.04 6.04 0 0 1-1.414-1.414l8.368-8.368a6.04 6.04 0 0 1 1.414 1.414z'
 }
 
-const clearIconTemplate = () =>
-  h(
+function clearIconTemplate() {
+  return h(
     'svg',
     {
       viewBox: '0 0 24 24',
@@ -122,9 +122,10 @@ const clearIconTemplate = () =>
       })
     ]
   )
+}
 
-const stateIconTemplate = (params: any) =>
-  h(
+function stateIconTemplate(params: any) {
+  return h(
     'svg',
     {
       viewBox: '0 0 24 24',
@@ -134,6 +135,7 @@ const stateIconTemplate = (params: any) =>
     },
     [h('path', { fill: 'none', d: 'M0 0h24v24H0z' }), h('path', { d: params.path })]
   )
+}
 const computedAttrs = computed(() => {
   // if v-model using we have to control the value,that is why we remove value prop in attrs
   if (props.modelValue !== undefined && attrs.value) {
@@ -144,6 +146,7 @@ const computedAttrs = computed(() => {
   return attrs
 })
 </script>
+
 <template>
   <div class="lui-input" :class="wrapperClasses">
     <div class="relative" :class="block ? 'w-full' : ''">
@@ -151,13 +154,13 @@ const computedAttrs = computed(() => {
         ref="LuiInputRef"
         :class="inputClasses"
         :value="modelValue === undefined ? '' : modelValue"
-        @input="handleInputEvents($event)"
         v-bind="computedAttrs"
+        @input="handleInputEvents($event)"
       />
       <span v-if="hasSlotContent(slots.prepend)" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
-      <button v-if="clear && !attrs.disabled" @click="clearInput" :class="closeIconClasses">
+      <button v-if="clear && !attrs.disabled" :class="closeIconClasses" @click="clearInput">
         <clearIconTemplate />
       </button>
       <span v-else-if="!!slots.append" :class="appendClasses">

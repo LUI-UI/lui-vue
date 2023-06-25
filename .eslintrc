@@ -2,6 +2,7 @@
     "extends": "@antfu",
     "rules": {
         "no-console": "warn",
-        "unicorn/error-message": "off"
+        "unicorn/error-message": "off",
+        "import/first": "off",
     }
 }

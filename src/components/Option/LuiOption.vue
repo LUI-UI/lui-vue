@@ -1,5 +1,5 @@
 <script lang="ts">
-import { inject, computed, watch, nextTick, useSlots, ref } from 'vue'
+import { computed, inject, nextTick, ref, useSlots, watch } from 'vue'
 import type { PropType } from 'vue'
 import { ContextKey } from '../Select/symbols'
 import { useId } from '../../utils/useId'
@@ -11,6 +11,7 @@ export default {
   inheritAttrs: false
 }
 </script>
+
 <script setup lang="ts">
 const props = defineProps({
   selected: {
@@ -86,7 +87,7 @@ const isSelected = computed(() => {
 })
 
 const optionClasses = computed(() => {
-  //hover:bg-${props.color}-600/20
+  // hover:bg-${props.color}-600/20
   const classes: TwClassInterface = {
     backgroundColor: props.disabled
       ? ''
@@ -132,13 +133,14 @@ defineExpose({
   el: optionRef
 })
 </script>
+
 <template>
   <li
-    role="option"
-    tabindex="-1"
-    ref="optionRef"
     v-bind="$attrs"
     :id="optionId"
+    ref="optionRef"
+    role="option"
+    tabindex="-1"
     :aria-selected="isSelected"
     :class="optionClasses"
     @click="handleOptionClick"

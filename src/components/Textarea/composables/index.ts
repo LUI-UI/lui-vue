@@ -1,12 +1,14 @@
 import { computed, useSlots } from 'vue'
+
 // import classNames from "classnames";
-//Types
+// Types
 import type { Ref } from 'vue'
 import type { TwClassInterface } from '@/globals/interfaces'
-import type { State, Rounded, Block, Size, Description, StateIcon } from '@/globals/types'
-//Define Prop Types
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+
+// Define Prop Types
 type Resize = true | false | 'y' | 'x'
-type PropTypes = {
+interface PropTypes {
   size: Ref<Size>
   rounded: Ref<Rounded>
   state: Ref<State>
@@ -19,15 +21,13 @@ type PropTypes = {
 export function useTextareaClasses(props: PropTypes, attrs: any) {
   const slots = useSlots()
   const iconStatus = computed(() => {
-    return (props.stateIcon.value === true && props.state.value !== null) || slots.prepend
-      ? true
-      : false
+    return !!((props.stateIcon.value === true && props.state.value !== null) || slots.prepend)
   })
   const iconClasses: TwClassInterface = {
     position: 'absolute',
     // translate: "-translate-y-1/2",
     // top: "top-2/4",
-    //12 16 20 20 24
+    // 12 16 20 20 24
     fontSize: {
       'text-xs': props.size.value === 'xs',
       'text-base': props.size.value === 'sm',
@@ -50,11 +50,11 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
       borderStyle: 'border-solid',
       cursor: 'disabled:cursor-not-allowed',
       borderColor: {
-        ['border-secondary-200 focus:border-primary-500 disabled:border-secondary-200']:
+        'border-secondary-200 focus:border-primary-500 disabled:border-secondary-200':
           props.state.value === null,
-        ['disabled:border-secondary-200 border-warning-500']: props.state.value === 'warning',
-        ['disabled:border-secondary-200 border-danger-500']: props.state.value === false,
-        ['disabled:border-secondary-200 border-success-500']: props.state.value === true
+        'disabled:border-secondary-200 border-warning-500': props.state.value === 'warning',
+        'disabled:border-secondary-200 border-danger-500': props.state.value === false,
+        'disabled:border-secondary-200 border-success-500': props.state.value === true
       },
       ringWidth:
         attrs.disabled !== undefined && attrs.disabled === true
@@ -96,10 +96,10 @@ export function useTextareaClasses(props: PropTypes, attrs: any) {
             'py-3.5 px-3': props.size.value === 'xl'
           },
       resize: {
-        resize: props.resize.value == true,
-        'resize-none': props.resize.value == false,
-        'resize-x': props.resize.value == 'x',
-        'resize-y': props.resize.value == 'y'
+        resize: props.resize.value === true,
+        'resize-none': props.resize.value === false,
+        'resize-x': props.resize.value === 'x',
+        'resize-y': props.resize.value === 'y'
       }
       // padding:
       //   iconStatus.value === "noIcon"
