@@ -36,6 +36,10 @@ const props = defineProps({
     type: [Boolean, String] as PropType<Rounded>,
     default: false,
   },
+  customStyle: {
+    type: Boolean as PropType<Boolean>,
+    default: false,
+  },
 })
 const slots = useSlots()
 const menuItemRef = ref<HTMLElement>()
@@ -121,7 +125,7 @@ export default {
     ref="menuItemRef"
     role="menuitem"
     class="lui-menu-item"
-    :class="computedMenuItemClasses"
+    :class="customStyle ? '' : computedMenuItemClasses"
     v-bind="$attrs"
   >
     <span v-if="$slots.prepend" :class="computedAppendAndPrependClasses">
