@@ -389,6 +389,51 @@ export const TriggerSlot: Story = {
     },
   },
 }
+const customMenuTemplate = `
+<lui-menu-dropdown rounded text="customMenu" menu-classes="absolute bg-white border border-[#E9F0F9] w-max min-w-full rounded-xl p-2">
+  <lui-menu-item :custom-style="true" class="flex space-x-4 pt-5 px-4">
+    <div class="w-[40px] h-[40px] bg-slate-400 rounded-full" />
+    <div>
+      <p class="mb-1 text-sm">Rahmi Kostik</p>
+      <a class="text-xs text-primary-500">Wiew profile</a>
+    </div>
+  </lui-menu-item>
+  <div class="user flex space-x-4 pt-5 px-4">
+    <div class="w-[40px] h-[40px] bg-slate-400 rounded-full" />
+    <div>
+      <p class="mb-1 text-sm">Rahmi Kostik</p>
+      <button class="text-xs text-primary-500">Wiew profile</button>
+    </div>
+  </div>
+  <div class="workspaces">
+    <p class="px-4 py-3">Workspaces</p>
+    <div class="workspace-card px-4 py-3 flex space-x-4 border rounded-md hover:bg-slate-200 hover:border-primary-300">
+      <div class="w-[40px] h-[40px] bg-slate-400 rounded-md"></div>
+      <div>
+        <p class="mb-1 text-sm">union design studio</p>
+        <a class="text-xs text-primary-500">Professional</a>
+      </div>
+    </div>
+  </div>
+</lui-menu-dropdown>
+`
+export const MenuSlot: Story = {
+  render: () => ({
+    components: { LuiMenuDropdown, LuiMenuItem },
+    template: customMenuTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: customMenuTemplate,
+      },
+      description: {
+        story:
+          'With the <b>trigger</b> slot you can insert any template or other LUI components and replace the default LuiMenuDropdown lookLui. To do that you should trigger the attributes of LuiMenuDropdown and bind them to the template.',
+      },
+    },
+  },
+}
 
 const appendTemplate = `
 <lui-menu-dropdown text="Connect">

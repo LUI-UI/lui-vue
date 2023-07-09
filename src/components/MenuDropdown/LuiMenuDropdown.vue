@@ -73,6 +73,10 @@ const props = defineProps({
     type: Boolean as PropType<Block>,
     default: false,
   },
+  menuClasses: {
+    type: [String, Array] as PropType<String | String[]>,
+    default: '',
+  },
 })
 
 const emit = defineEmits(['onTrigger'])
@@ -316,7 +320,6 @@ function focusAvailableElement(
     if (!isTargetExist(targetIndex))
       return
   }
-
   menuState.currentIndex = targetIndex
   const currentEl = el?.children[menuState.currentIndex]
   if (currentEl?.id !== undefined) {
@@ -408,7 +411,7 @@ function triggerIconSize(size: string) {
         :aria-labelledby="buttonId"
         :aria-activedescendant="String(menuState.currentIndex)"
         tabindex="0"
-        :class="[computedMenuPosition, dropdownMenuClasses]"
+        :class="[computedMenuPosition, menuClasses.length > 0 ? menuClasses : dropdownMenuClasses]"
         @keydown="handleMenuKeyEvents"
       >
         <slot />
