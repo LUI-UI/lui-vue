@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { toRefs, useAttrs } from 'vue'
+import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables/index'
 import { useRadioClasses } from './composables/index'
@@ -49,9 +49,11 @@ const attrs = useAttrs()
 
 const { inputClasses, spanClasses } = useRadioClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-function handleChange(e: any) {
+function handleChange() {
   emit('update:modelValue', props.value)
 }
+// handleChange()
+const isChecked = computed<boolean>(() => props.value === props.modelValue)
 </script>
 
 <template>
@@ -62,6 +64,7 @@ function handleChange(e: any) {
         :class="inputClasses"
         :value="value"
         v-bind="$attrs"
+        :checked="isChecked"
         @change="handleChange"
       >
       <span :class="spanClasses" />
