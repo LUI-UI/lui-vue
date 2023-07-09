@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.65.2](https://github.com/LUI-UI/lui-vue/compare/v0.65.1...v0.65.2) (2023-07-09)
+
+
+### Bug Fixes
+
+* **dropdown:** fix lint ([a0e8b4b](https://github.com/LUI-UI/lui-vue/commit/a0e8b4b57e315d9bd6f958e2469c21ee5355a379))
+* **radio:** fix radio initial selection bug ([f86a241](https://github.com/LUI-UI/lui-vue/commit/f86a241f67a661585975850946b2ebec3293c801))
+
 ## [0.65.1](https://github.com/LUI-UI/lui-vue/compare/v0.65.0...v0.65.1) (2023-06-25)
 
 
