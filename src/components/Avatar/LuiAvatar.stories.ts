@@ -96,15 +96,18 @@ export const Variant: Story = {
 }
 
 const sizeTemplate = `
-<lui-avatar size="xs" />
-<lui-avatar size="sm" />
-<lui-avatar size="md" />
-<lui-avatar size="lg" />
-<lui-avatar size="xl" />
+<lui-avatar v-bind="args" size="xs" />
+<lui-avatar v-bind="args" size="sm" />
+<lui-avatar v-bind="args" size="md" />
+<lui-avatar v-bind="args" size="lg" />
+<lui-avatar v-bind="args" size="xl" />
 `
 export const Size: Story = {
-  render: () => ({
+  render: args => ({
     components: { LuiAvatar },
+    setup() {
+      return { args }
+    },
     args: { size },
     template: `<div class="flex w-1/3 items-center justify-between">${sizeTemplate}</div>`,
   }),
