@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.66.0](https://github.com/LUI-UI/lui-vue/compare/v0.65.2...v0.66.0) (2023-07-11)
+
+
+### Features
+
+* **popover:** create popover component ([a47ae58](https://github.com/LUI-UI/lui-vue/commit/a47ae5897207aa9c6466eab9ac2bf3949dee489d))
+
+
+### Bug Fixes
+
+* **popover:** fix popover storybook ([2a7c942](https://github.com/LUI-UI/lui-vue/commit/2a7c942bb33dcc3dc7c1a51c02cf9f860c935e5a))
+
 ## [0.65.2](https://github.com/LUI-UI/lui-vue/compare/v0.65.1...v0.65.2) (2023-07-09)
 
 
