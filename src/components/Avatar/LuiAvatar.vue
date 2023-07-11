@@ -102,20 +102,21 @@ const computedAvatarClasses = computed(() => {
     //         "px-2.5": props.size === "xl",
     //       }
     //     : null,
+    // 10 - 12 - 16
     width: {
       'w-6': props.size === 'xs',
       'w-8': props.size === 'sm',
-      'w-12': props.size === 'md',
-      'w-16': props.size === 'lg',
-      'w-20': props.size === 'xl',
+      'w-10': props.size === 'md',
+      'w-12': props.size === 'lg',
+      'w-16': props.size === 'xl',
     },
 
     height: {
       'h-6': props.size === 'xs',
       'h-8': props.size === 'sm',
-      'h-12': props.size === 'md',
-      'h-16': props.size === 'lg',
-      'h-20': props.size === 'xl',
+      'h-10': props.size === 'md',
+      'h-12': props.size === 'lg',
+      'h-16': props.size === 'xl',
     },
     fontSize: {
       'text-sm': props.size === 'xs' || props.size === 'sm',

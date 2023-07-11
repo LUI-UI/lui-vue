@@ -6,7 +6,7 @@ import LuiPopover from './LuiPopover.vue'
 // const filterList = filter.options
 
 const meta: Meta<typeof LuiPopover> = {
-  title: 'LUI/LuiPopover',
+  title: 'LUI/Popover',
   component: LuiPopover,
 }
 export default meta
