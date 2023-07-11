@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.66.1](https://github.com/LUI-UI/lui-vue/compare/v0.66.0...v0.66.1) (2023-07-11)
+
+
+### Bug Fixes
+
+* **avatar:** change avatar sizes ([87386b8](https://github.com/LUI-UI/lui-vue/commit/87386b8b770ea75a58984375e0ed399bbaed8007))
+
 ## [0.66.0](https://github.com/LUI-UI/lui-vue/compare/v0.65.2...v0.66.0) (2023-07-11)
 
 
