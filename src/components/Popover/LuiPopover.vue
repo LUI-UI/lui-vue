@@ -86,13 +86,13 @@ const positionClasses = {
 }
 const triggerId = `lui-popover-trigger-${useId()}`
 const dialogId = `lui-popopver-dialog-${useId()}`
-const wrapperRef = ref<HTMLDivElement>()
+const triggerRef = ref<HTMLDivElement>()
 const dialogActive = ref(false)
 
-useOutsideClick(wrapperRef, () => closeDialog())
+useOutsideClick(triggerRef, () => closeDialog())
 const { trapRef: dialogRef } = useFocusTrap()
 const { properPosition } = useProperPosition({
-  triggerEl: wrapperRef,
+  triggerEl: triggerRef,
   MenuEl: dialogRef,
   targetPosition: setTargetPosition(),
 })
@@ -126,15 +126,17 @@ function closeDialog() {
 </script>
 
 <template>
-  <div ref="wrapperRef" class="relative">
-    <slot name="trigger" v-bind="{ ...triggerSlotProps }">
-      <LuiButton
-        v-bind="{ ...triggerSlotProps }"
-        @click="triggerSlotProps.click"
-      >
-        {{ text }}
-      </LuiButton>
-    </slot>
+  <div class="relative">
+    <div ref="triggerRef">
+      <slot name="trigger" v-bind="{ ...triggerSlotProps }">
+        <LuiButton
+          v-bind="{ ...triggerSlotProps }"
+          @click="triggerSlotProps.click"
+        >
+          {{ text }}
+        </LuiButton>
+      </slot>
+    </div>
     <transition
       enter-active-class="transition duration-100 ease-out"
       enter-from-class="transform scale-95 opacity-0"
