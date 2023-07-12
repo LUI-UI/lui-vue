@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.67.0](https://github.com/LUI-UI/lui-vue/compare/v0.66.1...v0.67.0) (2023-07-12)
+
+
+### Features
+
+* **tab:** make tab-buttons and tab-button customizable ([f840558](https://github.com/LUI-UI/lui-vue/commit/f840558cfb8e56cea6ee6368a499faef4f1f3cb0))
+
+
+### Bug Fixes
+
+* **popover:** close popover when click an item in popover menu ([1ac01d0](https://github.com/LUI-UI/lui-vue/commit/1ac01d0a03ce8c10bf16a13dc9333c6e4201fda1))
+
 ## [0.66.1](https://github.com/LUI-UI/lui-vue/compare/v0.66.0...v0.66.1) (2023-07-11)
 
 
