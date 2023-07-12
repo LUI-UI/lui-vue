@@ -15,6 +15,10 @@ const props = defineProps({
     type: String as PropType<AlignmentTypes>,
     default: 'left',
   },
+  customStyle: {
+    type: Boolean as PropType<Boolean>,
+    default: false,
+  },
 })
 const tabListClasses = computed(() => {
   const classes: TwClassInterface = {
@@ -29,14 +33,27 @@ const tabListClasses = computed(() => {
   }
   return Object.values(classes)
 })
+function tabListAfterClasses() {
+  const classes: TwClassInterface = {
+    backgroundColor: 'after:bg-secondary-300',
+    width: 'after:w-full',
+    height: 'after:h-0.5',
+    position: 'after:absolute',
+    zIndex: 'after:z-10',
+    left: 'after:left-0',
+    bottom: 'after:bottom-0',
+    display: 'after:inline-block',
+    borderRadius: 'after:rounded-full',
+  }
+  return Object.values(classes)
+}
 </script>
 
 <template>
   <div
     role="tablist"
     aria-orientation="horizontal"
-    :class="tabListClasses"
-    class="after:bg-secondary-300 after:w-full after:h-0.5 after:absolute after:z-10 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
+    :class="[tabListClasses, !customStyle ? tabListAfterClasses() : '']"
   >
     <slot />
   </div>

@@ -96,25 +96,42 @@ function handleKeyEvents(event: KeyboardEvent) {
     injection?.setSelectedIndex(targetIndexInTabs as number)
   }
 }
+
+function setRef(el: any) {
+  tabRef.value = el
+}
+const buttonSlotProps = computed(() => ({
+  'id': props.id,
+  'role': 'tab',
+  'type': 'button',
+  'tabindex': isSelected.value ? '0' : '-1',
+  'aria-selected': isSelected.value,
+  'aria-controls': injection?.context.panels[injection.context.selectedIndex]?.id,
+  'isSelected': isSelected.value,
+  'mouseUp': handleMouseUp,
+  'keyDown': handleKeyEvents,
+  'setRef': setRef,
+}))
 </script>
 
 <template>
   <LuiMenuItem
+    v-if="$slots.custom === undefined"
     :id="id"
     ref="tabRef"
-    role="tab"
-    type="button"
+    :role="buttonSlotProps.role"
+    :type="buttonSlotProps.type"
     :block="stretch"
     :color="isSelected ? 'primary' : 'secondary'"
     :size="size"
-    :tabindex="isSelected ? '0' : '-1'"
-    :aria-selected="isSelected"
+    :tabindex="buttonSlotProps.tabindex"
+    :aria-selected="buttonSlotProps.isSelected"
     :aria-controls="injection?.context.panels[injection.context.selectedIndex]?.id"
     :disabled="disabled"
     class="relative whitespace-nowrap cursor-pointer after:w-full after:h-0.5 after:absolute after:z-20 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
-    :class="isSelected ? 'after:bg-primary-500' : 'after:bg-transparent'"
-    @mouseup="handleMouseUp"
-    @keydown="handleKeyEvents($event)"
+    :class="[isSelected ? 'after:bg-primary-500' : 'after:bg-transparent']"
+    @mouseup="buttonSlotProps.mouseUp"
+    @keydown="buttonSlotProps.keyDown($event)"
   >
     <template #prepend>
       <slot name="prepend" />
@@ -124,4 +141,5 @@ function handleKeyEvents(event: KeyboardEvent) {
       <slot name="append" />
     </template>
   </LuiMenuItem>
+  <slot v-else name="custom" v-bind="buttonSlotProps" />
 </template>
