@@ -531,3 +531,117 @@ export const AlignContent: Story = {
     },
   },
 }
+
+const customButtonsTemplate = `
+<lui-tab-group>
+  <lui-tab-buttons custom-style class="bg-secondary-200 w-max rounded">
+    <lui-tab-button>Tab-1</lui-tab-button>
+    <lui-tab-button>Tab-2</lui-tab-button>
+    <lui-tab-button>Tab-3</lui-tab-button>
+  </lui-tab-buttons>
+  <lui-tab-panels>
+    <lui-tab-panel>Panel-1</lui-tab-panel>
+    <lui-tab-panel>Panel-2</lui-tab-panel>
+    <lui-tab-panel>Panel-3</lui-tab-panel>
+  </lui-tab-panels>
+</lui-tab-group>`
+export const CustomButtons: Story = {
+  render: () => ({
+    components: {
+      LuiTabGroup,
+      LuiTabButtons,
+      LuiTabButton,
+      LuiTabPanels,
+      LuiTabPanel,
+    },
+    template: customButtonsTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: customButtonsTemplate,
+      },
+      description: {
+        story: 'If you want to customize style of the LuiTabButtons you can use set custom-style true and bind new styles with class attribute.',
+      },
+    },
+  },
+}
+
+const customButtonTemplate = `
+<div class="w-full h-full p-12 bg-white">
+  <lui-tab-group>
+    <lui-tab-buttons custom-style class="border border-[#E9F0F9] p-1 rounded-full bg-[#F8FAFC]">
+      <lui-tab-button>
+        <template #custom="{mouseUp,keyDown,setRef,isSelected, ...props}">
+          <button 
+            v-bind="props" 
+            :ref="(el) => setRef(el)"
+            @mouseup="mouseUp"
+            @keydown="keyDown"
+            class="py-3 px-10 rounded-full border whitespace-nowrap outline-primary-200"
+            :class="isSelected ? 'bg-white border-[#E9F0F9]' : 'border-transparent bg-[#F8FAFC]'"
+            >
+            tab-1
+          </button>
+        </template>
+      </lui-tab-button>
+      <lui-tab-button>
+        <template #custom="{mouseUp,keyDown,setRef,isSelected, ...props}">
+          <button 
+            v-bind="props" 
+            :ref="(el) => setRef(el)"
+            @mouseup="mouseUp"
+            @keydown="keyDown"
+            class="py-3 px-10 rounded-full border whitespace-nowrap outline-primary-200"
+            :class="isSelected ? 'bg-white border-[#E9F0F9]' : 'border-transparent bg-[#F8FAFC]'"
+            >
+            tab-2
+          </button>
+        </template>
+      </lui-tab-button>
+      <lui-tab-button>
+        <template #custom="{mouseUp,keyDown,setRef,isSelected, ...props}">
+          <button 
+            v-bind="props" 
+            :ref="(el) => setRef(el)"
+            @mouseup="mouseUp"
+            @keydown="keyDown"
+            class="py-3 px-10 rounded-full border whitespace-nowrap outline-primary-200"
+            :class="isSelected ? 'bg-white border-[#E9F0F9]' : 'border-transparent bg-[#F8FAFC]'"
+            >
+            tab-3
+          </button>
+        </template>
+      </lui-tab-button>
+    </lui-tab-buttons>
+    <lui-tab-panels>
+      <lui-tab-panel>Panel-1</lui-tab-panel>
+      <lui-tab-panel>Panel-2</lui-tab-panel>
+      <lui-tab-panel>Panel-3</lui-tab-panel>
+    </lui-tab-panels>
+  </lui-tab-group>
+</div>
+`
+export const CustomButton: Story = {
+  render: () => ({
+    components: {
+      LuiTabGroup,
+      LuiTabButtons,
+      LuiTabButton,
+      LuiTabPanels,
+      LuiTabPanel,
+    },
+    template: customButtonTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: customButtonTemplate,
+      },
+      description: {
+        story: 'If you want to customize style of the LuiTabButton you can use custom slot and slotProps like in the example.',
+      },
+    },
+  },
+}

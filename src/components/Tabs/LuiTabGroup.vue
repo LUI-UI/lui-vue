@@ -44,7 +44,8 @@ watch(
 )
 
 function registerTab(tab: any) {
-  context.tabs.push(tab.value?.el)
+  const el = tab.value?.el || tab.value
+  context.tabs.push(el)
 }
 function unRegisterTab(tab: any) {
   const tabIndex = context.tabs.findIndex(t => t.id === tab.id)
