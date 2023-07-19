@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.67.1](https://github.com/LUI-UI/lui-vue/compare/v0.67.0...v0.67.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* **popover:** add block prop ([f0e488c](https://github.com/LUI-UI/lui-vue/commit/f0e488c91176fdaa54d8f13fc7069400f2b51df0))
+
 ## [0.67.0](https://github.com/LUI-UI/lui-vue/compare/v0.66.1...v0.67.0) (2023-07-12)
 
 
