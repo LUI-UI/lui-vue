@@ -33,20 +33,15 @@ export default meta
 type Story = StoryObj<typeof LuiPopover>
 
 const defaultTemplate = `
-<div class="h-[2000px] pt-[900px]">
-  <lui-popover v-bind="args">
-    <div class="bg-primary-200">
-      <span>
-        <button>test</button>
-        <p>test text</p>
-        <p>test text</p>
-        <a href="/">some link</a>
-      </span>
-    </div>
-
-  </lui-popover>
-</div>
-<button>focus-trap-tset</button>
+<lui-popover v-bind="args">
+  <button>Test</button>
+  <div>
+  <button>test</button>
+  <p>test text</p>
+  <p>test text</p>
+  <a href="/">some link</a>
+  </div>
+</lui-popover>
 `
 export const Default: Story = {
   render: args => ({
@@ -59,23 +54,23 @@ export const Default: Story = {
     },
   }),
 }
-const cusomTrigger = `
-<div class="h-[2000px] pt-[900px]">
-  <lui-popover>
-    <template #trigger={click,...slotProps}>
-      <button v-bind="slotProps" @click="click" class="px-4 py-3 bg-slate-200 rounded-sm">custom tgr</button>
-    </template>
-    <button>test</button>
-    <p>test text</p>
-    <p>test text</p>
-    <a href="/">some link</a>
-  </lui-popover>
-</div>
-<button>focus-trap-tset</button>
-`
-export const CusomTrigger: Story = {
-  render: () => ({
-    components: { LuiPopover },
-    template: cusomTrigger,
-  }),
-}
+// const cusomTrigger = `
+// <div class="h-[2000px] pt-[900px]">
+//   <lui-popover>
+//     <template #trigger={click,...slotProps}>
+//       <button v-bind="slotProps" @click="click" class="px-4 py-3 bg-slate-200 rounded-sm">custom tgr</button>
+//     </template>
+//     <button>test</button>
+//     <p>test text</p>
+//     <p>test text</p>
+//     <a href="/">some link</a>
+//   </lui-popover>
+// </div>
+// <button>focus-trap-tset</button>
+// `
+// export const CusomTrigger: Story = {
+//   render: () => ({
+//     components: { LuiPopover },
+//     template: cusomTrigger,
+//   }),
+// }
