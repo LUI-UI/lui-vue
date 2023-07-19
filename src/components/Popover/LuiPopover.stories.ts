@@ -8,6 +8,25 @@ import LuiPopover from './LuiPopover.vue'
 const meta: Meta<typeof LuiPopover> = {
   title: 'LUI/Popover',
   component: LuiPopover,
+  argTypes: {
+    dialogPosition: {
+      control: 'select',
+      options: ['bottomLeft',
+        'bottomRight',
+        'topLeft',
+        'topRight',
+        'leftTop',
+        'leftBottom',
+        'rightTop',
+        'rightBottom'],
+    },
+    text: {
+      control: 'text',
+    },
+    block: {
+      control: 'boolean',
+    },
+  },
 }
 export default meta
 
@@ -15,8 +34,8 @@ type Story = StoryObj<typeof LuiPopover>
 
 const defaultTemplate = `
 <div class="h-[2000px] pt-[900px]">
-  <lui-popover text="popover trigger">
-    <div>
+  <lui-popover v-bind="args">
+    <div class="bg-primary-200">
       <span>
         <button>test</button>
         <p>test text</p>
@@ -30,9 +49,14 @@ const defaultTemplate = `
 <button>focus-trap-tset</button>
 `
 export const Default: Story = {
-  render: () => ({
+  render: args => ({
     components: { LuiPopover },
     template: defaultTemplate,
+    setup() {
+      return {
+        args,
+      }
+    },
   }),
 }
 const cusomTrigger = `

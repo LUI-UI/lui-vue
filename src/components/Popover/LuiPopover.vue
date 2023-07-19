@@ -41,6 +41,10 @@ const props = defineProps({
     type: String as PropType<String>,
     default: '',
   },
+  block: {
+    type: Boolean as PropType<Boolean>,
+    default: false,
+  },
 })
 const positionClasses = {
   bottomLeft: {
@@ -126,7 +130,7 @@ function closeDialog() {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" :class="!block ? 'w-max' : ''">
     <div ref="triggerRef">
       <slot name="trigger" v-bind="{ ...triggerSlotProps }">
         <LuiButton
