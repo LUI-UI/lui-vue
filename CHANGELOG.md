@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.67.2](https://github.com/LUI-UI/lui-vue/compare/v0.67.1...v0.67.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* **popover:** fix popover focus-trap bug ([1d5d71c](https://github.com/LUI-UI/lui-vue/commit/1d5d71c66e6734712226e2dd4ddb2a04d9593495))
+
 ## [0.67.1](https://github.com/LUI-UI/lui-vue/compare/v0.67.0...v0.67.1) (2023-07-19)
 
 
