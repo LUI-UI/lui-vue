@@ -1,5 +1,5 @@
 // import { onMounted, onUnmounted, nextTick } from 'vue'
-import { onMounted, onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 
 export function useElementSize(element: Ref<HTMLElement | null>) {
@@ -29,12 +29,14 @@ export function useElementSize(element: Ref<HTMLElement | null>) {
     }
   }
 
-  onMounted(() => observeElement())
+  // onMounted(() => observeElement())
 
-  onUnmounted(() => unobserveElement())
+  // onUnmounted(() => unobserveElement())
 
   return {
     width,
     height,
+    observeElement,
+    unobserveElement,
   }
 }

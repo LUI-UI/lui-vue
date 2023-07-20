@@ -11,7 +11,6 @@ import { computed, ref } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
-import useFocusTrap from '../../composables/useFocusTrap'
 import { useId } from '../../utils/useId'
 
 type TargetPositionType = 'bottom' | 'top'
@@ -95,7 +94,6 @@ const dialogWrapperRef = ref<HTMLDivElement>()
 const dialogActive = ref(false)
 
 useOutsideClick(triggerRef, () => closeDialog())
-const { trapRef: dialogRef } = useFocusTrap()
 const { properPosition } = useProperPosition({
   triggerEl: triggerRef,
   MenuEl: dialogWrapperRef,
@@ -150,19 +148,16 @@ function closeDialog() {
       leave-from-class="transform scale-100 opacity-100"
       leave-to-class="transform scale-95 opacity-0"
     >
-      <div v-show="dialogActive" ref="dialogWrapperRef">
-        <div
-          v-if="dialogActive"
-          :id="dialogId"
-          ref="dialogRef"
-          :aria-labelledby="triggerId"
-          role="dialog"
-          tabindex="-1"
-          :class="computedDialogPosition"
-          class="absolute"
-        >
-          <slot />
-        </div>
+      <div
+        v-show="dialogActive" :id="dialogId"
+        ref="dialogWrapperRef"
+        :aria-labelledby="triggerId"
+        role="dialog"
+        tabindex="-1"
+        :class="computedDialogPosition"
+        class="absolute"
+      >
+        <slot />
       </div>
     </transition>
   </div>

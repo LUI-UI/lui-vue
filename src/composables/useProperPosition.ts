@@ -10,10 +10,17 @@ interface ProperPosition {
 
 export function useProperPosition(params: ProperPosition) {
   const properPosition = ref<string>('bottom')
-  const { height: menuHeight } = useElementSize(params.MenuEl)
+  // const menuHeight = ref(0)
+  const { height: menuHeight, observeElement, unobserveElement } = useElementSize(params.MenuEl)
 
   watch(menuHeight, () => updatePosition())
+  watch(params.MenuEl, (val) => {
+    if (val)
+      observeElement()
 
+    else
+      unobserveElement()
+  })
   function updatePosition() {
     const elRect: DOMRect = params.triggerEl.value.getBoundingClientRect()
     if (elRect === undefined || typeof window === 'undefined') {
