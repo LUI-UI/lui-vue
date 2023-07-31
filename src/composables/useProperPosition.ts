@@ -29,22 +29,21 @@ export function useProperPosition(params: ProperPosition) {
     }
     const spaceAbove = elRect.top
     const spaceBelow = window.innerHeight - elRect.bottom
-    // +30 for relax space
+
     if (params.targetPosition === 'bottom') {
-      if (spaceBelow > menuHeight.value + 30)
+      if (spaceBelow < menuHeight.value + 30 && spaceAbove > menuHeight.value + 30)
+        properPosition.value = 'top'
+
+      else properPosition.value = 'bottom'
+    }
+    if (params.targetPosition === 'top') {
+      if (spaceAbove < menuHeight.value + 30 && spaceBelow > menuHeight.value + 30)
         properPosition.value = 'bottom'
       else properPosition.value = 'top'
     }
-    if (params.targetPosition === 'top') {
-      if (spaceAbove > menuHeight.value + 30)
-        properPosition.value = 'top'
-      else properPosition.value = 'bottom'
-    }
   }
-  nextTick(() => {
-    // for initial update
-    updatePosition()
-  })
+
+  nextTick(() => updatePosition()) // for initial update
   onMounted(() => window.addEventListener('scroll', updatePosition))
   onUnmounted(() => window.removeEventListener('scroll', updatePosition))
 
