@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.68.0](https://github.com/LUI-UI/lui-vue/compare/v0.67.2...v0.68.0) (2023-08-01)
+
+
+### Features
+
+* **sidebar:** create sidebar component ([7a8961b](https://github.com/LUI-UI/lui-vue/commit/7a8961b1fb71c5a31f476d86e06286e9683aedaa))
+
+
+### Bug Fixes
+
+* **useproperposition:** fix proper position bug ([c6f59ef](https://github.com/LUI-UI/lui-vue/commit/c6f59ef6c652b683ac74367db19f848393b0a13f))
+
 ## [0.67.2](https://github.com/LUI-UI/lui-vue/compare/v0.67.1...v0.67.2) (2023-07-20)
 
 
