@@ -155,7 +155,7 @@ function closeDialog() {
         role="dialog"
         tabindex="-1"
         :class="computedDialogPosition"
-        class="absolute"
+        class="absolute z-50"
       >
         <slot />
       </div>
