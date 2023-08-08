@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.68.1](https://github.com/LUI-UI/lui-vue/compare/v0.68.0...v0.68.1) (2023-08-08)
+
+
+### Bug Fixes
+
+* **popover:** fix popover z-index issue ([fd62c07](https://github.com/LUI-UI/lui-vue/commit/fd62c077a1b110ff4582fe655a8711bac589a2e0))
+
 ## [0.68.0](https://github.com/LUI-UI/lui-vue/compare/v0.67.2...v0.68.0) (2023-08-01)
 
 
