@@ -39,7 +39,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const attrs = useAttrs()
 
@@ -47,8 +47,10 @@ const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 
 const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs)
-function handleChange(e: any) {
-  emit('update:modelValue', handleVModel(e))
+function handleChange(event: any) {
+  const el = event.target as HTMLInputElement
+  emit('update:modelValue', handleVModel(event))
+  emit('change', el.checked)
 }
 </script>
 

@@ -43,13 +43,14 @@ const props = defineProps({
     default: undefined,
   },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 const attrs = useAttrs()
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 const modelValueAsArray = toRef(props, 'modelValue')
 function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
+  emit('change', e.target.checked)
 }
 
 const usageMethod = computed(() => {
