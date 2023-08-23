@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.68.2](https://github.com/LUI-UI/lui-vue/compare/v0.68.1...v0.68.2) (2023-08-23)
+
+
+### Bug Fixes
+
+* **focustrap:** change focus-trap composable with the vue-use focusTrap component ([313d798](https://github.com/LUI-UI/lui-vue/commit/313d798a9bca20b180ca9fb65b9598c6cddd663e))
+* **inputs:** add missing events to input components(checkbox,radio,input) ([36d74ce](https://github.com/LUI-UI/lui-vue/commit/36d74ce687742fbaca147fc7900a40f0ad9596f6))
+* **select:** fix options missing bug ([9bcad48](https://github.com/LUI-UI/lui-vue/commit/9bcad486585d03ca33c7804657bb548dc24c4ce8)), closes [#102](https://github.com/LUI-UI/lui-vue/issues/102)
+* **switch:** add custom value support to switch component ([99eecfa](https://github.com/LUI-UI/lui-vue/commit/99eecfabe0417cc8b6d140284c7f1507b54f81a1))
+
 ## [0.68.1](https://github.com/LUI-UI/lui-vue/compare/v0.68.0...v0.68.1) (2023-08-08)
 
 
