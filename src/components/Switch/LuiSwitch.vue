@@ -6,9 +6,9 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { toRefs, useAttrs } from 'vue'
+import { computed, toRef, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import { useGlobalCheckbox, useGlobalDescriptionClasses } from '../../composables/index'
+import { useGlobalDescriptionClasses } from '../../composables/index'
 import { useSwitchClasses } from './composables/index'
 import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
 
@@ -29,26 +29,61 @@ const props = defineProps({
     type: [String, null] as PropType<Description>,
     default: null,
   },
-  value: {
-    type: String,
-    default: '',
-  },
   modelValue: {
     type: [Array, Boolean, undefined] as PropType<CheckableModelValue>,
     default: undefined,
   },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const attrs = useAttrs()
+// const modelValueAsArray = toRef(props, 'modelValue')
 
 const { inputClasses, spanClasses } = useSwitchClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-
-const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs)
+const modelValueAsArray = toRef(props, 'modelValue')
 function handleChange(e: any) {
   emit('update:modelValue', handleVModel(e))
+  emit('change', e.target.checked)
+}
+
+const usageMethod = computed(() => {
+  if (attrs['true-value'] !== undefined || attrs['false-value'] !== undefined)
+    return 'customValue'
+  if (Array.isArray(modelValueAsArray.value))
+    return 'array'
+  return 'boolean'
+})
+
+function handleVModel(event: Event) {
+  const target = event.target as HTMLInputElement
+  if (usageMethod.value === 'customValue')
+    return target.checked ? attrs['true-value'] : attrs['false-value']
+
+  if (usageMethod.value === 'boolean')
+    return target.checked
+  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value)) {
+    if (target.checked) {
+      modelValueAsArray.value.push(target.value)
+    }
+    else {
+      const index = modelValueAsArray.value.indexOf(target.value)
+      modelValueAsArray.value.splice(index, 1)
+    }
+  }
+  return modelValueAsArray.value
+}
+function isInputChecked(): boolean {
+  if (usageMethod.value === 'customValue')
+    return props.modelValue === attrs['true-value']
+
+  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value))
+    return attrs && attrs.value ? modelValueAsArray.value.includes(attrs.value as string) : false
+
+  if (usageMethod.value === 'boolean')
+    return props.modelValue as boolean
+  return attrs && attrs.checked ? (attrs.checked as boolean) : false
 }
 </script>
 
@@ -57,9 +92,8 @@ function handleChange(e: any) {
     <div class="relative">
       <input
         type="checkbox"
+        :checked="isInputChecked()"
         :class="inputClasses"
-        :checked="isInputChecked"
-        :value="value"
         v-bind="$attrs"
         @change="handleChange"
       >

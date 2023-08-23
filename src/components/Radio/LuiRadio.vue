@@ -19,10 +19,6 @@ const props = defineProps({
     type: String as PropType<Size>,
     default: 'md',
   },
-  // rounded: {
-  //   type: [Boolean, String] as PropType<Rounded>,
-  //   default: "full",
-  // },
   state: {
     type: [String, Boolean, null] as PropType<State>,
     default: null,
@@ -43,16 +39,16 @@ const props = defineProps({
 
 // const { handleVModel, isInputChecked } = useGlobalCheckbox(props, attrs);
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change'])
 
 const attrs = useAttrs()
 
 const { inputClasses, spanClasses } = useRadioClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-function handleChange() {
+function handleChange(event: any) {
   emit('update:modelValue', props.value)
+  emit('change', event)
 }
-// handleChange()
 const isChecked = computed<boolean>(() => props.value === props.modelValue)
 </script>
 
@@ -65,7 +61,7 @@ const isChecked = computed<boolean>(() => props.value === props.modelValue)
         :value="value"
         v-bind="$attrs"
         :checked="isChecked"
-        @change="handleChange"
+        @change="handleChange($event)"
       >
       <span :class="spanClasses" />
     </div>

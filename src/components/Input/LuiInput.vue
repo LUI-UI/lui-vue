@@ -49,7 +49,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'change', 'blur', 'input'])
 const attrs = useAttrs()
 const slots = useSlots()
 // const LuiInputRef: Ref = ref(null);
@@ -78,8 +78,10 @@ defineExpose({
   focus,
 })
 
-function handleInputEvents(val: any) {
-  emit('update:modelValue', val.target.value)
+function handleInputEvents(event: any) {
+  const input = event.target as HTMLInputElement
+  emit('update:modelValue', input.value)
+  emit('input', event)
 }
 const iconSizes = computed(() =>
   props.size === 'xs' ? '12' : props.size === 'sm' ? '16' : props.size === 'xl' ? '24' : '20',
@@ -157,6 +159,8 @@ const computedAttrs = computed(() => {
         :value="modelValue === undefined ? '' : modelValue"
         v-bind="computedAttrs"
         @input="handleInputEvents($event)"
+        @change="emit('change', $event)"
+        @blur="emit('blur', $event)"
       >
       <span v-if="hasSlotContent(slots.prepend)" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
