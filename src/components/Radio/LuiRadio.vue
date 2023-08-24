@@ -47,7 +47,7 @@ const { inputClasses, spanClasses } = useRadioClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 function handleChange(event: any) {
   emit('update:modelValue', props.value)
-  emit('change', event)
+  emit('change', event.target.value, event)
 }
 const isChecked = computed<boolean>(() => props.value === props.modelValue)
 </script>

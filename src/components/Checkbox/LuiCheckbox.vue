@@ -48,9 +48,9 @@ const attrs = useAttrs()
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 const modelValueAsArray = toRef(props, 'modelValue')
-function handleChange(e: any) {
-  emit('update:modelValue', handleVModel(e))
-  emit('change', e.target.checked)
+function handleChange(event: any) {
+  emit('update:modelValue', handleVModel(event))
+  emit('change', handleVModel(event), event)
 }
 
 const usageMethod = computed(() => {
