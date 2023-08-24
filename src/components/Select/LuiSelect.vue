@@ -174,7 +174,7 @@ function focusAvailableElement(
   }
   listboxState.currentIndex = targetIndex
   const currentEl = el?.children[listboxState.currentIndex]
-  listboxState.currentId = currentEl?.id
+  listboxState.currentId = currentEl?.id as string
   if (!props.searchable)
     nextTick(() => (currentEl as HTMLElement)?.focus({ preventScroll: true }))
 
@@ -464,7 +464,7 @@ function setSearchQuery(event: Event) {
     const currentEl = optionsRef.value?.children[0]
     focusAvailableElement(optionsRef.value, i => i + 1, 0)
     listboxState.currentIndex = 0
-    listboxState.currentId = currentEl?.id
+    listboxState.currentId = currentEl?.id as string
   }
   else {
     listboxState.currentIndex = 0
