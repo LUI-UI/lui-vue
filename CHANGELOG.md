@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.0](https://github.com/LUI-UI/lui-vue/compare/v0.68.2...v0.69.0) (2023-08-24)
+
+
+### Features
+
+* **multi-select:** create multi-select component ([e7a553c](https://github.com/LUI-UI/lui-vue/commit/e7a553c9c01462f6a0777a88c303013bc2ba2a2f))
+
+
+### Bug Fixes
+
+* **checkbox:** fix checkbox components custom-value error ([a01ae1f](https://github.com/LUI-UI/lui-vue/commit/a01ae1f4429d9951183754e31bc9948b09b50fd9))
+* **multi-select:** export multi-select ([ae68359](https://github.com/LUI-UI/lui-vue/commit/ae68359b1c6633d7aae48b89591785df948af734))
+* **type:** fix type error ([d3afbf0](https://github.com/LUI-UI/lui-vue/commit/d3afbf03bbfae7cbfc95e1976e61366569689666))
+
 ## [0.68.2](https://github.com/LUI-UI/lui-vue/compare/v0.68.1...v0.68.2) (2023-08-23)
 
 
