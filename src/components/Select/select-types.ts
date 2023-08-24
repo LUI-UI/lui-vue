@@ -15,12 +15,12 @@ export type ModelValue = ModelValueObject | string | undefined
 export interface ListboxStateType {
   items: any[]
   currentIndex: number
-  currentId: string | undefined
+  currentId: string
 }
 export type OptionsType = string[] | ModelValueObject[]
 
 export interface ContextDefination {
-  selectedOption: Ref<ModelValue>
+  selectedOption: Ref<ModelValue | string[]>
   updateSelectedOption(option: ModelValue): void
   focusButton(): void
   currentId: Ref<string>

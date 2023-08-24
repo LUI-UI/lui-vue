@@ -16,7 +16,7 @@ interface PropTypes {
 export function useTagClasses(props: PropTypes) {
   const computedTagClasses = computed(() => {
     const tagClasses: TwClassInterface = {
-      display: 'flex',
+      display: 'inline-flex',
       borderWidth: 'border',
       borderStyle: 'border-solid',
       borderRadius:

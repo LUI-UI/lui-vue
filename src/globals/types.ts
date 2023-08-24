@@ -8,9 +8,18 @@ export type Border = true | false
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type State = true | false | string | null
 export type Description = string | null
-export type CheckableModelValue = string[] | boolean | null
+export type CheckableModelValue = string[] | boolean | undefined | string
 export type Text = string
 export type StateIcon = false | true
+export type Position =
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'topLeft'
+  | 'topRight'
+  | 'leftTop'
+  | 'leftBottom'
+  | 'rightTop'
+  | 'rightBottom'
 // export type TextColor =
 //   | "white"
 //   | "solid"

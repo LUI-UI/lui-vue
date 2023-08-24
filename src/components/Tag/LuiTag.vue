@@ -37,6 +37,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  text: {
+    type: String,
+    default: '',
+  },
 })
 const { computedTagClasses, computedIconSize, computedPrependSize } = useTagClasses(toRefs(props))
 const { backgroundColorClasses, textColorClasses } = useGlobalColorClasses(toRefs(props))
@@ -57,7 +61,8 @@ const slots = useSlots()
     >
       <slot name="prepend" />
     </span>
-    <span><slot /></span>
+    <span v-if="text.length > 0">{{ text }}</span>
+    <span v-else><slot /></span>
     <span v-if="closeIcon" class="leading-none flex items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
