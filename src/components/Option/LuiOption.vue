@@ -71,6 +71,9 @@ watch(
 
 function handleOptionClick(e: any) {
   e.preventDefault()
+  const isSelectMultiple = Array.isArray(context?.selectedOption.value)
+  if (isSelectMultiple)
+    e.stopPropagation()
   context?.updateSelectedOption({
     value: props.value,
     text: props.text,
@@ -82,11 +85,12 @@ function handleOptionClick(e: any) {
 const isSelected = computed(() => {
   if (context?.selectedOption.value === undefined)
     return props.selected
-  return typeof context?.selectedOption.value === 'string'
-    ? props.text === context?.selectedOption.value
-    : props.text === context?.selectedOption.value.text
+  return Array.isArray(context?.selectedOption.value)
+    ? context?.selectedOption.value.includes(props.text)
+    : typeof context?.selectedOption.value === 'string'
+      ? props.text === context?.selectedOption.value
+      : props.text === context?.selectedOption.value.text
 })
-
 const optionClasses = computed(() => {
   // hover:bg-${props.color}-600/20
   const classes: TwClassInterface = {

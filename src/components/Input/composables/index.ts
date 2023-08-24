@@ -12,18 +12,18 @@ import type { Block, Description, Rounded, Size, State, StateIcon } from '@/glob
 interface PropTypes {
   size: Ref<Size>
   rounded: Ref<Rounded>
-  state: Ref<State>
-  stateIcon: Ref<StateIcon>
+  state?: Ref<State>
+  stateIcon?: Ref<StateIcon>
   block: Ref<Block>
-  clear: Ref<Clear>
-  description: Ref<Description>
+  clear?: Ref<Clear>
+  description?: Ref<Description>
 }
 
 export function useInputClasses(props: PropTypes, attrs: any) {
   const slots = useSlots()
   const iconStatus = computed(() => {
-    return (props.stateIcon.value === true && props.state.value !== null)
-      || props.clear.value === true
+    return (props?.stateIcon?.value === true && props.state && props.state.value !== null)
+      || (props.clear && props.clear.value === true)
       || slots.append
       ? hasSlotContent(slots.prepend)
         ? 'twoIcon'
@@ -79,22 +79,22 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       borderStyle: 'border-solid',
       borderColor: {
         'border-secondary-200 focus:border-primary-500 disabled:border-secondary-200':
-          props.state.value === null,
-        'disabled:border-secondary-200 border-warning-500': props.state.value === 'warning',
-        'disabled:border-secondary-200 border-danger-500': props.state.value === false,
-        'disabled:border-secondary-200 border-success-500': props.state.value === true,
+          props?.state?.value === null,
+        'disabled:border-secondary-200 border-warning-500': props?.state?.value === 'warning',
+        'disabled:border-secondary-200 border-danger-500': props?.state?.value === false,
+        'disabled:border-secondary-200 border-success-500': props?.state?.value === true,
       },
       ringWidth:
         attrs.disabled !== undefined && attrs.disabled === true
           ? 'ring-0'
-          : props.state.value === null
+          : props?.state?.value === null
             ? 'focus:ring-4'
             : 'ring-4',
       ringColor: {
-        'focus:ring-primary-500/40': props.state.value === null,
-        'ring-warning-500/40': props.state.value === 'warning',
-        'ring-danger-500/40': props.state.value === false,
-        'ring-success-500/40': props.state.value === true,
+        'focus:ring-primary-500/40': props?.state?.value === null,
+        'ring-warning-500/40': props?.state?.value === 'warning',
+        'ring-danger-500/40': props?.state?.value === false,
+        'ring-success-500/40': props?.state?.value === true,
       },
       borderRadius: {
         'rounded-lg': props.rounded.value === true,
@@ -165,7 +165,7 @@ export function useInputClasses(props: PropTypes, attrs: any) {
   })
 
   const stateIconClasses = computed(() => {
-    const { textColor, ...rest } = iconClasses
+    const { ...rest } = iconClasses
     const classes: TwClassInterface = {
       ...rest,
       right: {
@@ -177,12 +177,12 @@ export function useInputClasses(props: PropTypes, attrs: any) {
       textColor:
         attrs.disabled !== undefined && attrs.disabled === true
           ? 'text-secondary-300 dark:text-secondary-700'
-          : props.state.value === null
+          : props?.state?.value === null
             ? 'text-secondary-400 peer-focus:text-secondary-600 dark:text-secondary-600 dark:peer-focus:text-secondary-300'
             : {
-                'text-warning-500': props.state.value === 'warning',
-                'text-danger-500': props.state.value === false,
-                'text-success-500': props.state.value === true,
+                'text-warning-500': props?.state?.value === 'warning',
+                'text-danger-500': props?.state?.value === false,
+                'text-success-500': props?.state?.value === true,
               },
     }
     return Object.values({ ...classes })
