@@ -11,8 +11,7 @@ import type { PropType, Ref } from 'vue'
 import { useId } from '../../utils/useId'
 
 // import { useOutsideClick, useFindProperPosition } from "./composables/index";
-import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useProperPosition } from '../../composables/useProperPosition'
+import { useOutsideClick, useProperPosition } from '../../composables'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'

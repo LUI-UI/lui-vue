@@ -9,8 +9,7 @@ export default {
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
-import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useProperPosition } from '../../composables/useProperPosition'
+import { useOutsideClick, useProperPosition } from '../../composables'
 import { useId } from '../../utils/useId'
 
 type TargetPositionType = 'bottom' | 'top'

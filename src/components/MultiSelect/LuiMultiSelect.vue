@@ -13,8 +13,7 @@ import type {
 import type { TwClassInterface } from '../../globals/interfaces'
 import { ContextKey } from '../Select/symbols'
 
-import { useProperPosition } from '../../composables/useProperPosition'
-import { useOutsideClick } from '../../composables/useOutsideClick'
+import { useOutsideClick, useProperPosition } from '../../composables'
 import { useInputClasses } from '../Input/composables/index'
 import { useId } from '../../utils/useId'
 import { isElementScrollable } from '../../utils/isElementScrollable'

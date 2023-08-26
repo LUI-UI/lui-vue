@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
-import { useGlobalHiddenInputClasses } from '../../../composables/index'
+import { useGlobalHiddenInputClasses } from '../../../composables'
 import type { Description, Size, State } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 

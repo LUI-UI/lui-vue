@@ -8,7 +8,7 @@ export default {
 <script setup lang="ts">
 import { computed, h, ref, toRefs, useAttrs, useSlots } from 'vue'
 import type { PropType } from 'vue'
-import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useGlobalDescriptionClasses } from '../../composables'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import type { Clear, ModelValue } from './input-types'
 import { useInputClasses } from './composables'

@@ -9,7 +9,7 @@ export default {
 import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
 
-import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useGlobalDescriptionClasses } from '../../composables'
 import { useTextareaClasses } from './composables'
 import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
 
