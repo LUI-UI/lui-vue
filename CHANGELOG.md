@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.1](https://github.com/LUI-UI/lui-vue/compare/v0.69.0...v0.69.1) (2023-08-31)
+
+
+### Bug Fixes
+
+* **multiselet:** fix searchable prop when using placeholder ([c12d4d1](https://github.com/LUI-UI/lui-vue/commit/c12d4d16dacc5ba69764eddd7b10a2e1bc04f229))
+* **popover:** fix popover component block prop ([6ad70bb](https://github.com/LUI-UI/lui-vue/commit/6ad70bbf55291c977140f981193236e3108d6391))
+
 ## [0.69.0](https://github.com/LUI-UI/lui-vue/compare/v0.68.2...v0.69.0) (2023-08-24)
 
 
