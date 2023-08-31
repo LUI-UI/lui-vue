@@ -54,6 +54,32 @@ export const Default: Story = {
     },
   }),
 }
+const BlockPropTemplate = `
+<div class="w-[600px]">
+  <lui-popover v-bind="args" text="test" block>
+    <div class="bg-white p-3">
+      <button>Test</button>
+      <div>
+      <button>test</button>
+      <p>test text</p>
+      <p>test text</p>
+      <a href="/">some link</a>
+      </div>
+    </div>
+  </lui-popover>
+</div>
+`
+export const BlockProp: Story = {
+  render: args => ({
+    components: { LuiPopover },
+    template: BlockPropTemplate,
+    setup() {
+      return {
+        args,
+      }
+    },
+  }),
+}
 // const cusomTrigger = `
 // <div class="h-[2000px] pt-[900px]">
 //   <lui-popover>
