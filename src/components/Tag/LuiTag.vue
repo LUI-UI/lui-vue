@@ -35,7 +35,7 @@ const props = defineProps({
   },
   closeIcon: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   text: {
     type: String,
