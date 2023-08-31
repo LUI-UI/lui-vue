@@ -123,13 +123,13 @@ const searchQuery = ref<string>('')
 const wrapperRef = ref<HTMLDivElement>()
 const searchRef = ref<HTMLInputElement>()
 const optionsRef = ref<HTMLUListElement>()
+const isPlaceholderHolderDelete = ref<boolean>(false)
 const optionsId = `lui-multiselect-wrapper-${useId()}`
 const listboxState: ListboxStateType = reactive({
   items: [],
   currentIndex: 0,
   currentId: '',
 })
-
 nextTick(() => {
   if (isOptionsValid()) {
     setState()
@@ -160,7 +160,12 @@ const { properPosition } = useProperPosition({
   targetPosition: setTargetPosition(),
 })
 
-useOutsideClick(wrapperRef, () => closeOptions())
+useOutsideClick(wrapperRef, () => {
+  searchQuery.value = ''
+  closeOptions()
+  if (props.placeholder !== '' && !selectedOptions.value.length)
+    isPlaceholderHolderDelete.value = false
+})
 
 // const searchedOptions = computed(() => props.options)
 const searchedOptions = computed(() => {
@@ -415,8 +420,16 @@ function triggerKeydown(event: KeyboardEvent) {
 
       break
     case 'Backspace': {
-      const lastIndex = selectedOptions.value.length - 1
-      updateSelectedOptions(selectedOptions.value[lastIndex])
+      const isPlaceholderUsing = props.placeholder.length > 0
+      const isAnySelectedOption = selectedOptions.value.length
+      const isSearhQueryEmpty = !searchQuery.value
+      if (isPlaceholderUsing && isAnySelectedOption && isSearhQueryEmpty) {
+        const lastIndex = selectedOptions.value.length - 1
+        updateSelectedOptions(selectedOptions.value[lastIndex])
+      }
+      if (!isAnySelectedOption && !searchQuery.value)
+        isPlaceholderHolderDelete.value = true
+
       break
     }
     default:
@@ -439,6 +452,8 @@ function closeOptions() {
   optionsActive.value = false
 }
 function updateSelectedOptions(option: ModelValue) {
+  if (option === undefined)
+    return
   const optionAsString = option && typeof option !== 'string' ? option.text : option
   // if (
   //   selectedOptions.value.includes(optionAsString as string)
@@ -657,7 +672,7 @@ function ArrowIcon() {
       </span>
       <component
         :is="LuiText(placeholder, 0)"
-        v-if="placeholder !== '' && selectedOptions.length < 1"
+        v-if="placeholder !== '' && !selectedOptions.length && !searchQuery.length && !isPlaceholderHolderDelete"
       />
       <template v-for="(option, index) in selectedOptions" :key="`lui-option-${index}`">
         <component
@@ -700,7 +715,7 @@ function ArrowIcon() {
         aria-activedescendant="listboxState.currentId"
         @keydown="optionsKeydown($event)"
       >
-        <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
+        <LuiOption v-if="placeholder !== '' && !searchQuery.length" disabled :text="placeholder" />
         <template v-if="options.length > 0">
           <template v-if="searchedOptions.length > 0">
             <LuiOption
