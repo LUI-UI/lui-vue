@@ -12,6 +12,7 @@ import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
 import { useId } from '../../utils/useId'
+import type { TwClassInterface } from '@/globals/interfaces'
 
 type TargetPositionType = 'bottom' | 'top'
 type Position =
@@ -106,8 +107,18 @@ const triggerSlotProps = computed<TriggerSlotType>(() => ({
   'data-button': true,
   'aria-expanded': dialogActive.value,
   'aria-controls': dialogId,
+  'block': props.block,
   'click': handleTriggerClick,
 }))
+
+const dialogWrapperClasses = computed(() => {
+  const classes: TwClassInterface = {
+    position: 'absolute',
+    zIndex: 'z-50',
+    width: props.block ? 'w-full' : 'w-max',
+  }
+  return Object.values({ ...classes })
+})
 const computedDialogPosition = computed(() => {
   return positionClasses[props.dialogPosition].direction === properPosition.value
     ? positionClasses[props.dialogPosition].classes
@@ -154,8 +165,7 @@ function closeDialog() {
         :aria-labelledby="triggerId"
         role="dialog"
         tabindex="-1"
-        :class="computedDialogPosition"
-        class="absolute z-50"
+        :class="[computedDialogPosition, dialogWrapperClasses]"
       >
         <slot />
       </div>
