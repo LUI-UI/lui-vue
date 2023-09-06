@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.2](https://github.com/LUI-UI/lui-vue/compare/v0.69.1...v0.69.2) (2023-09-06)
+
+
+### Bug Fixes
+
+* **inputs:** fix inputs change event parameter ([0059c71](https://github.com/LUI-UI/lui-vue/commit/0059c71b6d0f232bcbb71b31c2c44dac6ff19ec5))
+
 ## [0.69.1](https://github.com/LUI-UI/lui-vue/compare/v0.69.0...v0.69.1) (2023-08-31)
 
 
