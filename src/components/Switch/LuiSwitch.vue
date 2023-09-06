@@ -45,7 +45,7 @@ const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
 const modelValueAsArray = toRef(props, 'modelValue')
 function handleChange(event: any) {
   emit('update:modelValue', handleVModel(event))
-  emit('change', handleVModel(event), event)
+  emit('change', event)
 }
 
 const usageMethod = computed(() => {
