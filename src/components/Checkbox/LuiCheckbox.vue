@@ -124,6 +124,7 @@ const iconSize = computed(() =>
   <div class="inline-block leading-3">
     <div class="relative inline-flex">
       <input
+        data-testid="lui-checkbox-input"
         type="checkbox"
         :checked="isInputChecked()"
         :class="inputClasses"
