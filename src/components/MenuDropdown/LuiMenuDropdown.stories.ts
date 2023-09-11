@@ -490,43 +490,32 @@ export const PrependSlot: Story = {
 }
 
 const menuPositionTemplate = `
-<lui-menu-dropdown menu-position="topLeft" text="topLeft">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="leftTop" text="leftTop">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="topRight" text="topRight">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="rightTop" text="rightTop">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="bottomLeft" text="bottomLeft">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="leftBottom" text="leftBottom">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="bottomRight" text="bottomRight">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="rightBottom" text="rightBottom">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
+<lui-menu-dropdown v-for="position in positions" :key="position" :menu-position="position" :text="position">
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
 </lui-menu-dropdown>
 `
 export const MenuPosition: Story = {
   render: () => ({
+    setup() {
+      const positions = [
+        'bottomLeft',
+        'bottomRight',
+        'bottom',
+        'topLeft',
+        'topRight',
+        'top',
+        'leftTop',
+        'leftBottom',
+        'left',
+        'rightTop',
+        'rightBottom',
+        'right',
+      ]
+      return { positions }
+    },
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`,
+    template: `<div class="px-28 pt-12 grid grid-cols-3 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`,
   }),
   parameters: {
     docs: {

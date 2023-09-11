@@ -13,17 +13,9 @@ import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useProperPosition } from '../../composables/useProperPosition'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '@/globals/interfaces'
+import type { Position } from '@/globals/types'
 
 type TargetPositionType = 'bottom' | 'top'
-type Position =
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'topLeft'
-  | 'topRight'
-  | 'leftTop'
-  | 'leftBottom'
-  | 'rightTop'
-  | 'rightBottom'
 interface TriggerSlotType {
   id: string
   type: string
@@ -49,43 +41,63 @@ const props = defineProps({
 const positionClasses = {
   bottomLeft: {
     classes: 'top-full mt-1',
-    oppositeClasses: 'bottom-full mb-1 left-0', // bottomRight
+    oppositeClasses: 'bottom-full mb-1 left-0',
     direction: 'bottom',
   },
   topLeft: {
     classes: 'bottom-full mb-1 left-0',
-    oppositeClasses: 'top-full mt-1', // bottomLEft
+    oppositeClasses: 'top-full mt-1',
     direction: 'top',
   },
   bottomRight: {
     classes: 'top-full mt-1 right-0',
-    oppositeClasses: 'bottom-full mb-1 right-0', // topRight
+    oppositeClasses: 'bottom-full mb-1 right-0',
     direction: 'bottom',
   },
   topRight: {
     classes: 'bottom-full mb-1 right-0',
-    oppositeClasses: 'top-full mt-1 right-0', // bottomRight
+    oppositeClasses: 'top-full mt-1 right-0',
     direction: 'top',
   },
   leftTop: {
     classes: 'top-0 mr-1 right-full',
-    oppositeClasses: 'bottom-0 mr-1 right-full', // leftBottom
+    oppositeClasses: 'bottom-0 mr-1 right-full',
+    direction: 'bottom',
+  },
+  rightTop: {
+    classes: 'top-0 ml-1 left-full',
+    oppositeClasses: 'bottom-0 ml-1 left-full',
     direction: 'bottom',
   },
   leftBottom: {
     classes: 'bottom-0 mr-1 right-full',
-    oppositeClasses: 'top-0 mr-1 right-full', // leftTop
+    oppositeClasses: 'top-0 mr-1 right-full',
     direction: 'top',
-  },
-  rightTop: {
-    classes: 'top-0 ml-1 left-full',
-    oppositeClasses: 'bottom-0 ml-1 left-full', // rightBottom
-    direction: 'bottom',
   },
   rightBottom: {
     classes: 'bottom-0 ml-1 left-full',
-    oppositeClasses: 'top-0 ml-1 left-full', // rightTop
+    oppositeClasses: 'top-0 ml-1 left-full',
     direction: 'top',
+  },
+  bottom: {
+    classes: 'top-full mt-1 left-1/2 -translate-x-1/2',
+    oppositeClasses: 'bottom-full mb-1 left-1/2 -translate-x-1/2',
+    direction: 'bottom',
+  },
+  top: {
+    classes: 'bottom-full mb-1 left-1/2 -translate-x-1/2',
+    oppositeClasses: 'top-full mt-1 left-1/2 -translate-x-1/2',
+    direction: 'bottom',
+  },
+  left: {
+    classes: 'mr-1 right-full top-1/2 -translate-y-1/2',
+    oppositeClasses: 'mr-1 right-full top-1/2 -translate-y-1/2',
+    direction: 'bottom',
+  },
+  right: {
+    classes: 'ml-1 left-full top-1/2 -translate-y-1/2',
+    oppositeClasses: 'ml-1 left-full top-1/2 -translate-y-1/2',
+    direction: 'bottom',
   },
 }
 const triggerId = `lui-popover-trigger-${useId()}`
