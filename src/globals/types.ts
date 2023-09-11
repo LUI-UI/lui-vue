@@ -12,14 +12,18 @@ export type CheckableModelValue = string[] | boolean | undefined | string
 export type Text = string
 export type StateIcon = false | true
 export type Position =
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'topLeft'
-  | 'topRight'
-  | 'leftTop'
-  | 'leftBottom'
-  | 'rightTop'
-  | 'rightBottom'
+| 'bottomLeft'
+| 'bottomRight'
+| 'bottom'
+| 'topLeft'
+| 'topRight'
+| 'top'
+| 'leftTop'
+| 'leftBottom'
+| 'left'
+| 'rightTop'
+| 'rightBottom'
+| 'right'
 // export type TextColor =
 //   | "white"
 //   | "solid"
