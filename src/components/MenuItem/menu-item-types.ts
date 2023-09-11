@@ -1,1 +1,1 @@
-export type MenuItemTag = 'button' | 'a'
+export type MenuItemTag = 'button' | 'a' | 'div' | 'span'
