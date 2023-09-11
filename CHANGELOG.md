@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.3](https://github.com/LUI-UI/lui-vue/compare/v0.69.2...v0.69.3) (2023-09-11)
+
+
+### Bug Fixes
+
+* **dropdown,popover:** add center positions to dropdown and popover menus ([5296b75](https://github.com/LUI-UI/lui-vue/commit/5296b755237205174c4e96eea638f78806b356e1))
+* **menuitem:** add new options for menuitem tag prop ([6e6fef8](https://github.com/LUI-UI/lui-vue/commit/6e6fef858a2c6d84b604f54bdecb30b4a704208e))
+
 ## [0.69.2](https://github.com/LUI-UI/lui-vue/compare/v0.69.1...v0.69.2) (2023-09-06)
 
 
