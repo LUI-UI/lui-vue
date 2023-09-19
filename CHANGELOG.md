@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.4](https://github.com/LUI-UI/lui-vue/compare/v0.69.3...v0.69.4) (2023-09-19)
+
+
+### Bug Fixes
+
+* **popover:** add on-trigger event to popover component ([cd6d697](https://github.com/LUI-UI/lui-vue/commit/cd6d6971daafd0b91382c97237bebd3f66175462))
+
 ## [0.69.3](https://github.com/LUI-UI/lui-vue/compare/v0.69.2...v0.69.3) (2023-09-11)
 
 
