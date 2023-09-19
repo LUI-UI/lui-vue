@@ -38,6 +38,7 @@ const props = defineProps({
     default: false,
   },
 })
+const emit = defineEmits(['onTrigger'])
 const positionClasses = {
   bottomLeft: {
     classes: 'top-full mt-1',
@@ -145,9 +146,13 @@ function setTargetPosition(): TargetPositionType {
 function handleTriggerClick() {
   // emin open event!
   dialogActive.value = !dialogActive.value
+  emit('onTrigger', dialogActive.value)
 }
 function closeDialog() {
-  dialogActive.value = false
+  if (dialogActive.value) {
+    dialogActive.value = false
+    emit('onTrigger', false)
+  }
 }
 </script>
 
