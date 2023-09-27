@@ -46,7 +46,7 @@ const context = inject(ContextKey)
 const slots = useSlots()
 const optionId = `lui-option-${useId()}`
 const optionRef = ref(null)
-const isHovered = computed(() => optionId === context?.currentId.value)
+const isKeyboardHovered = computed(() => optionId === context?.currentId.value)
 nextTick(() => {
   // if v-model does not used so we set the initial selectedValue
   if (context?.selectedOption.value === undefined && props.selected && !props.disabled) {
@@ -94,13 +94,25 @@ const isSelected = computed(() => {
 const optionClasses = computed(() => {
   // hover:bg-${props.color}-600/20
   const classes: TwClassInterface = {
+    // backgroundColor: props.disabled
+    //   ? ''
+    //   : isSelected.value
+    //     ? isKeyboardHovered.value
+    //       ? 'bg-danger-500'
+    //       : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20'
+    //     : '',
+    // default: '', hover
+    // selected: '', hover
+    // keybpardHover: selected ? '' : ''
+
     backgroundColor: props.disabled
       ? ''
-      : isSelected.value === true
-        ? 'bg-primary-500 hover:text-primary-600 focus-visible:text-primary-600'
-        : isHovered.value
-          ? 'bg-primary-500/20'
-          : 'hover:bg-primary-500/20 focus-visible:bg-primary-500/20',
+      : {
+          'hover:bg-primary-500/20': !isSelected.value,
+          'bg-primary-500 hover:bg-primary-500/80 focus-visible:bg-primary-500/80': isSelected.value && !isKeyboardHovered.value,
+          'bg-primary-500/20': isKeyboardHovered.value && !isSelected.value,
+          'bg-primary-500/80': isKeyboardHovered.value && isSelected.value,
+        },
     padding: {
       'py-1 px-1.5': props.size === 'xs',
       'py-1.5 px-2': props.size === 'sm',
@@ -117,11 +129,11 @@ const optionClasses = computed(() => {
     },
     textColor: props.disabled
       ? 'text-secondary-300 dark:text-secondary-700'
-      : isSelected.value === true
-        ? 'text-white'
-        : isHovered.value
-          ? 'text-primary-500'
-          : 'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus-visible:text-primary-500',
+      : {
+          'text-secondary-600 dark:text-secondary-300 hover:text-primary-500 focus-visible:text-primary-500': !isKeyboardHovered.value && !isSelected.value, // default state
+          'text-white': isSelected.value, // selected
+          'text-primary-500': isKeyboardHovered.value && !isSelected.value, // keyboard-hovered && not-selected
+        },
     outlineWidth: 'outline-none',
     borderRadius: {
       'rounded-md': props.rounded === true,

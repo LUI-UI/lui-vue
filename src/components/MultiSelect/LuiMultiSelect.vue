@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import {
-  Fragment, computed, h, nextTick, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots,
+  Fragment, computed, h, nextTick, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch,
 } from 'vue'
 import type { Block, Color, Description, Filter, NarrowedVariant, Position, Rounded, Size, State, StateIcon } from '../../globals/types'
 import type {
@@ -167,6 +167,27 @@ useOutsideClick(wrapperRef, () => {
     isPlaceholderHolderDelete.value = false
 })
 
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (value && isModelValueValid())
+      selectedOptions.value = parseModelValue(value)
+
+    // setInitialSelectedOption()
+
+    // selectedOptions.value = value
+    // const sortedSelecteds = selectedOptions.value.sort()
+    // const sortedValues = value.sort()
+    // const isSame = JSON.stringify(sortedSelecteds) === JSON.stringify(sortedValues)
+
+    // const rawValue = typeof value !== 'string' ? value?.text : value
+    // const isSame = selectedOptions.value.some(selected => value?.includes(selected))
+    // if (value !== selectedOption.value?.text)
+    // updateSelectedOption(value)
+
+    // updateSelectedOption(value);
+  },
+)
 // const searchedOptions = computed(() => props.options)
 const searchedOptions = computed(() => {
   return [...props.options].filter((option: any) => {
@@ -539,39 +560,40 @@ function setState() {
 function isOptionsValid() {
   return props.options.length > 0 || hasSlotContent(slots.default)
 }
+function isModelValueValid() {
+  return props.modelValue !== undefined && Array.isArray(props.modelValue)
+}
+function parseModelValue(value: any) {
+  const asArray = (option: any) => (Array.isArray(option) ? option : [option])
+  const asString = (option: any) => (typeof option === 'string' ? option : option.text)
+  return Array.isArray(value) ? value.map(o => asString(o)) : asArray(asString(value))
+}
 function setInitialSelectedOption() {
-  const isModelValueUsing
-    = props.modelValue !== undefined && Array.isArray(props.modelValue) && props.modelValue.length > 0
-  const isPlaceholderUsing = props.placeholder !== ''
+  // const isModelValueUsing
+  // = props.modelValue !== undefined && Array.isArray(props.modelValue) && props.modelValue.length > 0
   const selectedItem = listboxState.items.find(
     i => i.selected !== undefined && i.selected !== false,
   )
   let initialOption
-  if (isModelValueUsing) {
+  if (isModelValueValid()) {
     initialOption = props.modelValue
   }
   else if (selectedItem) {
     initialOption = selectedItem
   }
-  else if (isPlaceholderUsing) {
-    return
-    // initialOption = props.placeholder
-  }
   else {
     // set first item
-    initialOption = listboxState.items[0]
+    // initialOption = listboxState.items[0]
+    return
   }
   // set initial selectedOption
-  const asArray = (option: any) => (Array.isArray(option) ? option : [option])
-  const asString = (option: any) => (typeof option === 'string' ? option : option.text)
-  if (Array.isArray(initialOption))
-    initialOption = initialOption.map(o => asString(o))
+  // const asArray = (option: any) => (Array.isArray(option) ? option : [option])
+  // const asString = (option: any) => (typeof option === 'string' ? option : option.text)
+  // if (Array.isArray(initialOption))
+  //   initialOption = initialOption.map(o => asString(o))
 
-  else
-    initialOption = asArray(asString(initialOption))
-
-  selectedOptions.value = initialOption
-  emit('update:modelValue', initialOption)
+  selectedOptions.value = parseModelValue(initialOption)
+  emit('update:modelValue', parseModelValue(initialOption))
 
   // updateSelectedOptions(initialOption, true)
 }
