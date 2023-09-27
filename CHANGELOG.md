@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.69.5](https://github.com/LUI-UI/lui-vue/compare/v0.69.4...v0.69.5) (2023-09-27)
+
+
+### Bug Fixes
+
+* **multi-select:** fix model-value changes bug ([ab79f9f](https://github.com/LUI-UI/lui-vue/commit/ab79f9fbf9214f0b7d0dc1af3edc1109db34c96f))
+* **release.yaml:** fix release yaml ([416c8b7](https://github.com/LUI-UI/lui-vue/commit/416c8b7c735f45a2cdeea220f000673df1500718))
+
 ## [0.69.4](https://github.com/LUI-UI/lui-vue/compare/v0.69.3...v0.69.4) (2023-09-19)
 
 
