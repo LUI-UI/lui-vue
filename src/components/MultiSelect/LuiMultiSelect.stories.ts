@@ -114,3 +114,25 @@ export const CustomTag: Story = {
     </LuiMultiSelect>`,
   }),
 }
+const withValueTemplate = `
+<div>VModel value: {{ selectedCountry }}</div>
+<LuiMultiSelect v-model="selectedCountry" :options="countries" />
+`
+export const WithValue: Story = {
+  render: () => ({
+    components: { LuiMultiSelect },
+    setup() {
+      const countries = [{ text: 'Turkey', value: 'TR' }, { text: 'Austria', value: 'AT' }, { text: 'Azerbaijan', value: 'AZ' }, { text: 'Bangladesh', value: 'BD' }]
+      const selectedCountry = ref(['AZ'])
+      return { countries, selectedCountry }
+    },
+    template: withValueTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: withValueTemplate,
+      },
+    },
+  },
+}

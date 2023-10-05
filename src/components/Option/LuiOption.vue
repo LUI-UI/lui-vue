@@ -81,15 +81,22 @@ function handleOptionClick(e: any) {
   })
   nextTick(() => context?.focusButton())
 }
-
+function anySelectedOption() {
+  if (Array.isArray(context?.selectedOption.value))
+    return context?.selectedOption.value.length !== 0
+  return context?.selectedOption.value.text !== ''
+}
+function isSelectedsIncludesOption() {
+  if (!Array.isArray(context?.selectedOption.value))
+    return false
+  return context?.selectedOption.value.includes(props.text) || context?.selectedOption.value.includes(props.value as string)
+}
 const isSelected = computed(() => {
-  if (context?.selectedOption.value === undefined)
+  if (!anySelectedOption())
     return props.selected
   return Array.isArray(context?.selectedOption.value)
-    ? context?.selectedOption.value.includes(props.text)
-    : typeof context?.selectedOption.value === 'string'
-      ? props.text === context?.selectedOption.value
-      : props.text === context?.selectedOption.value.text
+    ? isSelectedsIncludesOption()
+    : context?.selectedOption.value.text === props.text
 })
 const optionClasses = computed(() => {
   // hover:bg-${props.color}-600/20
