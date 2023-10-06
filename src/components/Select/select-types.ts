@@ -21,7 +21,7 @@ export interface ListboxStateType {
   currentIndex: number
   currentId: string
 }
-export type OptionsType = string[] | ModelValueObject[]
+export type OptionsType = string | ModelValueObject
 
 export interface ContextDefination {
   selectedOption: Ref<SelectedOption> | Ref<string[]>

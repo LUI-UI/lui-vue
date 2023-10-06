@@ -63,7 +63,7 @@ const props = defineProps({
     default: null,
   },
   options: {
-    type: Array as PropType<OptionsType>,
+    type: Array as PropType<OptionsType[]>,
     default: () => [],
   },
   placeholder: {

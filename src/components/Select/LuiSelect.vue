@@ -39,7 +39,7 @@ const props = defineProps({
     default: false,
   },
   options: {
-    type: Array as PropType<OptionsType>,
+    type: Array as PropType<OptionsType[]>,
     default: () => [],
   },
   placeholder: {
@@ -263,10 +263,10 @@ function setInitialSelected() {
   if (isModelValueUsing) {
     let item
     if (props.options.length > 0)
-      item = props.options.find(option => typeof option === 'string' ? option === props.modelValue : option.value === props.modelValue)
+      item = props.options.find((option: OptionsType) => typeof option === 'string' ? option === props.modelValue : option.value === props.modelValue)
     else
     // when we find modelValue item in slots we check if the value is empty because value always provides from lui-option
-      item = slotOptions && slotOptions.find(option => option.value !== '' ? option.value === props.modelValue : option.text === props.modelValue)
+      item = slotOptions && slotOptions.find((option: any) => option.value !== '' ? option.value === props.modelValue : option.text === props.modelValue)
 
     updateSelectedOption(item)
     return
