@@ -1,4 +1,5 @@
 // import { fileURLToPath, URL } from "node:url";
+/// <reference types="vitest" />
 
 import path from 'node:path'
 import { defineConfig } from 'vite'
@@ -33,5 +34,9 @@ export default defineConfig({
         },
       },
     },
+  },
+  test: {
+    environment: 'happy-dom',
+    root: 'src/',
   },
 })
