@@ -678,6 +678,7 @@ function ArrowIcon() {
   >
     <div
       ref="wrapperRef"
+      data-testid="lui-multi-select-container"
       role="combobox"
       aria-haspopup="listbox"
       :aria-expanded="optionsActive"
@@ -689,16 +690,19 @@ function ArrowIcon() {
       @keydown="triggerKeydown"
       @focus="searchRef?.focus()"
     >
-      <span v-if="$slots.prepend" :class="prependClasses">
+      <span v-if="$slots.prepend" data-testid="lui-multi-select-slot-prepend" :class="prependClasses">
         <slot name="prepend" />
       </span>
       <component
+
         :is="LuiText(placeholder, 0)"
         v-if="placeholder !== '' && !selectedOptions.length && !searchQuery.length && !isPlaceholderHolderDelete"
+        data-testid="lui-multi-select-placeholder"
       />
       <template v-for="(option, index) in selectedOptions" :key="`lui-option-${index}`">
         <component
           :is="tags ? LuiTag : LuiText(option, index)"
+          data-testid="lui-multi-select-selected"
           v-bind="dynamicSelectionAttributes(option)"
         />
       </template>
@@ -706,12 +710,13 @@ function ArrowIcon() {
         v-if="searchable && !disabled"
         ref="searchRef"
         v-model="searchQuery"
+        data-testid="lui-multi-select-input"
         type="text"
         class="outline-none bg-transparent w-24 mx-px"
         autocomplete="off"
         @input="handleSearchState"
       >
-      <span v-if="!hideAppend" :class="appendClasses">
+      <span v-if="!hideAppend" data-testid="lui-multi-select-slot-append" :class="appendClasses">
         <slot name="append">
           <ArrowIcon />
         </slot>
@@ -729,6 +734,7 @@ function ArrowIcon() {
         v-show="optionsActive"
         :id="optionsId"
         ref="optionsRef"
+        data-testid="lui-multi-select-options-container"
         aria-orientation="vertical"
         aria-labelledby="selectId"
         role="listbox"
@@ -743,6 +749,7 @@ function ArrowIcon() {
             <LuiOption
               v-for="(option, index) in searchedOptions"
               :key="index"
+              data-testid="lui-multi-select-option"
               v-bind="optionProps(option)"
               @click.stop
             />
