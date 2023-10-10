@@ -1,0 +1,17 @@
+// Vitest Snapshot v1
+
+exports[`Default LuiAvatar > renders properly based on default values 1`] = `
+"<div class=\\"lui-avatar flex border border-solid justify-center items-center w-10 h-10 text-xl bg-primary-500 text-white border-transparent\\" data-testid=\\"lui-avatar\\">
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+</div>"
+`;
+
+exports[`renders properly based on default values 1`] = `
+"<div class=\\"lui-avatar flex border border-solid justify-center items-center w-10 h-10 text-xl bg-primary-500 text-white border-transparent\\" data-testid=\\"lui-avatar\\">
+  <!--v-if-->
+  <!--v-if-->
+  <!--v-if-->
+</div>"
+`;
