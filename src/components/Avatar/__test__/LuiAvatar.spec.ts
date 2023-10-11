@@ -156,7 +156,7 @@ const expectedDefaultProps = {
 describe('Default LuiAvatar', () => {
   let wrapper: VueWrapper<any>
   beforeEach(() => {
-    wrapper = mount(LuiAvatar)
+    wrapper = mount(LuiAvatar as any)
   })
 
   afterEach(() => {
@@ -179,7 +179,7 @@ describe('Default LuiAvatar', () => {
 describe('LuiAvatar class tests', () => {
   let wrapper: VueWrapper<any>
   beforeEach(() => {
-    wrapper = mount(LuiAvatar)
+    wrapper = mount(LuiAvatar as any)
   })
 
   afterEach(() => {
@@ -313,7 +313,7 @@ describe('LuiAvatar with image', () => {
   const testSrc = 'https://www.w3schools.com/howto/img_avatar.png'
 
   beforeEach(() => {
-    wrapper = mount(LuiAvatar, {
+    wrapper = mount(LuiAvatar as any, {
       props: {
         src: testSrc,
       },
@@ -351,7 +351,7 @@ describe('LuiAvatar with image', () => {
 
 it('displays text properly', () => {
   const testText = 'T'
-  const wrapper = mount(LuiAvatar, {
+  const wrapper = mount(LuiAvatar as any, {
     props: {
       text: testText,
     },
@@ -364,7 +364,7 @@ it('displays text properly', () => {
 })
 it('displays icon properly', () => {
   const testClass = 'ri-home-line'
-  const wrapper = mount(LuiAvatar, {
+  const wrapper = mount(LuiAvatar as any, {
     slots: {
       icon: `<i class=${testClass}></i>`,
     },
