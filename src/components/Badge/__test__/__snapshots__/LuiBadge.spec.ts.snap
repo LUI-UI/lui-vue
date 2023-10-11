@@ -1,0 +1,10 @@
+// Vitest Snapshot v1
+
+exports[`Default LuiBadge > renders properly based on default values 1`] = `
+"<div data-testid=\\"lui-badge\\" class=\\"lui-badge relative inline-block\\">
+  <div data-testid=\\"lui-badge-wrapper\\" class=\\"flex rounded-full border border-solid justify-center items-center w-2.5 h-2.5 text-sm bg-primary-500 text-white border-transparent\\">
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+</div>"
+`;
