@@ -114,3 +114,12 @@ export const CustomTag: Story = {
     </LuiMultiSelect>`,
   }),
 }
+export const Teleport: Story = {
+  render: () => ({
+    components: { LuiMultiSelect, LuiOption },
+    template: `
+    <LuiMultiSelect :teleport="true" :tags="false">
+      <LuiOption rounded v-for="item in ['option-1','option-2','option-3']" :key="item" :text="item" />
+    </LuiMultiSelect>`,
+  }),
+}

@@ -1,4 +1,3 @@
-// import { onMounted, onUnmounted, nextTick } from 'vue'
 import { ref } from 'vue'
 import type { Ref } from 'vue'
 
@@ -10,11 +9,6 @@ export function useElementSize(element: Ref<HTMLElement | null>) {
   function handleResize(entries: any) {
     width.value = entries[0].contentRect.width
     height.value = entries[0].contentRect.height
-    // console.log('entries:', entries)
-    // for (const entry of entries) {
-    //   width.value = entry.contentRect.width
-    //   height.value = entry.contentRect.height
-    // }
   }
 
   function observeElement() {
@@ -28,10 +22,6 @@ export function useElementSize(element: Ref<HTMLElement | null>) {
       observer = null
     }
   }
-
-  // onMounted(() => observeElement())
-
-  // onUnmounted(() => unobserveElement())
 
   return {
     width,

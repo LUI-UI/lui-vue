@@ -418,3 +418,16 @@ export const Change: Story = {
     },
   },
 }
+
+const teleportTemplate
+  = '<lui-select :teleport="true" v-model="selectedName" placeholder="Names" :options="[\'Mary\', \'Jane\']" />'
+export const Teleport: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    setup() {
+      const selectedName = ref('')
+      return { selectedName }
+    },
+    template: teleportTemplate,
+  }),
+}

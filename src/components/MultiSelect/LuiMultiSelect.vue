@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import {
-  Fragment, computed, h, nextTick, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch,
+  Fragment, Teleport as TeleportComp, computed, h, nextTick, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch,
 } from 'vue'
 import type { Block, Color, Description, Filter, NarrowedVariant, Position, Rounded, Size, State, StateIcon } from '../../globals/types'
 import type {
@@ -13,9 +13,11 @@ import type {
 import type { TwClassInterface } from '../../globals/interfaces'
 import { ContextKey } from '../Select/symbols'
 
-import { useProperPosition } from '../../composables/useProperPosition'
+// import { useProperPosition } from '../../composables/useProperPosition'
 import { useOutsideClick } from '../../composables/useOutsideClick'
 import { useInputClasses } from '../Input/composables/index'
+import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+import { useMenuStyles } from '../../composables/useMenuStyles'
 import { useId } from '../../utils/useId'
 import { isElementScrollable } from '../../utils/isElementScrollable'
 import { hasSlotContent } from '../../utils/hasSlotContent'
@@ -50,14 +52,6 @@ const props = defineProps({
   tagProps: {
     type: Object as PropType<ITagProps>,
   },
-  // tagColor: {
-  //   type: String as PropType<Variant>,
-  //   default: 'secondary',
-  // },
-  // tagFilter: {
-  //   type: String as PropType<Filter>,
-  //   default: 'none',
-  // },
   stateIcon: {
     type: [Boolean] as PropType<StateIcon>,
     default: null,
@@ -90,6 +84,10 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  menuClasses: {
+    type: [String, Array] as PropType<string | string[]>,
+    default: '',
+  },
   hideAppend: {
     type: Boolean as PropType<boolean>,
     default: false,
@@ -97,6 +95,10 @@ const props = defineProps({
   menuPosition: {
     type: String as PropType<Position>,
     default: 'bottomLeft',
+  },
+  teleport: {
+    type: Boolean as PropType<boolean>,
+    default: false,
   },
   modelValue: {
     type: [Array, undefined] as PropType<MultiModelValueType | undefined>,
@@ -115,7 +117,6 @@ const errorMessages = {
     options: 'Options missing: should use options prop or LuiOption component as slot',
   },
 }
-// const validSlotTypes = ['LuiOption']
 let isFirstUpdate = true
 const optionsActive = ref(false)
 const selectedOptions = ref<string[]>([])
@@ -130,6 +131,7 @@ const listboxState: ListboxStateType = reactive({
   currentIndex: 0,
   currentId: '',
 })
+const teleportId = useTeleportWrapper('multi-select')
 nextTick(() => {
   if (isOptionsValid()) {
     setState()
@@ -148,17 +150,17 @@ provide(ContextKey, {
 })
 
 const { appendClasses, prependClasses } = useInputClasses(toRefs(props), attrs)
-
-type TargetPositionType = 'bottom' | 'top'
-function setTargetPosition(): TargetPositionType {
-  const positionLowerCase = props.menuPosition.toLowerCase()
-  return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
-}
-const { properPosition } = useProperPosition({
-  triggerEl: wrapperRef,
-  MenuEl: optionsRef,
-  targetPosition: setTargetPosition(),
-})
+// type TargetPositionType = 'bottom' | 'top'
+// function setTargetPosition(): TargetPositionType {
+//   const positionLowerCase = props.menuPosition.toLowerCase()
+//   return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
+// }
+// const { properPosition } = useProperPosition({
+//   triggerEl: wrapperRef,
+//   menuEl: optionsRef,
+//   targetPosition: setTargetPosition(),
+// })
+const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: wrapperRef, menuEl: optionsRef })
 
 useOutsideClick(wrapperRef, () => {
   searchQuery.value = ''
@@ -172,23 +174,8 @@ watch(
   (value) => {
     if (value && isModelValueValid())
       selectedOptions.value = parseModelValue(value)
-
-    // setInitialSelectedOption()
-
-    // selectedOptions.value = value
-    // const sortedSelecteds = selectedOptions.value.sort()
-    // const sortedValues = value.sort()
-    // const isSame = JSON.stringify(sortedSelecteds) === JSON.stringify(sortedValues)
-
-    // const rawValue = typeof value !== 'string' ? value?.text : value
-    // const isSame = selectedOptions.value.some(selected => value?.includes(selected))
-    // if (value !== selectedOption.value?.text)
-    // updateSelectedOption(value)
-
-    // updateSelectedOption(value);
   },
 )
-// const searchedOptions = computed(() => props.options)
 const searchedOptions = computed(() => {
   return [...props.options].filter((option: any) => {
     const optionAsString = typeof option !== 'string' ? option.text : option
@@ -208,33 +195,28 @@ const iconStatus = computed(() =>
       ? 'leftIcon'
       : 'noIcon',
 )
-const optionWrapperClasses = computed(() => {
-  const optionsWrapper: TwClassInterface = {
-    position: 'absolute',
-    zIndex: 'z-50',
-    maxHeight: 'max-h-96',
-    minWidth: 'min-w-full',
-    overflow: 'overflow-y-auto',
-    backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-    borderWidth: 'border',
-    borderColor: 'border-secondary-200 dark:border-secondary-700',
-    borderRadius: {
-      'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full',
-    },
-    padding: {
-      'p-1.5': props.size === 'xs' || props.size === 'sm',
-      'p-2': props.size === 'md',
-      'p-2.5': props.size === 'lg' || props.size === 'xl',
-    },
-    boxShadow: 'shadow-lg',
-    bottom: properPosition.value === 'top' ? 'bottom-full' : '',
-    top: properPosition.value === 'bottom' ? 'top-full' : '',
-    margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-0.5' : 'space-y-0.5',
-  }
-  return Object.values({ ...optionsWrapper })
-})
+// const optionWrapperClasses = computed(() => {
+//   const optionsWrapper: TwClassInterface = {
+//     position: 'absolute',
+//     zIndex: 'z-50',
+//     maxHeight: 'max-h-96',
+//     minWidth: 'min-w-full',
+//     overflow: 'overflow-y-auto',
+//     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
+//     borderWidth: 'border',
+//     borderColor: 'border-secondary-200 dark:border-secondary-700',
+//     borderRadius: {
+//       'rounded-md': props.rounded === true,
+//       'rounded-2xl': props.rounded === 'full',
+//     },
+//     boxShadow: 'shadow-lg',
+//     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
+//     top: properPosition.value === 'bottom' ? 'top-full' : '',
+//     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
+//     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-0.5' : 'space-y-0.5',
+//   }
+//   return Object.values({ ...optionsWrapper })
+// })
 const triggerClasses = computed(() => {
   const classes: TwClassInterface = {
     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-0.5' : 'space-y-0.5',
@@ -423,22 +405,6 @@ function triggerKeydown(event: KeyboardEvent) {
 
       if (!isFirstPress)
         handleKeydownEvents(event)
-
-      // if (!isFirstPress) {
-      //   handleKeydownEvents(event)
-      // } else {
-      //   const lastSelectedItem: any = selectedOptions.value[selectedOptions.value.length - 1]
-      //   let selectedIndex = listboxState.items.findIndex((item: any) =>
-      //     typeof item === 'string' ? item === lastSelectedItem : item?.text === lastSelectedItem
-      //   )
-      //   if (listboxState.items.length - 1 !== selectedIndex) selectedIndex = selectedIndex + 1
-      //   if (selectedIndex === -1) {
-      //     focusAvailableElement(optionsRef.value, (i) => i + 1, 0)
-      //   } else {
-      //     focusAvailableElement(optionsRef.value, (i) => i + 1, selectedIndex)
-      //   }
-      // }
-
       break
     case 'Backspace': {
       const isPlaceholderUsing = props.placeholder.length > 0
@@ -476,11 +442,6 @@ function updateSelectedOptions(option: ModelValue) {
   if (option === undefined)
     return
   const optionAsString = option && typeof option !== 'string' ? option.text : option
-  // if (
-  //   selectedOptions.value.includes(optionAsString as string)
-  //   && selectedOptions.value.length === 1
-  // )
-  //   return
 
   if (!selectedOptions.value.includes(optionAsString as string)) {
     selectedOptions.value.push(optionAsString as string)
@@ -569,23 +530,19 @@ function parseModelValue(value: any) {
   return Array.isArray(value) ? value.map(o => asString(o)) : asArray(asString(value))
 }
 function setInitialSelectedOption() {
-  // const isModelValueUsing
-  // = props.modelValue !== undefined && Array.isArray(props.modelValue) && props.modelValue.length > 0
   const selectedItem = listboxState.items.find(
     i => i.selected !== undefined && i.selected !== false,
   )
   let initialOption
-  if (isModelValueValid()) {
+  if (isModelValueValid())
     initialOption = props.modelValue
-  }
-  else if (selectedItem) {
+
+  else if (selectedItem)
     initialOption = selectedItem
-  }
-  else {
-    // set first item
-    // initialOption = listboxState.items[0]
+
+  else
     return
-  }
+
   // set initial selectedOption
   // const asArray = (option: any) => (Array.isArray(option) ? option : [option])
   // const asString = (option: any) => (typeof option === 'string' ? option : option.text)
@@ -600,9 +557,6 @@ function setInitialSelectedOption() {
 function handleSearchState() {
   if (!optionsActive.value)
     optionsActive.value = true
-
-  // const inputValue = (event.target as HTMLInputElement).value
-  // searchQuery.value = inputValue
   if (searchedOptions.value.length > 0) {
     const currentEl = optionsRef.value?.children[0]
     focusAvailableElement(optionsRef.value, i => i + 1, 0)
@@ -640,18 +594,6 @@ function LuiText(option: any, index: number) {
   )
 }
 
-// <svg
-//   viewBox="0 0 12 12"
-//   :width="arrowIconSize(size)"
-//   :height="arrowIconSize(size)"
-//   fill="currentColor"
-//   xmlns="http://www.w3.org/2000/svg"
-//   >
-//     <path
-//       d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
-//       fill="currentColor"
-//     />
-//   </svg>
 function ArrowIcon() {
   return h('svg',
     {
@@ -717,44 +659,55 @@ function ArrowIcon() {
         </slot>
       </span>
     </div>
-    <transition
-      enter-active-class="transition duration-100 ease-out"
-      enter-from-class="transform scale-95 opacity-0"
-      enter-to-class="transform scale-100 opacity-100"
-      leave-active-class="transition duration-75 ease-in"
-      leave-from-class="transform scale-100 opacity-100"
-      leave-to-class="transform scale-95 opacity-0"
+    <component
+      :is="teleport ? TeleportComp : 'div'"
+      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
     >
-      <ul
-        v-show="optionsActive"
-        :id="optionsId"
-        ref="optionsRef"
-        aria-orientation="vertical"
-        aria-labelledby="selectId"
-        role="listbox"
-        tabindex="0"
-        :class="optionWrapperClasses"
-        aria-activedescendant="listboxState.currentId"
-        @keydown="optionsKeydown($event)"
+      <transition
+        enter-active-class="transition duration-100 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0"
       >
-        <LuiOption v-if="placeholder !== '' && !searchQuery.length" disabled :text="placeholder" />
-        <template v-if="options.length > 0">
-          <template v-if="searchedOptions.length > 0">
-            <LuiOption
-              v-for="(option, index) in searchedOptions"
-              :key="index"
-              v-bind="optionProps(option)"
-              @click.stop
-            />
-          </template>
-          <template v-else>
-            <LuiOption text="Nothing found on this search" disabled />
-          </template>
-        </template>
-        <template v-else>
-          <slot />
-        </template>
-      </ul>
-    </transition>
+        <div
+          v-show="optionsActive"
+          :id="optionsId"
+          ref="optionsRef"
+          :class="menuClasses"
+          :style="menuStyles"
+        >
+          <ul
+            aria-orientation="vertical"
+            aria-labelledby="selectId"
+            role="listbox"
+            tabindex="0"
+            aria-activedescendant="listboxState.currentId"
+            :class="size === 'xs' || size === 'sm' ? 'p-1.5' : size === 'md' ? 'p-2' : 'p-2.5'"
+            class="space-y-1"
+            @keydown="optionsKeydown($event)"
+          >
+            <LuiOption v-if="placeholder !== '' && !searchQuery.length" disabled :text="placeholder" />
+            <template v-if="options.length > 0">
+              <template v-if="searchedOptions.length > 0">
+                <LuiOption
+                  v-for="(option, index) in searchedOptions"
+                  :key="index"
+                  v-bind="optionProps(option)"
+                  @click.stop
+                />
+              </template>
+              <template v-else>
+                <LuiOption text="Nothing found on this search" disabled />
+              </template>
+            </template>
+            <template v-else>
+              <slot />
+            </template>
+          </ul>
+        </div>
+      </transition>
+    </component>
   </div>
 </template>

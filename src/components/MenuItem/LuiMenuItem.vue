@@ -119,23 +119,25 @@ export default {
 </script>
 
 <template>
-  <component
-    :is="tag"
-    :id="menuItemId"
-    ref="menuItemRef"
-    role="menuitem"
-    class="lui-menu-item"
-    :class="customStyle ? '' : computedMenuItemClasses"
-    v-bind="$attrs"
-  >
-    <span v-if="$slots.prepend" :class="computedAppendAndPrependClasses">
-      <slot name="prepend" />
-    </span>
-    <div :class="computedDefaultSlotClasses">
-      <slot />
-    </div>
-    <span v-if="$slots.append" :class="computedAppendAndPrependClasses">
-      <slot name="append" />
-    </span>
-  </component>
+  <li>
+    <component
+      :is="tag"
+      :id="menuItemId"
+      ref="menuItemRef"
+      role="menuitem"
+      class="lui-menu-item"
+      :class="customStyle ? '' : computedMenuItemClasses"
+      v-bind="$attrs"
+    >
+      <span v-if="$slots.prepend" :class="computedAppendAndPrependClasses">
+        <slot name="prepend" />
+      </span>
+      <div :class="computedDefaultSlotClasses">
+        <slot />
+      </div>
+      <span v-if="$slots.append" :class="computedAppendAndPrependClasses">
+        <slot name="append" />
+      </span>
+    </component>
+  </li>
 </template>
