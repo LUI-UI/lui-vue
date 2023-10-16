@@ -166,6 +166,7 @@ defineExpose({
     role="option"
     tabindex="-1"
     :aria-selected="isSelected"
+    class="lui-option"
     :class="optionClasses"
     @click="handleOptionClick"
   >

@@ -507,6 +507,7 @@ function resetSelectedOption() {
     ref="selectWrapperRef"
     role="combobox"
     aria-haspopup="listbox"
+    class="lui-select"
     :class="selectWrapperClasses"
     :aria-expanded="optionsActive"
     :aria-controls="optionsId"

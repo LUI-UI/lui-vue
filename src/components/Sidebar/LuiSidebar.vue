@@ -130,7 +130,7 @@ const animationClasses = computed(() =>
     >
       <div
         v-if="show"
-        class="fixed inset-0 z-40 overflow-hidden bg-secondary-900/40"
+        class="lui-sidebar fixed inset-0 z-40 overflow-hidden bg-secondary-900/40"
         @click="emit('close')"
         @keydown.esc="emit('close')"
       >

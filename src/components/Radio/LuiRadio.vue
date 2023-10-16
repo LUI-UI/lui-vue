@@ -53,7 +53,7 @@ const isChecked = computed<boolean>(() => props.value === props.modelValue)
 </script>
 
 <template>
-  <div class="inline-block leading-3">
+  <div class="lui-radio inline-block leading-3">
     <div class="relative">
       <input
         type="radio"

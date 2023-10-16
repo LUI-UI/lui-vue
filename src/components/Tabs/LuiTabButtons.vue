@@ -53,6 +53,7 @@ function tabListAfterClasses() {
   <div
     role="tablist"
     aria-orientation="horizontal"
+    class="lui-tab-buttons"
     :class="[tabListClasses, !customStyle ? tabListAfterClasses() : '']"
   >
     <slot />

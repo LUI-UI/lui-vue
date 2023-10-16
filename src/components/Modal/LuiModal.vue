@@ -93,7 +93,7 @@ const computedModalClasses = computed(() => {
 <template>
   <Teleport :to="`#${teleportId}`">
     <UseFocusTrap v-if="show" :options="{ immediate: true }">
-      <div class="fixed inset-0 z-50 overflow-hidden">
+      <div class="lui-modal fixed inset-0 z-50 overflow-hidden">
         <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
           <div
             :id="modalId"
