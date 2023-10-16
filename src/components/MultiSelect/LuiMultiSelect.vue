@@ -63,7 +63,7 @@ const props = defineProps({
     default: null,
   },
   options: {
-    type: Array as PropType<OptionsType>,
+    type: Array as PropType<OptionsType[]>,
     default: () => [],
   },
   placeholder: {
@@ -115,7 +115,6 @@ const errorMessages = {
     options: 'Options missing: should use options prop or LuiOption component as slot',
   },
 }
-// const validSlotTypes = ['LuiOption']
 let isFirstUpdate = true
 const optionsActive = ref(false)
 const selectedOptions = ref<string[]>([])
@@ -172,23 +171,16 @@ watch(
   (value) => {
     if (value && isModelValueValid())
       selectedOptions.value = parseModelValue(value)
-
-    // setInitialSelectedOption()
-
-    // selectedOptions.value = value
-    // const sortedSelecteds = selectedOptions.value.sort()
-    // const sortedValues = value.sort()
-    // const isSame = JSON.stringify(sortedSelecteds) === JSON.stringify(sortedValues)
-
-    // const rawValue = typeof value !== 'string' ? value?.text : value
-    // const isSame = selectedOptions.value.some(selected => value?.includes(selected))
-    // if (value !== selectedOption.value?.text)
-    // updateSelectedOption(value)
-
-    // updateSelectedOption(value);
   },
 )
-// const searchedOptions = computed(() => props.options)
+const isValueUsing = computed(() => listboxState.items.length > 0 && typeof listboxState.items[0] !== 'string' && listboxState.items[0].value !== '')
+const selectedOptionsAsText = computed(() =>
+  isValueUsing.value
+    ? selectedOptions.value.map((option) => {
+      const item = listboxState.items.find(item => item.value === option)
+      return item.text
+    })
+    : selectedOptions.value)
 const searchedOptions = computed(() => {
   return [...props.options].filter((option: any) => {
     const optionAsString = typeof option !== 'string' ? option.text : option
@@ -475,18 +467,22 @@ function closeOptions() {
 function updateSelectedOptions(option: ModelValue) {
   if (option === undefined)
     return
-  const optionAsString = option && typeof option !== 'string' ? option.text : option
+  console.log('test!!', option)
+  // const optionAsString = option && typeof option !== 'string' ? option.text : option
+  const optionText = typeof option !== 'string' ? option.text : option
+  const optionValue = typeof option == 'string' ? option : option.value !== '' ? option.value : option.text
+  const currentOption = isValueUsing.value ? optionValue : optionText
   // if (
   //   selectedOptions.value.includes(optionAsString as string)
   //   && selectedOptions.value.length === 1
   // )
   //   return
 
-  if (!selectedOptions.value.includes(optionAsString as string)) {
-    selectedOptions.value.push(optionAsString as string)
+  if (!selectedOptions.value.includes(currentOption as string)) {
+    selectedOptions.value.push(currentOption as string)
   }
   else {
-    const index = selectedOptions.value.findIndex(option => option === optionAsString)
+    const index = selectedOptions.value.findIndex(option => option === currentOption)
     selectedOptions.value.splice(index, 1)
   }
   emit('update:modelValue', selectedOptions.value)
@@ -498,7 +494,7 @@ function updateSelectedOptions(option: ModelValue) {
     searchQuery.value = ''
     searchRef.value?.focus()
     listboxState.currentIndex = targetItems.value.findIndex(i =>
-      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString,
+      typeof i !== 'string' ? i.text === optionText : i === optionText,
     )
   }
 }
@@ -568,6 +564,7 @@ function parseModelValue(value: any) {
   const asString = (option: any) => (typeof option === 'string' ? option : option.text)
   return Array.isArray(value) ? value.map(o => asString(o)) : asArray(asString(value))
 }
+
 function setInitialSelectedOption() {
   // const isModelValueUsing
   // = props.modelValue !== undefined && Array.isArray(props.modelValue) && props.modelValue.length > 0
@@ -625,7 +622,7 @@ function dynamicSelectionAttributes(option: any) {
   return props.tags
     ? {
         ...props.tagProps,
-        text: option,
+        text: option.toString(),
         class: 'mx-px',
         onClick: props?.tagProps?.closeIcon ? ($event: Event) => handleTagClick($event, option) : undefined,
       }
@@ -640,18 +637,6 @@ function LuiText(option: any, index: number) {
   )
 }
 
-// <svg
-//   viewBox="0 0 12 12"
-//   :width="arrowIconSize(size)"
-//   :height="arrowIconSize(size)"
-//   fill="currentColor"
-//   xmlns="http://www.w3.org/2000/svg"
-//   >
-//     <path
-//       d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
-//       fill="currentColor"
-//     />
-//   </svg>
 function ArrowIcon() {
   return h('svg',
     {
@@ -696,7 +681,7 @@ function ArrowIcon() {
         :is="LuiText(placeholder, 0)"
         v-if="placeholder !== '' && !selectedOptions.length && !searchQuery.length && !isPlaceholderHolderDelete"
       />
-      <template v-for="(option, index) in selectedOptions" :key="`lui-option-${index}`">
+      <template v-for="(option, index) in selectedOptionsAsText" :key="`lui-option-${index}`">
         <component
           :is="tags ? LuiTag : LuiText(option, index)"
           v-bind="dynamicSelectionAttributes(option)"
