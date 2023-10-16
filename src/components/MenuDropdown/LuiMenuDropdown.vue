@@ -266,7 +266,7 @@ function ArrowDownIcon() {
 </script>
 
 <template>
-  <div ref="luiDropdownWrapper" :class="dropdownWrapperClasses">
+  <div ref="luiDropdownWrapper" class="lui-menu-dropdown" :class="dropdownWrapperClasses">
     <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
         :id="buttonId"

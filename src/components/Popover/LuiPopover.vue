@@ -94,7 +94,7 @@ function closeDialog() {
 </script>
 
 <template>
-  <div class="relative" :class="!block ? 'w-max' : ''">
+  <div class="lui-popover relative" :class="!block ? 'w-max' : ''">
     <div ref="triggerRef">
       <slot name="trigger" v-bind="{ ...triggerSlotProps }">
         <LuiButton

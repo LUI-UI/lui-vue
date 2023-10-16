@@ -447,7 +447,6 @@ function closeOptions() {
   optionsActive.value = false
 }
 function updateSelectedOptions(option: ModelValue) {
-  console.log('option', option)
   if (option === undefined)
     return
   const optionText = typeof option !== 'string' ? option.text : option
@@ -627,9 +626,8 @@ function ArrowIcon() {
 </script>
 
 <template>
-  isValueUsing: {{ isValueUsing }}
   <div
-    class="relative"
+    class="relative lui-multiselect"
     :class="wrapperClasses"
   >
     <div

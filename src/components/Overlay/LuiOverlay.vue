@@ -107,6 +107,7 @@ const computedOverlayClasses = computed(() => {
   <div
     v-if="fixed ? show : true"
     :class="computedWrapperClasses"
+    class="lui-overlay"
     @click="triggerClose"
     @keydown.esc="triggerClose"
   >

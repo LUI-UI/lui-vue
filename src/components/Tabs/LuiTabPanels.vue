@@ -7,7 +7,7 @@ export default {
 <script setup lang="ts"></script>
 
 <template>
-  <div class="panel-wrapper">
+  <div class="lui-tab-panels panel-wrapper">
     <slot />
   </div>
 </template>
