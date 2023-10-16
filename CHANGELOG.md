@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.0](https://github.com/LUI-UI/lui-vue/compare/v0.69.5...v0.70.0) (2023-10-16)
+
+
+### Features
+
+* **select,multiselect,popover,dropdown:** create teleport prop to render menus with fixed position ([e3a1333](https://github.com/LUI-UI/lui-vue/commit/e3a13336bded5165e747e857ec551895c849d1c8))
+
+
+### Bug Fixes
+
+* **client:** fix typescript error ([6108ba7](https://github.com/LUI-UI/lui-vue/commit/6108ba7d55e4ce2c36b6bfc4e21612d2ec4557ee))
+* **components:** add classnames to all missing components ([6ddfbaf](https://github.com/LUI-UI/lui-vue/commit/6ddfbaf2c16d195cdd507c5d9e3de313cf94ee13))
+* **multiselect:** fix isValuUsing check ([ca0f7a4](https://github.com/LUI-UI/lui-vue/commit/ca0f7a4eeaa5da611fff7fbc3b507205c1cb9dc9))
+* **select,multi-select:** handle usage of different text and value ([4057128](https://github.com/LUI-UI/lui-vue/commit/40571283d9874c6854bc1971f326777436c19b89))
+
 ## [0.69.5](https://github.com/LUI-UI/lui-vue/compare/v0.69.4...v0.69.5) (2023-09-27)
 
 
