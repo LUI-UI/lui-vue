@@ -176,7 +176,7 @@ watch(
       selectedOptions.value = parseModelValue(value)
   },
 )
-const isValueUsing = computed(() => listboxState.items.length > 0 && typeof listboxState.items[0] !== 'string' && listboxState.items[0].value !== '')
+const isValueUsing = computed(() => listboxState.items.length > 0 && typeof listboxState.items[0] !== 'string' && listboxState.items[0]?.value !== undefined && listboxState.items[0].value.length > 0)
 const selectedOptionsAsText = computed(() =>
   isValueUsing.value
     ? selectedOptions.value.map((option) => {
@@ -447,6 +447,7 @@ function closeOptions() {
   optionsActive.value = false
 }
 function updateSelectedOptions(option: ModelValue) {
+  console.log('option', option)
   if (option === undefined)
     return
   const optionText = typeof option !== 'string' ? option.text : option
@@ -472,6 +473,7 @@ function updateSelectedOptions(option: ModelValue) {
       typeof i !== 'string' ? i.text === optionText : i === optionText,
     )
   }
+  console.log('selectedOptions.value:', selectedOptions.value)
 }
 function focusTrigger() {
   if (wrapperRef.value)
@@ -625,6 +627,7 @@ function ArrowIcon() {
 </script>
 
 <template>
+  isValueUsing: {{ isValueUsing }}
   <div
     class="relative"
     :class="wrapperClasses"

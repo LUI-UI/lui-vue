@@ -32,7 +32,7 @@ export const Default: Story = {
         { value: '5', text: 'Tanya Fox' },
         { value: '6', text: 'Hellen Schmidt' },
       ]
-      const selectedName = ref([names[2], names[3]])
+      const selectedName = ref([])
 
       return { names, selectedName }
     },
@@ -55,7 +55,7 @@ export const Size: Story = {
         { value: '5', text: 'Tanya Fox' },
         { value: '6', text: 'Hellen Schmidt' },
       ]
-      const selectedName = ref([names[2], names[3]])
+      const selectedName = ref([])
 
       return { names, selectedName, sizes }
     },
@@ -84,7 +84,7 @@ export const WithSlot: Story = {
     },
     template: `
     <LuiMultiSelect>
-      <LuiOption v-for="item in names" :key="item.value" :text="item.text" />
+      <LuiOption v-for="item in names" :key="item.value" :text="item.text" :value="item.value" />
     </LuiMultiSelect>`,
   }),
 }
@@ -110,7 +110,7 @@ export const CustomTag: Story = {
     },
     template: `
     <LuiMultiSelect :tag-props="tagOptions">
-      <LuiOption v-for="item in names" :key="item.value" :text="item.text" />
+      <LuiOption v-for="item in names" :key="item.value" :text="item.text" :value="value" />
     </LuiMultiSelect>`,
   }),
 }
