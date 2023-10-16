@@ -25,12 +25,12 @@ export const Default: Story = {
     components: { LuiMultiSelect },
     setup() {
       const names = [
-        { value: 1, text: 'Wade Cooper' },
-        { value: 2, text: 'Arlene Mccoy' },
-        { value: 3, text: 'Devon Webb' },
-        { value: 4, text: 'Tom Cook' },
-        { value: 5, text: 'Tanya Fox' },
-        { value: 6, text: 'Hellen Schmidt' },
+        { value: '1', text: 'Wade Cooper' },
+        { value: '2', text: 'Arlene Mccoy' },
+        { value: '3', text: 'Devon Webb' },
+        { value: '4', text: 'Tom Cook' },
+        { value: '5', text: 'Tanya Fox' },
+        { value: '6', text: 'Hellen Schmidt' },
       ]
       const selectedName = ref([names[2], names[3]])
 
@@ -48,12 +48,12 @@ export const Size: Story = {
     setup() {
       const sizes = ['xs', 'sm', 'md', 'lg', 'xl']
       const names = [
-        { value: 1, text: 'Wade Cooper' },
-        { value: 2, text: 'Arlene Mccoy' },
-        { value: 3, text: 'Devon Webb' },
-        { value: 4, text: 'Tom Cook' },
-        { value: 5, text: 'Tanya Fox' },
-        { value: 6, text: 'Hellen Schmidt' },
+        { value: '1', text: 'Wade Cooper' },
+        { value: '2', text: 'Arlene Mccoy' },
+        { value: '3', text: 'Devon Webb' },
+        { value: '4', text: 'Tom Cook' },
+        { value: '5', text: 'Tanya Fox' },
+        { value: '6', text: 'Hellen Schmidt' },
       ]
       const selectedName = ref([names[2], names[3]])
 
@@ -73,12 +73,12 @@ export const WithSlot: Story = {
     setup() {
       // <LuiOption v-for="item in names" :key="item.value" :text="item.text" />
       const names = [
-        { value: 1, text: 'Wade Cooper' },
-        { value: 2, text: 'Arlene Mccoy' },
-        { value: 3, text: 'Devon Webb' },
-        { value: 4, text: 'Tom Cook' },
-        { value: 5, text: 'Tanya Fox' },
-        { value: 6, text: 'Hellen Schmidt' },
+        { value: '1', text: 'Wade Cooper' },
+        { value: '2', text: 'Arlene Mccoy' },
+        { value: '3', text: 'Devon Webb' },
+        { value: '4', text: 'Tom Cook' },
+        { value: '5', text: 'Tanya Fox' },
+        { value: '6', text: 'Hellen Schmidt' },
       ]
       return { names }
     },
@@ -99,12 +99,12 @@ export const CustomTag: Story = {
         closeIcon: false,
       }
       const names = [
-        { value: 1, text: 'Wade Cooper' },
-        { value: 2, text: 'Arlene Mccoy' },
-        { value: 3, text: 'Devon Webb' },
-        { value: 4, text: 'Tom Cook' },
-        { value: 5, text: 'Tanya Fox' },
-        { value: 6, text: 'Hellen Schmidt' },
+        { value: '1', text: 'Wade Cooper' },
+        { value: '2', text: 'Arlene Mccoy' },
+        { value: '3', text: 'Devon Webb' },
+        { value: '4', text: 'Tom Cook' },
+        { value: '5', text: 'Tanya Fox' },
+        { value: '6', text: 'Hellen Schmidt' },
       ]
       return { names, tagOptions }
     },
@@ -122,4 +122,26 @@ export const Teleport: Story = {
       <LuiOption rounded v-for="item in ['option-1','option-2','option-3']" :key="item" :text="item" />
     </LuiMultiSelect>`,
   }),
+}
+const withValueTemplate = `
+<div>VModel value: {{ selectedCountry }}</div>
+<LuiMultiSelect v-model="selectedCountry" :options="countries" />
+`
+export const WithValue: Story = {
+  render: () => ({
+    components: { LuiMultiSelect },
+    setup() {
+      const countries = [{ text: 'Turkey', value: 'TR' }, { text: 'Austria', value: 'AT' }, { text: 'Azerbaijan', value: 'AZ' }, { text: 'Bangladesh', value: 'BD' }]
+      const selectedCountry = ref(['AZ'])
+      return { countries, selectedCountry }
+    },
+    template: withValueTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: withValueTemplate,
+      },
+    },
+  },
 }

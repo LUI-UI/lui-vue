@@ -19,7 +19,7 @@ import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 import { ContextKey } from './symbols'
-import type { ListboxStateType, ModelValue, OptionsType } from './select-types'
+import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
 import type { Block, Description, Position, Rounded, Size, State, StateIcon } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
@@ -41,7 +41,7 @@ const props = defineProps({
     default: false,
   },
   options: {
-    type: Array as PropType<OptionsType>,
+    type: Array as PropType<OptionsType[]>,
     default: () => [],
   },
   placeholder: {
@@ -91,7 +91,7 @@ const optionsRef = ref<HTMLElement>()
 let isFirstUpdate = true
 const selectWrapperRef = ref<HTMLElement>()
 const optionsActive: Ref<boolean> = ref(false)
-const selectedOption: Ref<any> = ref(undefined)
+const selectedOption = ref<SelectedOption>({ text: '', value: '' })
 const selectedOptionBackup: Ref<string> = ref('')
 const searchQuery = ref<string>('')
 // const selectedOption: Ref<string | ModelValueObject | undefined> =
@@ -140,8 +140,8 @@ provide(ContextKey, {
 watch(
   () => props.modelValue,
   (value) => {
-    const rawValue = typeof value !== 'string' ? value?.text : value
-    if (rawValue !== selectedOption.value?.text)
+    const rawValue = typeof value !== 'string' ? value?.value : value
+    if (rawValue !== selectedOption.value?.value)
       updateSelectedOption(value)
 
     // updateSelectedOption(value);
@@ -205,18 +205,21 @@ function focusAvailableElement(
   })
 }
 function updateSelectedOption(option: ModelValue) {
-  const optionAsString = option && typeof option !== 'string' ? option.text : option
-  selectedOption.value = optionAsString
+  if (option === undefined)
+    return
+  const optionText = typeof option !== 'string' ? option.text : option
+  const optionValue = typeof option == 'string' ? option : option.value !== '' ? option.value : option.text
+  selectedOption.value = { text: optionText, value: optionValue }
   if (props.searchable) {
-    selectedOptionBackup.value = optionAsString as string
+    selectedOptionBackup.value = optionText as string
     searchQuery.value = ''
     listboxState.currentIndex = targetItems.value.findIndex(i =>
-      typeof i !== 'string' ? i.text === optionAsString : i === optionAsString,
+      typeof i !== 'string' ? i.text === optionText : i === optionText,
     )
   }
-  emit('update:modelValue', optionAsString)
+  emit('update:modelValue', optionValue)
   if (!isFirstUpdate)
-    emit('change', optionAsString)
+    emit('change', optionValue)
   if (isFirstUpdate)
     isFirstUpdate = false
 }
@@ -248,7 +251,6 @@ function setState() {
       ...allOptions,
     ]
   }
-
   listboxState.items = allOptions
 }
 
@@ -276,7 +278,14 @@ function setInitialSelected() {
   const isPlaceholderUsing = props.placeholder !== ''
   const isOptionsPropUsing = props.options.length > 0
   if (isModelValueUsing) {
-    updateSelectedOption(props.modelValue)
+    let item
+    if (props.options.length > 0)
+      item = props.options.find((option: OptionsType) => typeof option === 'string' ? option === props.modelValue : option.value === props.modelValue)
+    else
+    // when we find modelValue item in slots we check if the value is empty because value always provides from lui-option
+      item = slotOptions && slotOptions.find((option: any) => option.value !== '' ? option.value === props.modelValue : option.text === props.modelValue)
+
+    updateSelectedOption(item)
     return
   }
   if (selectedOption) {
@@ -354,11 +363,7 @@ function buttonKeydown(event: KeyboardEvent) {
         handleKeydownEvents(event)
       }
       else {
-        const selectedIndex = listboxState.items.findIndex((item: any) =>
-          typeof item === 'string'
-            ? item === selectedOption.value
-            : item?.text === selectedOption.value?.text,
-        )
+        const selectedIndex = listboxState.items.findIndex((item: any) => item?.text === selectedOption.value.text)
         if (selectedIndex === -1)
           focusAvailableElement(optionsRef.value, i => i + 1, 0)
         else focusAvailableElement(optionsRef.value, i => i + 1, selectedIndex)
@@ -512,8 +517,9 @@ function resetSelectedOption() {
       :id="selectId"
       ref="selectRef"
       v-bind="inputProps"
-      v-model="selectedOption"
+      v-model="selectedOption.text"
       :readonly="!searchable"
+      class="selection:bg-transparent"
       autocomplete="off"
       @keydown="buttonKeydown"
       @input="setSearchQuery"

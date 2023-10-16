@@ -6,6 +6,10 @@ export interface ModelValueObject {
   disabled?: boolean
   selected?: boolean
 }
+export interface SelectedOption {
+  text: string
+  value: string | number
+}
 export type ModelValue = ModelValueObject | string | undefined
 // export type ListboxStateType = {
 //   items: ModelValueObject[] | string[];
@@ -17,10 +21,10 @@ export interface ListboxStateType {
   currentIndex: number
   currentId: string
 }
-export type OptionsType = string[] | ModelValueObject[]
+export type OptionsType = string | ModelValueObject
 
 export interface ContextDefination {
-  selectedOption: Ref<ModelValue | string[]>
+  selectedOption: Ref<SelectedOption> | Ref<string[]>
   updateSelectedOption(option: ModelValue): void
   focusButton(): void
   currentId: Ref<string>
