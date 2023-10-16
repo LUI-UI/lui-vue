@@ -6,19 +6,21 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Fragment, computed, nextTick, onMounted, provide, reactive, ref, toRef, useAttrs, useSlots, watch } from 'vue'
+import { Fragment, Teleport as TeleportComp, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
 import type { PropType, Ref } from 'vue'
 import { useId } from '../../utils/useId'
 
-// import { useOutsideClick, useFindProperPosition } from "./composables/index";
+import { useMenuStyles } from '../../composables/useMenuStyles'
 import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useProperPosition } from '../../composables/useProperPosition'
+import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+
+// import { useProperPosition } from '../../composables/useProperPosition'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 import { ContextKey } from './symbols'
 import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
-import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+import type { Block, Description, Position, Rounded, Size, State, StateIcon } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
@@ -62,6 +64,18 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: true,
   },
+  teleport: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  menuPosition: {
+    type: String as PropType<Position>,
+    default: 'bottomLeft',
+  },
+  menuClasses: {
+    type: [String, Array] as PropType<string | string[]>,
+    default: '',
+  },
   modelValue: {
     type: [Object, String, undefined] as PropType<ModelValue>,
     default: undefined,
@@ -72,10 +86,10 @@ const slots = useSlots()
 const attrs = useAttrs()
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const selectRef = ref<InstanceType<typeof LuiInput>>()
-const optionsRef = ref<HTMLUListElement>()
+const optionsRef = ref<HTMLElement>()
 // const optionRef = ref<CustomType[]>([])
 let isFirstUpdate = true
-const selectWrapperRef = ref<HTMLDivElement>()
+const selectWrapperRef = ref<HTMLElement>()
 const optionsActive: Ref<boolean> = ref(false)
 const selectedOption = ref<SelectedOption>({ text: '', value: '' })
 const selectedOptionBackup: Ref<string> = ref('')
@@ -90,6 +104,7 @@ const listboxState: ListboxStateType = reactive({
 
 const selectId = `lui-listbox-button-${useId()}`
 const optionsId = `lui-listbox-wrapper-${useId()}`
+const teleportId = useTeleportWrapper('select')
 // const validSlotTypes = ['LuiOption']
 // const errorMessages = {
 //   type: {
@@ -100,11 +115,13 @@ const optionsId = `lui-listbox-wrapper-${useId()}`
 //   },
 // }
 
-const { properPosition } = useProperPosition({
-  triggerEl: selectWrapperRef,
-  MenuEl: optionsRef,
-  targetPosition: 'bottom',
-})
+// const { properPosition } = useProperPosition({
+//   triggerEl: selectWrapperRef,
+//   menuEl: optionsRef,
+//   targetPosition: 'bottom',
+// })
+const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: selectWrapperRef, menuEl: optionsRef })
+
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
 onMounted(() => {
@@ -371,33 +388,33 @@ function buttonKeydown(event: KeyboardEvent) {
 function optionsKeydown(event: KeyboardEvent) {
   handleKeydownEvents(event)
 }
-const optionsClasses = computed(() => {
-  const optionsWrapper: TwClassInterface = {
-    position: 'absolute',
-    zIndex: 'z-50',
-    maxHeight: 'max-h-96',
-    minWidth: 'min-w-full',
-    overflow: 'overflow-y-auto',
-    backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-    borderWidth: 'border',
-    borderColor: 'border-secondary-200 dark:border-secondary-700',
-    borderRadius: {
-      'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full',
-    },
-    padding: {
-      'p-1.5': props.size === 'xs' || props.size === 'sm',
-      'p-2': props.size === 'md',
-      'p-2.5': props.size === 'lg' || props.size === 'xl',
-    },
-    boxShadow: 'shadow-lg',
-    bottom: properPosition.value === 'top' ? 'bottom-full' : '',
-    top: properPosition.value === 'bottom' ? 'top-full' : '',
-    margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
-  }
-  return Object.values({ ...optionsWrapper })
-})
+// const optionsClasses = computed(() => {
+//   const optionsWrapper: TwClassInterface = {
+//     position: 'absolute',
+//     zIndex: 'z-50',
+//     maxHeight: 'max-h-96',
+//     minWidth: 'min-w-full',
+//     overflow: 'overflow-y-auto',
+//     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
+//     borderWidth: 'border',
+//     borderColor: 'border-secondary-200 dark:border-secondary-700',
+//     borderRadius: {
+//       'rounded-md': props.rounded === true,
+//       'rounded-2xl': props.rounded === 'full',
+//     },
+//     padding: {
+//       'p-1.5': props.size === 'xs' || props.size === 'sm',
+//       'p-2': props.size === 'md',
+//       'p-2.5': props.size === 'lg' || props.size === 'xl',
+//     },
+//     boxShadow: 'shadow-lg',
+//     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
+//     top: properPosition.value === 'bottom' ? 'top-full' : '',
+//     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
+//     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
+//   }
+//   return Object.values({ ...optionsWrapper })
+// })
 
 const selectWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
@@ -528,32 +545,52 @@ function resetSelectedOption() {
         </slot>
       </template>
     </LuiInput>
-    <ul
-      v-show="optionsActive"
-      :id="optionsId"
-      ref="optionsRef"
-      aria-orientation="vertical"
-      :aria-labelledby="selectId"
-      role="listbox"
-      tabindex="0"
-      :class="optionsClasses"
-      :aria-activedescendant="listboxState.currentId"
-      @keydown="optionsKeydown($event)"
+    <component
+      :is="teleport ? TeleportComp : 'div'"
+      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
     >
-      <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
-      <template v-if="options.length > 0">
-        <template v-if="searchedOptions.length > 0">
-          <LuiOption
-            v-for="(option, index) in searchedOptions"
-            :key="index"
-            v-bind="optionProps(option)"
-          />
-        </template>
-        <template v-else>
-          <LuiOption text="Nothing found on this search" disabled />
-        </template>
-      </template>
-      <slot v-else />
-    </ul>
+      <transition
+        enter-active-class="transition duration-100 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0"
+      >
+        <div
+          v-show="optionsActive"
+          :id="optionsId"
+          ref="optionsRef"
+          :class="menuClasses"
+          :style="menuStyles"
+        >
+          <ul
+            aria-orientation="vertical"
+            :aria-labelledby="selectId"
+            role="listbox"
+            tabindex="0"
+            :class="size === 'xs' || size === 'sm' ? 'p-1.5' : size === 'md' ? 'p-2' : 'p-2.5'"
+            class="space-y-1"
+            :aria-activedescendant="listboxState.currentId"
+            @keydown="optionsKeydown($event)"
+          >
+            <LuiOption v-if="placeholder !== ''" disabled :text="placeholder" />
+            <template v-if="options.length > 0">
+              <template v-if="searchedOptions.length > 0">
+                <LuiOption
+                  v-for="(option, index) in searchedOptions"
+                  :key="index"
+                  v-bind="optionProps(option)"
+                />
+              </template>
+              <template v-else>
+                <LuiOption text="Nothing found on this search" disabled />
+              </template>
+            </template>
+            <slot v-else />
+          </ul>
+        </div>
+      </transition>
+    </component>
   </div>
 </template>

@@ -10,8 +10,7 @@ import { computed, watch } from 'vue'
 import type { PropType } from 'vue'
 import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useId } from '../../utils/useId'
-
-// import useFocusTrap from '../../composables/useFocusTrap'
+import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
 import LuiButton from '../Button/LuiButton.vue'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Size } from '@/globals/types'
@@ -43,19 +42,8 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['close'])
-const teleportId = `lui-modal-teleport-${useId()}`
+const teleportId = useTeleportWrapper('modal')
 const modalId = `lui-modal-${useId()}`
-// const { trapRef } = useFocusTrap()
-
-function createTeleportElement() {
-  const body = document.getElementsByTagName('body')
-  const teleportWrapper = document.createElement('div')
-  teleportWrapper.setAttribute('id', teleportId)
-  body[0].appendChild(teleportWrapper)
-}
-if (typeof window !== 'undefined')
-  createTeleportElement()
-
 watch(
   () => props.show,
   (val) => {
@@ -100,36 +88,6 @@ const computedModalClasses = computed(() => {
   }
   return Object.values(classes)
 })
-// const computedOverlayClasses = computed(() => {
-//   const classes: TwClassInterface = {
-//     position: 'relative',
-//     inset: 'inset-0',
-//     // width: 'w-full',
-//     // height: 'min-h-screen',
-//     // display: 'flex',
-//     // justifyContent: "justify-center",
-//     // backgroundColor: 'bg-primary-200',
-//     // backgroundColor: 'bg-secondary-900/40',
-//     zIndex: 'z-50'
-//     // overflow: 'overflow-hidden'
-//     // padding: 'p-8'
-//   }
-//   return Object.values(classes)
-// })
-// const computedDialogWrapper = computed(() => {
-//   const classes: TwClassInterface = {
-//     // width: 'w-full',
-//     // height: 'min-h-screen',
-//     position: 'fixed',
-//     inset: 'inset-0',
-//     backgroundColor: 'bg-secondary-900/40',
-//     display: 'flex',
-//     justifyContent: 'justify-center',
-//     padding: 'p-8'
-//     // overflow: 'overflow-y-auto'
-//   }
-//   return Object.values(classes)
-// })
 </script>
 
 <template>
