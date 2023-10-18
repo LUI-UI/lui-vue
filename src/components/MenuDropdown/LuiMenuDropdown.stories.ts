@@ -490,48 +490,81 @@ export const PrependSlot: Story = {
 }
 
 const menuPositionTemplate = `
-<lui-menu-dropdown menu-position="topLeft" text="topLeft">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="leftTop" text="leftTop">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="topRight" text="topRight">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="rightTop" text="rightTop">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="bottomLeft" text="bottomLeft">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="leftBottom" text="leftBottom">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="bottomRight" text="bottomRight">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
-</lui-menu-dropdown>
-<lui-menu-dropdown menu-position="rightBottom" text="rightBottom">
-  <lui-menu-item>Menu Item</lui-menu-item>
-  <lui-menu-item>Menu Item</lui-menu-item>
+<lui-menu-dropdown v-for="position in positions" :key="position" :menu-position="position" :text="position">
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
 </lui-menu-dropdown>
 `
 export const MenuPosition: Story = {
   render: () => ({
+    setup() {
+      const positions = [
+        'bottomLeft',
+        'bottomRight',
+        'bottom',
+        'topLeft',
+        'topRight',
+        'top',
+        'leftTop',
+        'leftBottom',
+        'left',
+        'rightTop',
+        'rightBottom',
+        'right',
+      ]
+      return { positions }
+    },
     components: { LuiMenuDropdown, LuiMenuItem },
-    template: `<div class="px-28 grid grid-cols-4 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`,
+    template: `<div class="px-28 h-[4000px] py-[380px] grid grid-cols-3 gap-x-2 gap-y-4 justify-center items-center">${menuPositionTemplate}</div>`,
   }),
   parameters: {
     docs: {
       source: {
         code: menuPositionTemplate,
+      },
+      description: {
+        story:
+          'The <b>menu-position</b> prop is used to customize the position and alignment of where the dropdown menu opens.',
+      },
+    },
+  },
+}
+const teleportTemplate = `
+<div class=h-[2000px]>
+  <div class="pt-[700px] flex space-x-6">
+    <lui-menu-dropdown text="leftTop" menu-position="leftTop" :teleport="true">
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+    </lui-menu-dropdown>
+    <lui-menu-dropdown text="leftBottom" menu-position="leftBottom" :teleport="true">
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+      <lui-menu-item>Some long items for center</lui-menu-item>
+    </lui-menu-dropdown>
+  </div>
+</div>
+`
+export const Teleport: Story = {
+  render: () => ({
+    setup() {
+      return { }
+    },
+    components: { LuiMenuDropdown, LuiMenuItem },
+    template: `<div class="px-28 pt-12 grid grid-cols-3 gap-x-2 gap-y-4 justify-center items-center">${teleportTemplate}</div>`,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: teleportTemplate,
       },
       description: {
         story:

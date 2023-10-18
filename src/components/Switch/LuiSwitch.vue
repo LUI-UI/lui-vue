@@ -88,7 +88,7 @@ function isInputChecked(): boolean {
 </script>
 
 <template>
-  <div class="inline-block leading-3">
+  <div class="lui-switch inline-block leading-3">
     <div class="relative">
       <input
         type="checkbox"

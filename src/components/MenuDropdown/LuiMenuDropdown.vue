@@ -6,13 +6,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, nextTick, reactive, ref, useSlots } from 'vue'
+import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useProperPosition } from '../../composables/useProperPosition'
+import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+
+// import { useMenuPositionStyles } from '../../composables/useMenuPositionStyles'
+import { useMenuStyles } from '../../composables/useMenuStyles'
 import { useId } from '../../utils/useId'
-import type { Block, Color, Filter, Rounded, Size, Variant } from '@/globals/types'
+import type { Block, Color, Filter, Position, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 interface MenuItems {
@@ -23,15 +26,6 @@ interface MenuStateType {
   currentIndex: number
   currentId: string
 }
-type Position =
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'topLeft'
-  | 'topRight'
-  | 'leftTop'
-  | 'leftBottom'
-  | 'rightTop'
-  | 'rightBottom'
 // Props
 // Emits
 // Reactive Variables(inc composables)
@@ -74,8 +68,12 @@ const props = defineProps({
     default: false,
   },
   menuClasses: {
-    type: [String, Array] as PropType<String | String[]>,
+    type: [String, Array] as PropType<string | string[]>,
     default: '',
+  },
+  teleport: {
+    type: Boolean as PropType<boolean>,
+    default: false,
   },
 })
 
@@ -83,105 +81,21 @@ const emit = defineEmits(['onTrigger'])
 const slots = useSlots()
 // VARIABLES
 const luiDropdownWrapper = ref<HTMLElement>()
-// const luiDropdownButton = ref<InstanceType<typeof LuiButton>>();
 const luiDropdownTrigger = ref<HTMLDivElement>()
-const luiDropdownMenu = ref<HTMLUListElement>()
+const luiDropdownMenu = ref<HTMLElement | null>(null)
 const menuActive = ref(false)
 const buttonId = `lui-dropdown-button-${useId()}`
 const menuId = `lui-dropdown-menu-${useId()}`
+
 const menuState: MenuStateType = reactive({
   items: [],
   currentIndex: 0,
   currentId: '',
 })
-const positionClasses = {
-  bottomLeft: {
-    classes: 'top-full mt-1',
-    oppositeClasses: 'bottom-full mb-1 left-0', // bottomRight
-    direction: 'bottom',
-  },
-  topLeft: {
-    classes: 'bottom-full mb-1 left-0',
-    oppositeClasses: 'top-full mt-1', // bottomLEft
-    direction: 'top',
-  },
-  bottomRight: {
-    classes: 'top-full mt-1 right-0',
-    oppositeClasses: 'bottom-full mb-1 right-0', // topRight
-    direction: 'bottom',
-  },
-  topRight: {
-    classes: 'bottom-full mb-1 right-0',
-    oppositeClasses: 'top-full mt-1 right-0', // bottomRight
-    direction: 'top',
-  },
-  leftTop: {
-    classes: 'top-0 mr-1 right-full',
-    oppositeClasses: 'bottom-0 mr-1 right-full', // leftBottom
-    direction: 'bottom',
-  },
-  leftBottom: {
-    classes: 'bottom-0 mr-1 right-full',
-    oppositeClasses: 'top-0 mr-1 right-full', // leftTop
-    direction: 'top',
-  },
-  rightTop: {
-    classes: 'top-0 ml-1 left-full',
-    oppositeClasses: 'bottom-0 ml-1 left-full', // rightBottom
-    direction: 'bottom',
-  },
-  rightBottom: {
-    classes: 'bottom-0 ml-1 left-full',
-    oppositeClasses: 'top-0 ml-1 left-full', // rightTop
-    direction: 'top',
-  },
-}
-type TargetPositionType = 'bottom' | 'top'
-function setTargetPosition(): TargetPositionType {
-  const positionLowerCase = props.menuPosition.toLowerCase()
-  return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
-}
-const { properPosition } = useProperPosition({
-  triggerEl: luiDropdownWrapper,
-  MenuEl: luiDropdownMenu,
-  targetPosition: setTargetPosition(),
-})
+const teleportId = useTeleportWrapper('dropdown')
 
-// COMPUTEDS
-const computedMenuPosition = computed(() => {
-  return positionClasses[props.menuPosition].direction === properPosition.value
-    ? positionClasses[props.menuPosition].classes
-    : positionClasses[props.menuPosition].oppositeClasses
-})
+const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: luiDropdownWrapper, menuEl: luiDropdownMenu })
 
-const dropdownMenuClasses = computed(() => {
-  const optionsWrapper: TwClassInterface = {
-    position: 'absolute',
-    width: 'w-max',
-    zIndex: 'z-50',
-    maxHeight: 'max-h-96',
-    minWidth: 'min-w-full',
-    overflow: 'overflow-y-auto',
-    backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-    borderWidth: 'border',
-    borderColor: 'border-secondary-200 dark:border-secondary-700',
-    borderRadius: {
-      'rounded-md': props.rounded === true,
-      'rounded-2xl': props.rounded === 'full',
-    },
-    padding: {
-      'p-1.5': props.size === 'xs' || props.size === 'sm',
-      'p-2': props.size === 'md',
-      'p-2.5': props.size === 'lg' || props.size === 'xl',
-    },
-    boxShadow: 'shadow-lg',
-    bottom: properPosition.value === 'top' ? 'bottom-full' : '',
-    top: properPosition.value === 'bottom' ? 'top-full' : '',
-    margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-    space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
-  }
-  return Object.values({ ...optionsWrapper })
-})
 const dropdownWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
@@ -328,13 +242,31 @@ function focusAvailableElement(
   }
 }
 
-function triggerIconSize(size: string) {
+function triggerIconSize(size: Size) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
+}
+function ArrowDownIcon() {
+  return h(
+    'svg',
+    {
+      viewBox: '0 0 12 12',
+      fill: 'currentColor',
+      width: triggerIconSize(props.size),
+      height: triggerIconSize(props.size),
+    },
+    [
+      h('path',
+        {
+          fill: 'white',
+          d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
+        }),
+    ],
+  )
 }
 </script>
 
 <template>
-  <div ref="luiDropdownWrapper" :class="dropdownWrapperClasses">
+  <div ref="luiDropdownWrapper" class="lui-menu-dropdown" :class="dropdownWrapperClasses">
     <div ref="luiDropdownTrigger" class="trigger-wrapper cursor-pointer">
       <slot
         :id="buttonId"
@@ -363,7 +295,8 @@ function triggerIconSize(size: string) {
           {{ text }}
           <template #append>
             <slot name="append">
-              <svg
+              <ArrowDownIcon />
+              <!-- <svg
                 viewBox="0 0 12 12"
                 :width="triggerIconSize(size)"
                 :height="triggerIconSize(size)"
@@ -374,48 +307,43 @@ function triggerIconSize(size: string) {
                   d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
                   fill="white"
                 />
-              </svg>
+              </svg> -->
             </slot>
           </template>
         </LuiButton>
       </slot>
     </div>
-
-    <!-- <lui-button
-      :id="buttonId"
-      ref="luiDropdownButton"
-      type="button"
-      aria-haspopup="true"
-      :aria-expanded="menuActive"
-      :aria-controls="menuId"
-      :block="block"
-      @click="toogleMenu"
-      @keydown="handleButtonKeyEvents"
+    <component
+      :is="teleport ? TeleportComp : 'div'"
+      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
     >
-      <span v-if="text !== null">{{ text }}</span>
-      <slot v-else name="button" />
-    </lui-button> -->
-    <transition
-      enter-active-class="transition duration-100 ease-out"
-      enter-from-class="transform scale-95 opacity-0"
-      enter-to-class="transform scale-100 opacity-100"
-      leave-active-class="transition duration-75 ease-in"
-      leave-from-class="transform scale-100 opacity-100"
-      leave-to-class="transform scale-95 opacity-0"
-    >
-      <ul
-        v-show="menuActive"
-        :id="menuId"
-        ref="luiDropdownMenu"
-        role="menu"
-        :aria-labelledby="buttonId"
-        :aria-activedescendant="String(menuState.currentIndex)"
-        tabindex="0"
-        :class="[computedMenuPosition, menuClasses.length > 0 ? menuClasses : dropdownMenuClasses]"
-        @keydown="handleMenuKeyEvents"
+      <transition
+        enter-active-class="transition duration-100 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0 "
       >
-        <slot />
-      </ul>
-    </transition>
+        <div
+          v-show="menuActive"
+          :id="menuId"
+          ref="luiDropdownMenu"
+          :class="menuClasses"
+          :style="menuStyles"
+        >
+          <ul
+            role="menu"
+            :aria-labelledby="buttonId"
+            :aria-activedescendant="String(menuState.currentIndex)"
+            tabindex="0"
+            :class="size === 'xs' || size === 'sm' ? 'p-1.5' : size === 'md' ? 'p-2' : 'p-2.5'"
+            @keydown="handleMenuKeyEvents"
+          >
+            <slot />
+          </ul>
+        </div>
+      </transition>
+    </component>
   </div>
 </template>

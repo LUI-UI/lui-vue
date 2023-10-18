@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.0](https://github.com/LUI-UI/lui-vue/compare/v0.69.5...v0.70.0) (2023-10-16)
+
+
+### Features
+
+* **select,multiselect,popover,dropdown:** create teleport prop to render menus with fixed position ([e3a1333](https://github.com/LUI-UI/lui-vue/commit/e3a13336bded5165e747e857ec551895c849d1c8))
+
+
+### Bug Fixes
+
+* **client:** fix typescript error ([6108ba7](https://github.com/LUI-UI/lui-vue/commit/6108ba7d55e4ce2c36b6bfc4e21612d2ec4557ee))
+* **components:** add classnames to all missing components ([6ddfbaf](https://github.com/LUI-UI/lui-vue/commit/6ddfbaf2c16d195cdd507c5d9e3de313cf94ee13))
+* **multiselect:** fix isValuUsing check ([ca0f7a4](https://github.com/LUI-UI/lui-vue/commit/ca0f7a4eeaa5da611fff7fbc3b507205c1cb9dc9))
+* **select,multi-select:** handle usage of different text and value ([4057128](https://github.com/LUI-UI/lui-vue/commit/40571283d9874c6854bc1971f326777436c19b89))
+
+## [0.69.5](https://github.com/LUI-UI/lui-vue/compare/v0.69.4...v0.69.5) (2023-09-27)
+
+
+### Bug Fixes
+
+* **multi-select:** fix model-value changes bug ([ab79f9f](https://github.com/LUI-UI/lui-vue/commit/ab79f9fbf9214f0b7d0dc1af3edc1109db34c96f))
+* **release.yaml:** fix release yaml ([416c8b7](https://github.com/LUI-UI/lui-vue/commit/416c8b7c735f45a2cdeea220f000673df1500718))
+
+## [0.69.4](https://github.com/LUI-UI/lui-vue/compare/v0.69.3...v0.69.4) (2023-09-19)
+
+
+### Bug Fixes
+
+* **popover:** add on-trigger event to popover component ([cd6d697](https://github.com/LUI-UI/lui-vue/commit/cd6d6971daafd0b91382c97237bebd3f66175462))
+
+## [0.69.3](https://github.com/LUI-UI/lui-vue/compare/v0.69.2...v0.69.3) (2023-09-11)
+
+
+### Bug Fixes
+
+* **dropdown,popover:** add center positions to dropdown and popover menus ([5296b75](https://github.com/LUI-UI/lui-vue/commit/5296b755237205174c4e96eea638f78806b356e1))
+* **menuitem:** add new options for menuitem tag prop ([6e6fef8](https://github.com/LUI-UI/lui-vue/commit/6e6fef858a2c6d84b604f54bdecb30b4a704208e))
+
 ## [0.69.2](https://github.com/LUI-UI/lui-vue/compare/v0.69.1...v0.69.2) (2023-09-06)
 
 

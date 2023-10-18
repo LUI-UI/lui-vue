@@ -70,7 +70,7 @@ const isDisabled = computed(() => attrs.disabled !== undefined && attrs.disabled
 </script>
 
 <template>
-  <div class="inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
+  <div class="lui-textarea inline-block leading-3" :class="block ? 'w-full' : 'w-48'">
     <div class="relative">
       <textarea
         :class="textareaClasses"

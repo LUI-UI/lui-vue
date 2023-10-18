@@ -418,3 +418,38 @@ export const Change: Story = {
     },
   },
 }
+
+const teleportTemplate
+  = '<lui-select :teleport="true" v-model="selectedName" placeholder="Names" :options="[\'Mary\', \'Jane\']" />'
+export const Teleport: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    setup() {
+      const selectedName = ref('')
+      return { selectedName }
+    },
+    template: teleportTemplate,
+  }),
+}
+const withValueTemplate = `
+<div>VModel value: {{ selectedCountry }}</div>
+<lui-select v-model="selectedCountry" :options="countries" />
+`
+export const WithValue: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    setup() {
+      const countries = [{ text: 'Turkey', value: 'TR' }, { text: 'Austria', value: 'AT' }, { text: 'Azerbaijan', value: 'AZ' }, { text: 'Bangladesh', value: 'BD' }]
+      const selectedCountry = ref('AZ')
+      return { countries, selectedCountry }
+    },
+    template: withValueTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: withValueTemplate,
+      },
+    },
+  },
+}

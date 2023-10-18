@@ -7,23 +7,16 @@ export default {
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { Teleport as TeleportComp, computed, ref, toRef, toRefs } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useProperPosition } from '../../composables/useProperPosition'
+
+import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+import { useMenuStyles } from '../../composables/useMenuStyles'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '@/globals/interfaces'
+import type { Position } from '@/globals/types'
 
-type TargetPositionType = 'bottom' | 'top'
-type Position =
-  | 'bottomLeft'
-  | 'bottomRight'
-  | 'topLeft'
-  | 'topRight'
-  | 'leftTop'
-  | 'leftBottom'
-  | 'rightTop'
-  | 'rightBottom'
 interface TriggerSlotType {
   id: string
   type: string
@@ -45,62 +38,29 @@ const props = defineProps({
     type: Boolean as PropType<Boolean>,
     default: false,
   },
+  teleport: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
-const positionClasses = {
-  bottomLeft: {
-    classes: 'top-full mt-1',
-    oppositeClasses: 'bottom-full mb-1 left-0', // bottomRight
-    direction: 'bottom',
-  },
-  topLeft: {
-    classes: 'bottom-full mb-1 left-0',
-    oppositeClasses: 'top-full mt-1', // bottomLEft
-    direction: 'top',
-  },
-  bottomRight: {
-    classes: 'top-full mt-1 right-0',
-    oppositeClasses: 'bottom-full mb-1 right-0', // topRight
-    direction: 'bottom',
-  },
-  topRight: {
-    classes: 'bottom-full mb-1 right-0',
-    oppositeClasses: 'top-full mt-1 right-0', // bottomRight
-    direction: 'top',
-  },
-  leftTop: {
-    classes: 'top-0 mr-1 right-full',
-    oppositeClasses: 'bottom-0 mr-1 right-full', // leftBottom
-    direction: 'bottom',
-  },
-  leftBottom: {
-    classes: 'bottom-0 mr-1 right-full',
-    oppositeClasses: 'top-0 mr-1 right-full', // leftTop
-    direction: 'top',
-  },
-  rightTop: {
-    classes: 'top-0 ml-1 left-full',
-    oppositeClasses: 'bottom-0 ml-1 left-full', // rightBottom
-    direction: 'bottom',
-  },
-  rightBottom: {
-    classes: 'bottom-0 ml-1 left-full',
-    oppositeClasses: 'top-0 ml-1 left-full', // rightTop
-    direction: 'top',
-  },
-}
-const triggerId = `lui-popover-trigger-${useId()}`
-const dialogId = `lui-popopver-dialog-${useId()}`
-const triggerRef = ref<HTMLDivElement>()
-const dialogWrapperRef = ref<HTMLDivElement>()
+const emit = defineEmits(['onTrigger'])
+
 const dialogActive = ref(false)
+const triggerRef = ref<HTMLElement>()
+const dialogWrapperRef = ref<HTMLElement>()
+const dialogId = `lui-popopver-dialog-${useId()}`
+const triggerId = `lui-popover-trigger-${useId()}`
+const teleportId = useTeleportWrapper('popover')
 
 useOutsideClick(triggerRef, () => closeDialog())
-const { properPosition } = useProperPosition({
-  triggerEl: triggerRef,
-  MenuEl: dialogWrapperRef,
-  targetPosition: setTargetPosition(),
-})
-
+const { styles: menuStyles, menuPositionStyles } = useMenuStyles(
+  {
+    ...toRefs(props),
+    menuPosition: toRef(props, 'dialogPosition'),
+    triggerEl: triggerRef,
+    menuEl: dialogWrapperRef,
+  },
+)
 const triggerSlotProps = computed<TriggerSlotType>(() => ({
   'id': triggerId,
   'type': 'button',
@@ -113,34 +73,28 @@ const triggerSlotProps = computed<TriggerSlotType>(() => ({
 
 const dialogWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
-    position: 'absolute',
+    position: props.teleport ? 'fixed' : 'absolute',
     zIndex: 'z-50',
-    width: props.block ? 'w-full' : 'w-max',
+    width: props.teleport ? 'w-max' : props.block ? 'w-full' : 'w-max',
   }
   return Object.values({ ...classes })
 })
-const computedDialogPosition = computed(() => {
-  return positionClasses[props.dialogPosition].direction === properPosition.value
-    ? positionClasses[props.dialogPosition].classes
-    : positionClasses[props.dialogPosition].oppositeClasses
-})
-
-function setTargetPosition(): TargetPositionType {
-  const positionLowerCase = props.dialogPosition.toLowerCase()
-  return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
-}
 
 function handleTriggerClick() {
   // emin open event!
   dialogActive.value = !dialogActive.value
+  emit('onTrigger', dialogActive.value)
 }
 function closeDialog() {
-  dialogActive.value = false
+  if (dialogActive.value) {
+    dialogActive.value = false
+    emit('onTrigger', false)
+  }
 }
 </script>
 
 <template>
-  <div class="relative" :class="!block ? 'w-max' : ''">
+  <div class="lui-popover relative" :class="!block ? 'w-max' : ''">
     <div ref="triggerRef">
       <slot name="trigger" v-bind="{ ...triggerSlotProps }">
         <LuiButton
@@ -151,24 +105,30 @@ function closeDialog() {
         </LuiButton>
       </slot>
     </div>
-    <transition
-      enter-active-class="transition duration-100 ease-out"
-      enter-from-class="transform scale-95 opacity-0"
-      enter-to-class="transform scale-100 opacity-100"
-      leave-active-class="transition duration-75 ease-in"
-      leave-from-class="transform scale-100 opacity-100"
-      leave-to-class="transform scale-95 opacity-0"
+    <component
+      :is="teleport ? TeleportComp : 'div'"
+      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
     >
-      <div
-        v-show="dialogActive" :id="dialogId"
-        ref="dialogWrapperRef"
-        :aria-labelledby="triggerId"
-        role="dialog"
-        tabindex="-1"
-        :class="[computedDialogPosition, dialogWrapperClasses]"
+      <transition
+        enter-active-class="transition duration-100 ease-out"
+        enter-from-class="transform scale-95 opacity-0"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
+        leave-from-class="transform scale-100 opacity-100"
+        leave-to-class="transform scale-95 opacity-0"
       >
-        <slot />
-      </div>
-    </transition>
+        <div
+          v-show="dialogActive" :id="dialogId"
+          ref="dialogWrapperRef"
+          :aria-labelledby="triggerId"
+          role="dialog"
+          tabindex="-1"
+          :class="[dialogWrapperClasses, !teleport ? menuPositionStyles : '']"
+          :style="menuStyles"
+        >
+          <slot />
+        </div>
+      </transition>
+    </component>
   </div>
 </template>

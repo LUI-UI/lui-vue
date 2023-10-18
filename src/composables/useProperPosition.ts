@@ -4,17 +4,19 @@ import { useElementSize } from './useElementSize'
 
 interface ProperPosition {
   triggerEl: Ref<any>
-  MenuEl: Ref<any>
+  menuEl: Ref<any>
   targetPosition: 'bottom' | 'top'
 }
 
 export function useProperPosition(params: ProperPosition) {
   const properPosition = ref<string>('bottom')
+  const targetTop = ref<number>(0)
+  const targetLeft = ref<number>(0)
   // const menuHeight = ref(0)
-  const { height: menuHeight, observeElement, unobserveElement } = useElementSize(params.MenuEl)
+  const { height: menuHeight, observeElement, unobserveElement } = useElementSize(params.menuEl)
 
   watch(menuHeight, () => updatePosition())
-  watch(params.MenuEl, (val) => {
+  watch(params.menuEl, (val) => {
     if (val)
       observeElement()
 
@@ -27,17 +29,20 @@ export function useProperPosition(params: ProperPosition) {
       properPosition.value = params.targetPosition
       return
     }
+    const space = 20
     const spaceAbove = elRect.top
     const spaceBelow = window.innerHeight - elRect.bottom
+    targetLeft.value = elRect.left
+    targetTop.value = elRect.top
 
     if (params.targetPosition === 'bottom') {
-      if (spaceBelow < menuHeight.value + 30 && spaceAbove > menuHeight.value + 30)
+      if (spaceBelow < menuHeight.value + space && spaceAbove > menuHeight.value + space)
         properPosition.value = 'top'
 
       else properPosition.value = 'bottom'
     }
     if (params.targetPosition === 'top') {
-      if (spaceAbove < menuHeight.value + 30 && spaceBelow > menuHeight.value + 30)
+      if (spaceAbove < menuHeight.value + space && spaceBelow > menuHeight.value + space)
         properPosition.value = 'bottom'
       else properPosition.value = 'top'
     }
@@ -47,5 +52,5 @@ export function useProperPosition(params: ProperPosition) {
   onMounted(() => window.addEventListener('scroll', updatePosition))
   onUnmounted(() => window.removeEventListener('scroll', updatePosition))
 
-  return { properPosition }
+  return { properPosition, targetTop, targetLeft }
 }

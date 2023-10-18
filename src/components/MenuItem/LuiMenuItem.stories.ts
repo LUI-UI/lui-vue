@@ -24,7 +24,7 @@ const meta: Meta<typeof LuiMenuItem> = {
     rounded,
     tag: {
       control: { type: 'select' },
-      options: ['button', 'div', 'a'],
+      options: ['button', 'div', 'a', 'span'],
       default: 'button',
       description: descriptions.argTypes.tag,
     },
