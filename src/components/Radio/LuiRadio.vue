@@ -8,7 +8,7 @@ export default {
 <script setup lang="ts">
 import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useGlobalDescriptionClasses } from '../../composables'
 import { useRadioClasses } from './composables/index'
 import type { Description, Size, State } from '@/globals/types'
 

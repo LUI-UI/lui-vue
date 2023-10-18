@@ -10,9 +10,7 @@ import { Fragment, Teleport as TeleportComp, computed, nextTick, onMounted, prov
 import type { PropType, Ref } from 'vue'
 import { useId } from '../../utils/useId'
 
-import { useMenuStyles } from '../../composables/useMenuStyles'
-import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 
 // import { useProperPosition } from '../../composables/useProperPosition'
 import { hasSlotContent } from '../../utils/hasSlotContent'

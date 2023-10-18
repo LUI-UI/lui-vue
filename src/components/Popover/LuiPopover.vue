@@ -9,10 +9,7 @@ export default {
 import type { PropType } from 'vue'
 import { Teleport as TeleportComp, computed, ref, toRef, toRefs } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
-import { useOutsideClick } from '../../composables/useOutsideClick'
-
-import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
-import { useMenuStyles } from '../../composables/useMenuStyles'
+import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '@/globals/interfaces'
 import type { Position } from '@/globals/types'
