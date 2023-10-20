@@ -1,0 +1,11 @@
+// Vitest Snapshot v1
+
+exports[`Default LuiInput > renders properly with default values 1`] = `
+"<div class=\\"lui-input inline-block leading-3 w-48\\">
+  <div class=\\"relative\\"><input data-testid=\\"lui-input-input\\" class=\\"peer w-full text-base text-secondary-600 placeholder:text-secondary-400 disabled:placeholder:text-secondary-300 dark:text-secondary-300 dark:placeholder:text-secondary-600 dark:disabled:text-secondary-700 bg-secondary-50 disabled:bg-secondary-100 dark:bg-secondary-900 dark:disabled:secondary-800 outline-none border border-solid border-secondary-200 focus:border-primary-500 disabled:border-secondary-200 focus:ring-4 focus:ring-primary-500/40 disabled:cursor-not-allowed py-2 px-2.5\\">
+    <!--v-if-->
+    <!--v-if-->
+  </div>
+  <!--v-if-->
+</div>"
+`;
