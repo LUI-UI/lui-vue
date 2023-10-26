@@ -519,6 +519,7 @@ function resetSelectedOption() {
       ref="selectRef"
       v-bind="inputProps"
       v-model="selectedOption.text"
+      data-testid="lui-select-input"
       :readonly="!searchable"
       class="selection:bg-transparent"
       autocomplete="off"
@@ -566,6 +567,7 @@ function resetSelectedOption() {
           :style="menuStyles"
         >
           <ul
+            data-testid="lui-select-options-container"
             aria-orientation="vertical"
             :aria-labelledby="selectId"
             role="listbox"
@@ -581,11 +583,12 @@ function resetSelectedOption() {
                 <LuiOption
                   v-for="(option, index) in searchedOptions"
                   :key="index"
+                  data-testid="lui-select-option"
                   v-bind="optionProps(option)"
                 />
               </template>
               <template v-else>
-                <LuiOption text="Nothing found on this search" disabled />
+                <LuiOption data-testid="lui-select-false-search" text="Nothing found on this search" disabled />
               </template>
             </template>
             <slot v-else />
