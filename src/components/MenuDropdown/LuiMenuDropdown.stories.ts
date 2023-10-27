@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { ref } from 'vue'
 import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
 import LuiBadge from '../Badge/LuiBadge.vue'
 import {
@@ -572,4 +573,26 @@ export const Teleport: Story = {
       },
     },
   },
+}
+
+const controlShowTemplate = `
+<div>{{isShow}}</div>
+<lui-menu-dropdown v-model:open="isShow" text="dropdown">
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
+  <lui-menu-item>Some long items for center</lui-menu-item>
+</lui-menu-dropdown>
+<button @click.stop="isShow = true">other button</button>
+`
+export const ControlShow: Story = {
+  render: () => ({
+    components: { LuiMenuDropdown, LuiMenuItem },
+    template: controlShowTemplate,
+    setup() {
+      const isShow = ref(true)
+      return {
+        isShow,
+      }
+    },
+  }),
 }
