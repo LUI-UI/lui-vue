@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { ref } from 'vue'
 import LuiPopover from './LuiPopover.vue'
 
 const meta: Meta<typeof LuiPopover> = {
@@ -94,6 +95,29 @@ export const Teleport: Story = {
     setup() {
       return {
         args,
+      }
+    },
+  }),
+}
+const controlShowTemplate = `
+<div>{{isShow}}</div>
+<lui-popover v-model:open="isShow" text="popover">
+  <div class="p-4 bg-white rounded-lg">
+    <button>test1</button>
+    <button>test2</button>
+    <a href="/">some link</a>
+  </div>
+</lui-popover>
+<button @click.stop="isShow = true">other button</button>
+`
+export const ControlShow: Story = {
+  render: () => ({
+    components: { LuiPopover },
+    template: controlShowTemplate,
+    setup() {
+      const isShow = ref(true)
+      return {
+        isShow,
       }
     },
   }),

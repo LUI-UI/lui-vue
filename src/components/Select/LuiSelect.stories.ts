@@ -453,3 +453,20 @@ export const WithValue: Story = {
     },
   },
 }
+const controlShowTemplate = `
+<div>{{isShow}}</div>
+<LuiSelect v-model:open="isShow" :options="[\'Mary\', \'Jane\']" />
+<button @click.stop="isShow = true">other button</button>
+`
+export const ControlShow: Story = {
+  render: () => ({
+    components: { LuiSelect },
+    template: controlShowTemplate,
+    setup() {
+      const isShow = ref(true)
+      return {
+        isShow,
+      }
+    },
+  }),
+}

@@ -7,7 +7,7 @@ export default {
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { Teleport as TeleportComp, computed, ref, toRef, toRefs } from 'vue'
+import { Teleport as TeleportComp, computed, ref, toRef, toRefs, watch } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
 
@@ -42,8 +42,12 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  open: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
-const emit = defineEmits(['onTrigger'])
+const emit = defineEmits(['onTrigger', 'update:open'])
 
 const dialogActive = ref(false)
 const triggerRef = ref<HTMLElement>()
@@ -60,6 +64,16 @@ const { styles: menuStyles, menuPositionStyles } = useMenuStyles(
     triggerEl: triggerRef,
     menuEl: dialogWrapperRef,
   },
+)
+
+watch(
+  () => props.open,
+  (val) => {
+    if (val !== dialogActive.value) {
+      dialogActive.value = val
+      emit('onTrigger', val)
+    }
+  }, { immediate: true },
 )
 const triggerSlotProps = computed<TriggerSlotType>(() => ({
   'id': triggerId,
@@ -84,11 +98,13 @@ function handleTriggerClick() {
   // emin open event!
   dialogActive.value = !dialogActive.value
   emit('onTrigger', dialogActive.value)
+  emit('update:open', dialogActive.value)
 }
 function closeDialog() {
   if (dialogActive.value) {
     dialogActive.value = false
     emit('onTrigger', false)
+    emit('update:open', false)
   }
 }
 </script>

@@ -7,7 +7,7 @@ export default {
 
 <script setup lang="ts">
 import { Fragment, Teleport as TeleportComp, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
-import type { PropType, Ref } from 'vue'
+import type { PropType } from 'vue'
 import { useId } from '../../utils/useId'
 
 import { useMenuStyles } from '../../composables/useMenuStyles'
@@ -80,8 +80,12 @@ const props = defineProps({
     type: [Object, String, undefined] as PropType<ModelValue>,
     default: undefined,
   },
+  open: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'update:open'])
 const slots = useSlots()
 const attrs = useAttrs()
 // const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
@@ -90,9 +94,9 @@ const optionsRef = ref<HTMLElement>()
 // const optionRef = ref<CustomType[]>([])
 let isFirstUpdate = true
 const selectWrapperRef = ref<HTMLElement>()
-const optionsActive: Ref<boolean> = ref(false)
+const optionsActive = ref(false)
 const selectedOption = ref<SelectedOption>({ text: '', value: '' })
-const selectedOptionBackup: Ref<string> = ref('')
+const selectedOptionBackup = ref('')
 const searchQuery = ref<string>('')
 // const selectedOption: Ref<string | ModelValueObject | undefined> =
 //   ref(undefined);
@@ -146,6 +150,14 @@ watch(
 
     // updateSelectedOption(value);
   },
+)
+watch(
+  () => props.open,
+  (val) => {
+    if (val !== optionsActive.value)
+      optionsActive.value = val
+      // emit('onTrigger', val)
+  }, { immediate: true },
 )
 const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
 // const computedOptions = computed(() => props.options.length > 0)
@@ -232,6 +244,7 @@ function focusButton() {
 
 function closeListBox() {
   optionsActive.value = false
+  emit('update:open', false)
 }
 
 function toggleOptions() {
@@ -239,7 +252,7 @@ function toggleOptions() {
     return
   // event.preventDefault();
   optionsActive.value = !optionsActive.value
-  // if (attrs.disabled !== undefined && attrs.disabled === true) return;
+  emit('update:open', optionsActive.value)
 }
 
 function setState() {

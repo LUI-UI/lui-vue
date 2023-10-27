@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots } from 'vue'
+import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots, watch } from 'vue'
 import type { PropType } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
 import { useOutsideClick } from '../../composables/useOutsideClick'
@@ -75,9 +75,13 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  open: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
 
-const emit = defineEmits(['onTrigger'])
+const emit = defineEmits(['onTrigger', 'update:open'])
 const slots = useSlots()
 // VARIABLES
 const luiDropdownWrapper = ref<HTMLElement>()
@@ -96,6 +100,15 @@ const teleportId = useTeleportWrapper('dropdown')
 
 const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: luiDropdownWrapper, menuEl: luiDropdownMenu })
 
+watch(
+  () => props.open,
+  (val) => {
+    if (val !== menuActive.value) {
+      menuActive.value = val
+      emit('onTrigger', val)
+    }
+  }, { immediate: true },
+)
 const dropdownWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
@@ -119,16 +132,19 @@ useOutsideClick(luiDropdownTrigger, () => closeMenu())
 function closeMenu() {
   menuActive.value = false
   emit('onTrigger', menuActive.value)
+  emit('update:open', menuActive.value)
 }
 
 function openMenu() {
   menuActive.value = true
   emit('onTrigger', menuActive.value)
+  emit('update:open', menuActive.value)
 }
 
 function toogleMenu() {
   menuActive.value = !menuActive.value
   emit('onTrigger', menuActive.value)
+  emit('update:open', menuActive.value)
 }
 
 (function setInitialState() {
