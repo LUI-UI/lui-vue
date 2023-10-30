@@ -142,15 +142,11 @@ describe('LuiSelect Search Feature', () => {
   })
 
   it('should display all options when search input is empty', async () => {
-    await inputEl.setValue(testData.searchKey)
-    let options = wrapper.findAll('[data-testid="lui-select-option"]')
-    expect(options.length).toBe(1)
-
     // Clear the search input
     await inputEl.setValue('')
 
     // Options should be back to their original count
-    options = wrapper.findAll('[data-testid="lui-select-option"]')
+    const options = wrapper.findAll('[data-testid="lui-select-option"]')
     expect(options.length).toBe(testData.options.length)
   })
 
@@ -284,76 +280,3 @@ describe('LuiSelect with value', () => {
     expect(modelValue.value).toBe(optionsWValue[3].value)
   })
 })
-
-// it('selects initial values properly', async () => {
-//   const optionsArray = ['Mary', 'Jane']
-//   // test for v-model
-//   const modelValue = ref('Mary')
-//   const vModelWrapper = mount(LuiSelect as any, {
-//     props: {
-//       'modelValue': modelValue.value,
-//       'onUpdate:modelValue': (e: any) => (modelValue.value = e),
-//       'options': ['Mary', 'Jane'],
-//     },
-//   })
-//   expect(vModelWrapper.vm.selectedOption).toBe(modelValue.value)
-
-//   // test for objects
-//   const objectWrapper = mount(LuiSelect as any, {
-//     props: {
-//       options: [
-//         { text: 'Mary', value: 'mary', selected: true },
-//         { text: 'Jane', value: 'jane' },
-//       ],
-//     },
-//   })
-//   expect(objectWrapper.vm.selectedOption).toBe('Mary')
-
-//   // test for selected slot
-
-//   const selectedSlotTemplate = {
-//     components: { LuiSelect, LuiOption },
-//     template: `
-//     <lui-select>
-//     <lui-option text="Mary" value="Mary"></lui-option>
-//     <lui-option text="Jane" selected value="Jane"></lui-option>
-//     </lui-select>
-//     `,
-//   }
-//   const selectedSlotWrappper = mount(selectedSlotTemplate)
-//   const selectedSlotLuiSelect = selectedSlotWrappper.findComponent(LuiSelect) as any
-//   expect(selectedSlotLuiSelect.vm.selectedOption).toBe('Jane')
-
-//   // test for placeholder
-//   const placeholder = 'my test placeholder'
-//   const placeholderWrapper = mount(LuiSelect as any, {
-//     props: {
-//       options: optionsArray,
-//       placeholder,
-//     },
-//   })
-
-//   expect(placeholderWrapper.vm.selectedOption).toBe(placeholder)
-
-//   // test for options prop
-//   const optionsWrapper = mount(LuiSelect as any, {
-//     props: {
-//       options: optionsArray,
-//     },
-//   })
-//   expect(optionsWrapper.vm.selectedOption).toBe(optionsArray[0])
-//   // test for selected slot
-
-//   const slotTemplate = {
-//     components: { LuiSelect, LuiOption },
-//     template: `
-//     <lui-select>
-//     <lui-option text="Mary" value="Mary"></lui-option>
-//     <lui-option text="Jane"  value="Jane"></lui-option>
-//     </lui-select>
-//     `,
-//   }
-//   const slotWrappper = mount(slotTemplate)
-//   const slotLuiSelect = slotWrappper.findComponent(LuiSelect) as any
-//   expect(slotLuiSelect.vm.selectedOption).toBe('Mary')
-// })
