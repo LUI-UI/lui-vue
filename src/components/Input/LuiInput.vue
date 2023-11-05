@@ -131,10 +131,11 @@ function stateIconTemplate(params: any) {
   return h(
     'svg',
     {
-      viewBox: '0 0 24 24',
-      fill: 'currentColor',
-      width: iconSizes.value,
-      height: iconSizes.value,
+      'viewBox': '0 0 24 24',
+      'fill': 'currentColor',
+      'width': iconSizes.value,
+      'height': iconSizes.value,
+      'data-testid': `lui-input-state-${props.state}`,
     },
     [h('path', { fill: 'none', d: 'M0 0h24v24H0z' }), h('path', { d: params.path })],
   )
@@ -155,6 +156,7 @@ const computedAttrs = computed(() => {
     <div class="relative" :class="block ? 'w-full' : ''">
       <input
         ref="LuiInputRef"
+        data-testid="lui-input-input"
         :class="inputClasses"
         :value="modelValue === undefined ? '' : modelValue"
         v-bind="computedAttrs"
@@ -162,13 +164,13 @@ const computedAttrs = computed(() => {
         @change="emit('change', $event)"
         @blur="emit('blur', $event)"
       >
-      <span v-if="hasSlotContent(slots.prepend)" :class="prependClasses" class="leading-none">
+      <span v-if="hasSlotContent(slots.prepend)" data-testid="lui-input-icon-prepend" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
-      <button v-if="clear && !attrs.disabled" :class="closeIconClasses" @click="clearInput">
+      <button v-if="clear && !attrs.disabled" data-testid="lui-input-clear" :class="closeIconClasses" @click="clearInput">
         <clearIconTemplate />
       </button>
-      <span v-else-if="!!slots.append" :class="appendClasses">
+      <span v-else-if="!!slots.append" data-testid="lui-input-icon-append" :class="appendClasses">
         <slot name="append" />
       </span>
       <span v-else-if="stateIcon && state !== null" :class="stateIconClasses">
@@ -185,7 +187,7 @@ const computedAttrs = computed(() => {
         />
       </span>
     </div>
-    <p v-if="description !== null" :class="descriptionClasses">
+    <p v-if="description !== null" data-testid="lui-input-description" :class="descriptionClasses">
       {{ description }}
     </p>
   </div>
