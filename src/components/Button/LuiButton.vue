@@ -86,19 +86,20 @@ function dynamicSlotClasses() {
 <template>
   <component
     :is="tag"
+    data-testid="lui-button"
     v-bind="$attrs"
     :class="[buttonClasses, dynamicSlotClasses()]"
     class="lui-button"
   >
-    <span v-if="!!slots.icon" :class="computedIconSize" class="leading-none flex items-center">
+    <span v-if="!!slots.icon" data-testid="lui-button-icon" :class="computedIconSize" class="leading-none flex items-center">
       <slot name="icon" />
     </span>
     <template v-else>
-      <span v-if="!!slots.prepend" :class="computedIconSize" class="leading-none flex items-center">
+      <span v-if="!!slots.prepend" data-testid="lui-button-icon-prepend" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="prepend" />
       </span>
-      <span><slot /></span>
-      <span v-if="!!slots.append" :class="computedIconSize" class="leading-none flex items-center">
+      <span data-testid="lui-button-icon-text"><slot /></span>
+      <span v-if="!!slots.append" data-testid="lui-button-icon-append" :class="computedIconSize" class="leading-none flex items-center">
         <slot name="append" />
       </span>
     </template>
