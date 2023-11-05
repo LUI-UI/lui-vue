@@ -370,11 +370,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="lui-badge" :class="computedContainerClasses">
+  <div data-testid="lui-badge" class="lui-badge" :class="computedContainerClasses">
     <slot />
-    <div ref="badgeWrapper" :class="computedBadgeClasses">
-      <span v-if="$slots.icon" :class="computedIconClasses"><slot name="icon" /></span>
-      <span v-if="text.length > 0" ref="badgeContent">{{ text }}</span>
+    <div ref="badgeWrapper" data-testid="lui-badge-wrapper" :class="computedBadgeClasses">
+      <span v-if="$slots.icon" data-testid="lui-badge-icon" :class="computedIconClasses"><slot name="icon" /></span>
+      <span v-if="text.length > 0" ref="badgeContent" data-testid="lui-badge-text">{{ text }}</span>
     </div>
   </div>
 </template>
