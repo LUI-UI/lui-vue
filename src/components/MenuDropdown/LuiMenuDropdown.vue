@@ -9,11 +9,9 @@ export default {
 import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import LuiButton from '../Button/LuiButton.vue'
-import { useOutsideClick } from '../../composables/useOutsideClick'
-import { useTeleportWrapper } from '../../composables/useTeleportWrapper'
+import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 
 // import { useMenuPositionStyles } from '../../composables/useMenuPositionStyles'
-import { useMenuStyles } from '../../composables/useMenuStyles'
 import { useId } from '../../utils/useId'
 import type { Block, Color, Filter, Position, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'

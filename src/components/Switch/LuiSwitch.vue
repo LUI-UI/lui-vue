@@ -8,7 +8,7 @@ export default {
 <script setup lang="ts">
 import { computed, toRef, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
-import { useGlobalDescriptionClasses } from '../../composables/index'
+import { useGlobalDescriptionClasses } from '../../composables'
 import { useSwitchClasses } from './composables/index'
 import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
 

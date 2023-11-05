@@ -2,7 +2,7 @@ import { customRef } from 'vue'
 import { createFocusTrap } from 'focus-trap'
 import type { Options } from 'focus-trap'
 
-function useFocusTrap(focusTrapArgs?: Options) {
+export function useFocusTrap(focusTrapArgs?: Options) {
   let trap: any = null
   function initFocusTrap(el: any, focusTrapArgs: Options = {}) {
     if (!el)
@@ -36,5 +36,3 @@ function useFocusTrap(focusTrapArgs?: Options) {
     clearFocusTrap,
   }
 }
-
-export default useFocusTrap
