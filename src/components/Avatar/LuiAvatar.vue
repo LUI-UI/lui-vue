@@ -140,9 +140,9 @@ export default {
 </script>
 
 <template>
-  <div class="lui-avatar" :class="computedAvatarClasses">
-    <img v-if="src.length > 0" :src="src" :alt="alt" :class="computedImageClasses">
-    <span v-if="$slots.icon" :class="computedIconClasses"><slot name="icon" /></span>
-    <span v-if="text.length > 0" ref="avatarContent">{{ text }}</span>
+  <div class="lui-avatar" data-testid="lui-avatar" :class="computedAvatarClasses">
+    <img v-if="src.length > 0" data-testid="lui-avatar-img" :src="src" :alt="alt" :class="computedImageClasses">
+    <span v-if="$slots.icon" data-testid="lui-avatar-icon" :class="computedIconClasses"><slot name="icon" /></span>
+    <span v-if="text.length > 0" ref="avatarContent" data-testid="lui-avatar-text">{{ text }}</span>
   </div>
 </template>
