@@ -121,18 +121,20 @@ const iconSize = computed(() =>
 </script>
 
 <template>
-  <div class="lui-checkbox inline-block leading-3">
+  <div class="inline-block leading-3">
     <div class="relative inline-flex">
       <input
+        data-testid="lui-checkbox-input"
         type="checkbox"
         :checked="isInputChecked()"
         :class="inputClasses"
         v-bind="$attrs"
         @change="handleChange"
       >
-      <span :class="spanClasses" />
+      <span data-testid="lui-checkbox-span" :class="spanClasses" />
       <svg
         v-if="!indeterminate"
+        data-testid="lui-checkbox-classic-svg"
         :class="iconClasses"
         :width="iconSize.checkbox"
         :height="iconSize.checkbox"
@@ -150,6 +152,7 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate && size === 'xs'"
+        data-testid="lui-checkbox-indeterminate-svg"
         width="10"
         height="2"
         viewBox="0 0 10 2"
@@ -166,6 +169,7 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate && size === 'sm'"
+        data-testid="lui-checkbox-indeterminate-svg"
         width="12"
         height="2"
         viewBox="0 0 12 2"
@@ -182,6 +186,7 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate && size === 'md'"
+        data-testid="lui-checkbox-indeterminate-svg"
         width="16"
         height="2"
         viewBox="0 0 16 2"
@@ -198,6 +203,7 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate && size === 'lg'"
+        data-testid="lui-checkbox-indeterminate-svg"
         width="18"
         height="2"
         viewBox="0 0 18 2"
@@ -214,6 +220,7 @@ const iconSize = computed(() =>
       </svg>
       <svg
         v-if="indeterminate && size === 'xl'"
+        data-testid="lui-checkbox-indeterminate-svg"
         width="22"
         height="2"
         viewBox="0 0 22 2"
@@ -229,7 +236,7 @@ const iconSize = computed(() =>
         />
       </svg>
     </div>
-    <p v-if="description !== null" :class="descriptionClasses">
+    <p v-if="description !== null" data-testid="lui-checkbox-description" :class="descriptionClasses">
       {{ description }}
     </p>
   </div>
