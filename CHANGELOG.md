@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.1](https://github.com/LUI-UI/lui-vue/compare/v0.70.0...v0.70.1) (2023-11-10)
+
+
+### Bug Fixes
+
+* **checkbox:** fix types by adding number as value type ([a723691](https://github.com/LUI-UI/lui-vue/commit/a72369182183b64ed5f2e58d81e2d32901fe9780))
+* **composables:** fix composable structure ([816d5af](https://github.com/LUI-UI/lui-vue/commit/816d5af59805df342d5bbeab60b88d446594e338)), closes [#158](https://github.com/LUI-UI/lui-vue/issues/158)
+* **menu-components:** control open state on menu components ([600195a](https://github.com/LUI-UI/lui-vue/commit/600195a2167062b8a37359377ba9e53a588537fd))
+
 ## [0.70.0](https://github.com/LUI-UI/lui-vue/compare/v0.69.5...v0.70.0) (2023-10-16)
 
 
