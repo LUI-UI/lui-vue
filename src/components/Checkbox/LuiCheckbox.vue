@@ -7,10 +7,10 @@ export default {
 
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, toRef, toRefs, useAttrs } from 'vue'
+import { computed, toRefs, useAttrs } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
 import { useCheckboxClasses } from './composables/index'
-import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
+import type { CheckableModelValue, Description, Rounded, Size, State, Value } from '@/globals/types'
 
 type Indeterminate = false | true
 
@@ -22,9 +22,6 @@ const props = defineProps({
   rounded: {
     type: [Boolean, String] as PropType<Rounded>,
     default: false,
-    validator(value: Rounded) {
-      return [true, false, 'full'].includes(value)
-    },
   },
   state: {
     type: [String, Boolean, null] as PropType<State>,
@@ -39,57 +36,22 @@ const props = defineProps({
     default: false,
   },
   modelValue: {
-    type: [Array, Boolean, String, undefined] as PropType<CheckableModelValue>,
-    default: undefined,
+    type: [Array, Boolean, String] as PropType<CheckableModelValue>,
+  },
+  value: {
+    type: [String, Number] as PropType<Value>,
+  },
+  trueValue: {
+    type: [String, Number] as PropType<Value>,
+  },
+  falseValue: {
+    type: [String, Number] as PropType<Value>,
   },
 })
 const emit = defineEmits(['update:modelValue', 'change'])
 const attrs = useAttrs()
 const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
 const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
-const modelValueAsArray = toRef(props, 'modelValue')
-function handleChange(event: any) {
-  emit('update:modelValue', handleVModel(event))
-  emit('change', event)
-}
-
-const usageMethod = computed(() => {
-  if (attrs['true-value'] !== undefined || attrs['false-value'] !== undefined)
-    return 'customValue'
-  if (Array.isArray(modelValueAsArray.value))
-    return 'array'
-  return 'boolean'
-})
-
-function handleVModel(event: Event) {
-  const target = event.target as HTMLInputElement
-  if (usageMethod.value === 'customValue')
-    return target.checked ? attrs['true-value'] : attrs['false-value']
-
-  if (usageMethod.value === 'boolean')
-    return target.checked
-  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value)) {
-    if (target.checked) {
-      modelValueAsArray.value.push(target.value)
-    }
-    else {
-      const index = modelValueAsArray.value.indexOf(target.value)
-      modelValueAsArray.value.splice(index, 1)
-    }
-  }
-  return modelValueAsArray.value
-}
-function isInputChecked(): boolean {
-  if (usageMethod.value === 'customValue')
-    return props.modelValue === attrs['true-value']
-
-  if (usageMethod.value === 'array' && Array.isArray(modelValueAsArray.value))
-    return attrs && attrs.value ? modelValueAsArray.value.includes(attrs.value as string) : false
-
-  if (usageMethod.value === 'boolean')
-    return props.modelValue as boolean
-  return attrs && attrs.checked ? (attrs.checked as boolean) : false
-}
 
 const iconSize = computed(() =>
   // 12 - 16 - 20 - 24 - 28
@@ -118,16 +80,56 @@ const iconSize = computed(() =>
               indeterminate: { width: '22', stroke: '2', viewBox: '0 0 22 2' },
             },
 )
+
+function handleChange(event: any) {
+  const target = event.target as HTMLInputElement
+  const isChecked = target.checked
+  if (props.modelValue && Array.isArray(props.modelValue) && props.value) {
+    const newValue = [...props.modelValue]
+    if (isChecked)
+      newValue.push(props.value)
+
+    else
+      newValue.splice(newValue.indexOf(props.value), 1)
+
+    handleEmits(newValue, event)
+  }
+  else if (props.trueValue && props.falseValue) {
+    const currentValue = isChecked ? props.trueValue : props.falseValue
+    handleEmits(currentValue, event)
+  }
+  else {
+    handleEmits(isChecked, event)
+  }
+}
+const isChecked = computed(() => {
+  if (!props.modelValue)
+    return attrs.checked as boolean
+  if (Array.isArray(props.modelValue) && props.value)
+    return props.modelValue.includes(props.value)
+  else if (props.trueValue && props.falseValue)
+
+    return props.modelValue === props.trueValue
+
+  else
+    return props.modelValue as boolean
+})
+function handleEmits(value: CheckableModelValue, event: any) {
+  emit('change', event)
+  emit('update:modelValue', value)
+}
 </script>
 
 <template>
   <div class="lui-checkbox inline-block leading-3">
     <div class="relative inline-flex">
       <input
+        class="checkbox"
         type="checkbox"
-        :checked="isInputChecked()"
-        :class="inputClasses"
         v-bind="$attrs"
+        :class="inputClasses"
+        :checked="isChecked"
+        :value="value"
         @change="handleChange"
       >
       <span :class="spanClasses" />

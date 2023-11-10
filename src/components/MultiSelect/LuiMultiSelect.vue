@@ -102,8 +102,12 @@ const props = defineProps({
     type: [Array, undefined] as PropType<MultiModelValueType | undefined>,
     default: undefined,
   },
+  open: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'update:open', 'onTrigger'])
 const slots = useSlots()
 const attrs = useAttrs()
 
@@ -116,7 +120,7 @@ const errorMessages = {
   },
 }
 let isFirstUpdate = true
-const optionsActive = ref(false)
+const optionsActive = ref(props.open)
 const selectedOptions = ref<string[]>([])
 const searchQuery = ref<string>('')
 const wrapperRef = ref<HTMLDivElement>()
@@ -162,7 +166,7 @@ const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(p
 
 useOutsideClick(wrapperRef, () => {
   searchQuery.value = ''
-  closeOptions()
+  closeListBox()
   if (props.placeholder !== '' && !selectedOptions.value.length)
     isPlaceholderHolderDelete.value = false
 })
@@ -173,6 +177,15 @@ watch(
     if (value && isModelValueValid())
       selectedOptions.value = parseModelValue(value)
   },
+)
+watch(
+  () => props.open,
+  (val) => {
+    if (val !== optionsActive.value) {
+      optionsActive.value = val
+      emit('onTrigger', val)
+    }
+  }, { immediate: true },
 )
 const isValueUsing = computed(() => listboxState.items.length > 0 && typeof listboxState.items[0] !== 'string' && listboxState.items[0]?.value !== undefined && listboxState.items[0].value.length > 0)
 const selectedOptionsAsText = computed(() =>
@@ -441,9 +454,7 @@ function optionProps(option: string | object) {
     ? { text: option, ...commonProps }
     : { ...option, ...commonProps }
 }
-function closeOptions() {
-  optionsActive.value = false
-}
+
 function updateSelectedOptions(option: ModelValue) {
   if (option === undefined)
     return
@@ -470,7 +481,6 @@ function updateSelectedOptions(option: ModelValue) {
       typeof i !== 'string' ? i.text === optionText : i === optionText,
     )
   }
-  console.log('selectedOptions.value:', selectedOptions.value)
 }
 function focusTrigger() {
   if (wrapperRef.value)
@@ -478,9 +488,13 @@ function focusTrigger() {
 }
 function closeListBox() {
   optionsActive.value = false
+  emit('update:open', false)
+  emit('onTrigger', false)
 }
 function toggleOptions() {
   optionsActive.value = !optionsActive.value
+  emit('update:open', optionsActive.value)
+  emit('onTrigger', optionsActive.value)
 }
 function arrowIconSize(size: string) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
@@ -637,7 +651,7 @@ function ArrowIcon() {
       tabindex="0"
       :class="triggerClasses"
       v-bind="$attrs"
-      @click="optionsActive = !optionsActive"
+      @click="toggleOptions"
       @keydown="triggerKeydown"
       @focus="searchRef?.focus()"
     >
