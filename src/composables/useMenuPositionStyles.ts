@@ -18,6 +18,19 @@ interface IPositionSchemeObj {
 }
 type IPositionClasses = { [P in Position]: string }
 type IPositionScheme = { [P in Position]: IPositionSchemeObj }
+interface TPositionParams {
+  position: Position
+  menu: {
+    width: Ref<number>
+    height: Ref<number>
+  }
+  trigger: {
+    top: Ref<number>
+    left: Ref<number>
+    width: Ref<number>
+    height: Ref<number>
+  }
+}
 const positionScheme: IPositionScheme = {
   bottomLeft: {
     direction: 'bottom',
@@ -90,8 +103,9 @@ export function useMenuPositionStyles(params: IMenuClasses) {
     menuEl: params.menuEl,
     targetPosition: getTargetPosition(),
   })
-  const { top, left } = useElementPosition(params.triggerEl)
-  const { width: menuElWidth, height: menuElHeight, observeElement, unobserveElement } = useElementSize(params.menuEl)
+  const { top: triggerTop, left: triggerLeft } = useElementPosition(params.triggerEl)
+  const { width: menuWidth, height: menuHeight, observeElement, unobserveElement } = useElementSize(params.menuEl)
+  const { width: triggerWidth, height: triggerHeight, observeElement: observeTrigger, unobserveElement: unobserveTrigger } = useElementSize(params.triggerEl)
   watch(params.menuEl, (val) => {
     if (val)
       observeElement()
@@ -99,23 +113,29 @@ export function useMenuPositionStyles(params: IMenuClasses) {
     else
       unobserveElement()
   })
-  function positionStyles(position: Position): { top: string; left: string } {
+  watch(params.triggerEl, (val) => {
+    if (val)
+      observeTrigger()
+
+    else
+      unobserveTrigger()
+  })
+  function positionStyles({ position, menu, trigger }: TPositionParams): { top: string; left: string } {
     if (!params.triggerEl.value || !params.menuEl.value)
       return { left: '0px', top: '0px' }
     const space = 6 // space between menu and trigger
     const px = (value: number): string => `${value}px`
-    const triggerRect = params.triggerEl.value.getBoundingClientRect()
     // positions
-    const YBottom = triggerRect.height + top.value + space
-    const YTop = top.value - (space + menuElHeight.value)
-    const YBottomFromTop = top.value
-    const YTopFromBottom = top.value - (menuElHeight.value - triggerRect.height)
-    const YCenter = YTop + space + ((menuElHeight.value + triggerRect.height) / 2)
-    const XLeft = left.value
-    const XRight = left.value - (menuElWidth.value - triggerRect.width)
-    const XCenter = left.value - ((menuElWidth.value - triggerRect.width) / 2)
-    const XLeftFull = left.value - (menuElWidth.value + space)
-    const XRightFull = left.value + triggerRect.width + space
+    const YBottom = trigger.height.value + trigger.top.value + space
+    const YTop = trigger.top.value - (space + menu.height.value)
+    const YBottomFromTop = trigger.top.value
+    const YTopFromBottom = trigger.top.value - (menu.height.value - trigger.height.value)
+    const YCenter = YTop + space + ((menu.height.value + trigger.height.value) / 2)
+    const XLeft = trigger.left.value
+    const XRight = trigger.left.value - (menu.width.value - trigger.width.value)
+    const XCenter = trigger.left.value - ((menu.width.value - trigger.width.value) / 2)
+    const XLeftFull = trigger.left.value - (menu.width.value + space)
+    const XRightFull = trigger.left.value + trigger.width.value + space
     switch (position) {
       case 'bottomLeft':
         return { top: px(YBottom), left: px(XLeft) }
@@ -150,8 +170,8 @@ export function useMenuPositionStyles(params: IMenuClasses) {
   })
   const computedMenuPositions = computed(() => {
     return positionScheme[params.menuPosition].direction === properPosition.value
-      ? positionStyles(params.menuPosition)
-      : positionStyles(positionScheme[params.menuPosition].oppositePosition)
+      ? positionStyles({ position: params.menuPosition, menu: { width: menuWidth, height: menuHeight }, trigger: { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } })
+      : positionStyles({ position: positionScheme[params.menuPosition].oppositePosition, menu: { width: menuWidth, height: menuHeight }, trigger: { top: triggerTop, left: triggerLeft, width: triggerWidth, height: triggerHeight } })
   })
   return params.teleport ? { style: computedMenuPositions } : { style: computedMenuClasses }
 }

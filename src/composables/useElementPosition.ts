@@ -24,10 +24,14 @@ export function useElementPosition(el: TEl) {
   // for initial set
   nextTick(() => setPosition())
   onMounted(() => {
-    document.addEventListener('scroll', setPosition)
+    if (window) {
+      window.addEventListener('scroll', setPosition)
+      window.addEventListener('resize', setPosition)
+    }
   })
   onUnmounted(() => {
-    document.removeEventListener('scroll', setPosition)
+    window.removeEventListener('scroll', setPosition)
+    window.removeEventListener('resize', setPosition)
   })
   return { top, left }
 }
