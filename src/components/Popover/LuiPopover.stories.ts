@@ -78,15 +78,17 @@ export const BlockProp: Story = {
   }),
 }
 const teleportTemplate = `
-<lui-popover v-bind="args" text="popover" teleport>
-  <button>Test</button>
-  <div>
-  <button>test</button>
-  <p>test text</p>
-  <p>test text</p>
-  <a href="/">some link</a>
-  </div>
-</lui-popover>
+<div class="p-[300px] flex">
+  <div class="grow"></div>
+  <lui-popover v-bind="args" text="popover" teleport>
+    <div class="p-2 bg-white rounded-md">
+      <button>test some button test some button</button>
+      <p>test text</p>
+      <p>test text</p>
+      <a href="/">some link</a>
+    </div>
+  </lui-popover>
+</div>
 `
 export const Teleport: Story = {
   render: args => ({
