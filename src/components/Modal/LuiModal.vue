@@ -96,6 +96,7 @@ const computedModalClasses = computed(() => {
       <div class="lui-modal fixed inset-0 z-50 overflow-hidden">
         <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
           <div
+
             :id="modalId"
             role="dialog"
             aria-labelledby="lui-modal"
@@ -104,7 +105,13 @@ const computedModalClasses = computed(() => {
             v-bind="$attrs"
           >
             <div v-if="showIcon" class="float-right leading-3 ml-2">
-              <LuiButton variant="link" color="secondary" rounded @click="emit('close')">
+              <LuiButton
+                data-testid="lui-modal-close-button"
+                variant="link"
+                color="secondary"
+                rounded
+                @click="emit('close')"
+              >
                 <span class="sr-only">close modal</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path
