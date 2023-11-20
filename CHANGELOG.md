@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.2](https://github.com/LUI-UI/lui-vue/compare/v0.70.1...v0.70.2) (2023-11-20)
+
+
+### Bug Fixes
+
+* **checkbox,radio:** fix disabled issue ([c1eab76](https://github.com/LUI-UI/lui-vue/commit/c1eab7649fa0746ef9ca3442c66c4043bb047f88))
+* **menustyle:** fix menu style resize bug ([5085fef](https://github.com/LUI-UI/lui-vue/commit/5085fef1726914ec6ac84f450704288a52c99890))
+* **modal:** add be able to close with esc and outside click ([d1c2319](https://github.com/LUI-UI/lui-vue/commit/d1c23197fdb778ee07f9519e4453c00c5c3bb01a))
+* **select,multiselect:** prevent placeholder value binding as value to input ([b6d5384](https://github.com/LUI-UI/lui-vue/commit/b6d5384fd8a3d20fca0a312e3873d919d4deb648))
+
 ## [0.70.1](https://github.com/LUI-UI/lui-vue/compare/v0.70.0...v0.70.1) (2023-11-10)
 
 
