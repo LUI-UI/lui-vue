@@ -57,7 +57,7 @@ export function useSwitchClasses(props: PropTypes) {
         'h-8 before:h-7': props.size.value === 'xl',
       },
       backgroundColor:
-        'bg-secondary-500 dark:bg-secondary-800 peer-disabled:bg-secondary-100 peer-checked:peer-disabled:bg-success-100 peer-checked:bg-success-500 before:bg-white',
+        'bg-secondary-500 dark:bg-secondary-800 peer-disabled:bg-secondary-100 peer-checked:peer-disabled:bg-success-100 peer-checked:bg-success-500 before:bg-white dark:before:bg-secondary-300',
       borderRadius: {
         'rounded-full before:rounded-full': props.rounded.value === 'full',
         'rounded before:rounded-sm': props.rounded.value === true,

@@ -49,7 +49,7 @@ function handleChange(event: any) {
   emit('update:modelValue', props.value)
   emit('change', event)
 }
-const isChecked = computed<boolean>(() => props.value === props.modelValue)
+const dynamicAttrs = computed(() => props.modelValue !== '' ? { checked: props.value === props.modelValue, ...attrs } : { ...attrs })
 </script>
 
 <template>
@@ -59,8 +59,7 @@ const isChecked = computed<boolean>(() => props.value === props.modelValue)
         type="radio"
         :class="inputClasses"
         :value="value"
-        v-bind="$attrs"
-        :checked="isChecked"
+        v-bind="dynamicAttrs"
         @change="handleChange($event)"
       >
       <span :class="spanClasses" />
