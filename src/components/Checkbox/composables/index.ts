@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
 import { useGlobalHiddenInputClasses } from '../../../composables'
-import type { Description, Rounded, Size, State } from '@/globals/types'
+import type { Color, Description, Rounded, Size, State } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 // import classNames from "classnames";
@@ -12,6 +12,7 @@ interface PropTypes {
   rounded: Ref<Rounded>
   state: Ref<State>
   description: Ref<Description>
+  color: Ref<Color>
 }
 
 export function useCheckboxClasses(props: PropTypes) {
@@ -68,15 +69,15 @@ export function useCheckboxClasses(props: PropTypes) {
         'rounded-full': props.rounded.value === 'full',
       },
       backgroundColor:
-        'bg-secondary-50 dark:bg-secondary-900 peer-checked:bg-primary-500 dark:peer-disabled:bg-secondary-800 peer-disabled:bg-secondary-200',
+        'bg-secondary-50 dark:bg-secondary-900 peer-checked:bg-primary-500 peer-checked:peer-disabled:bg-primary-100',
       borderWidth: 'border peer-checked:border-0',
       borderColor: 'border-secondary-200 dark:border-secondary-700 peer-checked:border-transparent',
-      ringOffsetColor: 'peer-focus-visible:ring-2',
+      ringOffsetWidth: props.state.value !== null ? 'ring-2' : 'peer-focus:ring-2',
       ringColor: {
-        'peer-focus-visible:ring-primary-500/40': props.state.value === null,
-        'peer-focus-visible:ring-warning-500/40': props.state.value === 'warning',
-        'peer-focus-visible:ring-danger-500/40': props.state.value === false,
-        'peer-focus-visible:ring-success-500/40': props.state.value === true,
+        'ring-primary-500/40': props.state.value === null,
+        'ring-warning-500/40': props.state.value === 'warning',
+        'ring-danger-500/40': props.state.value === false,
+        'ring-success-500/40': props.state.value === true,
       },
       transitionProperty: 'transition-colors',
     }
@@ -92,7 +93,6 @@ export function useCheckboxClasses(props: PropTypes) {
       bottom: 'bottom-0',
       margin: 'm-auto',
       display: 'hidden peer-checked:block',
-      textColor: 'text-white peer-disabled:text-secondary-300 dark:peer-disabled:text-secondary-600',
     }
     return Object.values({ ...classes })
   })

@@ -10,6 +10,7 @@ module.exports = plugin(
       // "active",
       // "disabled",
       'focus-visible',
+      'peer-checked',
     ]
     const properties = ['bg', 'text', 'border']
     const rootColors = ['primary', 'secondary', 'success', 'warning', 'danger', 'info']
@@ -20,7 +21,7 @@ module.exports = plugin(
     const luiSafeList = []
 
     states.forEach((state) => {
-      if (state !== 'focus-visible' && state !== '') {
+      if (state !== 'focus-visible' && state !== '' && state !== 'peer-checked') {
         properties.forEach((property) => {
           rootColors.forEach((color) => {
             levels.forEach((level) => {
@@ -37,11 +38,20 @@ module.exports = plugin(
             })
           })
         })
+        rootColors.forEach((color) => {
+          luiSafeList.push(`ring-${color}-500/40`)
+        })
       }
 
       if (state === 'focus-visible') {
         rootColors.forEach((color) => {
           luiSafeList.push(`focus-visible:ring-${color}-500/40`)
+        })
+      }
+      if (state === 'peer-checked') {
+        rootColors.forEach((color) => {
+          luiSafeList.push(`peer-checked:bg-${color}-500`)
+          luiSafeList.push(`peer-checked:peer-disabled:bg-${color}-100`)
         })
       }
       if (state === 'hover' || state === 'focus') {
@@ -53,6 +63,11 @@ module.exports = plugin(
         })
       }
       // added for overlay component background opacity
+      rootColors.forEach((color) => {
+        opacityLevels.forEach((level) => {
+          luiSafeList.push(`bg-${color}-900/${level}`)
+        })
+      })
       rootColors.forEach((color) => {
         opacityLevels.forEach((level) => {
           luiSafeList.push(`bg-${color}-900/${level}`)

@@ -10,7 +10,7 @@ import type { PropType } from 'vue'
 import { computed, toRefs, useAttrs } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
 import { useCheckboxClasses } from './composables/index'
-import type { CheckableModelValue, Description, Rounded, Size, State, Value } from '@/globals/types'
+import type { CheckableModelValue, Color, Description, Rounded, Size, State, Value } from '@/globals/types'
 
 type Indeterminate = false | true
 
@@ -46,6 +46,10 @@ const props = defineProps({
   },
   falseValue: {
     type: [String, Number] as PropType<Value>,
+  },
+  color: {
+    type: String as PropType<Color>,
+    default: 'primary',
   },
 })
 const emit = defineEmits(['update:modelValue', 'change'])
@@ -121,7 +125,7 @@ function handleEmits(value: CheckableModelValue, event: any) {
 </script>
 
 <template>
-  <div class="lui-checkbox inline-block leading-3">
+  <div class="lui-checkbox inline-block leading-3 group">
     <div class="relative inline-flex">
       <input
         class="checkbox"
@@ -144,7 +148,7 @@ function handleEmits(value: CheckableModelValue, event: any) {
       >
         <path
           d="M9.64286 3.42857L4.63393 8.57143L2.35714 6.23376"
-          class="stroke-white dark:stroke-secondary-800"
+          class="stroke-white dark:stroke-secondary-300"
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
