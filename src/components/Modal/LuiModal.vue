@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useId } from '../../utils/useId'
@@ -42,8 +42,10 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['close'])
+const dialogRef = ref<HTMLDivElement>()
 const teleportId = useTeleportWrapper('modal')
 const modalId = `lui-modal-${useId()}`
+
 watch(
   () => props.show,
   (val) => {
@@ -88,15 +90,30 @@ const computedModalClasses = computed(() => {
   }
   return Object.values(classes)
 })
+
+function handleKeyDown(event: Event) {
+  event.preventDefault()
+  event.stopPropagation()
+  emit('close')
+}
+function handleOutsideClick(event: any) {
+  if (event.target instanceof Node && !dialogRef.value?.contains(event?.target))
+    emit('close')
+}
 </script>
 
 <template>
   <Teleport :to="`#${teleportId}`">
     <UseFocusTrap v-if="show" :options="{ immediate: true }">
-      <div class="lui-modal fixed inset-0 z-50 overflow-hidden">
+      <div
+        class="lui-modal fixed inset-0 z-50 overflow-hidden"
+        @keydown.esc="handleKeyDown"
+        @click="handleOutsideClick"
+      >
         <div class="dialog-wrapper" :class="computedDialogWrapperClasses">
           <div
             :id="modalId"
+            ref="dialogRef"
             role="dialog"
             aria-labelledby="lui-modal"
             aria-modal="true"
