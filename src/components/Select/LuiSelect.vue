@@ -12,7 +12,6 @@ import { useId } from '../../utils/useId'
 
 import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 
-// import { useProperPosition } from '../../composables/useProperPosition'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
@@ -86,18 +85,15 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue', 'change', 'update:open'])
 const slots = useSlots()
 const attrs = useAttrs()
-// const selectRef: Ref<InstanceType<typeof LuiInput> | null> = ref(null);
 const selectRef = ref<InstanceType<typeof LuiInput>>()
 const optionsRef = ref<HTMLElement>()
-// const optionRef = ref<CustomType[]>([])
+const optionsWrapperRef = ref<HTMLElement>()
 let isFirstUpdate = true
 const selectWrapperRef = ref<HTMLElement>()
 const optionsActive = ref(false)
 const selectedOption = ref<SelectedOption>({ text: '', value: '' })
 const selectedOptionBackup = ref('')
 const searchQuery = ref<string>('')
-// const selectedOption: Ref<string | ModelValueObject | undefined> =
-//   ref(undefined);
 const listboxState: ListboxStateType = reactive({
   items: [],
   currentIndex: 0,
@@ -107,7 +103,6 @@ const listboxState: ListboxStateType = reactive({
 const selectId = `lui-listbox-button-${useId()}`
 const optionsId = `lui-listbox-wrapper-${useId()}`
 const teleportId = useTeleportWrapper('select')
-// const validSlotTypes = ['LuiOption']
 // const errorMessages = {
 //   type: {
 //     modelValue: 'Wrong type for modelValue, typeof of modelValue should be string',
@@ -117,17 +112,11 @@ const teleportId = useTeleportWrapper('select')
 //   },
 // }
 
-// const { properPosition } = useProperPosition({
-//   triggerEl: selectWrapperRef,
-//   menuEl: optionsRef,
-//   targetPosition: 'bottom',
-// })
-const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: selectWrapperRef, menuEl: optionsRef })
+const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: selectWrapperRef, menuEl: optionsWrapperRef })
 
 useOutsideClick(selectWrapperRef, () => closeListBox())
 
 onMounted(() => {
-  // setInitialSelectedOption()
   setState()
   setInitialSelected()
 })
@@ -145,8 +134,6 @@ watch(
     const rawValue = typeof value !== 'string' ? value?.value : value
     if (rawValue !== selectedOption.value?.value)
       updateSelectedOption(value)
-
-    // updateSelectedOption(value);
   },
 )
 watch(
@@ -154,15 +141,12 @@ watch(
   (val) => {
     if (val !== optionsActive.value)
       optionsActive.value = val
-      // emit('onTrigger', val)
   }, { immediate: true },
 )
 const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
-// const computedOptions = computed(() => props.options.length > 0)
 function isScrollable(element: HTMLElement) {
   return element && element.clientHeight < element.scrollHeight
 }
-// // maintainScrollVisibility(options[index], this.listboxEl);
 function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLElement) {
   const { offsetHeight, offsetTop } = activeElement
   const { offsetHeight: parentOffsetHeight, scrollTop } = scrollParent
@@ -187,6 +171,7 @@ function focusAvailableElement(
     return target?.disabled === undefined || target?.disabled === false
   }
   let targetIndex = listboxState.currentIndex
+
   // set target
   if (initial !== null)
     targetIndex = initial
@@ -308,7 +293,7 @@ function setInitialSelected() {
     return
   }
   if (isPlaceholderUsing) {
-    updateSelectedOption(props.placeholder)
+    updateSelectedOption('')
     return
   }
   if (isOptionsPropUsing) {
@@ -374,7 +359,7 @@ function buttonKeydown(event: KeyboardEvent) {
         handleKeydownEvents(event)
       }
       else {
-        const selectedIndex = listboxState.items.findIndex((item: any) => item?.text === selectedOption.value.text)
+        const selectedIndex = listboxState.items.findIndex((item: any) => item?.text ? item.text === selectedOption.value.text : item === selectedOption.value.text)
         if (selectedIndex === -1)
           focusAvailableElement(optionsRef.value, i => i + 1, 0)
         else focusAvailableElement(optionsRef.value, i => i + 1, selectedIndex)
@@ -385,61 +370,14 @@ function buttonKeydown(event: KeyboardEvent) {
     // code block
   }
 }
-// function handleKeyUp(event: KeyboardEvent) {
-//   switch (event.key) {
-//     case Keys.Space:
-//       // Required for firefox, event.preventDefault() in handleKeyDown for
-//       // the Space key doesn't cancel the handleKeyUp, which in turn
-//       // triggers a *click*.
-//       event.preventDefault();
-//       break;
-//   }
-// }
-
 function optionsKeydown(event: KeyboardEvent) {
   handleKeydownEvents(event)
 }
-// const optionsClasses = computed(() => {
-//   const optionsWrapper: TwClassInterface = {
-//     position: 'absolute',
-//     zIndex: 'z-50',
-//     maxHeight: 'max-h-96',
-//     minWidth: 'min-w-full',
-//     overflow: 'overflow-y-auto',
-//     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-//     borderWidth: 'border',
-//     borderColor: 'border-secondary-200 dark:border-secondary-700',
-//     borderRadius: {
-//       'rounded-md': props.rounded === true,
-//       'rounded-2xl': props.rounded === 'full',
-//     },
-//     padding: {
-//       'p-1.5': props.size === 'xs' || props.size === 'sm',
-//       'p-2': props.size === 'md',
-//       'p-2.5': props.size === 'lg' || props.size === 'xl',
-//     },
-//     boxShadow: 'shadow-lg',
-//     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
-//     top: properPosition.value === 'bottom' ? 'top-full' : '',
-//     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-//     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-1.5' : 'space-y-2',
-//   }
-//   return Object.values({ ...optionsWrapper })
-// })
 
 const selectWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'relative',
     width: props.block ? 'w-full' : 'max-w-max',
-    // pointerEvents:
-    //   attrs?.disabled !== undefined && attrs.disabled === true
-    //     ? "pointer-events-none"
-    //     : "",
-    // cursor: "cursor-wait",
-    // cursor:
-    //   attrs?.disabled !== undefined && attrs.disabled === true
-    //     ? "cursor-not-allowed"
-    //     : "cursor-pointer",
   }
   return Object.values({ ...classes })
 })
@@ -464,14 +402,6 @@ function optionProps(option: string | object) {
     ? { text: option, ...commonProps }
     : { ...option, ...commonProps }
 }
-// function setInputValue() {
-//   return typeof selectedOption.value === 'string'
-//     ? selectedOption.value
-//     : selectedOption.value?.text
-// }
-// const setInputValue = computed(() =>
-//   typeof selectedOption.value === 'string' ? selectedOption.value : selectedOption.value?.text
-// )
 
 function arrowIconSize(size: string) {
   return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
@@ -532,6 +462,7 @@ function resetSelectedOption() {
       v-model="selectedOption.text"
       :readonly="!searchable"
       class="selection:bg-transparent"
+      :placeholder="placeholder"
       autocomplete="off"
       @keydown="buttonKeydown"
       @input="setSearchQuery"
@@ -572,15 +503,16 @@ function resetSelectedOption() {
         <div
           v-show="optionsActive"
           :id="optionsId"
-          ref="optionsRef"
+          ref="optionsWrapperRef"
           :class="menuClasses"
           :style="menuStyles"
         >
           <ul
+            ref="optionsRef"
             aria-orientation="vertical"
             :aria-labelledby="selectId"
             role="listbox"
-            tabindex="0"
+            tabindex="-1"
             :class="size === 'xs' || size === 'sm' ? 'p-1.5' : size === 'md' ? 'p-2' : 'p-2.5'"
             class="space-y-1"
             :aria-activedescendant="listboxState.currentId"

@@ -1,3 +1,10 @@
+<script lang="ts">
+export default {
+  name: 'LuiDropdownItem',
+  inheritAttrs: false,
+}
+</script>
+
 <script setup lang="ts">
 import { computed, ref, useSlots } from 'vue'
 import type { PropType } from 'vue'
@@ -110,12 +117,6 @@ defineExpose({
   focus,
   el: menuItemRef,
 })
-</script>
-
-<script lang="ts">
-export default {
-  name: 'LuiDropdownItem',
-}
 </script>
 
 <template>
