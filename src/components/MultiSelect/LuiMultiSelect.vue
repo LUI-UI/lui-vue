@@ -126,6 +126,7 @@ const searchQuery = ref<string>('')
 const wrapperRef = ref<HTMLDivElement>()
 const searchRef = ref<HTMLInputElement>()
 const optionsRef = ref<HTMLUListElement>()
+const optionsWrapperRef = ref<HTMLElement>()
 const isPlaceholderHolderDelete = ref<boolean>(false)
 const optionsId = `lui-multiselect-wrapper-${useId()}`
 const listboxState: ListboxStateType = reactive({
@@ -152,17 +153,7 @@ provide(ContextKey, {
 })
 
 const { appendClasses, prependClasses } = useInputClasses(toRefs(props), attrs)
-// type TargetPositionType = 'bottom' | 'top'
-// function setTargetPosition(): TargetPositionType {
-//   const positionLowerCase = props.menuPosition.toLowerCase()
-//   return positionLowerCase.includes('bottom') ? 'bottom' : 'top'
-// }
-// const { properPosition } = useProperPosition({
-//   triggerEl: wrapperRef,
-//   menuEl: optionsRef,
-//   targetPosition: setTargetPosition(),
-// })
-const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: wrapperRef, menuEl: optionsRef })
+const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: wrapperRef, menuEl: optionsWrapperRef })
 
 useOutsideClick(wrapperRef, () => {
   searchQuery.value = ''
@@ -331,7 +322,6 @@ const wrapperClasses = computed(() => {
     cursor: props.disabled ? 'cursor-not-allowed' : '',
   }
   return Object.values({ ...classes })
-  // const [block ? 'w-full' : 'max-w-[400px]', props.disabled ? 'cursor-not-allowed' : '']
 })
 function focusAvailableElement(
   el: HTMLElement | undefined,
@@ -344,6 +334,7 @@ function focusAvailableElement(
     return target?.disabled === undefined || target?.disabled === false
   }
   let targetIndex = listboxState.currentIndex
+
   // set target
   if (initial !== null)
     targetIndex = initial
@@ -362,7 +353,6 @@ function focusAvailableElement(
   const currentEl = el?.children[listboxState.currentIndex]
   listboxState.currentId = currentEl?.id as string
   nextTick(() => {
-    // ;(currentEl as HTMLElement)?.focus({ preventScroll: true })
     if (isElementScrollable(optionsRef.value as HTMLElement)) {
       handleScrollVisibility(
         optionsRef.value?.children[listboxState.currentIndex] as HTMLElement,
@@ -698,11 +688,12 @@ function ArrowIcon() {
         <div
           v-show="optionsActive"
           :id="optionsId"
-          ref="optionsRef"
+          ref="optionsWrapperRef"
           :class="menuClasses"
           :style="menuStyles"
         >
           <ul
+            ref="optionsRef"
             aria-orientation="vertical"
             aria-labelledby="selectId"
             role="listbox"
