@@ -1,4 +1,4 @@
-import { nextTick, onMounted, onUnmounted, ref, unref } from 'vue'
+import { nextTick, ref, unref } from 'vue'
 import type { ComponentPublicInstance, Ref } from 'vue'
 
 type TEl = HTMLElement | ComponentPublicInstance | null | undefined | Ref<HTMLElement | undefined | null> | Ref<ComponentPublicInstance | null | undefined>
@@ -21,17 +21,17 @@ export function useElementPosition(el: TEl) {
       top.value = elRect.top
     }
   }
-  // for initial set
-  nextTick(() => setPosition())
-  onMounted(() => {
+
+  function observe() {
     if (window) {
+      nextTick(() => setPosition())
       window.addEventListener('scroll', setPosition)
       window.addEventListener('resize', setPosition)
     }
-  })
-  onUnmounted(() => {
+  }
+  function unobserve() {
     window.removeEventListener('scroll', setPosition)
     window.removeEventListener('resize', setPosition)
-  })
-  return { top, left }
+  }
+  return { top, left, setPosition, observe, unobserve }
 }
