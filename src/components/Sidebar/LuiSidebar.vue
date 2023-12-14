@@ -42,15 +42,6 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 const teleportId = useTeleportWrapper('sidebar')
 
-function createTeleportElement() {
-  const body = document.getElementsByTagName('body')
-  const teleportWrapper = document.createElement('div')
-  teleportWrapper.setAttribute('id', teleportId)
-  body[0].appendChild(teleportWrapper)
-}
-if (typeof window !== 'undefined')
-  createTeleportElement()
-
 watch(
   () => props.show,
   (val) => {
