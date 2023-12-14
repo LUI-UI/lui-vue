@@ -295,6 +295,7 @@ function ArrowDownIcon() {
       >
         <LuiButton
           :id="buttonId"
+          data-testid="lui-menu-dropdown-button"
           type="button"
           aria-haspopup="true"
           :aria-expanded="menuActive"
@@ -347,6 +348,7 @@ function ArrowDownIcon() {
           :style="menuStyles"
         >
           <ul
+
             role="menu"
             :aria-labelledby="buttonId"
             :aria-activedescendant="String(menuState.currentIndex)"
