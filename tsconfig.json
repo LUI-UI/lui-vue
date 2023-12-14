@@ -1,10 +1,10 @@
 {
-  "include": ["src/*.ts", "types", "src/**/*.vue", "src/**/*.ts", ".storybook/**/*.ts", "src/components/Select/LuiSelect.stories.js"],
+  "include": ["src/*.ts", "types", "src/**/*.vue", "src/**/*.ts", ".storybook/**/*.ts"],
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext", "dom.iterable"],
     "importHelpers": true,
-    "declaration": true,
+    "declaration": false,
     "sourceMap": true,
     "strict": true,
     "rootDirs": ["./src", "./.storybook"],
@@ -13,6 +13,7 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
+    "disableSizeLimit": true,
     "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
