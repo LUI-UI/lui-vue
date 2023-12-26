@@ -1,7 +1,7 @@
 {
-  "name": "@lui-ui/lui-vue",
+  "name": "lui-vue-test",
   "type": "module",
-  "version": "0.70.2",
+  "version": "0.70.6",
   "packageManager": "pnpm@8.5.1",
   "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
   "author": "lui-ui",
@@ -23,17 +23,20 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.es.js"
+      "import": {
+        "default": "./dist/index.js",
+        "types": "./dist/index.d.ts"
+      }
     }
   },
-  "main": "./dist/index.es.js",
-  "types": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "index.d.ts",
   "typings": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
-        "dist/*"
+        "./dist/*"
       ]
     }
   },
@@ -139,7 +142,6 @@
     }
   },
   "readme": "ERROR: No README data found!",
-  "_id": "@lui-ui/lui-vue@0.64.3",
   "publishConfig": {
     "access": "public"
   }
