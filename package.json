@@ -1,7 +1,7 @@
 {
-  "name": "lui-vue-test",
+  "name": "@lui-ui/lui-vue",
   "type": "module",
-  "version": "0.70.6",
+  "version": "0.80.0-beta.1",
   "packageManager": "pnpm@8.5.1",
   "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
   "author": "lui-ui",
@@ -25,14 +25,15 @@
     ".": {
       "import": {
         "default": "./dist/index.js",
+        "import": "./dist/index.js",
+        "require": "./dist/index.js",
         "types": "./dist/index.d.ts"
       }
-    }
+    },
+    "./*": "./*"
   },
-  "module": "./dist/index.js",
-  "main": "./dist/index.js",
+  "module": "dist/index.js",
   "types": "index.d.ts",
-  "typings": "./dist/index.d.ts",
   "typesVersions": {
     "*": {
       "*": [
@@ -62,7 +63,9 @@
     "prepare": "husky install",
     "cm": "cz",
     "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
-    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish"
+    "release": "pnpm build && pnpm bumpp --commit='version(beta): release %s' --no-tag && pnpm publish",
+    "release:beta": "pnpm release --tag beta",
+    "release:alpha": "pnpm release --tag alpha"
   },
   "peerDependencies": {
     "tailwindcss": "^3.2.7",

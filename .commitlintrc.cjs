@@ -16,7 +16,7 @@ module.exports = {
         'always',
         [
           'wip', 'feat', 'fix', 'config', 'refactor', 'revert',
-          'chore', 'ci', 'assets', 'test', 'docs', 'init'
+          'chore', 'ci', 'assets', 'test', 'docs', 'init', 'version'
         ],
       ],
     },
