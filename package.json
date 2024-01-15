@@ -1,7 +1,7 @@
 {
   "name": "@lui-ui/lui-vue",
   "type": "module",
-  "version": "0.80.0-beta.9",
+  "version": "0.80.0-beta.10",
   "packageManager": "pnpm@8.5.1",
   "description": "This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.",
   "author": "lui-ui",
@@ -23,23 +23,12 @@
   ],
   "exports": {
     ".": {
-      "import": {
-        "default": "./dist/index.mjs",
-        "types": "./dist/index.d.ts",
-        "import": "./dist/index.mjs"
-      }
-    },
-    "./*": "./*"
-  },
-  "module": "dist/index.mjs",
-  "types": "./dist/index.d.ts",
-  "typesVersions": {
-    "*": {
-      "*": [
-        "./dist/*"
-      ]
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs"
     }
   },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
