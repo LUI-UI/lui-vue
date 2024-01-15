@@ -9,8 +9,8 @@ import type {
   LayoutInterface,
   SizingInterface,
   TwClassInterface,
-} from '@/globals/interfaces'
-import type { Border, Color, Filter, NarrowedVariant, Rounded, Size, Text } from '@/globals/types'
+} from '../../globals/interfaces'
+import type { Border, Color, Filter, NarrowedVariant, Rounded, Size, Text } from '../../globals/types'
 
 const props = defineProps({
   variant: {

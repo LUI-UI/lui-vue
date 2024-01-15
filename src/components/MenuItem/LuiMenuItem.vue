@@ -9,14 +9,14 @@ export default {
 import { computed, ref, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import { useId } from '../../utils/useId'
-import type { MenuItemTag } from './menu-item-types'
-import type { Block, Color, Rounded, Size } from '@/globals/types'
+import type { Block, Color, Rounded, Size } from '../../globals/types'
 import type {
   FlexGridInterface,
   LayoutInterface,
   TwClassInterface,
   TypographyInterface,
-} from '@/globals/interfaces'
+} from '../../globals/interfaces'
+import type { MenuItemTag } from './menu-item-types'
 
 const props = defineProps({
   // disabled: {

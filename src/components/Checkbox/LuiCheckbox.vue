@@ -9,8 +9,8 @@ export default {
 import type { PropType } from 'vue'
 import { computed, toRefs, useAttrs } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
+import type { CheckableModelValue, Color, Description, Rounded, Size, State, Value } from '../../globals/types'
 import { useCheckboxClasses } from './composables/index'
-import type { CheckableModelValue, Color, Description, Rounded, Size, State, Value } from '@/globals/types'
 
 type Indeterminate = false | true
 

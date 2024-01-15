@@ -1,10 +1,9 @@
 import type { Ref } from 'vue'
 import { computed, watch } from 'vue'
+import type { Position } from '../globals/types'
 import { useProperPosition } from './useProperPosition'
 import { useElementPosition } from './useElementPosition'
 import { useElementSize } from './useElementSize'
-
-import type { Position } from '@/globals/types'
 
 interface IMenuClasses {
   triggerEl: Ref<any>

@@ -9,8 +9,8 @@ export default {
 import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
+import type { Description, Size, State } from '../../globals/types'
 import { useRadioClasses } from './composables/index'
-import type { Description, Size, State } from '@/globals/types'
 
 // import { useGlobalCheckbox } from "../../composables/index";
 

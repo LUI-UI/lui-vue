@@ -10,8 +10,8 @@ import { computed, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
 
 import { useGlobalDescriptionClasses } from '../../composables'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '../../globals/types'
 import { useTextareaClasses } from './composables'
-import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
 
 type Resize = true | false | 'y' | 'x'
 const props = defineProps({

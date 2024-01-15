@@ -13,8 +13,8 @@ import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../compos
 
 // import { useMenuPositionStyles } from '../../composables/useMenuPositionStyles'
 import { useId } from '../../utils/useId'
-import type { Block, Color, Filter, Position, Rounded, Size, Variant } from '@/globals/types'
-import type { TwClassInterface } from '@/globals/interfaces'
+import type { Block, Color, Filter, Position, Rounded, Size, Variant } from '../../globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
 
 interface MenuItems {
   disabled?: boolean

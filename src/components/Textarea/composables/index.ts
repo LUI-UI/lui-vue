@@ -3,8 +3,8 @@ import { computed, useSlots } from 'vue'
 // import classNames from "classnames";
 // Types
 import type { Ref } from 'vue'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+import type { TwClassInterface } from '../../../globals/interfaces'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '../../../globals/types'
 
 // Define Prop Types
 type Resize = true | false | 'y' | 'x'

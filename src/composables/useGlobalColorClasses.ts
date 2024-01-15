@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
-import type { BackgroundsInterface, BordersInterface, TypographyInterface } from '@/globals/interfaces'
-import type { Border, Color, Filter, Variant } from '@/globals/types'
+import type { BackgroundsInterface, BordersInterface, TypographyInterface } from '../globals/interfaces'
+import type { Border, Color, Filter, Variant } from '../globals/types'
 
 interface PropTypes {
   color: Ref<Color>

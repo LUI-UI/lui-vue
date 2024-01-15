@@ -9,8 +9,8 @@ import type { PropType } from 'vue'
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 import LuiMenuItem from '../MenuItem/LuiMenuItem.vue'
 import { useId } from '../../utils/useId'
+import type { Size } from '../../globals/types'
 import { ContextKey } from './symbols'
-import type { Size } from '@/globals/types'
 
 const props = defineProps({
   size: {

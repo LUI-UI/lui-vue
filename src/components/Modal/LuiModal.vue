@@ -12,8 +12,8 @@ import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useId } from '../../utils/useId'
 import { useTeleportWrapper } from '../../composables'
 import LuiButton from '../Button/LuiButton.vue'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Size } from '@/globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
+import type { Size } from '../../globals/types'
 
 const props = defineProps({
   show: {

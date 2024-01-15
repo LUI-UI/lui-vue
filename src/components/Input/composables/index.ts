@@ -5,8 +5,8 @@ import { computed, useSlots } from 'vue'
 import type { Ref } from 'vue'
 import type { Clear } from '../input-types'
 import { hasSlotContent } from '../../../utils/hasSlotContent'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
+import type { TwClassInterface } from '../../../globals/interfaces'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '../../../globals/types'
 
 // Define Prop Types
 interface PropTypes {

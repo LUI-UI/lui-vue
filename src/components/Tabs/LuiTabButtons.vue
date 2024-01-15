@@ -7,8 +7,8 @@ export default {
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { PropType } from 'vue'
+import type { TwClassInterface } from '../../globals/interfaces'
 import type { AlignmentTypes } from './types'
-import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   alignTabs: {

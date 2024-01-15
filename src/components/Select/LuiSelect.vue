@@ -15,10 +15,10 @@ import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../compos
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
+import type { Block, Description, Position, Rounded, Size, State, StateIcon } from '../../globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
 import { ContextKey } from './symbols'
 import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
-import type { Block, Description, Position, Rounded, Size, State, StateIcon } from '@/globals/types'
-import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   rounded: {

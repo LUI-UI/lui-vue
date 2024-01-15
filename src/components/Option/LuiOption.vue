@@ -3,8 +3,8 @@ import { computed, inject, nextTick, ref, useSlots, watch } from 'vue'
 import type { PropType } from 'vue'
 import { ContextKey } from '../Select/symbols'
 import { useId } from '../../utils/useId'
-import type { Rounded, Size } from '@/globals/types'
-import type { TwClassInterface } from '@/globals/interfaces'
+import type { Rounded, Size } from '../../globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
 
 export default {
   name: 'LuiOption',

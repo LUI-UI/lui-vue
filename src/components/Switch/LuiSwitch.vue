@@ -9,8 +9,8 @@ export default {
 import { computed, toRef, toRefs, useAttrs } from 'vue'
 import type { PropType } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
+import type { CheckableModelValue, Description, Rounded, Size, State } from '../../globals/types'
 import { useSwitchClasses } from './composables/index'
-import type { CheckableModelValue, Description, Rounded, Size, State } from '@/globals/types'
 
 const props = defineProps({
   size: {

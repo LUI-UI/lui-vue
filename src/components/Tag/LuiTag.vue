@@ -9,8 +9,8 @@ export default {
 import { toRefs, useSlots } from 'vue'
 import type { PropType } from 'vue'
 import { useGlobalColorClasses } from '../../composables'
+import type { Color, Filter, NarrowedVariant, Rounded, Size } from '../../globals/types'
 import { useTagClasses } from './composables'
-import type { Color, Filter, NarrowedVariant, Rounded, Size } from '@/globals/types'
 
 const props = defineProps({
   variant: {

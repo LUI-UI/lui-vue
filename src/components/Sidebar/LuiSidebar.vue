@@ -13,8 +13,8 @@ import { useId } from '../../utils/useId'
 
 // import useFocusTrap from '../../composables/useFocusTrap'
 import LuiButton from '../Button/LuiButton.vue'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Size } from '@/globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
+import type { Size } from '../../globals/types'
 
 type IPosition = 'left' | 'right' | 'bottom' | 'top'
 const props = defineProps({

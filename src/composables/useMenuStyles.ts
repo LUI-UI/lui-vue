@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
+import type { TwClassInterface } from '../globals/interfaces'
+import type { Position, Rounded } from '../globals/types'
 import { useMenuPositionStyles } from './useMenuPositionStyles'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Position, Rounded } from '@/globals/types'
 
 interface IMenuStyles {
   triggerEl: Ref<any>

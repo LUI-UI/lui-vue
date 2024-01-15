@@ -2,8 +2,8 @@ import { computed } from 'vue'
 
 // Types
 import type { Ref } from 'vue'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Color, Filter, Rounded, Size, Variant } from '@/globals/types'
+import type { TwClassInterface } from '../../../globals/interfaces'
+import type { Color, Filter, Rounded, Size, Variant } from '../../../globals/types'
 
 // Define Prop Types
 interface PropTypes {

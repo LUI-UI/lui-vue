@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { computed } from 'vue'
-import type { SpacingInterface, TypographyInterface } from '@/globals/interfaces'
-import type { State } from '@/globals/types'
+import type { SpacingInterface, TypographyInterface } from '../globals/interfaces'
+import type { State } from '../globals/types'
 
 interface DescriptionPropTypes {
   state: Ref<State>

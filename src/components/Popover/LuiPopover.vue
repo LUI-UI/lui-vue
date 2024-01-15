@@ -11,8 +11,8 @@ import { Teleport as TeleportComp, computed, ref, toRef, toRefs, watch } from 'v
 import LuiButton from '../Button/LuiButton.vue'
 import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 import { useId } from '../../utils/useId'
-import type { TwClassInterface } from '@/globals/interfaces'
-import type { Position } from '@/globals/types'
+import type { TwClassInterface } from '../../globals/interfaces'
+import type { Position } from '../../globals/types'
 
 interface TriggerSlotType {
   id: string

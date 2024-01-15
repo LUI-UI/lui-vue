@@ -8,9 +8,9 @@ export default {
 import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
 import type { PropType } from 'vue'
 import { useId } from '../../utils/useId'
+import type { TwClassInterface } from '../../globals/interfaces'
 import { ContextKey } from './symbols'
 import type { AlignmentTypes } from './types'
-import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
   alignContent: {

@@ -187,8 +187,8 @@ const computedBadgeClasses = computed(() => {
 import { computed, defineComponent, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
 import { useGlobalColorClasses } from '../../composables'
-import type { Border, Color, Filter, NarrowedVariant, Size, Text } from '@/globals/types'
-import type { FlexGridInterface, LayoutInterface, TwClassInterface } from '@/globals/interfaces'
+import type { Border, Color, Filter, NarrowedVariant, Size, Text } from '../../globals/types'
+import type { FlexGridInterface, LayoutInterface, TwClassInterface } from '../../globals/interfaces'
 
 type Position = 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 
