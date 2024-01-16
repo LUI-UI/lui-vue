@@ -1,5 +1,5 @@
-import plugin from 'tailwindcss/plugin'
-import colors from 'tailwindcss/colors'
+import plugin from 'tailwindcss/plugin.js'
+import colors from 'tailwindcss/colors.js'
 
 export function luiPlugin(data?: {
   defaultTheme: boolean
