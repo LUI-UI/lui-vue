@@ -1,7 +1,7 @@
 import plugin from 'tailwindcss/plugin'
 import colors from 'tailwindcss/colors'
 
-export function luiPlugins(data?: {
+export function luiPlugin(data?: {
   defaultTheme: boolean
 }) {
   const theme = data?.defaultTheme
@@ -119,3 +119,5 @@ export function luiPlugins(data?: {
     theme,
   )
 }
+
+export default luiPlugin
