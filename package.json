@@ -33,6 +33,10 @@
     "./utils/*": {
       "types": "./dist/utils/*.d.ts",
       "import": "./dist/utils/*.mjs"
+    },
+    "./tailwindcssPlugin": {
+      "types": "./dist/tailwindcssPlugin.d.ts",
+      "import": "./dist/tailwindcssPlugin.mjs"
     }
   },
   "module": "./dist/index.mjs",
@@ -47,6 +51,9 @@
       ],
       "utils/*": [
         "./dist/utils/*"
+      ],
+      "./tailwindcssPlugin": [
+        "./dist/tailwindcssPlugin.d.ts"
       ]
     }
   },
