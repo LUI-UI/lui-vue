@@ -41,6 +41,22 @@
   },
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./*"
+      ],
+      "globals/*": [
+        "./dist/globals/*"
+      ],
+      "utils/*": [
+        "./dist/utils/*"
+      ],
+      "tailwindcssPlugin": [
+        "./dist/tailwindcssPlugin.d.ts"
+      ]
+    }
+  },
   "files": [
     "dist"
   ],
