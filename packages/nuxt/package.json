@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "packageManager": "pnpm@8.13.0",
-  "description": "add description",
+  "description": "LUI Nuxt module",
   "author": "lui-ui",
   "license": "MIT",
   "homepage": "https://github.com/LUI-UI/lui-vue",
@@ -54,6 +54,7 @@
     "vue": ">=3.3.0"
   },
   "dependencies": {
+    "@lui-ui/lui-vue": "latest",
     "@nuxt/kit": "^3.9.3"
   },
   "devDependencies": {

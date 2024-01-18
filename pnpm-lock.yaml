@@ -150,6 +150,9 @@ importers:
 
   packages/nuxt:
     dependencies:
+      '@lui-ui/lui-vue':
+        specifier: latest
+        version: link:../vue
       '@nuxt/kit':
         specifier: ^3.9.3
         version: 3.9.3(rollup@3.29.4)
@@ -6026,7 +6029,7 @@ packages:
     dependencies:
       '@vue-macros/common': 1.10.0(rollup@3.29.4)(vue@3.3.13)
       '@vue/compiler-dom': 3.3.13
-      unplugin: 1.5.1
+      unplugin: 1.6.0
     transitivePeerDependencies:
       - rollup
       - vue
@@ -16062,7 +16065,6 @@ packages:
       chokidar: 3.5.3
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
-    dev: true
 
   /untildify@4.0.0:
     resolution: {integrity: sha512-KK8xQ1mkzZeg9inewmFVDNkg3l5LUhoq9kN6iWYB/CC9YMG8HA+c1Q8HwDe6dEX7kErrEVNVBO3fWsVq5iDgtw==}
