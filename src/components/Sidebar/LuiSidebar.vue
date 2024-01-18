@@ -41,17 +41,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 const teleportId = useTeleportWrapper('sidebar')
-// const teleportId = `lui-sidebar-teleport-${useId()}`
-// const { trapRef } = useFocusTrap()
-
-// function createTeleportElement() {
-//   const body = document.getElementsByTagName('body')
-//   const teleportWrapper = document.createElement('div')
-//   teleportWrapper.setAttribute('id', teleportId)
-//   body[0].appendChild(teleportWrapper)
-// }
-// if (typeof window !== 'undefined')
-//   createTeleportElement()
 
 watch(
   () => props.show,

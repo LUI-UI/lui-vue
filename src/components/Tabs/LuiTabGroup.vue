@@ -12,7 +12,7 @@ import type { TabContext } from './types'
 const props = defineProps({
   selectedIndex: {
     type: Number,
-    default: -1, // left,center,right
+    default: -1,
   },
 })
 
@@ -23,25 +23,23 @@ const context: TabContext = reactive({
   tabs: [],
   panels: [],
 })
+const isItemDisabled = (index: any) => context.tabs[index]?.disabled !== undefined && context.tabs[index].disabled === true
+const isItemValid = (index: any) => index >= 0 && index < context.tabs.length
+const isItemAvailable = (index: any) => !isItemDisabled(index) && isItemValid(index)
+
 watch(
   () => props.selectedIndex,
   (newValue) => {
-    // check item available
-    if (newValue < 0 || newValue > context.tabs.length - 1) {
-      // console.log("the provided selectedIndex is not available");
-      return
-    }
-    // check item disable
-    if (
-      context.tabs[newValue]?.disabled !== undefined
-      && context.tabs[newValue].disabled === true
-    ) {
-      // console.log("the provided selectedIndex is disabled");
-      return
-    }
-    setSelectedIndex(newValue)
+    if (isItemAvailable(newValue))
+      setSelectedIndex(newValue)
   },
 )
+onMounted(() => {
+  if (isItemAvailable(props.selectedIndex))
+    context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0
+  else
+    context.selectedIndex = 0
+})
 
 function registerTab(tab: any) {
   const el = tab.value?.el || tab.value
@@ -64,10 +62,10 @@ function setSelectedIndex(index: number) {
   emit('change', context.selectedIndex)
 }
 
-onMounted(() => {
-  // need the throw an error if one of the required component not provided:
-  context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0
-})
+// onMounted(() => {
+//   // need the throw an error if one of the required component not provided:
+//   context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0
+// })
 provide(ContextKey, {
   context,
   registerTab,

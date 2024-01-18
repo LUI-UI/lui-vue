@@ -30,25 +30,20 @@ const props = defineProps({
     default: () => `lui-tab-button-${useId()}`,
   },
 })
-// const tabButtonId = `lui-tab-button-${useId()}`;
-// const modal = ref<InstanceType<typeof LuiMenuItem> | null>(null)
 const tabRef = ref(null)
 const injection = inject(ContextKey)
 
 onMounted(() => injection?.registerTab(tabRef))
 onUnmounted(() => injection?.unRegisterTab(tabRef))
 const isSelected = computed(() => {
-  // const tabIndex = injection?.context.tabs.findIndex((t) => t.id === props.id);
-  // return tabIndex == injection?.context.selectedIndex;
   const selectedTab = injection?.context.tabs[injection?.context.selectedIndex]
   return selectedTab?.id === props.id
 })
-// const activePanelId = computed(
-//   () => injection?.context.panels[injection.context.selectedIndex]?.id
-// );
 function handleMouseUp() {
   // we do not use click because click event comes after focus,
   // we want to focus tab when click event finish
+  if (props.disabled)
+    return
   const myIndex = injection?.context.tabs.findIndex(t => t.id === props.id)
   injection?.setSelectedIndex(myIndex as number)
 }

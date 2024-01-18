@@ -23,11 +23,11 @@ import { useId } from '../../utils/useId'
 import type { Block, Color, Filter, MenuClasses, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
-interface MenuItems {
+interface IMenuItems {
   disabled?: boolean
 }
-interface MenuStateType {
-  items: MenuItems[]
+interface IMenuState {
+  items: IMenuItems[]
   currentIndex: number
   currentId: string
 }
@@ -96,7 +96,7 @@ const menuActive = ref(false)
 const buttonId = `lui-dropdown-button-${useId()}`
 const menuId = `lui-dropdown-menu-${useId()}`
 
-const menuState: MenuStateType = reactive({
+const menuState = reactive<IMenuState>({
   items: [],
   currentIndex: 0,
   currentId: '',
