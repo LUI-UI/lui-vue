@@ -27,10 +27,7 @@
     "build-storybook": "storybook build",
     "cm": "cz",
     "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
-    "release": "pnpm build && pnpm bumpp --commit='version(beta): release %s' --no-tag",
-    "release:latest": "pnpm release && pnpm publish --tag latest --no-git-checks",
-    "release:beta": "pnpm release && pnpm publish --tag beta --no-git-checks",
-    "release:alpha": "pnpm release && pnpm publish --tag alpha --no-git-checks"
+    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish"
   },
   "peerDependencies": {
     "tailwindcss": "*",
