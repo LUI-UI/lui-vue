@@ -19,7 +19,7 @@ const descriptions = {
       'LuiMenuDropdown, when used with LuiMenuItem, provides a vertical list of selectable options, typically displayed in a dropdown fashion when triggered, allowing users to choose from available menu items.',
   },
   argTypes: {
-    menuPosition: 'Used to control the position of the menu items',
+    placement: 'Used to control the position of the menu items',
     trigger: 'Used to insert a template in the component',
     default: 'Used as default to add a text in the component',
     // triggerAppend: 'Used to place an icon in the component'
@@ -38,20 +38,20 @@ const meta: Meta<typeof LuiMenuDropdown> = {
     filter,
     text,
     // triggerAppend: { description: descriptions.argTypes.triggerAppend },
-    menuPosition: {
+    placement: {
       control: 'select',
-      default: 'bottomLeft',
+      default: 'bottom-start',
       options: [
-        'bottomLeft',
-        'bottomRight',
-        'topLeft',
-        'topRight',
-        'leftTop',
-        'leftBottom',
-        'rightTop',
-        'rightBottom',
+        'top-start',
+        'top-end',
+        'right-start',
+        'right-end',
+        'bottom-start',
+        'bottom-end',
+        'left-start',
+        'left-end',
       ],
-      description: descriptions.argTypes.menuPosition,
+      description: descriptions.argTypes.placement,
     },
     trigger: {
       description: descriptions.argTypes.trigger,
