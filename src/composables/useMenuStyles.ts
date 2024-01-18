@@ -1,25 +1,16 @@
 import { computed } from 'vue'
 import type { Ref } from 'vue'
-import { useMenuPositionStyles } from './useMenuPositionStyles'
 import type { TwClassInterface } from '@/globals/interfaces'
-import type { Position, Rounded } from '@/globals/types'
+import type { MenuClasses, Rounded } from '@/globals/types'
 
 interface IMenuStyles {
-  triggerEl: Ref<any>
-  menuEl: Ref<any>
-  menuPosition: Ref<Position>
   teleport: Ref<boolean>
   rounded?: Ref<Rounded>
+  menuClasses: Ref<MenuClasses>
   [key: string]: any
 }
 
 export function useMenuStyles(params: IMenuStyles) {
-  const { style: menuPositionStyles } = useMenuPositionStyles({
-    triggerEl: params.triggerEl,
-    menuEl: params.menuEl,
-    menuPosition: params.menuPosition.value,
-    teleport: params.teleport.value,
-  })
   const classes = computed(() => {
     const optionsWrapper: TwClassInterface = {
       width: 'w-max',
@@ -37,15 +28,7 @@ export function useMenuStyles(params: IMenuStyles) {
       },
       boxShadow: 'shadow-lg',
     }
-    const wrapperClasses = Object.values({ ...optionsWrapper })
-    return params.menuClasses.value.length > 0
-      ? params.teleport.value
-        ? ['fixed', params.menuClasses.value]
-        : ['absolute', menuPositionStyles.value, params.menuClasses.value]
-      : params.teleport.value
-        ? ['fixed', wrapperClasses]
-        : ['absolute', wrapperClasses, menuPositionStyles.value]
+    return Object.values({ ...optionsWrapper })
   })
-  const styles = computed<{ left: string; top: string } | undefined>(() => params.teleport.value && typeof menuPositionStyles.value !== 'string' ? menuPositionStyles.value : undefined)
-  return { classes, styles, menuPositionStyles }
+  return { classes: params.menuClasses.value.length > 0 ? params.menuClasses : classes }
 }

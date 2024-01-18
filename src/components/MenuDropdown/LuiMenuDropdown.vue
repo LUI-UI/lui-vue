@@ -7,13 +7,20 @@ export default {
 
 <script setup lang="ts">
 import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots, watch } from 'vue'
+import {
+  autoUpdate, flip,
+  offset,
+  shift,
+  useFloating,
+} from '@floating-ui/vue'
 import type { PropType } from 'vue'
+import type { Placement } from '@floating-ui/vue'
+
 import LuiButton from '../Button/LuiButton.vue'
 import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
 
-// import { useMenuPositionStyles } from '../../composables/useMenuPositionStyles'
 import { useId } from '../../utils/useId'
-import type { Block, Color, Filter, Position, Rounded, Size, Variant } from '@/globals/types'
+import type { Block, Color, Filter, MenuClasses, Rounded, Size, Variant } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 interface IMenuItems {
@@ -37,9 +44,9 @@ const props = defineProps({
     type: String as PropType<string>,
     default: '',
   },
-  menuPosition: {
-    type: String as PropType<Position>,
-    default: 'bottomLeft',
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom-end',
   },
   variant: {
     type: String as PropType<Variant>,
@@ -66,7 +73,7 @@ const props = defineProps({
     default: false,
   },
   menuClasses: {
-    type: [String, Array] as PropType<string | string[]>,
+    type: [String, Array] as PropType<MenuClasses>,
     default: '',
   },
   teleport: {
@@ -84,7 +91,7 @@ const slots = useSlots()
 // VARIABLES
 const luiDropdownWrapper = ref<HTMLElement>()
 const luiDropdownTrigger = ref<HTMLDivElement>()
-const luiDropdownMenu = ref<HTMLElement | null>(null)
+const luiDropdownMenu = ref<HTMLElement>()
 const menuActive = ref(false)
 const buttonId = `lui-dropdown-button-${useId()}`
 const menuId = `lui-dropdown-menu-${useId()}`
@@ -96,7 +103,12 @@ const menuState = reactive<IMenuState>({
 })
 const teleportId = useTeleportWrapper('dropdown')
 
-const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: luiDropdownWrapper, menuEl: luiDropdownMenu })
+const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
+const { floatingStyles, middlewareData } = useFloating(luiDropdownTrigger, luiDropdownMenu, {
+  placement: props.placement,
+  middleware: [offset(6), flip(), shift()],
+  whileElementsMounted: autoUpdate,
+})
 
 watch(
   () => props.open,
@@ -277,6 +289,8 @@ function ArrowDownIcon() {
     ],
   )
 }
+
+const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hide?.referenceHidden)
 </script>
 
 <template>
@@ -340,11 +354,11 @@ function ArrowDownIcon() {
         leave-to-class="transform scale-95 opacity-0 "
       >
         <div
-          v-show="menuActive"
+          v-show="isMenuActive"
           :id="menuId"
           ref="luiDropdownMenu"
           :class="menuClasses"
-          :style="menuStyles"
+          :style="floatingStyles"
         >
           <ul
             role="menu"

@@ -8,6 +8,7 @@ export type Border = true | false
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 export type State = true | false | string | null
 export type Description = string | null
+export type MenuClasses = string | string[]
 export type Value = string | number
 export type CheckableModelValue = Value[] | boolean | string | number
 export type Text = string

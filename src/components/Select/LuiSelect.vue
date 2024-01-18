@@ -8,6 +8,13 @@ export default {
 <script setup lang="ts">
 import { Fragment, Teleport as TeleportComp, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
 import type { PropType } from 'vue'
+import {
+  autoUpdate, flip,
+  offset,
+  shift,
+  useFloating,
+} from '@floating-ui/vue'
+import type { Placement } from '@floating-ui/vue'
 import { useId } from '../../utils/useId'
 
 import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
@@ -17,7 +24,7 @@ import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 import { ContextKey } from './symbols'
 import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
-import type { Block, Description, Position, Rounded, Size, State, StateIcon } from '@/globals/types'
+import type { Block, Description, Rounded, Size, State, StateIcon } from '@/globals/types'
 import type { TwClassInterface } from '@/globals/interfaces'
 
 const props = defineProps({
@@ -65,9 +72,9 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  menuPosition: {
-    type: String as PropType<Position>,
-    default: 'bottomLeft',
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom-end',
   },
   menuClasses: {
     type: [String, Array] as PropType<string | string[]>,
@@ -88,12 +95,12 @@ const attrs = useAttrs()
 const selectRef = ref<InstanceType<typeof LuiInput>>()
 const optionsRef = ref<HTMLElement>()
 const optionsWrapperRef = ref<HTMLElement>()
-let isFirstUpdate = true
 const selectWrapperRef = ref<HTMLElement>()
 const optionsActive = ref(false)
 const selectedOption = ref<SelectedOption>({ text: '', value: '' })
 const selectedOptionBackup = ref('')
 const searchQuery = ref<string>('')
+let isFirstUpdate = true
 const listboxState: ListboxStateType = reactive({
   items: [],
   currentIndex: 0,
@@ -112,9 +119,14 @@ const teleportId = useTeleportWrapper('select')
 //   },
 // }
 
-const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: selectWrapperRef, menuEl: optionsWrapperRef })
+const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
 
 useOutsideClick(selectWrapperRef, () => closeListBox())
+const { floatingStyles, middlewareData } = useFloating(selectWrapperRef, optionsWrapperRef, {
+  placement: props.placement,
+  middleware: [offset(6), flip(), shift()],
+  whileElementsMounted: autoUpdate,
+})
 
 onMounted(() => {
   setState()
@@ -441,6 +453,7 @@ function resetSelectedOption() {
       toggleOptions()
   }
 }
+const isOptionsActive = computed(() => optionsActive.value && !middlewareData.value.hide?.referenceHidden)
 </script>
 
 <template>
@@ -501,11 +514,11 @@ function resetSelectedOption() {
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-show="optionsActive"
+          v-show="isOptionsActive"
           :id="optionsId"
           ref="optionsWrapperRef"
           :class="menuClasses"
-          :style="menuStyles"
+          :style="floatingStyles"
         >
           <ul
             ref="optionsRef"

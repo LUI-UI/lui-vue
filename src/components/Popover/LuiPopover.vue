@@ -6,13 +6,20 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { Teleport as TeleportComp, computed, ref, watch } from 'vue'
 import type { PropType } from 'vue'
-import { Teleport as TeleportComp, computed, ref, toRef, toRefs, watch } from 'vue'
+import {
+  autoUpdate,
+  flip,
+  hide,
+  offset,
+  shift, useFloating,
+} from '@floating-ui/vue'
+import type { Placement } from '@floating-ui/vue'
 import LuiButton from '../Button/LuiButton.vue'
-import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
+import { useOutsideClick, useTeleportWrapper } from '../../composables'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '@/globals/interfaces'
-import type { Position } from '@/globals/types'
 
 interface TriggerSlotType {
   id: string
@@ -23,9 +30,9 @@ interface TriggerSlotType {
   click: () => void
 }
 const props = defineProps({
-  dialogPosition: {
-    type: String as PropType<Position>,
-    default: 'bottomLeft',
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom-end',
   },
   text: {
     type: String as PropType<String>,
@@ -45,7 +52,6 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['onTrigger', 'update:open'])
-
 const dialogActive = ref(false)
 const triggerRef = ref<HTMLElement>()
 const dialogWrapperRef = ref<HTMLElement>()
@@ -53,15 +59,14 @@ const dialogId = `lui-popopver-dialog-${useId()}`
 const triggerId = `lui-popover-trigger-${useId()}`
 const teleportId = useTeleportWrapper('popover')
 
+const { floatingStyles, middlewareData } = useFloating(triggerRef, dialogWrapperRef, {
+  placement: props.placement,
+  strategy: props.teleport ? 'fixed' : 'absolute',
+  whileElementsMounted: autoUpdate,
+  middleware: [offset(6), flip(), shift(), hide()],
+})
+
 useOutsideClick(triggerRef, () => closeDialog())
-const { styles: menuStyles, menuPositionStyles } = useMenuStyles(
-  {
-    ...toRefs(props),
-    menuPosition: toRef(props, 'dialogPosition'),
-    triggerEl: triggerRef,
-    menuEl: dialogWrapperRef,
-  },
-)
 
 watch(
   () => props.open,
@@ -84,7 +89,7 @@ const triggerSlotProps = computed<TriggerSlotType>(() => ({
 
 const dialogWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
-    position: props.teleport ? 'fixed' : 'absolute',
+    // position: props.teleport ? 'fixed' : 'absolute',
     zIndex: 'z-50',
     width: props.teleport ? 'w-max' : props.block ? 'w-full' : 'w-max',
   }
@@ -104,6 +109,7 @@ function closeDialog() {
     emit('update:open', false)
   }
 }
+const isDialogActive = computed(() => dialogActive.value && !middlewareData.value.hide?.referenceHidden)
 </script>
 
 <template>
@@ -131,13 +137,14 @@ function closeDialog() {
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-show="dialogActive" :id="dialogId"
+          v-show="isDialogActive"
+          :id="dialogId"
           ref="dialogWrapperRef"
           :aria-labelledby="triggerId"
           role="dialog"
           tabindex="-1"
-          :class="[dialogWrapperClasses, !teleport ? menuPositionStyles : '']"
-          :style="menuStyles"
+          :class="dialogWrapperClasses"
+          :style="floatingStyles"
         >
           <slot />
         </div>
