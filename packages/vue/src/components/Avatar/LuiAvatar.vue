@@ -3,13 +3,6 @@ import { computed, ref, toRefs } from 'vue'
 import type { PropType } from 'vue'
 
 import { useGlobalColorClasses } from '../../composables'
-import type {
-  BordersInterface,
-  FlexGridInterface,
-  LayoutInterface,
-  SizingInterface,
-  TwClassInterface,
-} from '../../globals/interfaces'
 import type { Border, Color, Filter, NarrowedVariant, Rounded, Size, Text } from '../../globals/types'
 
 const props = defineProps({
@@ -56,7 +49,7 @@ const { backgroundColorClasses, textColorClasses, borderColorClasses } = useGlob
 )
 
 const computedImageClasses = computed(() => {
-  const containerClasses: LayoutInterface | SizingInterface | BordersInterface = {
+  const containerClasses = {
     borderWidth: 'border',
     borderStyle: 'border-solid',
     display: 'block',
@@ -73,7 +66,7 @@ const computedImageClasses = computed(() => {
 })
 
 const computedIconClasses = computed(() => {
-  const iconClasses: LayoutInterface | FlexGridInterface = {
+  const iconClasses = {
     display: 'flex',
     justifyContent: 'justify-center',
     alignItems: 'items-center',
@@ -82,7 +75,7 @@ const computedIconClasses = computed(() => {
 })
 
 const computedAvatarClasses = computed(() => {
-  const avatarClasses: TwClassInterface = {
+  const avatarClasses = {
     display: 'flex',
     borderRadius: {
       'rounded-lg': props.rounded === true,
