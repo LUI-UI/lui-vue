@@ -2,8 +2,8 @@ import type { StorybookConfig } from '@storybook/vue3-vite'
 import remarkGfm from 'remark-gfm'
 
 const config: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.@(js|ts)'],
-  staticDirs: ['../src'],
+  stories: ['../packages/vue/src/components/**/*.stories.@(js|ts)'],
+  staticDirs: ['../packages/vue/src'],
   addons: [
     {
       name: '@storybook/addon-docs',

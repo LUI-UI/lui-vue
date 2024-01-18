@@ -1,0 +1,30 @@
+{
+  "name": "@lui-ui/lui-tailwindcss",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Lui Tailwindcss",
+  "author": "lui-ui",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "unbuild",
+    "prepack": "pnpm build",
+    "release": "pnpm build && pnpm bumpp --commit='version(beta): release %s' --no-tag",
+    "release:latest": "pnpm release && pnpm publish --tag latest --no-git-checks",
+    "release:beta": "pnpm release && pnpm publish --tag beta --no-git-checks",
+    "release:alpha": "pnpm release && pnpm publish --tag alpha --no-git-checks"
+  },
+  "peerDependencies": {
+    "tailwindcss": "*",
+    "vue": "^3.2.26"
+  },
+  "require": "./dist/index.cjs"
+}

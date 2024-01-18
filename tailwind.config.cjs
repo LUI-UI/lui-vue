@@ -1,6 +1,7 @@
-const luiUi = require('./src/plugin/lui-ui')
+import { luiPlugin } from './packages/tailwindcss/src'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  plugins: [luiUi],
+  content: ['./packages/vue/src/**/*.{vue,js,ts,jsx,tsx}'],
+  plugins: [luiPlugin()],
 }
