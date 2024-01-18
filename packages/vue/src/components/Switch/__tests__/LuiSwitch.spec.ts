@@ -54,7 +54,7 @@ const spanSizeMD = [
 ]
 const stateNull = ['peer-focus-visible:ring-primary-500/40']
 
-describe('LuiSwitch.vue', () => {
+describe('luiSwitch.vue', () => {
   // disabled - size - state - description
   it('renders properly switch html structure', () => {
     const wrapper = mount(LuiSwitch)

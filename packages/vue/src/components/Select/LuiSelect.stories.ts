@@ -401,7 +401,7 @@ export const Change: Story = {
     components: { LuiSelect },
     setup() {
       const selectedName = ref('')
-      const consoleLog = () => console.log('selectedName: ', selectedName)
+      const consoleLog = () => console.warn('selectedName: ', selectedName)
       return { selectedName, consoleLog }
     },
     template: changeTemplate,

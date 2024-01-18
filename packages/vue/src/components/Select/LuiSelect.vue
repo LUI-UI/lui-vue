@@ -141,7 +141,8 @@ watch(
   (val) => {
     if (val !== optionsActive.value)
       optionsActive.value = val
-  }, { immediate: true },
+  },
+  { immediate: true },
 )
 const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
 function isScrollable(element: HTMLElement) {

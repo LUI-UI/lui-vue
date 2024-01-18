@@ -16,7 +16,7 @@ const props = defineProps({
     default: 'left',
   },
   customStyle: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
 })

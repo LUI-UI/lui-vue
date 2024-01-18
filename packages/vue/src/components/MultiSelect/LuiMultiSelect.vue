@@ -1,7 +1,19 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import {
-  Fragment, Teleport as TeleportComp, computed, h, nextTick, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch,
+  Fragment,
+  Teleport as TeleportComp,
+  computed,
+  h,
+  nextTick,
+  provide,
+  reactive,
+  ref,
+  toRef,
+  toRefs,
+  useAttrs,
+  useSlots,
+  watch,
 } from 'vue'
 import type { Block, Color, Description, Filter, NarrowedVariant, Position, Rounded, Size, State, StateIcon } from '../../globals/types'
 import type {
@@ -176,7 +188,8 @@ watch(
       optionsActive.value = val
       emit('onTrigger', val)
     }
-  }, { immediate: true },
+  },
+  { immediate: true },
 )
 const isValueUsing = computed(() => listboxState.items.length > 0 && typeof listboxState.items[0] !== 'string' && listboxState.items[0]?.value !== undefined && listboxState.items[0].value.length > 0)
 const selectedOptionsAsText = computed(() =>
@@ -609,21 +622,18 @@ function LuiText(option: any, index: number) {
 }
 
 function ArrowIcon() {
-  return h('svg',
-    {
-      viewBox: '0 0 12 12',
-      width: arrowIconSize(props.size),
-      height: arrowIconSize(props.size),
+  return h('svg', {
+    viewBox: '0 0 12 12',
+    width: arrowIconSize(props.size),
+    height: arrowIconSize(props.size),
+    fill: 'currentColor',
+    xmlns: 'http://www.w3.org/2000/svg',
+  }, [
+    h('path', {
+      d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
       fill: 'currentColor',
-      xmlns: 'http://www.w3.org/2000/svg',
-    },
-    [
-      h('path', {
-        d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
-        fill: 'currentColor',
-      }),
-    ],
-  )
+    }),
+  ])
 }
 </script>
 

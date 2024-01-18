@@ -46,6 +46,6 @@ export function useMenuStyles(params: IMenuStyles) {
         ? ['fixed', wrapperClasses]
         : ['absolute', wrapperClasses, menuPositionStyles.value]
   })
-  const styles = computed<{ left: string; top: string } | undefined>(() => params.teleport.value && typeof menuPositionStyles.value !== 'string' ? menuPositionStyles.value : undefined)
+  const styles = computed<{ left: string, top: string } | undefined>(() => params.teleport.value && typeof menuPositionStyles.value !== 'string' ? menuPositionStyles.value : undefined)
   return { classes, styles, menuPositionStyles }
 }

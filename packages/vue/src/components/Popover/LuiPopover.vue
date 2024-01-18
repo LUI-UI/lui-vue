@@ -28,11 +28,11 @@ const props = defineProps({
     default: 'bottomLeft',
   },
   text: {
-    type: String as PropType<String>,
+    type: String as PropType<string>,
     default: '',
   },
   block: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   teleport: {
@@ -70,7 +70,8 @@ watch(
       dialogActive.value = val
       emit('onTrigger', val)
     }
-  }, { immediate: true },
+  },
+  { immediate: true },
 )
 const triggerSlotProps = computed<TriggerSlotType>(() => ({
   'id': triggerId,

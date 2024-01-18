@@ -10,23 +10,23 @@ const config: StorybookConfig = {
       options: {
         mdxPluginOptions: {
           mdxCompileOptions: {
-            remarkPlugins: [remarkGfm]
-          }
-        }
-      }
+            remarkPlugins: [remarkGfm],
+          },
+        },
+      },
     },
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    'storybook-darkmode-vue/register'
+    'storybook-darkmode-vue/register',
   ],
   docs: {
-    autodocs: true
+    autodocs: true,
   },
   framework: {
     name: '@storybook/vue3-vite',
-    options: {}
-  }
+    options: {},
+  },
 }
 
 export default config

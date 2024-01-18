@@ -119,7 +119,7 @@ export function useMenuPositionStyles(params: IMenuClasses) {
     else
       unobserveTrigger()
   })
-  function positionStyles({ position, menu, trigger }: TPositionParams): { top: string; left: string } {
+  function positionStyles({ position, menu, trigger }: TPositionParams): { top: string, left: string } {
     if (!params.triggerEl.value || !params.menuEl.value)
       return { left: '0px', top: '0px' }
     const space = 6 // space between menu and trigger

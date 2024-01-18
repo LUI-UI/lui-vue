@@ -44,7 +44,7 @@ const props = defineProps({
     default: false,
   },
   customStyle: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
 })

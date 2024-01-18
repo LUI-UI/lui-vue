@@ -8,14 +8,7 @@ const meta: Meta<typeof LuiPopover> = {
   argTypes: {
     dialogPosition: {
       control: 'select',
-      options: ['bottomLeft',
-        'bottomRight',
-        'topLeft',
-        'topRight',
-        'leftTop',
-        'leftBottom',
-        'rightTop',
-        'rightBottom'],
+      options: ['bottomLeft', 'bottomRight', 'topLeft', 'topRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'],
     },
     text: {
       control: 'text',

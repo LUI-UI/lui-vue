@@ -13,11 +13,11 @@ import type { TwClassInterface } from '../../globals/interfaces'
 
 const props = defineProps({
   show: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   fixed: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   color: {
@@ -37,11 +37,11 @@ const props = defineProps({
     default: 'none',
   },
   disableBlur: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   noCenter: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
 })

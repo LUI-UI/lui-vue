@@ -4,6 +4,7 @@ import colors from 'tailwindcss/colors'
 import { addons } from '@storybook/preview-api'
 import type { Preview } from '@storybook/vue3'
 import DocumentationTemplate from './documentationTemplate.mdx'
+
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -13,50 +14,50 @@ const preview: Preview = {
       values: [
         {
           name: 'white',
-          value: '#FFFFFF'
+          value: '#FFFFFF',
         },
         {
           name: 'black',
-          value: '#000000'
+          value: '#000000',
         },
         {
           name: 'dark',
-          value: colors.gray[800]
+          value: colors.gray[800],
         },
         {
           name: 'light',
-          value: colors.gray[100]
+          value: colors.gray[100],
         },
         {
           name: 'warning',
-          value: colors.yellow[500]
+          value: colors.yellow[500],
         },
         {
           name: 'danger',
-          value: colors.red[500]
+          value: colors.red[500],
         },
         {
           name: 'primary',
-          value: colors.blue[500]
+          value: colors.blue[500],
         },
         {
           name: 'success',
-          value: colors.green[500]
+          value: colors.green[500],
         },
         {
           name: 'info',
-          value: colors.cyan[500]
+          value: colors.cyan[500],
         },
         {
           name: 'secondary',
-          value: colors.gray[500]
-        }
-      ]
+          value: colors.gray[500],
+        },
+      ],
     },
     docs: {
-      page: DocumentationTemplate
-    }
-  }
+      page: DocumentationTemplate,
+    },
+  },
 }
 
 export default preview
@@ -67,9 +68,8 @@ const channel = addons.getChannel()
 
 // switch body class for story along with interface theme
 channel.on('STORYBOOK_DARK_MODE_VUE', (isDark) => {
-  if (isDark) {
+  if (isDark)
     document.body.classList.add('dark')
-  } else {
+  else
     document.body.classList.remove('dark')
-  }
 })

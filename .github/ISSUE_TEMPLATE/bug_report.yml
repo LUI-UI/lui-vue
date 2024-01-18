@@ -29,15 +29,15 @@ body:
     attributes:
       label: Do you know how to fix the issue
       options:
-        - 'Yes'
-        - 'No'
+        - Yes
+        - No
   - type: dropdown
     id: participate
     attributes:
       label: Are you willing to participate in fixing this issue and create a pull request with the fix
       options:
-        - 'Yes'
-        - 'No'
+        - Yes
+        - No
   - type: textarea
     id: possibleFix
     attributes:

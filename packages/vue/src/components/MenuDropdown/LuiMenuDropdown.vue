@@ -105,7 +105,8 @@ watch(
       menuActive.value = val
       emit('onTrigger', val)
     }
-  }, { immediate: true },
+  },
+  { immediate: true },
 )
 const dropdownWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
@@ -269,11 +270,10 @@ function ArrowDownIcon() {
       height: triggerIconSize(props.size),
     },
     [
-      h('path',
-        {
-          fill: 'white',
-          d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
-        }),
+      h('path', {
+        fill: 'white',
+        d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
+      }),
     ],
   )
 }

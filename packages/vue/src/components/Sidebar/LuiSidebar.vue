@@ -19,11 +19,11 @@ import type { Size } from '../../globals/types'
 type IPosition = 'left' | 'right' | 'bottom' | 'top'
 const props = defineProps({
   show: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: false,
   },
   showIcon: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: true,
   },
   size: {
@@ -35,7 +35,7 @@ const props = defineProps({
     default: 'right',
   },
   padding: {
-    type: Boolean as PropType<Boolean>,
+    type: Boolean as PropType<boolean>,
     default: true,
   },
 })

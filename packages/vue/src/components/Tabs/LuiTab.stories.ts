@@ -161,7 +161,7 @@ export const Change: Story = {
       LuiTabPanel,
     },
     setup() {
-      const consoleLog = () => console.log('Event executed')
+      const consoleLog = () => console.warn('Event executed')
       return { consoleLog }
     },
     template: changeTemplate,
