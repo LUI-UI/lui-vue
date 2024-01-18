@@ -161,7 +161,7 @@ provide(ContextKey, {
 })
 
 const { appendClasses, prependClasses } = useInputClasses(toRefs(props), attrs)
-// const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: wrapperRef, menuEl: optionsWrapperRef })
+
 const { floatingStyles, middlewareData } = useFloating(wrapperRef, optionsWrapperRef, {
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],

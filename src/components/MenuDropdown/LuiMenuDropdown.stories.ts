@@ -491,7 +491,7 @@ export const PrependSlot: Story = {
 }
 
 const menuPositionTemplate = `
-<lui-menu-dropdown v-for="position in positions" :key="position" :menu-position="position" :text="position">
+<lui-menu-dropdown v-for="position in positions" :key="position" :placement="position" :text="position">
   <lui-menu-item>Some long items for center</lui-menu-item>
   <lui-menu-item>Some long items for center</lui-menu-item>
   <lui-menu-item>Some long items for center</lui-menu-item>
@@ -502,18 +502,14 @@ export const MenuPosition: Story = {
   render: () => ({
     setup() {
       const positions = [
-        'bottomLeft',
-        'bottomRight',
-        'bottom',
-        'topLeft',
-        'topRight',
-        'top',
-        'leftTop',
-        'leftBottom',
-        'left',
-        'rightTop',
-        'rightBottom',
-        'right',
+        'top-start',
+        'top-end',
+        'right-start',
+        'right-end',
+        'bottom-start',
+        'bottom-end',
+        'left-start',
+        'left-end',
       ]
       return { positions }
     },
