@@ -18,7 +18,7 @@
     "node": ">=16"
   },
   "scripts": {
-    "build": "pnpm --filter './packages/**' run prepack",
+    "build": "pnpm --filter './packages/**' run build",
     "lint": "eslint .",
     "fix": "eslint --fix .",
     "safelist": "npx tailwindcss build",
