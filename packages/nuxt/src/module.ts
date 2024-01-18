@@ -1,4 +1,4 @@
-import { addComponent, addPlugin, createResolver, defineNuxtModule } from '@nuxt/kit'
+import { addComponent, defineNuxtModule } from '@nuxt/kit'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
