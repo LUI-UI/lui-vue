@@ -1,7 +1,7 @@
 {
   "name": "@lui-ui/lui-nuxt",
   "type": "module",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "packageManager": "pnpm@8.13.0",
   "description": "LUI Nuxt module",
   "author": "lui-ui",
@@ -39,7 +39,7 @@
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-    "release": "pnpm build && pnpm bumpp --commit='version(nuxt): release %s' --no-tag",
+    "release": "pnpm prepack && pnpm bumpp --commit='version(nuxt): release %s' --no-tag",
     "release:latest": "pnpm release && pnpm publish --tag latest --no-git-checks",
     "release:beta": "pnpm release && pnpm publish --tag beta --no-git-checks",
     "release:alpha": "pnpm release && pnpm publish --tag alpha --no-git-checks",
