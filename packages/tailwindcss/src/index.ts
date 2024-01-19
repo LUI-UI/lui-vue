@@ -1,30 +1,9 @@
+/* eslint-disable antfu/top-level-function */
 import plugin from 'tailwindcss/plugin.js'
-import colors from 'tailwindcss/colors.js'
 
-export function luiPlugin(data?: {
-  defaultTheme: boolean
-}) {
-  const theme = data?.defaultTheme
-    ? {}
-    : {
-        theme: {
-          extend: {
-            colors: {
-              primary: colors.blue,
-              secondary: colors.gray,
-              success: colors.green,
-              warning: colors.amber,
-              danger: colors.red,
-              info: colors.sky,
-              white: '#ffffff',
-              black: '#000000',
-              light: colors.gray[50],
-              dark: colors.gray[900],
-            },
-          },
-        },
-      }
+// import colors from 'tailwindcss/colors.js'
 
+const luiPlugin = () => {
   return plugin(
     ({ config }) => {
       const _config = config()
@@ -116,8 +95,9 @@ export function luiPlugin(data?: {
 
       _config.safelist = uniqueSafeList
     },
-    theme,
   )
 }
 
-export default luiPlugin
+export {
+  luiPlugin,
+}
