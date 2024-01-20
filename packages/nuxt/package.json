@@ -1,7 +1,7 @@
 {
   "name": "@lui-ui/lui-nuxt",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "packageManager": "pnpm@8.13.0",
   "description": "LUI Nuxt module",
   "author": "lui-ui",
