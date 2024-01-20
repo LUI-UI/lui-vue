@@ -27,7 +27,8 @@
     "build-storybook": "storybook build",
     "cm": "cz",
     "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
-    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish"
+    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish",
+    "prepare": "npx simple-git-hooks"
   },
   "peerDependencies": {
     "tailwindcss": "*",
@@ -75,6 +76,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remixicon": "^2.5.0",
+    "simple-git-hooks": "^2.9.0",
     "storybook": "^7.6.9",
     "storybook-darkmode-vue": "^1.1.8",
     "tailwind-safelist-generator": "^1.0.0",
@@ -87,11 +89,11 @@
       "commit-msg": "commitlint -E  HUSKY_GIT_PARAMS"
     }
   },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
   "lint-staged": {
-    "*.{js,ts,vue}": [
-      "npm run lint",
-      "npm run fix"
-    ]
+    "*": "pnpm eslint . --fix"
   },
   "config": {
     "commitizen": {

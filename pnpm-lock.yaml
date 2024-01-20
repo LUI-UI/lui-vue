@@ -129,6 +129,9 @@ importers:
       remixicon:
         specifier: ^2.5.0
         version: 2.5.0
+      simple-git-hooks:
+        specifier: ^2.9.0
+        version: 2.9.0
       storybook:
         specifier: ^7.6.9
         version: 7.6.9
@@ -190,9 +193,6 @@ importers:
       playwright-core:
         specifier: ^1.41.0
         version: 1.41.0
-      simple-git-hooks:
-        specifier: ^2.9.0
-        version: 2.9.0
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
