@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.3](https://github.com/LUI-UI/lui-vue/compare/v0.70.2...v0.70.3) (2024-01-18)
+
+
+### Bug Fixes
+
+* **menu:** fix menu position bug when page resized or target element scrolled ([936fd78](https://github.com/LUI-UI/lui-vue/commit/936fd7838b3ea202f49e1ea8f5d29df3931d023a))
+* **sidebar:** fix conflict merge with main ([09ec88a](https://github.com/LUI-UI/lui-vue/commit/09ec88a1eeea5919cab780071e4c728bc870056f))
+* **sidebar:** fix sidebar teleport init ([51bfaef](https://github.com/LUI-UI/lui-vue/commit/51bfaef1275adbdd66a38e6607350547ed7ec1e4))
+* **sidebar:** use composable to create teleport-wrapper ([b7416fc](https://github.com/LUI-UI/lui-vue/commit/b7416fc279fd5725e85f0330d0341deca21adbc8))
+* **storybook:** fix menuPosition arg-types as plecement in stories ([7205eb4](https://github.com/LUI-UI/lui-vue/commit/7205eb4debf26f236d11f92a7ebfbbf505df5b81))
+* **tab:** fix tab component disabled bug ([5d0a864](https://github.com/LUI-UI/lui-vue/commit/5d0a864700ad19a087e8267c0e4fb75a35bbbbbe))
+
 ## [0.70.2](https://github.com/LUI-UI/lui-vue/compare/v0.70.1...v0.70.2) (2023-11-20)
 
 

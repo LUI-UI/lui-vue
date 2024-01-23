@@ -34,11 +34,6 @@
     "tailwindcss": "*",
     "vue": "^3.2.26"
   },
-  "dependencies": {
-    "@vueuse/integrations": "^10.3.0",
-    "focus-trap": "^7.5.2",
-    "unplugin-vue-macros": "^2.7.3"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "2.6.3",
     "@babel/core": "^7.19.6",

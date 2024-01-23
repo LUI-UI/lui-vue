@@ -15,7 +15,15 @@ import {
   useSlots,
   watch,
 } from 'vue'
-import type { Block, Color, Description, Filter, NarrowedVariant, Position, Rounded, Size, State, StateIcon } from '../../globals/types'
+import {
+  autoUpdate,
+  flip,
+  offset,
+  shift,
+  useFloating,
+} from '@floating-ui/vue'
+import type { Placement } from '@floating-ui/vue'
+import type { Block, Color, Description, Filter, NarrowedVariant, Rounded, Size, State, StateIcon } from '../../globals/types'
 import type {
   ListboxStateType,
   ModelValue,
@@ -102,9 +110,9 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
-  menuPosition: {
-    type: String as PropType<Position>,
-    default: 'bottomLeft',
+  placement: {
+    type: String as PropType<Placement>,
+    default: 'bottom-end',
   },
   teleport: {
     type: Boolean as PropType<boolean>,
@@ -146,6 +154,7 @@ const listboxState: ListboxStateType = reactive({
   currentIndex: 0,
   currentId: '',
 })
+const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
 const teleportId = useTeleportWrapper('multi-select')
 nextTick(() => {
   if (isOptionsValid()) {
@@ -165,7 +174,12 @@ provide(ContextKey, {
 })
 
 const { appendClasses, prependClasses } = useInputClasses(toRefs(props), attrs)
-const { classes: menuClasses, styles: menuStyles } = useMenuStyles({ ...toRefs(props), triggerEl: wrapperRef, menuEl: optionsWrapperRef })
+
+const { floatingStyles, middlewareData } = useFloating(wrapperRef, optionsWrapperRef, {
+  placement: props.placement,
+  middleware: [offset(6), flip(), shift()],
+  whileElementsMounted: autoUpdate,
+})
 
 useOutsideClick(wrapperRef, () => {
   searchQuery.value = ''
@@ -635,6 +649,8 @@ function ArrowIcon() {
     }),
   ])
 }
+
+const isOptionsActive = computed(() => optionsActive.value && !middlewareData.value.hide?.referenceHidden)
 </script>
 
 <template>
@@ -696,11 +712,11 @@ function ArrowIcon() {
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-show="optionsActive"
+          v-show="isOptionsActive"
           :id="optionsId"
           ref="optionsWrapperRef"
           :class="menuClasses"
-          :style="menuStyles"
+          :style="floatingStyles"
         >
           <ul
             ref="optionsRef"

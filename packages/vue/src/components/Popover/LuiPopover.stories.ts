@@ -6,9 +6,9 @@ const meta: Meta<typeof LuiPopover> = {
   title: 'LUI/Popover',
   component: LuiPopover,
   argTypes: {
-    dialogPosition: {
+    placement: {
       control: 'select',
-      options: ['bottomLeft', 'bottomRight', 'topLeft', 'topRight', 'leftTop', 'leftBottom', 'rightTop', 'rightBottom'],
+      options: ['top-start', 'top-end', 'right-start', 'right-end', 'bottom-start', 'bottom-end', 'left-start', 'left-end'],
     },
     text: {
       control: 'text',

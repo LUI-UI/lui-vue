@@ -81,6 +81,7 @@
     "vue": "^3.2.26"
   },
   "dependencies": {
+    "@floating-ui/vue": "^1.0.2",
     "@vueuse/integrations": "^10.3.0",
     "focus-trap": "^7.5.2",
     "unplugin-vue-macros": "^2.7.3"
