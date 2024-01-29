@@ -1,12 +1,13 @@
-import './index.css'
+import '../index.css'
 import 'remixicon/fonts/remixicon.css'
-import colors from 'tailwindcss/colors'
+import type { Preview } from "@storybook/vue3";
 import { addons } from '@storybook/preview-api'
-import type { Preview } from '@storybook/vue3'
+import colors from 'tailwindcss/colors'
 import DocumentationTemplate from './documentationTemplate.mdx'
+
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
+    actions: { argTypesRegex: "^on[A-Z].*" },
     backgrounds: {
       default: 'light',
       dark: 'dark',
@@ -54,12 +55,20 @@ const preview: Preview = {
       ]
     },
     docs: {
-      page: DocumentationTemplate
-    }
-  }
-}
+      page: DocumentationTemplate,
+      toc: true,
+    },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/i,
+      },
+    },
+  },
+};
 
-export default preview
+export default preview;
+
 
 // get an instance to the communication channel for the manager and preview
 const channel = addons.getChannel()

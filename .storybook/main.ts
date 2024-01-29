@@ -1,9 +1,8 @@
-import type { StorybookConfig } from '@storybook/vue3-vite'
+import type { StorybookConfig } from "@storybook/vue3-vite";
 import remarkGfm from 'remark-gfm'
 
 const config: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.@(js|ts)'],
-  staticDirs: ['../src'],
+  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
   addons: [
     {
       name: '@storybook/addon-docs',
@@ -20,13 +19,12 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     'storybook-darkmode-vue/register'
   ],
-  docs: {
-    autodocs: true
-  },
   framework: {
-    name: '@storybook/vue3-vite',
-    options: {}
-  }
-}
-
-export default config
+    name: "@storybook/vue3-vite",
+    options: {},
+  },
+  docs: {
+    autodocs: true,
+  },
+};
+export default config;
