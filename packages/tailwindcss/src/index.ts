@@ -1,5 +1,6 @@
 /* eslint-disable antfu/top-level-function */
 import plugin from 'tailwindcss/plugin.js'
+import colors from 'tailwindcss/colors.js'
 
 // import colors from 'tailwindcss/colors.js'
 
@@ -94,6 +95,22 @@ const luiPlugin = () => {
       const uniqueSafeList = [...new Set([...safelistArray, ...luiSafeList])]
 
       _config.safelist = uniqueSafeList
+    },
+    {
+      theme: {
+        colors: {
+          primary: colors.blue,
+          secondary: colors.gray,
+          success: colors.green,
+          warning: colors.amber,
+          danger: colors.red,
+          info: colors.sky,
+          white: '#ffffff',
+          black: '#000000',
+          light: colors.gray[50],
+          dark: colors.gray[900],
+        },
+      },
     },
   )
 }
