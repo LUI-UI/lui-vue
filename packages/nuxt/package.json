@@ -1,0 +1,82 @@
+{
+  "name": "@lui-ui/lui-nuxt",
+  "type": "module",
+  "version": "0.0.2",
+  "packageManager": "pnpm@8.13.0",
+  "description": "LUI Nuxt module",
+  "author": "lui-ui",
+  "license": "MIT",
+  "homepage": "https://github.com/LUI-UI/lui-vue",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LUI-UI/lui-vue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LUI-UI/lui-vue/issues"
+  },
+  "keywords": [
+    "lui nuxt module",
+    "lui nuxt"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    },
+    "./utils": "./dist/utils.mjs"
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "pnpm prepack && pnpm bumpp --commit='version(nuxt): release %s' --no-tag",
+    "release:latest": "pnpm release && pnpm publish --tag latest --no-git-checks",
+    "release:beta": "pnpm release && pnpm publish --tag beta --no-git-checks",
+    "release:alpha": "pnpm release && pnpm publish --tag alpha --no-git-checks",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "vue": ">=3.3.0"
+  },
+  "dependencies": {
+    "@lui-ui/lui-vue": "latest",
+    "@nuxt/kit": "^3.9.3"
+  },
+  "devDependencies": {
+    "@nuxt/module-builder": "^0.5.5",
+    "@nuxt/schema": "^3.9.3",
+    "@nuxt/test-utils": "^3.10.0",
+    "@types/node": "^20.11.5",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vitest/coverage-v8": "^1.2.1",
+    "bumpp": "^9.3.0",
+    "happy-dom": "^13.1.4",
+    "json-summary": "^1.3.0",
+    "lint-staged": "^15.2.0",
+    "playwright-core": "^1.41.0",
+    "typescript": "^5.3.3",
+    "unbuild": "^2.0.0",
+    "unconfig": "^0.3.11",
+    "unplugin-vue-macros": "^2.7.9",
+    "vite": "^5.0.11",
+    "vitest": "^1.2.1",
+    "vue": "^3.4.14"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

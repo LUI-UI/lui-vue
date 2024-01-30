@@ -1,0 +1,82 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "rebaseWhen": "conflicted",
+  "schedule": [
+    "every 8 months on the first day of the month"
+  ],
+  "baseBranches": [
+    "main"
+  ],
+  "rangeStrategy": "bump",
+  "ignoreDeps": [
+    "node",
+    "pnpm"
+  ],
+  "packageRules": [
+    {
+      "enabled": false,
+      "matchDepTypes": [
+        "peerDependencies"
+      ]
+    },
+    {
+      "groupName": "playground-nuxt",
+      "commitMessageTopic": "playground-nuxt",
+      "matchPaths": [
+        "playground-nuxt/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "playground-vue",
+      "commitMessageTopic": "playground-vue",
+      "matchPaths": [
+        "playground-vue/**"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "npm"
+      ]
+    },
+    {
+      "groupName": "root",
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "major"
+      ],
+      "ignorePaths": [
+        "**/playground/**",
+        "**/playground-vue/**",
+        "**/playground-nuxt/**"
+      ],
+      "matchDatasources": [
+        "npm",
+        "github-actions"
+      ],
+      "labels": [
+        "dependencies"
+      ],
+      "addLabels": [
+        "dependencies"
+      ],
+      "matchFiles": [
+        "package.json"
+      ]
+    }
+  ]
+}

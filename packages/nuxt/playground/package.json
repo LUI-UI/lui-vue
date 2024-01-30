@@ -1,0 +1,8 @@
+{
+  "name": "my-module-playground",
+  "private": true,
+  "dependencies": {
+    "@lui-ui/lui-nuxt": "workspace:*",
+    "nuxt": "^3.9.3"
+  }
+}
