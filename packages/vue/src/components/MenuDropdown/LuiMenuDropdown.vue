@@ -104,7 +104,7 @@ const menuState = reactive<IMenuState>({
 })
 const teleportId = useTeleportWrapper('dropdown')
 
-const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
+const { classes: defaultMenuClasses } = useMenuStyles({ ...toRefs(props) })
 const { floatingStyles, middlewareData } = useFloating(luiDropdownTrigger, luiDropdownMenu, {
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],
@@ -325,18 +325,6 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
           <template #append>
             <slot name="append">
               <ArrowDownIcon />
-              <!-- <svg
-                viewBox="0 0 12 12"
-                :width="triggerIconSize(size)"
-                :height="triggerIconSize(size)"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
-                  fill="white"
-                />
-              </svg> -->
             </slot>
           </template>
         </LuiButton>
@@ -349,16 +337,17 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 opacity-100"
-        leave-active-class="transition duration-75 ease-in"
+        enter-to-class=" scale-100 delay-75 opacity-50"
+        leave-active-class="transition duration-75 opacity-100 ease-in"
         leave-from-class="transform scale-100 opacity-100"
-        leave-to-class="transform scale-95 opacity-0 "
+        leave-to-class="transform scale-95 opacity-0"
       >
+        <!-- :style="floatingStyles" -->
         <div
-          v-show="isMenuActive"
+          v-if="isMenuActive"
           :id="menuId"
           ref="luiDropdownMenu"
-          :class="menuClasses"
+          :class="menuClasses.length ? menuClasses : defaultMenuClasses"
           :style="floatingStyles"
         >
           <ul
