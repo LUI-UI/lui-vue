@@ -28,7 +28,7 @@
     "build-storybook": "storybook build",
     "cm": "cz",
     "chromatic": "npx chromatic --project-token chpt_d0a94988a9baf77",
-    "release": "pnpm build && bumpp --commit --push --tag && pnpm publish",
+    "release": "pnpm build && bumpp --commit --push --tag",
     "prepare": "npx simple-git-hooks"
   },
   "peerDependencies": {
