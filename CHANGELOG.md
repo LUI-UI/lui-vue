@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [0.70.4](https://github.com/LUI-UI/lui-vue/compare/v0.70.3...v0.70.4) (2024-01-30)
+
+
+### Bug Fixes
+
+* **plugin:** add variables to use in storybook ([0678198](https://github.com/LUI-UI/lui-vue/commit/0678198f0f4b47f6eae652c89aa38b9828bc20e4))
+
 ## [0.70.3](https://github.com/LUI-UI/lui-vue/compare/v0.70.2...v0.70.3) (2024-01-18)
 
 
