@@ -1,9 +1,5 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 importers:
 
   .:
@@ -14,7 +10,7 @@ importers:
     devDependencies:
       '@antfu/eslint-config':
         specifier: 2.6.3
-        version: 2.6.3(@vue/compiler-sfc@3.4.14)(eslint@8.56.0)(typescript@5.3.3)
+        version: 2.6.3(@vue/compiler-sfc@3.4.15)(eslint@8.56.0)(typescript@5.3.3)
       '@babel/core':
         specifier: ^7.19.6
         version: 7.19.6
@@ -159,7 +155,7 @@ importers:
         version: 3.9.3(rollup@3.29.4)
       '@nuxt/test-utils':
         specifier: ^3.10.0
-        version: 3.10.0(h3@1.10.0)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
+        version: 3.10.0(h3@1.10.1)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
       '@types/node':
         specifier: ^20.11.5
         version: 20.11.5
@@ -351,7 +347,7 @@ importers:
         version: 4.54.2(vue@3.3.13)
       vue-loader:
         specifier: ^16.8.3
-        version: 16.8.3(@vue/compiler-sfc@3.4.14)(vue@3.3.13)(webpack@5.88.0)
+        version: 16.8.3(@vue/compiler-sfc@3.4.15)(vue@3.3.13)(webpack@5.88.0)
       vue-tsc:
         specifier: ^1.8.25
         version: 1.8.25(typescript@4.9.4)
@@ -491,7 +487,7 @@ packages:
       - typescript
     dev: true
 
-  /@antfu/eslint-config@2.6.3(@vue/compiler-sfc@3.4.14)(eslint@8.56.0)(typescript@5.3.3):
+  /@antfu/eslint-config@2.6.3(@vue/compiler-sfc@3.4.15)(eslint@8.56.0)(typescript@5.3.3):
     resolution: {integrity: sha512-sfkamrOatMwMZkp14mBerHKIw8FY0SD1iCb5UZ6Y5hgb+FeDpNQPlVA0i2PN95TQ8NSYyPC1QnoM+UA5NSl0Kg==}
     hasBin: true
     peerDependencies:
@@ -545,7 +541,7 @@ packages:
       eslint-plugin-vitest: 0.3.20(@typescript-eslint/eslint-plugin@6.19.0)(eslint@8.56.0)(typescript@5.3.3)
       eslint-plugin-vue: 9.20.1(eslint@8.56.0)
       eslint-plugin-yml: 1.12.2(eslint@8.56.0)
-      eslint-processor-vue-blocks: 0.1.1(@vue/compiler-sfc@3.4.14)(eslint@8.56.0)
+      eslint-processor-vue-blocks: 0.1.1(@vue/compiler-sfc@3.4.15)(eslint@8.56.0)
       globals: 13.24.0
       jsonc-eslint-parser: 2.4.0
       local-pkg: 0.5.0
@@ -3610,7 +3606,7 @@ packages:
       - supports-color
     dev: false
 
-  /@nuxt/test-utils@3.10.0(h3@1.10.0)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14):
+  /@nuxt/test-utils@3.10.0(h3@1.10.1)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14):
     resolution: {integrity: sha512-9ZKKrccCUyZP0P9/BdTNHWwTRvIbBnrmDvqvO0dQpTiUhgDVeO1vdG40o4e4olw7sbzUP51C8uA0OkRur/zBvQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
     peerDependencies:
@@ -3657,7 +3653,7 @@ packages:
       execa: 8.0.1
       fake-indexeddb: 5.0.2
       get-port-please: 3.1.2
-      h3: 1.10.0
+      h3: 1.10.1
       happy-dom: 13.1.4
       jsdom: 20.0.1
       local-pkg: 0.5.0
@@ -3675,7 +3671,7 @@ packages:
       unplugin: 1.6.0
       vite: 5.0.11(@types/node@20.11.5)
       vitest: 1.2.1(@types/node@20.11.5)(happy-dom@13.1.4)(jsdom@20.0.1)
-      vitest-environment-nuxt: 1.0.0(h3@1.10.0)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
+      vitest-environment-nuxt: 1.0.0(h3@1.10.1)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
       vue: 3.4.14(typescript@5.3.3)
       vue-router: 4.2.5(vue@3.4.14)
     transitivePeerDependencies:
@@ -3833,6 +3829,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: false
     bundledDependencies:
       - napi-wasm
@@ -7297,7 +7294,6 @@ packages:
       entities: 4.5.0
       estree-walker: 2.0.2
       source-map-js: 1.0.2
-    dev: false
 
   /@vue/compiler-dom@3.3.13:
     resolution: {integrity: sha512-EYRDpbLadGtNL0Gph+HoKiYqXLqZ0xSSpR5Dvnu/Ep7ggaCbjRDIus1MMxTS2Qm0koXED4xSlvTZaTnI8cYAsw==}
@@ -7316,7 +7312,6 @@ packages:
     dependencies:
       '@vue/compiler-core': 3.4.15
       '@vue/shared': 3.4.15
-    dev: false
 
   /@vue/compiler-sfc@3.3.13:
     resolution: {integrity: sha512-DQVmHEy/EKIgggvnGRLx21hSqnr1smUS9Aq8tfxiiot8UR0/pXKHN9k78/qQ7etyQTFj5em5nruODON7dBeumw==}
@@ -7357,7 +7352,6 @@ packages:
       magic-string: 0.30.5
       postcss: 8.4.33
       source-map-js: 1.0.2
-    dev: false
 
   /@vue/compiler-ssr@3.3.13:
     resolution: {integrity: sha512-d/P3bCeUGmkJNS1QUZSAvoCIW4fkOKK3l2deE7zrp0ypJEy+En2AcypIkqvcFQOcw3F0zt2VfMvNsA9JmExTaw==}
@@ -7376,7 +7370,6 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.4.15
       '@vue/shared': 3.4.15
-    dev: false
 
   /@vue/devtools-api@6.5.1:
     resolution: {integrity: sha512-+KpckaAQyfbvshdDW5xQylLni1asvNSGme1JFs8I1+/H5pHEhqUKMEQD/qn3Nx5+/nycBq11qAEi8lk+LXI2dA==}
@@ -7492,7 +7485,6 @@ packages:
 
   /@vue/shared@3.4.15:
     resolution: {integrity: sha512-KzfPTxVaWfB+eGcGdbSf4CWdaXcGDqckoeXUh7SB3fZdEtzPCK2Vq9B/lRRL3yutax/LWITz+SwvgyOxz5V75g==}
-    dev: false
 
   /@vue/test-utils@2.1.0(vue@3.3.13):
     resolution: {integrity: sha512-U4AxAD/tKJ3ajxYew1gkfEotpr96DE/gLXpbl+nPbsNRqGBfQZZA7YhwGoQNDPgon56v+IGZDrYq7pe3GDl9aw==}
@@ -10946,13 +10938,13 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-processor-vue-blocks@0.1.1(@vue/compiler-sfc@3.4.14)(eslint@8.56.0):
+  /eslint-processor-vue-blocks@0.1.1(@vue/compiler-sfc@3.4.15)(eslint@8.56.0):
     resolution: {integrity: sha512-9+dU5lU881log570oBwpelaJmOfOzSniben7IWEDRYQPPWwlvaV7NhOtsTuUWDqpYT+dtKKWPsgz4OkOi+aZnA==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.3.0
       eslint: ^8.50.0
     dependencies:
-      '@vue/compiler-sfc': 3.4.14
+      '@vue/compiler-sfc': 3.4.15
       eslint: 8.56.0
     dev: true
 
@@ -12037,6 +12029,7 @@ packages:
       ufo: 1.3.2
       uncrypto: 0.1.3
       unenv: 1.9.0
+    dev: false
 
   /h3@1.10.1:
     resolution: {integrity: sha512-UBAUp47hmm4BB5/njB4LrEa9gpuvZj4/Qf/ynSMzO6Ku2RXaouxEfiG2E2IFnv6fxbhAkzjasDxmo6DFdEeXRg==}
@@ -12050,7 +12043,6 @@ packages:
       ufo: 1.3.2
       uncrypto: 0.1.3
       unenv: 1.9.0
-    dev: false
 
   /handlebars@4.7.7:
     resolution: {integrity: sha512-aAcXm5OAfE/8IXkcZvCepKU3VzW1/39Fb5ZuqMtgI/hT8X2YgoMvBY5dLhq/cpOvw7Lk1nK/UF71aLG/ZnVYRA==}
@@ -14426,6 +14418,10 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+    dev: false
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
     dev: false
 
   /natural-compare-lite@1.4.0:
@@ -19237,7 +19233,7 @@ packages:
     dependencies:
       '@types/node': 20.10.5
       esbuild: 0.19.10
-      postcss: 8.4.33
+      postcss: 8.4.32
       rollup: 4.9.1
     optionalDependencies:
       fsevents: 2.3.3
@@ -19277,10 +19273,10 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
 
-  /vitest-environment-nuxt@1.0.0(h3@1.10.0)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14):
+  /vitest-environment-nuxt@1.0.0(h3@1.10.1)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14):
     resolution: {integrity: sha512-AWMO9h4HdbaFdPWZw34gALFI8gbBiOpvfbyeZwHIPfh4kWg/TwElYHvYMQ61WPUlCGaS5LebfHkaI0WPyb//Iw==}
     dependencies:
-      '@nuxt/test-utils': 3.10.0(h3@1.10.0)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
+      '@nuxt/test-utils': 3.10.0(h3@1.10.1)(happy-dom@13.1.4)(jsdom@20.0.1)(playwright-core@1.41.0)(rollup@3.29.4)(vite@5.0.11)(vitest@1.2.1)(vue-router@4.2.5)(vue@3.4.14)
     transitivePeerDependencies:
       - '@cucumber/cucumber'
       - '@jest/globals'
@@ -19537,7 +19533,7 @@ packages:
       vue: 3.3.13(typescript@4.9.4)
     dev: true
 
-  /vue-loader@16.8.3(@vue/compiler-sfc@3.4.14)(vue@3.3.13)(webpack@5.88.0):
+  /vue-loader@16.8.3(@vue/compiler-sfc@3.4.15)(vue@3.3.13)(webpack@5.88.0):
     resolution: {integrity: sha512-7vKN45IxsKxe5GcVCbc2qFU5aWzyiLrYJyUuMz4BQLKctCj/fmCa0w6fGiiQ2cLFetNcek1ppGJQDCup0c1hpA==}
     peerDependencies:
       '@vue/compiler-sfc': ^3.0.8
@@ -19549,7 +19545,7 @@ packages:
       vue:
         optional: true
     dependencies:
-      '@vue/compiler-sfc': 3.4.14
+      '@vue/compiler-sfc': 3.4.15
       chalk: 4.1.2
       hash-sum: 2.0.0
       loader-utils: 2.0.4
@@ -20070,3 +20066,7 @@ packages:
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: true
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
