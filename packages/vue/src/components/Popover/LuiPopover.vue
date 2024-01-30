@@ -133,13 +133,13 @@ const isDialogActive = computed(() => dialogActive.value && !middlewareData.valu
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 opacity-100"
+        enter-to-class="transform scale-100 delay-75 opacity-100"
         leave-active-class="transition duration-75 ease-in"
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-show="isDialogActive"
+          v-if="isDialogActive"
           :id="dialogId"
           ref="dialogWrapperRef"
           :aria-labelledby="triggerId"
