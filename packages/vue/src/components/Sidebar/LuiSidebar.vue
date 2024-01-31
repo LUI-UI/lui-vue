@@ -112,7 +112,7 @@ const animationClasses = computed(() =>
 </script>
 
 <template>
-  <Teleport :to="`#${teleportId}`">
+  <Teleport v-if="show" :to="`#${teleportId}`">
     <transition
       enter-active-class="transition-all duration-200 ease-in"
       leave-active-class="transition-all duration-200 ease-out"
@@ -124,7 +124,7 @@ const animationClasses = computed(() =>
         @click="emit('close')"
         @keydown.esc="emit('close')"
       >
-        <UseFocusTrap v-if="show" :options="{ immediate: true }">
+        <UseFocusTrap :options="{ immediate: true }">
           <div class="fixed w-full top-0 bottom-0 max-h-full z-50 flex p-1.5" :class="positionClassesContainer">
             <section
               role="dialog"

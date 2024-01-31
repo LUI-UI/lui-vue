@@ -103,8 +103,8 @@ function handleOutsideClick(event: any) {
 </script>
 
 <template>
-  <Teleport :to="`#${teleportId}`">
-    <UseFocusTrap v-if="show" :options="{ immediate: true }">
+  <Teleport v-if="show" :to="`#${teleportId}`">
+    <UseFocusTrap :options="{ immediate: true }">
       <div
         class="lui-modal fixed inset-0 z-50 overflow-hidden"
         @keydown.esc="handleKeyDown"
@@ -122,7 +122,7 @@ function handleOutsideClick(event: any) {
           >
             <div v-if="showIcon" class="float-right leading-3 ml-2">
               <LuiButton variant="link" color="secondary" rounded @click="emit('close')">
-                <span class="sr-only">close modal</span>
+                <span class="sr-only">close modal testestests</span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M12.0007 10.5862L16.9507 5.63623L18.3647 7.05023L13.4147 12.0002L18.3647 16.9502L16.9507 18.3642L12.0007 13.4142L7.05072 18.3642L5.63672 16.9502L10.5867 12.0002L5.63672 7.05023L7.05072 5.63623L12.0007 10.5862Z"
