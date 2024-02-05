@@ -58,15 +58,19 @@ const triggerRef = ref<HTMLElement | undefined>()
 const dialogWrapperRef = ref<HTMLElement>()
 const dialogId = `lui-popopver-dialog-${useId()}`
 const triggerId = `lui-popover-trigger-${useId()}`
-const { teleportTarget } = useTeleport('popover')
+useTeleport('popover')
 
-const { floatingStyles, middlewareData } = useFloating(triggerRef, dialogWrapperRef, {
-  placement: props.placement,
-  strategy: props.teleport ? 'fixed' : 'absolute',
-  whileElementsMounted: autoUpdate,
-  middleware: [offset(6), flip(), shift(), hide()],
-  transform: false,
-})
+const { floatingStyles, middlewareData } = useFloating(
+  triggerRef,
+  dialogWrapperRef,
+  {
+    placement: props.placement,
+    strategy: props.teleport ? 'fixed' : 'absolute',
+    whileElementsMounted: autoUpdate,
+    middleware: [offset(6), flip(), shift(), hide()],
+    transform: false,
+  },
+)
 
 useOutsideClick(triggerRef, () => closeDialog())
 
@@ -110,7 +114,9 @@ function closeDialog() {
     emit('update:open', false)
   }
 }
-const isDialogActive = computed(() => dialogActive.value && !middlewareData.value.hide?.referenceHidden)
+const isDialogActive = computed(
+  () => dialogActive.value && !middlewareData.value.hide?.referenceHidden,
+)
 </script>
 
 <template>
@@ -125,10 +131,7 @@ const isDialogActive = computed(() => dialogActive.value && !middlewareData.valu
         </LuiButton>
       </slot>
     </div>
-    <Teleport
-      :to="teleportTarget"
-      :disabled="!teleportTarget || !teleport"
-    >
+    <LuiPortal name="popover" :is-active="teleport">
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
@@ -150,6 +153,6 @@ const isDialogActive = computed(() => dialogActive.value && !middlewareData.valu
           <slot />
         </div>
       </transition>
-    </Teleport>
+    </LuiPortal>
   </div>
 </template>
