@@ -18,6 +18,7 @@ import {
 } from '@floating-ui/vue'
 import type { Placement } from '@floating-ui/vue'
 import LuiButton from '../Button/LuiButton.vue'
+import LuiPortal from '../Portal/LuiButton.vue'
 import { useOutsideClick, useTeleport } from '../../composables'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '../../globals/interfaces'
