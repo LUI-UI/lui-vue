@@ -91,7 +91,7 @@ const emit = defineEmits(['onTrigger', 'update:open'])
 const slots = useSlots()
 // VARIABLES
 const luiDropdownWrapper = ref<HTMLElement>()
-const luiDropdownTrigger = ref<HTMLDivElement>()
+const luiDropdownTrigger = ref<HTMLDivElement | undefined>()
 const luiDropdownMenu = ref<HTMLElement>()
 const menuActive = ref(false)
 const buttonId = `lui-dropdown-button-${useId()}`

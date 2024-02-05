@@ -54,7 +54,7 @@ const props = defineProps({
 })
 const emit = defineEmits(['onTrigger', 'update:open'])
 const dialogActive = ref(false)
-const triggerRef = ref<HTMLElement>()
+const triggerRef = ref<HTMLElement | undefined>()
 const dialogWrapperRef = ref<HTMLElement>()
 const dialogId = `lui-popopver-dialog-${useId()}`
 const triggerId = `lui-popover-trigger-${useId()}`
