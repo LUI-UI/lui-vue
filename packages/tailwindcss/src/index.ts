@@ -98,17 +98,19 @@ const luiPlugin = () => {
     },
     {
       theme: {
-        colors: {
-          primary: colors.blue,
-          secondary: colors.gray,
-          success: colors.green,
-          warning: colors.amber,
-          danger: colors.red,
-          info: colors.sky,
-          white: '#ffffff',
-          black: '#000000',
-          light: colors.gray[50],
-          dark: colors.gray[900],
+        extend: {
+          colors: {
+            primary: colors.blue,
+            secondary: colors.gray,
+            success: colors.green,
+            warning: colors.amber,
+            danger: colors.red,
+            info: colors.sky,
+            white: '#ffffff',
+            black: '#000000',
+            light: colors.gray[50],
+            dark: colors.gray[900],
+          },
         },
       },
     },
