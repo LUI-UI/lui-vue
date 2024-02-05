@@ -2,7 +2,6 @@
 import type { PropType } from 'vue'
 import {
   Fragment,
-  Teleport as TeleportComp,
   computed,
   h,
   nextTick,
@@ -33,16 +32,15 @@ import type {
 import type { TwClassInterface } from '../../globals/interfaces'
 import { ContextKey } from '../Select/symbols'
 
-// import { useProperPosition } from '../../composables/useProperPosition'
-import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
+import { useMenuStyles, useOutsideClick } from '../../composables'
 import { useInputClasses } from '../Input/composables/index'
 import { useId } from '../../utils/useId'
 import { isElementScrollable } from '../../utils/isElementScrollable'
 import { hasSlotContent } from '../../utils/hasSlotContent'
 
-// import LuiBadge from '../Badge/LuiBadge.vue'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiTag from '../Tag/LuiTag.vue'
+import LuiPortal from '../Portal/LuiPortal.vue'
 
 type MultiModelValueType = string[] | ModelValueObject[]
 interface ITagProps {
@@ -155,7 +153,7 @@ const listboxState: ListboxStateType = reactive({
   currentId: '',
 })
 const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
-const teleportId = useTeleportWrapper('multi-select')
+
 nextTick(() => {
   if (isOptionsValid()) {
     setState()
@@ -233,28 +231,7 @@ const iconStatus = computed(() =>
       ? 'leftIcon'
       : 'noIcon',
 )
-// const optionWrapperClasses = computed(() => {
-//   const optionsWrapper: TwClassInterface = {
-//     position: 'absolute',
-//     zIndex: 'z-50',
-//     maxHeight: 'max-h-96',
-//     minWidth: 'min-w-full',
-//     overflow: 'overflow-y-auto',
-//     backgroundColor: 'bg-secondary-50 dark:bg-secondary-900',
-//     borderWidth: 'border',
-//     borderColor: 'border-secondary-200 dark:border-secondary-700',
-//     borderRadius: {
-//       'rounded-md': props.rounded === true,
-//       'rounded-2xl': props.rounded === 'full',
-//     },
-//     boxShadow: 'shadow-lg',
-//     bottom: properPosition.value === 'top' ? 'bottom-full' : '',
-//     top: properPosition.value === 'bottom' ? 'top-full' : '',
-//     margin: properPosition.value === 'bottom' ? 'mt-2' : 'mb-2',
-//     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-0.5' : 'space-y-0.5',
-//   }
-//   return Object.values({ ...optionsWrapper })
-// })
+
 const triggerClasses = computed(() => {
   const classes: TwClassInterface = {
     space: props.size === 'xs' || props.size === 'sm' ? 'space-y-0.5' : 'space-y-0.5',
@@ -585,16 +562,8 @@ function setInitialSelectedOption() {
   else
     return
 
-  // set initial selectedOption
-  // const asArray = (option: any) => (Array.isArray(option) ? option : [option])
-  // const asString = (option: any) => (typeof option === 'string' ? option : option.text)
-  // if (Array.isArray(initialOption))
-  //   initialOption = initialOption.map(o => asString(o))
-
   selectedOptions.value = parseModelValue(initialOption)
   emit('update:modelValue', parseModelValue(initialOption))
-
-  // updateSelectedOptions(initialOption, true)
 }
 function handleSearchState() {
   if (!optionsActive.value)
@@ -700,9 +669,9 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
         </slot>
       </span>
     </div>
-    <component
-      :is="teleport ? TeleportComp : 'div'"
-      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
+    <LuiPortal
+      name="multi-select"
+      :is-active="teleport"
     >
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -750,6 +719,6 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
           </ul>
         </div>
       </transition>
-    </component>
+    </LuiPortal>
   </div>
 </template>

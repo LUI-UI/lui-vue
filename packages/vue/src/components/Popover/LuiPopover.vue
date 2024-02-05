@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Teleport as TeleportComp, computed, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { PropType } from 'vue'
 import {
   autoUpdate,
@@ -18,7 +18,7 @@ import {
 } from '@floating-ui/vue'
 import type { Placement } from '@floating-ui/vue'
 import LuiButton from '../Button/LuiButton.vue'
-import { useOutsideClick, useTeleportWrapper } from '../../composables'
+import { useOutsideClick, useTeleport } from '../../composables'
 import { useId } from '../../utils/useId'
 import type { TwClassInterface } from '../../globals/interfaces'
 
@@ -58,7 +58,7 @@ const triggerRef = ref<HTMLElement | undefined>()
 const dialogWrapperRef = ref<HTMLElement>()
 const dialogId = `lui-popopver-dialog-${useId()}`
 const triggerId = `lui-popover-trigger-${useId()}`
-const teleportId = useTeleportWrapper('popover')
+const { teleportTarget } = useTeleport('popover')
 
 const { floatingStyles, middlewareData } = useFloating(triggerRef, dialogWrapperRef, {
   placement: props.placement,
@@ -92,7 +92,6 @@ const triggerSlotProps = computed<TriggerSlotType>(() => ({
 
 const dialogWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
-    // position: props.teleport ? 'fixed' : 'absolute',
     zIndex: 'z-50',
     width: props.teleport ? 'w-max' : props.block ? 'w-full' : 'w-max',
   }
@@ -100,7 +99,6 @@ const dialogWrapperClasses = computed(() => {
 })
 
 function handleTriggerClick() {
-  // emin open event!
   dialogActive.value = !dialogActive.value
   emit('onTrigger', dialogActive.value)
   emit('update:open', dialogActive.value)
@@ -127,9 +125,9 @@ const isDialogActive = computed(() => dialogActive.value && !middlewareData.valu
         </LuiButton>
       </slot>
     </div>
-    <component
-      :is="teleport ? TeleportComp : 'div'"
-      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
+    <Teleport
+      :to="teleportTarget"
+      :disabled="!teleportTarget || !teleport"
     >
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -152,6 +150,6 @@ const isDialogActive = computed(() => dialogActive.value && !middlewareData.valu
           <slot />
         </div>
       </transition>
-    </component>
+    </Teleport>
   </div>
 </template>

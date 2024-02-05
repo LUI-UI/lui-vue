@@ -8,7 +8,7 @@ export * from './useGlobalDescriptionClasses'
 export * from './useGlobalHiddenInputClasses'
 export * from './useElementPosition'
 export * from './useMenuStyles'
-export * from './useTeleportWrapper'
+export * from './useTeleport'
 // import type { Ref } from 'vue'
 // import { computed, toRef } from 'vue'
 // import type {

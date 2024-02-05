@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Teleport as TeleportComp, computed, h, nextTick, reactive, ref, toRefs, useSlots, watch } from 'vue'
+import { computed, h, nextTick, reactive, ref, toRefs, useSlots, watch } from 'vue'
 import {
   autoUpdate,
   flip,
@@ -18,11 +18,12 @@ import type { PropType } from 'vue'
 import type { Placement } from '@floating-ui/vue'
 
 import LuiButton from '../Button/LuiButton.vue'
-import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
+import { useMenuStyles, useOutsideClick } from '../../composables'
 
 import { useId } from '../../utils/useId'
 import type { Block, Color, Filter, MenuClasses, Rounded, Size, Variant } from '../../globals/types'
 import type { TwClassInterface } from '../../globals/interfaces'
+import LuiPortal from '../Portal/LuiPortal.vue'
 
 interface IMenuItems {
   disabled?: boolean
@@ -102,7 +103,6 @@ const menuState = reactive<IMenuState>({
   currentIndex: 0,
   currentId: '',
 })
-const teleportId = useTeleportWrapper('dropdown')
 
 const { classes: defaultMenuClasses } = useMenuStyles({ ...toRefs(props) })
 const { floatingStyles, middlewareData } = useFloating(luiDropdownTrigger, luiDropdownMenu, {
@@ -332,9 +332,9 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
         </LuiButton>
       </slot>
     </div>
-    <component
-      :is="teleport ? TeleportComp : 'div'"
-      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
+    <LuiPortal
+      name="dropdown"
+      :is-active="teleport"
     >
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -363,6 +363,6 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
           </ul>
         </div>
       </transition>
-    </component>
+    </LuiPortal>
   </div>
 </template>

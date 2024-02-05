@@ -9,12 +9,10 @@ export default {
 import { computed, watch } from 'vue'
 import type { PropType } from 'vue'
 import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
-import { useTeleportWrapper } from '../../composables'
-
-// import useFocusTrap from '../../composables/useFocusTrap'
 import LuiButton from '../Button/LuiButton.vue'
 import type { TwClassInterface } from '../../globals/interfaces'
 import type { Size } from '../../globals/types'
+import LuiPortal from '../Portal/LuiPortal.vue'
 
 type IPosition = 'left' | 'right' | 'bottom' | 'top'
 const props = defineProps({
@@ -40,7 +38,6 @@ const props = defineProps({
   },
 })
 const emit = defineEmits(['close'])
-const teleportId = useTeleportWrapper('sidebar')
 
 watch(
   () => props.show,
@@ -112,7 +109,7 @@ const animationClasses = computed(() =>
 </script>
 
 <template>
-  <Teleport :to="`#${teleportId}`">
+  <LuiPortal name="sidebar">
     <transition
       enter-active-class="transition-all duration-200 ease-in"
       leave-active-class="transition-all duration-200 ease-out"
@@ -152,5 +149,5 @@ const animationClasses = computed(() =>
         </UseFocusTrap>
       </div>
     </transition>
-  </Teleport>
+  </LuiPortal>
 </template>

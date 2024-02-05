@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Fragment, Teleport as TeleportComp, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
+import { Fragment, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
 import type { PropType } from 'vue'
 import {
   autoUpdate,
@@ -18,7 +18,7 @@ import {
 import type { Placement } from '@floating-ui/vue'
 import { useId } from '../../utils/useId'
 
-import { useMenuStyles, useOutsideClick, useTeleportWrapper } from '../../composables'
+import { useMenuStyles, useOutsideClick } from '../../composables'
 
 import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
@@ -27,6 +27,7 @@ import { ContextKey } from './symbols'
 import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
 import type { Block, Description, Rounded, Size, State, StateIcon } from '../../globals/types'
 import type { TwClassInterface } from '../../globals/interfaces'
+import LuiPortal from '../Portal/LuiPortal.vue'
 
 const props = defineProps({
   rounded: {
@@ -110,7 +111,7 @@ const listboxState: ListboxStateType = reactive({
 
 const selectId = `lui-listbox-button-${useId()}`
 const optionsId = `lui-listbox-wrapper-${useId()}`
-const teleportId = useTeleportWrapper('select')
+
 // const errorMessages = {
 //   type: {
 //     modelValue: 'Wrong type for modelValue, typeof of modelValue should be string',
@@ -504,9 +505,9 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
         </slot>
       </template>
     </LuiInput>
-    <component
-      :is="teleport ? TeleportComp : 'div'"
-      v-bind="teleport ? { to: `#${teleportId}` } : undefined"
+    <LuiPortal
+      name="select"
+      :is-active="teleport"
     >
       <transition
         enter-active-class="transition duration-100 ease-out"
@@ -551,6 +552,6 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
           </ul>
         </div>
       </transition>
-    </component>
+    </LuiPortal>
   </div>
 </template>

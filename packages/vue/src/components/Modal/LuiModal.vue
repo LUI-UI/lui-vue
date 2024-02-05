@@ -6,14 +6,15 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, ref, toRef } from 'vue'
 import type { PropType } from 'vue'
 import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import { useId } from '../../utils/useId'
-import { useTeleportWrapper } from '../../composables'
 import LuiButton from '../Button/LuiButton.vue'
 import type { TwClassInterface } from '../../globals/interfaces'
 import type { Size } from '../../globals/types'
+import { useOverflowWatcher } from '../../composables/useOverflowWatcher'
+import LuiPortal from '../Portal/LuiPortal.vue'
 
 const props = defineProps({
   show: {
@@ -43,20 +44,9 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 const dialogRef = ref<HTMLDivElement>()
-const teleportId = useTeleportWrapper('modal')
 const modalId = `lui-modal-${useId()}`
+useOverflowWatcher(toRef(props, 'show'))
 
-watch(
-  () => props.show,
-  (val) => {
-    if (typeof window !== 'undefined') {
-      const body = document.querySelector('body')
-      const overflowValue = val ? 'hidden' : 'auto'
-      if (body !== null)
-        body.style.overflow = overflowValue
-    }
-  },
-)
 const computedDialogWrapperClasses = computed(() => {
   const classes: TwClassInterface = {
     position: 'fixed',
@@ -103,7 +93,7 @@ function handleOutsideClick(event: any) {
 </script>
 
 <template>
-  <Teleport :to="`#${teleportId}`">
+  <LuiPortal name="modal">
     <UseFocusTrap v-if="show" :options="{ immediate: true }">
       <div
         class="lui-modal fixed inset-0 z-50 overflow-hidden"
@@ -136,5 +126,5 @@ function handleOutsideClick(event: any) {
         </div>
       </div>
     </UseFocusTrap>
-  </Teleport>
+  </LuiPortal>
 </template>
