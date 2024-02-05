@@ -5,14 +5,20 @@ const showModal = ref(false)
 </script>
 
 <template>
-  <div>
+  <div class="test">
     <button @click="showModal = true">
       open modal
     </button>
     {{ showModal }}
-    <LuiModal :show="showModal">
+    <LuiModal :show="showModal" @close="showModal = false">
       <div>ModalContent</div>
     </LuiModal>
     <LuiButton>Button</LuiButton>
   </div>
 </template>
+
+<style>
+.test {
+  min-height: 2000px;
+}
+</style>

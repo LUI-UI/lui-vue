@@ -1,15 +1,20 @@
 import { onBeforeUnmount, onMounted, ref, watchEffect } from 'vue'
 import type { Ref } from 'vue'
+import { isClient } from '../utils/isClient'
 
 export function useOverflowWatcher(overflowVariable: Ref<boolean>) {
   const overflowValue = ref<'hidden' | 'auto' | ''>('')
   onMounted(() => {
     watchEffect(() => {
-      const body = document.querySelector('body')
-      overflowValue.value = overflowVariable ? 'hidden' : 'auto'
-
-      if (body !== null)
-        body.style.overflow = overflowValue.value
+      if (isClient()) {
+        const body = document.querySelector('body')
+        overflowValue.value = overflowVariable.value ? 'hidden' : 'auto'
+        if (body !== null)
+          body.style.overflow = overflowValue.value
+      }
+      else {
+        overflowValue.value = 'auto'
+      }
     })
   })
 

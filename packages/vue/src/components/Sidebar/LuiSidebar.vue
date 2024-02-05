@@ -6,7 +6,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import type { PropType } from 'vue'
 import { UseFocusTrap } from '@vueuse/integrations/useFocusTrap/component'
 import LuiButton from '../Button/LuiButton.vue'
@@ -39,17 +39,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 
-watch(
-  () => props.show,
-  (val) => {
-    if (typeof window !== 'undefined') {
-      const body = document.querySelector('body')
-      const overflowValue = val ? 'hidden' : 'auto'
-      if (body !== null)
-        body.style.overflow = overflowValue
-    }
-  },
-)
 const positionClassesContainer = computed(() => {
   const classes: TwClassInterface = {
     alignItems: {
