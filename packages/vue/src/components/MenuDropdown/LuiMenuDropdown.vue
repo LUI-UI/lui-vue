@@ -109,6 +109,7 @@ const { floatingStyles, middlewareData } = useFloating(luiDropdownTrigger, luiDr
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],
   whileElementsMounted: autoUpdate,
+  transform: false,
 })
 
 watch(
@@ -292,6 +293,7 @@ function ArrowDownIcon() {
 }
 
 const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hide?.referenceHidden)
+
 </script>
 
 <template>
@@ -337,12 +339,11 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
-        enter-to-class=" scale-100 delay-75 opacity-50"
-        leave-active-class="transition duration-75 opacity-100 ease-in"
+        enter-to-class="transform scale-100 opacity-100"
+        leave-active-class="transition duration-75 ease-in"
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
       >
-        <!-- :style="floatingStyles" -->
         <div
           v-if="isMenuActive"
           :id="menuId"

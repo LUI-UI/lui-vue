@@ -127,6 +127,7 @@ const { floatingStyles, middlewareData } = useFloating(selectWrapperRef, options
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],
   whileElementsMounted: autoUpdate,
+  transform: false,
 })
 
 onMounted(() => {
@@ -510,7 +511,7 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
-        enter-to-class="transform scale-100 delay-75 opacity-100"
+        enter-to-class="transform scale-100 opacity-100"
         leave-active-class="transition duration-75 ease-in"
         leave-from-class="transform scale-100 opacity-100"
         leave-to-class="transform scale-95 opacity-0"
