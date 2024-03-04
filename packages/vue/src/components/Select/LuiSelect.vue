@@ -617,7 +617,7 @@ function clearSelection() {
       </template>
       <template v-if="showAppend" #append>
         <slot name="append">
-          <button v-if="clearable && selectedOption.value.length">
+          <button v-if="clearable && selectedOption.value !== ''">
             <ClearIcon @click.stop="clearSelection" />
           </button>
           <ArrowDownIcon v-else />
