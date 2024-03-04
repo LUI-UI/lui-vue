@@ -582,6 +582,7 @@ function ArrowDownIcon() {
 }
 function clearSelection() {
   updateSelectedOption('')
+  focusButton()
   openListBox()
   // nextTick(() => focusButton())
 }
