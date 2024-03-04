@@ -6,15 +6,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { Fragment, computed, nextTick, onMounted, provide, reactive, ref, toRef, toRefs, useAttrs, useSlots, watch } from 'vue'
-import type { PropType } from 'vue'
 import {
-  autoUpdate,
-  flip,
-  offset,
-  shift,
-  useFloating,
-} from '@floating-ui/vue'
+  Fragment,
+  computed,
+  h,
+  nextTick,
+  onMounted,
+  provide,
+  reactive,
+  ref,
+  toRef,
+  toRefs,
+  useAttrs,
+  useSlots,
+  watch,
+} from 'vue'
+import type { PropType } from 'vue'
+import { autoUpdate, flip, offset, shift, useFloating } from '@floating-ui/vue'
 import type { Placement } from '@floating-ui/vue'
 import { useId } from '../../utils/useId'
 
@@ -24,8 +32,20 @@ import { hasSlotContent } from '../../utils/hasSlotContent'
 import LuiOption from '../Option/LuiOption.vue'
 import LuiInput from '../Input/LuiInput.vue'
 import { ContextKey } from './symbols'
-import type { ListboxStateType, ModelValue, OptionsType, SelectedOption } from './select-types'
-import type { Block, Description, Rounded, Size, State, StateIcon } from '../../globals/types'
+import type {
+  ListboxStateType,
+  ModelValue,
+  OptionsType,
+  SelectedOption,
+} from './select-types'
+import type {
+  Block,
+  Description,
+  Rounded,
+  Size,
+  State,
+  StateIcon,
+} from '../../globals/types'
 import type { TwClassInterface } from '../../globals/interfaces'
 import LuiPortal from '../Portal/LuiPortal.vue'
 
@@ -63,6 +83,10 @@ const props = defineProps({
     default: null,
   },
   searchable: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
+  clearable: {
     type: Boolean as PropType<boolean>,
     default: false,
   },
@@ -124,12 +148,16 @@ const optionsId = `lui-listbox-wrapper-${useId()}`
 const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
 
 useOutsideClick(selectWrapperRef, () => closeListBox())
-const { floatingStyles, middlewareData } = useFloating(selectWrapperRef, optionsWrapperRef, {
-  placement: props.placement,
-  middleware: [offset(6), flip(), shift()],
-  whileElementsMounted: autoUpdate,
-  transform: false,
-})
+const { floatingStyles, middlewareData } = useFloating(
+  selectWrapperRef,
+  optionsWrapperRef,
+  {
+    placement: props.placement,
+    middleware: [offset(6), flip(), shift()],
+    whileElementsMounted: autoUpdate,
+    transform: false,
+  },
+)
 
 onMounted(() => {
   setState()
@@ -159,11 +187,16 @@ watch(
   },
   { immediate: true },
 )
-const targetItems = computed(() => (props.searchable ? searchedOptions.value : listboxState.items))
+const targetItems = computed(() =>
+  props.searchable ? searchedOptions.value : listboxState.items,
+)
 function isScrollable(element: HTMLElement) {
   return element && element.clientHeight < element.scrollHeight
 }
-function handleScrollVisibility(activeElement: HTMLElement, scrollParent: HTMLElement) {
+function handleScrollVisibility(
+  activeElement: HTMLElement,
+  scrollParent: HTMLElement,
+) {
   const { offsetHeight, offsetTop } = activeElement
   const { offsetHeight: parentOffsetHeight, scrollTop } = scrollParent
 
@@ -181,7 +214,8 @@ function focusAvailableElement(
   oparation: (i: number) => number,
   initial: number | null = null,
 ) {
-  const isTargetExist = (index: number) => index >= 0 && index <= targetItems.value.length - 1
+  const isTargetExist = (index: number) =>
+    index >= 0 && index <= targetItems.value.length - 1
   const isTargetFocusable = (targetIndex: number) => {
     const target = targetItems.value[targetIndex]
     return target?.disabled === undefined || target?.disabled === false
@@ -219,7 +253,12 @@ function updateSelectedOption(option: ModelValue) {
   if (option === undefined)
     return
   const optionText = typeof option !== 'string' ? option.text : option
-  const optionValue = typeof option == 'string' ? option : option.value !== '' ? option.value : option.text
+  const optionValue
+    = typeof option == 'string'
+      ? option
+      : option.value !== ''
+        ? option.value
+        : option.text
   selectedOption.value = { text: optionText, value: optionValue }
   if (props.searchable) {
     selectedOptionBackup.value = optionText as string
@@ -242,8 +281,16 @@ function focusButton() {
 }
 
 function closeListBox() {
-  optionsActive.value = false
-  emit('update:open', false)
+  if (optionsActive.value) {
+    optionsActive.value = false
+    emit('update:open', false)
+  }
+}
+function openListBox() {
+  if (!optionsActive.value) {
+    optionsActive.value = true
+    emit('update:open', true)
+  }
 }
 
 function toggleOptions() {
@@ -259,7 +306,12 @@ function setState() {
   let allOptions = [...props.options].concat(slotsOptions || [])
   if (props.placeholder !== '') {
     allOptions = [
-      { text: props.placeholder, value: props.placeholder, disabled: true, selected: false },
+      {
+        text: props.placeholder,
+        value: props.placeholder,
+        disabled: true,
+        selected: false,
+      },
       ...allOptions,
     ]
   }
@@ -267,35 +319,56 @@ function setState() {
 }
 
 function getSlotOptions() {
-  const isLuiOption = (slot: any) => slot?.type.name !== undefined && slot.type.name === 'LuiOption'
-  const options = slots.default && slots
-    .default()
-    .map((slot: any) =>
-      isLuiOption(slot)
-        ? slot.props
-        : slot.type === Fragment
-          ? slot.children.map((child: any) => (isLuiOption(child) ? child.props : null))
-          : null,
-    )
-    .flat()
-    .filter(o => o !== null)
+  const isLuiOption = (slot: any) =>
+    slot?.type.name !== undefined && slot.type.name === 'LuiOption'
+  const options
+    = slots.default
+    && slots
+      .default()
+      .map((slot: any) =>
+        isLuiOption(slot)
+          ? slot.props
+          : slot.type === Fragment
+            ? slot.children.map((child: any) =>
+              isLuiOption(child) ? child.props : null,
+            )
+            : null,
+      )
+      .flat()
+      .filter(o => o !== null)
   return options
 }
 function setInitialSelected() {
   // Possbilities: modelValue, selectedOption, selectedSlot, placeholder, first item
   const isModelValueUsing = props.modelValue !== undefined
-  const selectedOption = [...props.options].find((o: any) => o?.selected !== undefined && o?.selected !== false)
+  const selectedOption = [...props.options].find(
+    (o: any) => o?.selected !== undefined && o?.selected !== false,
+  )
   const slotOptions = getSlotOptions()
-  const selectedSlot = slotOptions?.find(o => o?.selected !== undefined && o?.selected !== false)
+  const selectedSlot = slotOptions?.find(
+    o => o?.selected !== undefined && o?.selected !== false,
+  )
   const isPlaceholderUsing = props.placeholder !== ''
   const isOptionsPropUsing = props.options.length > 0
   if (isModelValueUsing) {
     let item
-    if (props.options.length > 0)
-      item = props.options.find((option: OptionsType) => typeof option === 'string' ? option === props.modelValue : option.value === props.modelValue)
-    else
+    if (props.options.length > 0) {
+      item = props.options.find((option: OptionsType) =>
+        typeof option === 'string'
+          ? option === props.modelValue
+          : option.value === props.modelValue,
+      )
+    }
     // when we find modelValue item in slots we check if the value is empty because value always provides from lui-option
-      item = slotOptions && slotOptions.find((option: any) => option.value !== '' ? option.value === props.modelValue : option.text === props.modelValue)
+    else {
+      item
+        = slotOptions
+        && slotOptions.find((option: any) =>
+          option.value !== ''
+            ? option.value === props.modelValue
+            : option.text === props.modelValue,
+        )
+    }
 
     updateSelectedOption(item)
     return
@@ -375,10 +448,15 @@ function buttonKeydown(event: KeyboardEvent) {
         handleKeydownEvents(event)
       }
       else {
-        const selectedIndex = listboxState.items.findIndex((item: any) => item?.text ? item.text === selectedOption.value.text : item === selectedOption.value.text)
+        const selectedIndex = listboxState.items.findIndex((item: any) =>
+          item?.text
+            ? item.text === selectedOption.value.text
+            : item === selectedOption.value.text,
+        )
         if (selectedIndex === -1)
           focusAvailableElement(optionsRef.value, i => i + 1, 0)
-        else focusAvailableElement(optionsRef.value, i => i + 1, selectedIndex)
+        else
+          focusAvailableElement(optionsRef.value, i => i + 1, selectedIndex)
       }
 
       break
@@ -420,7 +498,13 @@ function optionProps(option: string | object) {
 }
 
 function arrowIconSize(size: string) {
-  return size === 'xs' ? '12' : size === 'sm' ? '16' : size === 'xl' ? '24' : '20'
+  return size === 'xs'
+    ? '12'
+    : size === 'sm'
+      ? '16'
+      : size === 'xl'
+        ? '24'
+        : '20'
 }
 
 const searchedOptions = computed(() => {
@@ -457,7 +541,50 @@ function resetSelectedOption() {
       toggleOptions()
   }
 }
-const isOptionsActive = computed(() => optionsActive.value && !middlewareData.value.hide?.referenceHidden)
+const isOptionsActive = computed(
+  () => optionsActive.value && !middlewareData.value.hide?.referenceHidden,
+)
+
+function ClearIcon() {
+  return h(
+    'svg',
+    {
+      viewBox: '0 0 24 24',
+      fill: 'currentColor',
+      width: arrowIconSize(props.size),
+      height: arrowIconSize(props.size),
+    },
+    [
+      h('path', { fill: 'none', d: 'M0 0h24v24H0z' }),
+      h('path', {
+        d: 'M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z',
+      }),
+    ],
+  )
+}
+function ArrowDownIcon() {
+  return h(
+    'svg',
+    {
+      viewBox: '0 0 12 12',
+      width: arrowIconSize(props.size),
+      height: arrowIconSize(props.size),
+      fill: 'currentColor',
+      xmlns: 'http://www.w3.org/2000/svg',
+    },
+    [
+      h('path', {
+        d: 'M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z',
+        fill: 'currentColor',
+      }),
+    ],
+  )
+}
+function clearSelection() {
+  updateSelectedOption('')
+  openListBox()
+  // nextTick(() => focusButton())
+}
 </script>
 
 <template>
@@ -490,25 +617,14 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
       </template>
       <template v-if="showAppend" #append>
         <slot name="append">
-          <svg
-            viewBox="0 0 12 12"
-            :width="arrowIconSize(size)"
-            :height="arrowIconSize(size)"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.99999 6.58599L8.47499 4.11099L9.18199 4.81799L5.99999 7.99999L2.81799 4.81799L3.52499 4.11099L5.99999 6.58599Z"
-              fill="currentColor"
-            />
-          </svg>
+          <button v-if="clearable && selectedOption.value.length">
+            <ClearIcon @click.stop="clearSelection" />
+          </button>
+          <ArrowDownIcon v-else />
         </slot>
       </template>
     </LuiInput>
-    <LuiPortal
-      name="select"
-      :is-active="teleport"
-    >
+    <LuiPortal name="select" :is-active="teleport">
       <transition
         enter-active-class="transition duration-100 ease-out"
         enter-from-class="transform scale-95 opacity-0"
@@ -530,7 +646,13 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
             :aria-labelledby="selectId"
             role="listbox"
             tabindex="-1"
-            :class="size === 'xs' || size === 'sm' ? 'p-1.5' : size === 'md' ? 'p-2' : 'p-2.5'"
+            :class="
+              size === 'xs' || size === 'sm'
+                ? 'p-1.5'
+                : size === 'md'
+                  ? 'p-2'
+                  : 'p-2.5'
+            "
             class="space-y-1"
             :aria-activedescendant="listboxState.currentId"
             @keydown="optionsKeydown($event)"
