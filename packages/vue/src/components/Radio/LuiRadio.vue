@@ -28,12 +28,12 @@ const props = defineProps({
     default: null,
   },
   value: {
-    type: [String, Number] as PropType<string | number>,
-    default: '',
+    type: [String, Number] as PropType<any>,
+    required: false,
   },
   modelValue: {
-    type: [String, Number] as PropType<string | number>,
-    default: '',
+    type: [String, Number] as PropType<any>,
+    required: false,
   },
 })
 

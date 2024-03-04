@@ -9,7 +9,15 @@ export default {
 import type { PropType } from 'vue'
 import { computed, toRefs, useAttrs } from 'vue'
 import { useGlobalDescriptionClasses } from '../../composables'
-import type { CheckableModelValue, Color, Description, Rounded, Size, State, Value } from '../../globals/types'
+import type {
+  CheckableModelValue,
+  Color,
+  Description,
+  Rounded,
+  Size,
+  State,
+  Value,
+} from '../../globals/types'
 import { useCheckboxClasses } from './composables/index'
 
 type Indeterminate = false | true
@@ -37,15 +45,19 @@ const props = defineProps({
   },
   modelValue: {
     type: [Array, Boolean, String] as PropType<CheckableModelValue>,
+    required: false,
   },
   value: {
     type: [String, Number] as PropType<Value>,
+    required: false,
   },
   trueValue: {
     type: [String, Number] as PropType<Value>,
+    required: false,
   },
   falseValue: {
     type: [String, Number] as PropType<Value>,
+    required: false,
   },
   color: {
     type: String as PropType<Color>,
@@ -54,8 +66,13 @@ const props = defineProps({
 })
 const emit = defineEmits(['update:modelValue', 'change'])
 const attrs = useAttrs()
-const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(toRefs(props))
-const { descriptionClasses } = useGlobalDescriptionClasses(toRefs(props), attrs)
+const { inputClasses, spanClasses, iconClasses } = useCheckboxClasses(
+  toRefs(props),
+)
+const { descriptionClasses } = useGlobalDescriptionClasses(
+  toRefs(props),
+  attrs,
+)
 
 const iconSize = computed(() =>
   // 12 - 16 - 20 - 24 - 28
@@ -92,9 +109,7 @@ function handleChange(event: any) {
     const newValue = [...props.modelValue]
     if (isChecked)
       newValue.push(props.value)
-
-    else
-      newValue.splice(newValue.indexOf(props.value), 1)
+    else newValue.splice(newValue.indexOf(props.value), 1)
 
     handleEmits(newValue, event)
   }
@@ -112,11 +127,8 @@ const isChecked = computed(() => {
   if (Array.isArray(props.modelValue) && props.value)
     return props.modelValue.includes(props.value)
   else if (props.trueValue && props.falseValue)
-
     return props.modelValue === props.trueValue
-
-  else
-    return props.modelValue as boolean
+  else return props.modelValue as boolean
 })
 function handleEmits(value: CheckableModelValue, event: any) {
   emit('change', event)
