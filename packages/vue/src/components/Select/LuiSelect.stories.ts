@@ -370,6 +370,27 @@ export const Searchable: Story = {
     },
   },
 }
+const clearableTemplate = `
+<lui-select clearable searchable :options="['Mary','Jane','John']" placeholder="select a name">
+</lui-select>
+`
+export const Clearable: Story = {
+  render: () => ({
+    components: { LuiSelect, LuiOption },
+    template: clearableTemplate,
+  }),
+  parameters: {
+    docs: {
+      source: {
+        code: clearableTemplate,
+      },
+      description: {
+        story:
+          'This is how a default LuiSelect looks with two LuiOption components. Note that it has an auto-positioning behavior that makes the menu drop up or down where there is adequate screen space. To provide the options, you can either pass the <b>text</b> and <b>value</b> props to the LuiOption components or use the <b>options</b> prop as described below.',
+      },
+    },
+  },
+}
 
 const modelTemplate
   = '<lui-select v-model="selectedName" placeholder="Names" :options="[\'Mary\', \'Jane\']" />'
