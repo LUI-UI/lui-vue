@@ -31,7 +31,7 @@ const props = defineProps({
   },
   modelValue: {
     type: [Array, Boolean, String, undefined] as PropType<CheckableModelValue>,
-    default: undefined,
+    required: false,
   },
 })
 
