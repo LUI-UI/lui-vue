@@ -111,7 +111,7 @@ const animationClasses = computed(() =>
         @keydown.esc="emit('close')"
       >
         <UseFocusTrap v-if="show" :options="{ immediate: true }">
-          <div class="fixed w-full top-0 bottom-0 max-h-full z-50 flex p-1.5" :class="positionClassesContainer">
+          <div class="fixed w-full top-0 bottom-0 max-h-full z-50 flex" :class="positionClassesContainer">
             <section
               role="dialog"
               aria-modal="true"
