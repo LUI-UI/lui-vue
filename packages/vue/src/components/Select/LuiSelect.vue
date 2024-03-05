@@ -606,7 +606,6 @@ function clearSelection() {
       v-bind="inputProps"
       v-model="selectedOption.text"
       :readonly="!searchable"
-      class="selection:bg-transparent"
       :placeholder="placeholder"
       autocomplete="off"
       @keydown="buttonKeydown"
