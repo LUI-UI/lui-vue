@@ -105,7 +105,7 @@ const menuState = reactive<IMenuState>({
 })
 
 const { classes: defaultMenuClasses } = useMenuStyles({ ...toRefs(props) })
-const { floatingStyles, middlewareData } = useFloating(luiDropdownTrigger, luiDropdownMenu, {
+const { floatingStyles } = useFloating(luiDropdownTrigger, luiDropdownMenu, {
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],
   whileElementsMounted: autoUpdate,
@@ -292,8 +292,6 @@ function ArrowDownIcon() {
   )
 }
 
-const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hide?.referenceHidden)
-
 </script>
 
 <template>
@@ -345,7 +343,7 @@ const isMenuActive = computed(() => menuActive.value && !middlewareData.value.hi
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-if="isMenuActive"
+          v-if="menuActive"
           :id="menuId"
           ref="luiDropdownMenu"
           :class="menuClasses.length ? menuClasses : defaultMenuClasses"

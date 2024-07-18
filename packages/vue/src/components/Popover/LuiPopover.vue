@@ -61,7 +61,7 @@ const dialogId = `lui-popopver-dialog-${useId()}`
 const triggerId = `lui-popover-trigger-${useId()}`
 useTeleport('popover')
 
-const { floatingStyles, middlewareData } = useFloating(
+const { floatingStyles } = useFloating(
   triggerRef,
   dialogWrapperRef,
   {
@@ -115,9 +115,6 @@ function closeDialog() {
     emit('update:open', false)
   }
 }
-const isDialogActive = computed(
-  () => dialogActive.value && !middlewareData.value.hide?.referenceHidden,
-)
 </script>
 
 <template>
@@ -142,7 +139,7 @@ const isDialogActive = computed(
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-if="isDialogActive"
+          v-if="dialogActive"
           :id="dialogId"
           ref="dialogWrapperRef"
           :aria-labelledby="triggerId"
