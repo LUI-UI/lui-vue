@@ -122,7 +122,7 @@ const animationClasses = computed(() =>
               @click.stop
             >
               <div v-if="showIcon" class="float-right leading-3 ml-2">
-                <LuiButton variant="link" color="secondary" rounded @click="emit('close')">
+                <LuiButton variant="link" color="secondary" aria-label="close modal" rounded @click="emit('close')">
                   <span class="sr-only">close modal</span>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
