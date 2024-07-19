@@ -23,9 +23,14 @@ const context: TabContext = reactive({
   tabs: [],
   panels: [],
 })
-const isItemDisabled = (index: any) => context.tabs[index]?.disabled !== undefined && context.tabs[index].disabled === true
+function isItemDisabled(index: any) {
+  return context.tabs[index]?.disabled !== undefined
+    && context.tabs[index].disabled === true
+}
 const isItemValid = (index: any) => index >= 0 && index < context.tabs.length
-const isItemAvailable = (index: any) => !isItemDisabled(index) && isItemValid(index)
+function isItemAvailable(index: any) {
+  return !isItemDisabled(index) && isItemValid(index)
+}
 
 watch(
   () => props.selectedIndex,
@@ -35,10 +40,12 @@ watch(
   },
 )
 onMounted(() => {
-  if (isItemAvailable(props.selectedIndex))
-    context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0
-  else
-    context.selectedIndex = 0
+  if (isItemAvailable(props.selectedIndex)) {
+    context.selectedIndex
+      = props.selectedIndex !== -1 ? props.selectedIndex : 0
+  }
+  else { context.selectedIndex = 0 }
+  scrollActiveTabOnMobile()
 })
 
 function registerTab(tab: any) {
@@ -60,8 +67,23 @@ function unRegisterPanel(panel: any) {
 function setSelectedIndex(index: number) {
   context.selectedIndex = index
   emit('change', context.selectedIndex)
+  scrollActiveTabOnMobile()
 }
-
+function scrollActiveTabOnMobile() {
+  if (!window || !window.innerWidth)
+    return
+  const isMobile = window.innerWidth < 768
+  if (isMobile) {
+    const activeTab = context.tabs[context.selectedIndex]
+    if (!activeTab)
+      return
+    activeTab.scrollIntoView({
+      block: 'center',
+      inline: 'center',
+      behavior: 'smooth',
+    })
+  }
+}
 // onMounted(() => {
 //   // need the throw an error if one of the required component not provided:
 //   context.selectedIndex = props.selectedIndex !== -1 ? props.selectedIndex : 0
