@@ -148,7 +148,7 @@ const optionsId = `lui-listbox-wrapper-${useId()}`
 const { classes: menuClasses } = useMenuStyles({ ...toRefs(props) })
 
 useOutsideClick(selectWrapperRef, () => closeListBox())
-const { floatingStyles, middlewareData } = useFloating(
+const { floatingStyles } = useFloating(
   selectWrapperRef,
   optionsWrapperRef,
   {
@@ -541,9 +541,6 @@ function resetSelectedOption() {
       toggleOptions()
   }
 }
-const isOptionsActive = computed(
-  () => optionsActive.value && !middlewareData.value.hide?.referenceHidden,
-)
 
 function ClearIcon() {
   return h(
@@ -634,7 +631,7 @@ function clearSelection() {
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-if="isOptionsActive"
+          v-if="optionsActive"
           :id="optionsId"
           ref="optionsWrapperRef"
           :class="menuClasses"

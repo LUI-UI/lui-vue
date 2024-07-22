@@ -173,7 +173,7 @@ provide(ContextKey, {
 
 const { appendClasses, prependClasses } = useInputClasses(toRefs(props), attrs)
 
-const { floatingStyles, middlewareData } = useFloating(wrapperRef, optionsWrapperRef, {
+const { floatingStyles } = useFloating(wrapperRef, optionsWrapperRef, {
   placement: props.placement,
   middleware: [offset(6), flip(), shift()],
   whileElementsMounted: autoUpdate,
@@ -620,7 +620,6 @@ function ArrowIcon() {
   ])
 }
 
-const isOptionsActive = computed(() => optionsActive.value && !middlewareData.value.hide?.referenceHidden)
 </script>
 
 <template>
@@ -682,7 +681,7 @@ const isOptionsActive = computed(() => optionsActive.value && !middlewareData.va
         leave-to-class="transform scale-95 opacity-0"
       >
         <div
-          v-if="isOptionsActive"
+          v-if="optionsActive"
           :id="optionsId"
           ref="optionsWrapperRef"
           :class="menuClasses"
