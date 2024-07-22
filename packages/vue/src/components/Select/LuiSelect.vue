@@ -250,6 +250,9 @@ function focusAvailableElement(
   })
 }
 function updateSelectedOption(option: ModelValue) {
+  if (isFirstUpdate)
+    isFirstUpdate = false
+
   if (option === undefined)
     return
   const optionText = typeof option !== 'string' ? option.text : option
@@ -267,11 +270,11 @@ function updateSelectedOption(option: ModelValue) {
       typeof i !== 'string' ? i.text === optionText : i === optionText,
     )
   }
-  emit('update:modelValue', optionValue)
-  if (!isFirstUpdate)
+
+  if (!isFirstUpdate) {
     emit('change', optionValue)
-  if (isFirstUpdate)
-    isFirstUpdate = false
+    emit('update:modelValue', optionValue)
+  }
 }
 
 function focusButton() {

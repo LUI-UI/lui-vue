@@ -422,7 +422,7 @@ export const Change: Story = {
     components: { LuiSelect },
     setup() {
       const selectedName = ref('')
-      const consoleLog = () => console.warn('selectedName: ', selectedName)
+      const consoleLog = (e: any) => console.warn('selectedName: ', e)
       return { selectedName, consoleLog }
     },
     template: changeTemplate,

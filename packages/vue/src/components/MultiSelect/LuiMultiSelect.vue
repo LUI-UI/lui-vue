@@ -669,7 +669,7 @@ function setInitialSelectedOption() {
   else return
 
   selectedOptions.value = parseModelValue(initialOption)
-  emit('update:modelValue', parseModelValue(initialOption))
+  // emit('update:modelValue', parseModelValue(initialOption))
 }
 function handleSearchState() {
   if (!optionsActive.value)
