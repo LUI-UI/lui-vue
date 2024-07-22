@@ -165,7 +165,7 @@ const computedAttrs = computed(() => {
       <span v-if="hasSlotContent(slots.prepend)" :class="prependClasses" class="leading-none">
         <slot name="prepend" />
       </span>
-      <button v-if="clear && !attrs.disabled" :class="closeIconClasses" @click="clearInput">
+      <button v-if="clear && !attrs.disabled" aria-label="Clear input" :class="closeIconClasses" @click="clearInput">
         <clearIconTemplate />
       </button>
       <span v-else-if="!!slots.append" :class="appendClasses">
