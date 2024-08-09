@@ -47,6 +47,10 @@ const props = defineProps({
     type: Boolean as PropType<boolean>,
     default: false,
   },
+  disableWrapper: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 })
 const slots = useSlots()
 const menuItemRef = ref<HTMLElement>()
@@ -105,11 +109,14 @@ const computedAppendAndPrependClasses = computed(() => {
   return Object.values(appendAndPrependClasses)
 })
 const computedDefaultSlotClasses = computed(() => {
-  const defaultSlotClasses: FlexGridInterface | LayoutInterface | TypographyInterface = {
-    display: 'flex flex-1',
-    alignItems: 'items-center',
-    textColor: 'text-inherit',
-  }
+  const defaultSlotClasses:
+    | FlexGridInterface
+    | LayoutInterface
+    | TypographyInterface = {
+      display: 'flex flex-1',
+      alignItems: 'items-center',
+      textColor: 'text-inherit',
+    }
   return Object.values(defaultSlotClasses)
 })
 const focus = () => menuItemRef.value?.focus()
@@ -120,7 +127,7 @@ defineExpose({
 </script>
 
 <template>
-  <li>
+  <li v-if="!disableWrapper">
     <component
       :is="tag"
       :id="menuItemId"
@@ -141,4 +148,24 @@ defineExpose({
       </span>
     </component>
   </li>
+  <component
+    :is="tag"
+    v-else
+    :id="menuItemId"
+    ref="menuItemRef"
+    role="menuitem"
+    class="lui-menu-item"
+    :class="customStyle ? '' : computedMenuItemClasses"
+    v-bind="$attrs"
+  >
+    <span v-if="$slots.prepend" :class="computedAppendAndPrependClasses">
+      <slot name="prepend" />
+    </span>
+    <div :class="computedDefaultSlotClasses">
+      <slot />
+    </div>
+    <span v-if="$slots.append" :class="computedAppendAndPrependClasses">
+      <slot name="append" />
+    </span>
+  </component>
 </template>
