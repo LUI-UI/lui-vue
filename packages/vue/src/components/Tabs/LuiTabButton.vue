@@ -122,6 +122,7 @@ const buttonSlotProps = computed(() => ({
     :tabindex="buttonSlotProps.tabindex"
     :aria-selected="buttonSlotProps.isSelected"
     :aria-controls="injection?.context.panels[injection.context.selectedIndex]?.id"
+    :disable-wrapper="true"
     :disabled="disabled"
     class="relative whitespace-nowrap cursor-pointer after:w-full after:h-0.5 after:absolute after:z-20 after:left-0 after:bottom-0 after:inline-block after:rounded-full"
     :class="[isSelected ? 'after:bg-primary-500' : 'after:bg-transparent']"
