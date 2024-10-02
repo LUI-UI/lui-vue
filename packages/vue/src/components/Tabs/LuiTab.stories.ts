@@ -61,18 +61,65 @@ export default meta
 type Story = StoryObj<typeof LuiTabGroup>
 
 const defaultTemplate = `
-<lui-tab-group>
-  <lui-tab-buttons>
-    <lui-tab-button>Tab-1</lui-tab-button>
-    <lui-tab-button>Tab-2</lui-tab-button>
-    <lui-tab-button>Tab-3</lui-tab-button>
-  </lui-tab-buttons>
-  <lui-tab-panels>
-    <lui-tab-panel>Panel-1</lui-tab-panel>
-    <lui-tab-panel>Panel-2</lui-tab-panel>
-    <lui-tab-panel>Panel-3</lui-tab-panel>
-  </lui-tab-panels>
-</lui-tab-group>`
+<div class="overflow-scroll">
+  <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+  <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+  <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+  <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+  <lui-tab-group :selected-index="3">
+    <lui-tab-buttons>
+      <lui-tab-button>Tab-1</lui-tab-button>
+      <lui-tab-button>Tab-2</lui-tab-button>
+      <lui-tab-button>Tab-3</lui-tab-button>
+      <lui-tab-button>Tab-4</lui-tab-button>
+      <lui-tab-button>Tab-5</lui-tab-button>
+      <lui-tab-button>Tab-6</lui-tab-button>
+      <lui-tab-button>Tab-7</lui-tab-button>
+    </lui-tab-buttons>
+    <lui-tab-panels>
+      <lui-tab-panel>Panel-1</lui-tab-panel>
+      <lui-tab-panel>Panel-2</lui-tab-panel>
+      <lui-tab-panel>Panel-3</lui-tab-panel>
+      <lui-tab-panel>Panel-4</lui-tab-panel>
+      <lui-tab-panel>Panel-5</lui-tab-panel>
+      <lui-tab-panel>Panel-6</lui-tab-panel>
+      <lui-tab-panel>Panel-7</lui-tab-panel>
+    </lui-tab-panels>
+  </lui-tab-group>
+    <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+  <p>Sienna hakkında bilmen gerekenler!
+Sienna sana ulaştıktan sonra uzun süre taze kalabilmesi için öncelikle temiz su ve temiz bir vazoya ihtiyaç duyar. Bir de doğrudan maruz kalmayacağı şekilde güneş ışığı görmek ister.
+Bu güzel buketi teslim aldıktan sonra içerisinde bulunan çiçekleri vazoya yerleştirilmeden önce suya değecek kısımlardaki yapraklarını temizlemen ve saplarını uçlarından verev keserek suya koyman gerekiyor.
+Çiçeklerinin daha uzun yaşaması kullanacağın suyun kalitesine bağlıdır. 1 litre suya birlikte gelen Chrysal Trend Selection’ı ekleyerek suyun 7-10 gün boyunca bakterilerden arınmasını ve çiçeklerinin daha uzun ve sağlıklı kalmasını sağlayabilirsin.
+20 adet olacak şekilde bir araya getirilip buketleştirilen laleler, eşsiz renkleriyle soğuk günlerde içini ısıtmak için en doğru tercihlerden...
+</p>
+</div>
+`
 export const Default: Story = {
   render: () => ({
     components: {

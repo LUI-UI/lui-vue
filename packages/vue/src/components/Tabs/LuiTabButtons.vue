@@ -5,10 +5,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { PropType } from 'vue'
 import type { TwClassInterface } from '../../globals/interfaces'
 import type { AlignmentTypes } from './types'
+import { ContextKey } from './symbols'
 
 const props = defineProps({
   alignTabs: {
@@ -20,6 +21,12 @@ const props = defineProps({
     default: false,
   },
 })
+
+const el = ref(null)
+const injection = inject(ContextKey)
+
+onMounted(() => injection?.registerTabButtonsContainer(el))
+
 const tabListClasses = computed(() => {
   const classes: TwClassInterface = {
     display: 'flex',
@@ -29,7 +36,7 @@ const tabListClasses = computed(() => {
       'justify-end': props.alignTabs === 'right',
     },
     overflow: 'overflow-y-auto',
-    position: 'relative ',
+    position: 'relative',
   }
   return Object.values(classes)
 })
@@ -51,6 +58,7 @@ function tabListAfterClasses() {
 
 <template>
   <div
+    ref="el"
     role="tablist"
     aria-orientation="horizontal"
     class="lui-tab-buttons"

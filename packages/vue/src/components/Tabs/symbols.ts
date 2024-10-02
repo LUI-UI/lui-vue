@@ -13,6 +13,7 @@ export interface ContextDefination {
   unRegisterTab(tab: any): void
   registerPanel(panel: any): void
   unRegisterPanel(panel: any): void
+  registerTabButtonsContainer(panel: any): void
   setSelectedIndex(index: number): void
   context: TabContext
   // changeTabProps(tab: TabTypes, oldTitle: string): void;
