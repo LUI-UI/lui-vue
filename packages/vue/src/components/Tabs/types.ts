@@ -8,6 +8,7 @@ export interface TabTypes {
 }
 export interface TabContext {
   selectedIndex: number
+  tabButtonsContainer: HTMLElement | null
   tabs: HTMLButtonElement[]
   panels: HTMLDivElement[]
 }

@@ -20,12 +20,15 @@ const emit = defineEmits(['change'])
 
 const context: TabContext = reactive({
   selectedIndex: 0,
+  tabButtonsContainer: null,
   tabs: [],
   panels: [],
 })
 function isItemDisabled(index: any) {
-  return context.tabs[index]?.disabled !== undefined
+  return (
+    context.tabs[index]?.disabled !== undefined
     && context.tabs[index].disabled === true
+  )
 }
 const isItemValid = (index: any) => index >= 0 && index < context.tabs.length
 function isItemAvailable(index: any) {
@@ -44,10 +47,19 @@ onMounted(() => {
     context.selectedIndex
       = props.selectedIndex !== -1 ? props.selectedIndex : 0
   }
-  else { context.selectedIndex = 0 }
-  scrollActiveTabOnMobile()
+  else {
+    context.selectedIndex = 0
+  }
+  const activeTab = context.tabs[context.selectedIndex]
+
+  if (context.tabButtonsContainer && context.selectedIndex > 0)
+    context.tabButtonsContainer.scrollLeft = activeTab.offsetLeft // TODO: we can center the target element
 })
 
+function registerTabButtonsContainer(tab: any) {
+  const el = tab.value?.el || tab.value
+  context.tabButtonsContainer = el
+}
 function registerTab(tab: any) {
   const el = tab.value?.el || tab.value
   context.tabs.push(el)
@@ -95,6 +107,7 @@ provide(ContextKey, {
   registerPanel,
   unRegisterPanel,
   setSelectedIndex,
+  registerTabButtonsContainer,
 })
 </script>
 
