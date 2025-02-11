@@ -48,15 +48,15 @@ const props = defineProps({
     required: false,
   },
   value: {
-    type: [String, Number] as PropType<Value>,
+    type: [String, Number, Boolean, null, undefined] as PropType<Value>,
     required: false,
   },
   trueValue: {
-    type: [String, Number] as PropType<Value>,
+    type: [String, Number, Boolean, null, undefined] as PropType<Value>,
     required: false,
   },
   falseValue: {
-    type: [String, Number] as PropType<Value>,
+    type: [String, Number, Boolean, null, undefined] as PropType<Value>,
     required: false,
   },
   color: {
